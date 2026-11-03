@@ -309,3 +309,4 @@ export default async function ProgrammeDetailPage({ params }: ProgrammeDetailPag
     </div>
   );
 }
+

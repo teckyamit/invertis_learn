@@ -1108,3 +1108,4 @@ seedCatalog()
   .finally(async () => {
     await prisma.$disconnect();
   });
+

@@ -393,3 +393,4 @@ export function ProgrammeDirectory({ initialProgrammes, departments }: Programme
     </div>
   );
 }
+

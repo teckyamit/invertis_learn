@@ -16,8 +16,9 @@ export async function GET(request: NextRequest) {
 
     // Security check: ensure file does not contain directory traversal characters
     const sanitizedFilename = path.basename(fileParam);
-    const uploadsDir = path.join(process.cwd(), "public", "uploads", "syllabus");
-    const filePath = path.join(uploadsDir, sanitizedFilename);
+    const subjectPath = path.join(process.cwd(), "public", "uploads", "syllabus", "subjects", sanitizedFilename);
+    const legacyPath = path.join(process.cwd(), "public", "uploads", "syllabus", sanitizedFilename);
+    const filePath = fs.existsSync(subjectPath) ? subjectPath : legacyPath;
 
     if (!fs.existsSync(filePath)) {
       return NextResponse.json({ error: "Syllabus document not found" }, { status: 404 });

@@ -19,7 +19,9 @@ export function PDFViewer({ filePath, fileName, title, fileSizeBytes }: PDFViewe
     : "PDF Document";
 
   // Web path to static file
-  const staticPdfUrl = `/uploads/syllabus/${fileName}`;
+  const staticPdfUrl = filePath
+    ? (filePath.startsWith("/") ? filePath : `/${filePath}`)
+    : `/uploads/syllabus/${fileName}`;
   const downloadUrl = `/api/syllabus/download?file=${encodeURIComponent(fileName)}&name=${encodeURIComponent(title)}`;
 
   const handleDownload = () => {

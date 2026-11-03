@@ -81,10 +81,10 @@ async function runAcceptanceVerification() {
 
   assert(bcs301.resources.length === 1, "Has 1 associated official syllabus PDF resource");
   const resource301 = bcs301.resources[0];
-  assert(resource301.storedFileName === 'BTech_CSE_Year2_Syllabus_2023-24.pdf', `Resource PDF is ${resource301.storedFileName}`);
+  assert(resource301.storedFileName === 'BCS-301_Syllabus.pdf', `Resource PDF is ${resource301.storedFileName}`);
 
   // Check physical file existence
-  const pdfPath301 = path.join(process.cwd(), 'public', 'uploads', 'syllabus', resource301.storedFileName);
+  const pdfPath301 = path.join(process.cwd(), 'public', resource301.storagePath);
   assert(fs.existsSync(pdfPath301), `Physical PDF file exists on disk: ${pdfPath301}`);
 
   // 5. Verify Subject 2: BCS-302 (Distinct Syllabus Verification)
@@ -127,7 +127,7 @@ async function runAcceptanceVerification() {
     }
   });
   assert(!!mcs101, "MCS-101 (Advanced Computer Architecture) exists");
-  assert(mcs101.resources[0]?.storedFileName === 'MTech_CSE_All_Years_Syllabus_2023-24.pdf', "M.Tech subject links to official M.Tech PDF");
+  assert(mcs101.resources[0]?.storedFileName === 'MCS-101_Syllabus.pdf', "M.Tech subject links to official subject PDF");
 
   console.log("\n==================================================================");
   if (passedAll) {
