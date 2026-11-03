@@ -1,0 +1,128 @@
+// Invertis Learn Database Schema
+// Phase 1: Syllabus Library Schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Department {
+  id          String      @id @default(cuid())
+  code        String      @unique // e.g. "CSE"
+  name        String      // e.g. "Department of Computer Science & Engineering"
+  isActive    Boolean     @default(true)
+  programmes  Programme[]
+  users       User[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Programme {
+  id                 String              @id @default(cuid())
+  departmentId       String
+  department         Department          @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  code               String              @unique // e.g. "BTECH-CSE", "MTECH-CSE"
+  name               String              // e.g. "Bachelor of Technology in Computer Science & Engineering"
+  degreeLevel        String              @default("UNDERGRADUATE") // UNDERGRADUATE, POSTGRADUATE, DIPLOMA
+  durationYears      Int                 @default(4)
+  isActive           Boolean             @default(true)
+  curriculumVersions CurriculumVersion[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+}
+
+model CurriculumVersion {
+  id             String      @id @default(cuid())
+  programmeId    String
+  programme      Programme   @relation(fields: [programmeId], references: [id], onDelete: Cascade)
+  versionYear    String      // e.g. "2023-2024"
+  regulationName String?     // e.g. "Session 2023-24 Regulation"
+  isCurrent      Boolean     @default(true)
+  description    String?
+  semesters      Semester[]
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  @@unique([programmeId, versionYear])
+}
+
+model Semester {
+  id                  String            @id @default(cuid())
+  curriculumVersionId String
+  curriculumVersion   CurriculumVersion @relation(fields: [curriculumVersionId], references: [id], onDelete: Cascade)
+  semesterNumber      Int               // 1 to 8
+  title               String            // "Semester I", "Semester II", etc.
+  subjects            Subject[]
+
+  @@unique([curriculumVersionId, semesterNumber])
+}
+
+model Subject {
+  id              String             @id @default(cuid())
+  semesterId      String
+  semester        Semester           @relation(fields: [semesterId], references: [id], onDelete: Cascade)
+  code            String             // e.g. "BCS-301"
+  name            String             // e.g. "Data Structures"
+  lectureHours    Int                @default(3)
+  tutorialHours   Int                @default(1)
+  practicalHours  Int                @default(0)
+  credits         Float              @default(3.0)
+  subjectType     String             @default("THEORY") // THEORY, PRACTICAL, MANDATORY, PROJECT, SEMINAR
+  electiveGroup   String?            // e.g. "Elective-I", "Open Elective-II" (null for core)
+  evaluationMarks String?            // e.g. "CA: 25, EE: 50, Total: 75"
+  syllabusDetails String?            // JSON: { objectives, outcomes, modules, textBooks, referenceBooks, labExperiments }
+  isActive        Boolean            @default(true)
+  resources       AcademicResource[]
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  @@unique([semesterId, code])
+}
+
+model ResourceCategory {
+  id          String             @id @default(cuid())
+  code        String             @unique // "SYLLABUS", "PYQ", "NOTES", "LAB_MANUAL"
+  name        String             // "Official Syllabus", "Previous-Year Paper"
+  description String?
+  resources   AcademicResource[]
+}
+
+model AcademicResource {
+  id               String            @id @default(cuid())
+  subjectId        String
+  subject          Subject           @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  categoryId       String
+  category         ResourceCategory  @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  title            String            // e.g. "Official Syllabus - B.Tech CSE Sem 3"
+  originalFileName String
+  storedFileName   String
+  storagePath      String            // Relative path in storage directory
+  mimeType         String            @default("application/pdf")
+  fileSizeBytes    Int
+  versionNumber    Int               @default(1)
+  isPublished      Boolean           @default(true)
+  uploadedById     String?
+  uploadedBy       User?             @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  @@unique([subjectId, categoryId])
+}
+
+model User {
+  id           String             @id @default(cuid())
+  email        String             @unique
+  passwordHash String
+  fullName     String
+  role         String             @default("STUDENT") // SUPER_ADMIN, DEPARTMENT_ADMIN, FACULTY, STUDENT
+  departmentId String?
+  department   Department?        @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  isActive     Boolean            @default(true)
+  resources    AcademicResource[]
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+}
