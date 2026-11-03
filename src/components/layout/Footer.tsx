@@ -33,14 +33,24 @@ export function Footer() {
             </h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/syllabus?programme=BTECH-CSE" className="hover:text-blue-400 transition">
+                <Link href="/syllabus/BTECH-CSE" className="hover:text-blue-400 transition">
                   B.Tech Computer Science & Engineering (8 Semesters)
                 </Link>
               </li>
               <li>
-                <Link href="/syllabus?programme=MTECH-CSE" className="hover:text-blue-400 transition">
+                <Link href="/syllabus/MTECH-CSE" className="hover:text-blue-400 transition">
                   M.Tech Computer Science & Engineering (4 Semesters)
                 </Link>
+              </li>
+              <li>
+                <a
+                  href="https://www.invertisuniversity.ac.in/ug-programmes"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 transition inline-flex items-center"
+                >
+                  Official Invertis University Portal ↗
+                </a>
               </li>
               <li className="text-slate-500">
                 Department of Computer Science & Engineering
