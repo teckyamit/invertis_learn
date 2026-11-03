@@ -382,3 +382,4 @@ splitAllSyllabi()
   .finally(async () => {
     await prisma.$disconnect();
   });
+

@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const fileParam = searchParams.get("file");
-    const nameParam = searchParams.get("name") || "study-material.pdf";
+    const nameParam = searchParams.get("name") || "lecture-notes.pdf";
 
     if (!fileParam) {
       return NextResponse.json({ error: "Missing file parameter" }, { status: 400 });
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     const filePath = path.join(uploadsDir, sanitizedFilename);
 
     if (!fs.existsSync(filePath)) {
-      return NextResponse.json({ error: "Learning material document not found" }, { status: 404 });
+      return NextResponse.json({ error: "Study resource document not found" }, { status: 404 });
     }
 
     const fileBuffer = fs.readFileSync(filePath);
@@ -35,6 +35,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error serving notes download:", error);
-    return NextResponse.json({ error: "Failed to download learning material" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to download study resource" }, { status: 500 });
   }
 }

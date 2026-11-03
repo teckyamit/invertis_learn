@@ -381,3 +381,4 @@ async function populateDetails() {
 }
 
 populateDetails().catch(console.error).finally(() => prisma.$disconnect());
+

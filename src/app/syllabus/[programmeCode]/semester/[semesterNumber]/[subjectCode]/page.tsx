@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
 import { PDFViewer } from "@/components/syllabus/PDFViewer";
 import { PYQSection } from "@/components/pyq/PYQSection";
+import { NotesSection } from "@/components/notes/NotesSection";
 import {
   ChevronLeft,
   BookOpen,
@@ -107,6 +108,20 @@ export default async function SubjectDetailPage({ params }: PageProps) {
       academicYear: r.academicYear,
       examType: r.examType,
       hasSolutions: r.hasSolutions,
+      createdAt: r.createdAt,
+    }));
+  const noteResources = subject.resources
+    .filter((r) => r.category.code === "NOTES")
+    .map((r) => ({
+      id: r.id,
+      title: r.title,
+      originalFileName: r.originalFileName,
+      storedFileName: r.storedFileName,
+      storagePath: r.storagePath,
+      fileSizeBytes: r.fileSizeBytes,
+      authorName: r.authorName,
+      unitNumber: r.unitNumber,
+      resourceType: r.resourceType,
       createdAt: r.createdAt,
     }));
 
@@ -436,19 +451,31 @@ export default async function SubjectDetailPage({ params }: PageProps) {
             />
           </div>
 
-          {/* 8. Modular Placeholder for Future Academic Resources (Phase 3 & Phase 4) */}
+          {/* 8. Faculty Lecture Notes & Learning Resources (Phase 3) */}
+          <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+            <NotesSection
+              subjectId={subject.id}
+              subjectCode={subject.code}
+              subjectName={subject.name}
+              initialNotes={noteResources}
+            />
+          </div>
+
+          {/* 9. Modular Placeholder for Future Academic Resources (Phase 4) */}
           <div className="bg-slate-100/70 border border-dashed border-slate-300 rounded-2xl p-6 text-slate-600">
             <div className="flex items-center space-x-2 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
               <Sparkles className="h-4 w-4 text-emerald-600" />
               <span>Future Academic Modules Roadmap</span>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed mb-4">
-              In accordance with our incremental engineering roadmap, faculty lecture notes, presentation slides, and laboratory viva resources for <strong>{subject.code}</strong> will be integrated into this workspace once authorized in subsequent phases.
+              In accordance with our incremental engineering roadmap, laboratory viva resources and practical experiment manuals for <strong>{subject.code}</strong> will be integrated into this workspace once authorized in subsequent phases.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div className="bg-white p-3 rounded-lg border border-slate-200 text-slate-400">
-                <span className="font-semibold block text-slate-500">Phase 3: Learning Notes</span>
-                <span>Faculty-approved lecture notes, unit summaries & PPTs</span>
+              <div className="bg-emerald-50/70 p-3 rounded-lg border border-emerald-200 text-slate-700">
+                <span className="font-semibold block text-emerald-800 flex items-center">
+                  <CheckCircle className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Phase 3: Learning Notes
+                </span>
+                <span>Active: Faculty lecture notes, unit summaries & PPT decks</span>
               </div>
               <div className="bg-white p-3 rounded-lg border border-slate-200 text-slate-400">
                 <span className="font-semibold block text-slate-500">Phase 4: Lab & Viva</span>

@@ -84,6 +84,14 @@ export default async function HomePage() {
               <FileText className="w-4 h-4 mr-2 text-emerald-400" />
               <span>PYQ Library</span>
             </Link>
+
+            <Link
+              href="/notes"
+              className="inline-flex items-center px-6 py-3.5 rounded-lg text-sm font-semibold text-emerald-200 bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/30 transition"
+            >
+              <Layers className="w-4 h-4 mr-2 text-emerald-400" />
+              <span>Notes Hub (Phase 3)</span>
+            </Link>
           </div>
 
           {/* Quick Metrics */}
@@ -208,8 +216,8 @@ export default async function HomePage() {
             {[
               { phase: "Phase 0", title: "Project Foundation & Architecture", status: "COMPLETED", icon: CheckCircle2, active: true, color: "text-emerald-600" },
               { phase: "Phase 1", title: "Syllabus Library (B.Tech & M.Tech CSE)", status: "COMPLETED", icon: CheckCircle2, active: true, color: "text-emerald-600" },
-              { phase: "Phase 2", title: "Previous-Year Question Papers (PYQs)", status: "ACTIVE", icon: FileText, active: true, color: "text-blue-600" },
-              { phase: "Phase 3", title: "Faculty Notes & Learning Materials", status: "Planned", icon: Layers, active: false, color: "text-slate-400" },
+              { phase: "Phase 2", title: "Previous-Year Question Papers (PYQs)", status: "COMPLETED", icon: CheckCircle2, active: true, color: "text-emerald-600" },
+              { phase: "Phase 3", title: "Faculty Notes & Learning Materials", status: "ACTIVE", icon: Layers, active: true, color: "text-emerald-600" },
               { phase: "Phase 4", title: "Practical & Laboratory Manuals", status: "Planned", icon: FlaskConical, active: false, color: "text-slate-400" },
               { phase: "Phase 5", title: "Department Knowledge Centre", status: "Planned", icon: GraduationCap, active: false, color: "text-slate-400" },
               { phase: "Phase 6", title: "Career & Skill Roadmaps", status: "Planned", icon: Compass, active: false, color: "text-slate-400" },
