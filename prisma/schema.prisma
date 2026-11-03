@@ -107,6 +107,9 @@ model AcademicResource {
   academicYear     String?           // e.g. "2023-2024", "2022-2023"
   examType         String?           // "END_SEMESTER", "MID_SEMESTER", "BACK_PAPER"
   hasSolutions     Boolean           @default(false)
+  unitNumber       Int?              // 1, 2, 3, etc. (for Unit-wise Notes)
+  resourceType     String?           // "LECTURE_NOTES", "PPT_SLIDES", "UNIT_SUMMARY", "FORMULA_SHEET"
+  authorName       String?           // Faculty / Instructor name or "Department Faculty"
   isPublished      Boolean           @default(true)
   uploadedById     String?
   uploadedBy       User?             @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
@@ -115,6 +118,7 @@ model AcademicResource {
 
   @@index([subjectId, categoryId])
   @@index([categoryId, academicYear])
+  @@index([categoryId, resourceType])
 }
 
 model User {

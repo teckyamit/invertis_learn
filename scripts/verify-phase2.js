@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 async function runPhase2Verification() {
   console.log("==================================================================");
-  console.log("INVERTIS LEARN - PHASE 2 (PYQ LIBRARY) ACCEPTANCE VERIFICATION");
+  console.log("INVERTIS LEARN - PHASE 2 (PYQ LIBRARY WITH DEMO PAPERS) VERIFICATION");
   console.log("==================================================================");
 
   let passedAll = true;
@@ -27,96 +27,70 @@ async function runPhase2Verification() {
   });
   assert(!!pyqCategory, "PYQ Resource Category exists in database");
 
-  // 2. Verify Subject Association for BCS-301
-  console.log("\nStep 2: Retrieve BCS-301 (Data Structures) for PYQ Integration");
+  // 2. Verify BCS-301 Demo Papers
+  console.log("\nStep 2: Verify BCS-301 (Data Structures) Seeded Demo Papers");
   const bcs301 = await prisma.subject.findFirst({
-    where: { code: 'BCS-301' }
+    where: { code: 'BCS-301' },
+    include: {
+      resources: {
+        where: { category: { code: 'PYQ' } },
+        orderBy: [{ academicYear: 'desc' }, { createdAt: 'desc' }]
+      }
+    }
   });
   assert(!!bcs301, "BCS-301 Data Structures exists");
+  assert(bcs301.resources.length === 3, `BCS-301 has 3 archived past papers (Found: ${bcs301.resources.length})`);
 
-  // 3. Test Multi-Paper Creation for BCS-301 (Verifying Non-Unique Constraint)
-  console.log("\nStep 3: Test Multiple PYQ Papers for the Same Subject");
-  const dummyPaper1 = await prisma.academicResource.upsert({
-    where: { id: 'test-pyq-2022-23' },
-    update: {},
-    create: {
-      id: 'test-pyq-2022-23',
-      subjectId: bcs301.id,
-      categoryId: pyqCategory.id,
-      title: 'BCS-301 Data Structures End-Semester Exam 2022-23',
-      originalFileName: 'BCS301_EndSem_2022_23.pdf',
-      storedFileName: 'BCS301_EndSem_2022_23.pdf',
-      storagePath: 'uploads/pyq/BCS301_EndSem_2022_23.pdf',
-      fileSizeBytes: 245000,
-      academicYear: '2022-2023',
-      examType: 'END_SEMESTER',
-      hasSolutions: false,
-      isPublished: true,
-    }
+  const sessions = bcs301.resources.map(r => r.academicYear);
+  assert(sessions.includes("2023-2024"), "Contains Session 2023-2024 Mid-Semester paper");
+  assert(sessions.includes("2022-2023"), "Contains Session 2022-2023 End-Semester paper");
+  assert(sessions.includes("2021-2022"), "Contains Session 2021-2022 End-Semester paper");
+
+  const midSem = bcs301.resources.find(r => r.examType === "MID_SEMESTER");
+  assert(!!midSem, "Correctly identifies Mid-Semester exam type");
+
+  const withSolutions = bcs301.resources.find(r => r.hasSolutions);
+  assert(!!withSolutions && withSolutions.academicYear === "2021-2022", "Session 2021-2022 has solutions flagged as true");
+
+  // 3. Verify Physical Files on Disk
+  console.log("\nStep 3: Verify Physical PDF Validity on Disk");
+  for (const res of bcs301.resources) {
+    const filePath = path.join(process.cwd(), "public", "uploads", "pyq", res.storedFileName);
+    assert(fs.existsSync(filePath), `Physical file exists: ${res.storedFileName}`);
+    const content = fs.readFileSync(filePath, "utf-8");
+    assert(content.startsWith("%PDF-1.4"), `File ${res.storedFileName} is a valid PDF-1.4 format`);
+  }
+
+  // 4. Verify BCS-302 & BCS-303 Isolation
+  console.log("\nStep 4: Verify Subject Isolation (BCS-302 & BCS-303)");
+  const bcs302 = await prisma.subject.findFirst({
+    where: { code: 'BCS-302' },
+    include: { resources: { where: { category: { code: 'PYQ' } } } }
   });
+  assert(bcs302.resources.length === 1, `BCS-302 has exactly 1 past paper (Found: ${bcs302.resources.length})`);
+  assert(bcs302.resources[0].storedFileName === "BCS302_EndSem_2022_23.pdf", "BCS-302 points to IT Infrastructure paper");
 
-  const dummyPaper2 = await prisma.academicResource.upsert({
-    where: { id: 'test-pyq-2021-22' },
-    update: {},
-    create: {
-      id: 'test-pyq-2021-22',
-      subjectId: bcs301.id,
-      categoryId: pyqCategory.id,
-      title: 'BCS-301 Data Structures End-Semester Exam 2021-22',
-      originalFileName: 'BCS301_EndSem_2021_22.pdf',
-      storedFileName: 'BCS301_EndSem_2021_22.pdf',
-      storagePath: 'uploads/pyq/BCS301_EndSem_2021_22.pdf',
-      fileSizeBytes: 260000,
-      academicYear: '2021-2022',
-      examType: 'END_SEMESTER',
-      hasSolutions: true,
-      isPublished: true,
-    }
+  const bcs303 = await prisma.subject.findFirst({
+    where: { code: 'BCS-303' },
+    include: { resources: { where: { category: { code: 'PYQ' } } } }
   });
+  assert(bcs303.resources.length === 1, `BCS-303 has exactly 1 past paper (Found: ${bcs303.resources.length})`);
+  assert(bcs303.resources[0].storedFileName === "BCS303_EndSem_2022_23.pdf", "BCS-303 points to Digital Electronics paper");
 
-  assert(!!dummyPaper1 && !!dummyPaper2, "Successfully created multiple distinct PYQ papers for BCS-301");
-
-  // 4. Query PYQs for BCS-301
-  console.log("\nStep 4: Query PYQ Archive for BCS-301");
-  const bcs301Pyqs = await prisma.academicResource.findMany({
-    where: {
-      subjectId: bcs301.id,
-      categoryId: pyqCategory.id,
-    },
-    orderBy: { academicYear: 'desc' }
+  // 5. Verify M.Tech CSE Paper
+  console.log("\nStep 5: Verify M.Tech CSE Paper Integration");
+  const mcs101 = await prisma.subject.findFirst({
+    where: { code: 'MCS-101' },
+    include: { resources: { where: { category: { code: 'PYQ' } } } }
   });
-  assert(bcs301Pyqs.length >= 2, `Found ${bcs301Pyqs.length} PYQ papers for BCS-301`);
-  const sessions = bcs301Pyqs.map(p => p.academicYear);
-  assert(sessions.includes('2022-2023'), "Includes Session 2022-2023 paper");
-  assert(sessions.includes('2021-2022'), "Includes Session 2021-2022 paper");
-
-  // 5. Subject Isolation Check
-  console.log("\nStep 5: Verify Subject Isolation (BCS-302 has no BCS-301 papers)");
-  const bcs302 = await prisma.subject.findFirst({ where: { code: 'BCS-302' } });
-  const bcs302Pyqs = await prisma.academicResource.findMany({
-    where: {
-      subjectId: bcs302.id,
-      categoryId: pyqCategory.id,
-    }
-  });
-  assert(!bcs302Pyqs.some(p => p.title.includes('Data Structures')), "BCS-302 does NOT contain Data Structures papers");
-
-  // 6. Verify PYQ Upload Directory exists
-  console.log("\nStep 6: Verify Physical Storage Directory");
-  const pyqDir = path.join(process.cwd(), 'public', 'uploads', 'pyq');
-  assert(fs.existsSync(pyqDir), `Directory public/uploads/pyq exists on disk`);
-
-  // Clean up test records
-  await prisma.academicResource.deleteMany({
-    where: { id: { in: ['test-pyq-2022-23', 'test-pyq-2021-22'] } }
-  });
-  console.log("  [CLEANUP] Test records cleaned up successfully");
+  assert(mcs101.resources.length === 1, `MCS-101 has 1 past paper (Found: ${mcs101.resources.length})`);
+  assert(mcs101.resources[0].storedFileName === "MCS101_EndSem_2022_23.pdf", "MCS-101 points to Advanced Computer Architecture paper");
 
   console.log("\n==================================================================");
   if (passedAll) {
-    console.log("RESULT: ALL PHASE 2 ACCEPTANCE CRITERIA PASSED SUCCESSFULLY! (100%)");
+    console.log("RESULT: ALL PHASE 2 DEMO PAPERS VERIFICATION PASSED! (100%)");
   } else {
-    console.log("RESULT: SOME ACCEPTANCE TESTS FAILED");
+    console.log("RESULT: SOME VERIFICATION CHECKS FAILED");
   }
   console.log("==================================================================");
 

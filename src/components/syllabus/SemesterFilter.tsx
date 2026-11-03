@@ -141,3 +141,4 @@ export function SemesterFilter({ programmeCode, semesterNumber, subjects }: Seme
     </div>
   );
 }
+

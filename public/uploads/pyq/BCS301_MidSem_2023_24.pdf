@@ -1,0 +1,61 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 2235 >>
+stream
+BT /F2 16 Tf 176.9 790.0 Td (INVERTIS UNIVERSITY, BAREILLY) Tj ET
+BT /F2 12 Tf 188.3 770.0 Td (FACULTY OF ENGINEERING & TECHNOLOGY) Tj ET
+BT /F2 13 Tf 189.3 750.0 Td (MID-SEMESTER EXAMINATION 2023-24) Tj ET
+BT /F1 11 Tf 220.3 732.0 Td (Academic Session: 2023-2024) Tj ET
+BT /F1 9 Tf 30.0 718.0 Td (-------------------------------------------------------------------------------------------------------------------) Tj ET
+BT /F2 10 Tf 50.0 702.0 Td (Programme: B.Tech. \(Computer Science & Engineering\)) Tj ET
+BT /F2 10 Tf 380.0 702.0 Td (Semester: Semester III) Tj ET
+BT /F2 10 Tf 50.0 686.0 Td (Course Code: BCS-301) Tj ET
+BT /F2 10 Tf 380.0 686.0 Td (Course Title: Data Structures) Tj ET
+BT /F1 10 Tf 50.0 670.0 Td (Time Allowed: 1.5 Hours) Tj ET
+BT /F1 10 Tf 380.0 670.0 Td (Maximum Marks: 25) Tj ET
+BT /F1 9 Tf 30.0 658.0 Td (-------------------------------------------------------------------------------------------------------------------) Tj ET
+BT /F1 9 Tf 50.0 644.0 Td (Note: Attempt all sections as per instructions. Assume missing data suitably, if any.) Tj ET
+BT /F2 11 Tf 50.0 620.0 Td (SECTION A \(Short Questions - 2 Marks each\)) Tj ET
+BT /F1 10 Tf 50.0 602.0 Td (Q1\(a\). Calculate address of element A[3][4] in row-major order with base address) Tj ET
+BT /F1 10 Tf 50.0 587.0 Td (   1000.) Tj ET
+BT /F1 10 Tf 50.0 569.0 Td (Q1\(b\). Write the prefix form of the infix expression: \(A + B\) * \(C / D\) - E.) Tj ET
+BT /F1 10 Tf 50.0 551.0 Td (Q1\(c\). State two applications of Queue in operating systems.) Tj ET
+BT /F2 11 Tf 50.0 523.0 Td (SECTION B \(Detailed Questions - 5 Marks each\)) Tj ET
+BT /F1 10 Tf 50.0 505.0 Td (Q2. Write an algorithm to reverse a singly linked list without using auxiliary) Tj ET
+BT /F1 10 Tf 50.0 490.0 Td (   storage.) Tj ET
+BT /F1 10 Tf 50.0 472.0 Td (Q3. Implement two stacks using a single one-dimensional array without overflow.) Tj ET
+BT /F2 11 Tf 50.0 444.0 Td (SECTION C \(Comprehensive - 9 Marks\)) Tj ET
+BT /F1 10 Tf 50.0 426.0 Td (Q4. Explain Circular Queue implementation using arrays. Write functions for Enqueue) Tj ET
+BT /F1 10 Tf 50.0 411.0 Td (   and Dequeue.) Tj ET
+BT /F2 9 Tf 145.4 383.0 Td (===================== END OF QUESTION PAPER =====================) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000321 00000 n 
+0000000396 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2682
+%%EOF

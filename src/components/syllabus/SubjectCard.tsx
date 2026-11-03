@@ -96,3 +96,4 @@ export function SubjectCard({ programmeCode, semesterNumber, subject }: SubjectC
     </div>
   );
 }
+

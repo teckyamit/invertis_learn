@@ -193,3 +193,4 @@ export default async function ProgrammeSemestersPage({ params }: PageProps) {
     </div>
   );
 }
+

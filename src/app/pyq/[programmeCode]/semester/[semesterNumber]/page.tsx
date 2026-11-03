@@ -156,3 +156,4 @@ export default async function PYQSemesterSubjectsPage({ params }: PageProps) {
     </div>
   );
 }
+

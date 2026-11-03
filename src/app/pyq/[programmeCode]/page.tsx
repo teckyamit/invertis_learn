@@ -156,3 +156,4 @@ export default async function PYQProgrammeSemestersPage({ params }: PageProps) {
     </div>
   );
 }
+

@@ -119,3 +119,4 @@ export default async function SemesterSubjectsPage({ params }: PageProps) {
     </div>
   );
 }
+
