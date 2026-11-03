@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
 import { PDFViewer } from "@/components/syllabus/PDFViewer";
+import { PYQSection } from "@/components/pyq/PYQSection";
 import {
   ChevronLeft,
   BookOpen,
@@ -77,10 +78,10 @@ export default async function SubjectDetailPage({ params }: PageProps) {
       },
       resources: {
         where: {
-          category: {
-            code: "SYLLABUS",
-          },
           isPublished: true,
+        },
+        include: {
+          category: true,
         },
       },
     },
@@ -93,7 +94,21 @@ export default async function SubjectDetailPage({ params }: PageProps) {
   const semester = subject.semester;
   const curriculum = semester.curriculumVersion;
   const programme = curriculum.programme;
-  const syllabusResource = subject.resources[0];
+  const syllabusResource = subject.resources.find((r) => r.category.code === "SYLLABUS");
+  const pyqResources = subject.resources
+    .filter((r) => r.category.code === "PYQ")
+    .map((r) => ({
+      id: r.id,
+      title: r.title,
+      originalFileName: r.originalFileName,
+      storedFileName: r.storedFileName,
+      storagePath: r.storagePath,
+      fileSizeBytes: r.fileSizeBytes,
+      academicYear: r.academicYear,
+      examType: r.examType,
+      hasSolutions: r.hasSolutions,
+      createdAt: r.createdAt,
+    }));
 
   // Parse structured syllabus details if available
   let details: SyllabusDetails | null = null;
@@ -411,27 +426,33 @@ export default async function SubjectDetailPage({ params }: PageProps) {
             </div>
           )}
 
-          {/* 7. Modular Placeholder for Future Academic Resources (Phase 2 & Phase 3) */}
+          {/* 7. Previous Year Question Papers (PYQ Library - Phase 2) */}
+          <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+            <PYQSection
+              subjectId={subject.id}
+              subjectCode={subject.code}
+              subjectName={subject.name}
+              initialPyqs={pyqResources}
+            />
+          </div>
+
+          {/* 8. Modular Placeholder for Future Academic Resources (Phase 3 & Phase 4) */}
           <div className="bg-slate-100/70 border border-dashed border-slate-300 rounded-2xl p-6 text-slate-600">
             <div className="flex items-center space-x-2 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
               <Sparkles className="h-4 w-4 text-emerald-600" />
-              <span>Future Academic Resources (Architecture Ready)</span>
+              <span>Future Academic Modules Roadmap</span>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed mb-4">
-              In accordance with our modular roadmap, previous-year question papers (PYQs), faculty lecture notes, and laboratory viva resources for <strong>{subject.code}</strong> will be indexed in this section once verified and approved in subsequent phases.
+              In accordance with our incremental engineering roadmap, faculty lecture notes, presentation slides, and laboratory viva resources for <strong>{subject.code}</strong> will be integrated into this workspace once authorized in subsequent phases.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div className="bg-white p-3 rounded-lg border border-slate-200 text-slate-400">
-                <span className="font-semibold block text-slate-500">Phase 2: PYQ Library</span>
-                <span>Subject end-term examination papers</span>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div className="bg-white p-3 rounded-lg border border-slate-200 text-slate-400">
                 <span className="font-semibold block text-slate-500">Phase 3: Learning Notes</span>
-                <span>Faculty-approved lecture notes & PPTs</span>
+                <span>Faculty-approved lecture notes, unit summaries & PPTs</span>
               </div>
               <div className="bg-white p-3 rounded-lg border border-slate-200 text-slate-400">
                 <span className="font-semibold block text-slate-500">Phase 4: Lab & Viva</span>
-                <span>Manuals, code templates & viva questions</span>
+                <span>Lab experiment manuals, code templates & viva questions</span>
               </div>
             </div>
           </div>

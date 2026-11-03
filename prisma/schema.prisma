@@ -104,13 +104,17 @@ model AcademicResource {
   mimeType         String            @default("application/pdf")
   fileSizeBytes    Int
   versionNumber    Int               @default(1)
+  academicYear     String?           // e.g. "2023-2024", "2022-2023"
+  examType         String?           // "END_SEMESTER", "MID_SEMESTER", "BACK_PAPER"
+  hasSolutions     Boolean           @default(false)
   isPublished      Boolean           @default(true)
   uploadedById     String?
   uploadedBy       User?             @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
 
-  @@unique([subjectId, categoryId])
+  @@index([subjectId, categoryId])
+  @@index([categoryId, academicYear])
 }
 
 model User {

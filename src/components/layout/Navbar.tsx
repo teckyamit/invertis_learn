@@ -42,11 +42,18 @@ export function Navbar() {
               <span className="ml-1 text-[10px] bg-blue-100 text-blue-800 font-bold px-1.5 py-0.5 rounded-full">Phase 1</span>
             </Link>
 
-            <div className="relative group px-3 py-2 flex items-center space-x-1 text-sm font-medium text-slate-400 cursor-not-allowed">
-              <FileText className="w-4 h-4" />
+            <Link
+              href="/pyq"
+              className={`flex items-center space-x-1.5 px-3 py-2 rounded-md text-sm font-semibold transition ${
+                pathname.startsWith("/pyq")
+                  ? "bg-brand-50 text-brand-900 border border-brand-200"
+                  : "text-slate-700 hover:text-brand-900 hover:bg-slate-100"
+              }`}
+            >
+              <FileText className="w-4 h-4 text-blue-600" />
               <span>PYQ Library</span>
-              <span className="ml-1 text-[9px] bg-slate-100 text-slate-500 font-semibold px-1 py-0.5 rounded">Phase 2</span>
-            </div>
+              <span className="ml-1 text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded-full">Phase 2</span>
+            </Link>
 
             <div className="relative group px-3 py-2 flex items-center space-x-1 text-sm font-medium text-slate-400 cursor-not-allowed">
               <Layers className="w-4 h-4" />

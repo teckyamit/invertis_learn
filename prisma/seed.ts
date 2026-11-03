@@ -849,10 +849,7 @@ async function main() {
     if (pdfInfo) {
       await prisma.academicResource.upsert({
         where: {
-          subjectId_categoryId: {
-            subjectId: subjectRecord.id,
-            categoryId: syllabusCategory.id,
-          },
+          id: `syllabus_${subjectRecord.id}`,
         },
         update: {
           title: `${pdfInfo.title} - ${s.code}`,
@@ -863,6 +860,7 @@ async function main() {
           isPublished: true,
         },
         create: {
+          id: `syllabus_${subjectRecord.id}`,
           subjectId: subjectRecord.id,
           categoryId: syllabusCategory.id,
           title: `${pdfInfo.title} - ${s.code}`,
@@ -956,10 +954,7 @@ async function main() {
 
     await prisma.academicResource.upsert({
       where: {
-        subjectId_categoryId: {
-          subjectId: subjectRecord.id,
-          categoryId: syllabusCategory.id,
-        },
+        id: `syllabus_${subjectRecord.id}`,
       },
       update: {
         title: `${mtechPdfInfo.title} - ${s.code}`,
@@ -970,6 +965,7 @@ async function main() {
         isPublished: true,
       },
       create: {
+        id: `syllabus_${subjectRecord.id}`,
         subjectId: subjectRecord.id,
         categoryId: syllabusCategory.id,
         title: `${mtechPdfInfo.title} - ${s.code}`,

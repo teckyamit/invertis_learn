@@ -10,6 +10,7 @@
     "db:push": "prisma db push",
     "db:seed": "node --loader ts-node/esm prisma/seed.ts",
     "test:phase1": "node scripts/verify-phase1.js",
+    "test:phase2": "node scripts/verify-phase2.js",
     "postinstall": "prisma generate"
   },
   "dependencies": {
