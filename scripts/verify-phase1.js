@@ -61,7 +61,11 @@ async function runAcceptanceVerification() {
   console.log("\nStep 4: Click Data Structures (BCS-301) -> Verify Detailed Metadata & Syllabus");
   const bcs301 = await prisma.subject.findFirst({
     where: { code: 'BCS-301', semesterId: sem3.id },
-    include: { resources: true }
+    include: {
+      resources: {
+        where: { category: { code: 'SYLLABUS' } }
+      }
+    }
   });
   assert(!!bcs301, "BCS-301 subject record retrieved");
   assert(bcs301.credits === 3, `Credits is 3.0 (Found: ${bcs301.credits})`);
@@ -116,7 +120,11 @@ async function runAcceptanceVerification() {
   assert(mtechSemesters.length === 4, `M.Tech CSE has 4 semesters (Found: ${mtechSemesters.length})`);
   const mcs101 = await prisma.subject.findFirst({
     where: { code: 'MCS-101' },
-    include: { resources: true }
+    include: {
+      resources: {
+        where: { category: { code: 'SYLLABUS' } }
+      }
+    }
   });
   assert(!!mcs101, "MCS-101 (Advanced Computer Architecture) exists");
   assert(mcs101.resources[0]?.storedFileName === 'MTech_CSE_All_Years_Syllabus_2023-24.pdf', "M.Tech subject links to official M.Tech PDF");
