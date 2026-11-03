@@ -12,8 +12,10 @@ datasource db {
 
 model Department {
   id          String      @id @default(cuid())
-  code        String      @unique // e.g. "CSE"
-  name        String      // e.g. "Department of Computer Science & Engineering"
+  code        String      @unique // e.g. "ENG", "CA", "MGMT"
+  name        String      // e.g. "Faculty of Engineering & Technology"
+  facultyDean String?
+  description String?
   isActive    Boolean     @default(true)
   programmes  Programme[]
   users       User[]
@@ -22,17 +24,25 @@ model Department {
 }
 
 model Programme {
-  id                 String              @id @default(cuid())
-  departmentId       String
-  department         Department          @relation(fields: [departmentId], references: [id], onDelete: Cascade)
-  code               String              @unique // e.g. "BTECH-CSE", "MTECH-CSE"
-  name               String              // e.g. "Bachelor of Technology in Computer Science & Engineering"
-  degreeLevel        String              @default("UNDERGRADUATE") // UNDERGRADUATE, POSTGRADUATE, DIPLOMA
-  durationYears      Int                 @default(4)
-  isActive           Boolean             @default(true)
-  curriculumVersions CurriculumVersion[]
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
+  id                  String              @id @default(cuid())
+  departmentId        String
+  department          Department          @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  code                String              @unique // e.g. "BTECH-CSE", "MTECH-CSE"
+  name                String              // e.g. "Bachelor of Technology in Computer Science & Engineering"
+  degreeLevel         String              @default("UNDERGRADUATE") // UNDERGRADUATE, POSTGRADUATE, DIPLOMA, DOCTORAL
+  category            String              @default("UNDERGRADUATE") // UNDERGRADUATE, POSTGRADUATE, DIPLOMA, DOCTORAL
+  durationYears       Int                 @default(4)
+  eligibility         String?
+  specializations     String?             // JSON or comma-separated
+  description         String?
+  careerProspects     String?
+  officialSourceUrl   String?
+  hasOfficialSyllabus Boolean             @default(false)
+  isLateralEntry      Boolean             @default(false)
+  isActive            Boolean             @default(true)
+  curriculumVersions  CurriculumVersion[]
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
 }
 
 model CurriculumVersion {

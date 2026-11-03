@@ -93,65 +93,94 @@ export default async function PYQProgrammeSemestersPage({ params }: PageProps) {
         </div>
 
         {/* Semester Selection Grid */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-slate-900 flex items-center">
-              <Layers className="h-5 w-5 mr-2 text-blue-700" />
-              Choose Semester
+        {semesters.length === 0 ? (
+          <div className="bg-white rounded-2xl border border-slate-200 p-8 sm:p-12 text-center space-y-4 shadow-sm">
+            <div className="w-14 h-14 bg-blue-50 text-blue-700 rounded-full flex items-center justify-center mx-auto border border-blue-200">
+              <FileQuestion className="w-7 h-7" />
+            </div>
+            <h2 className="text-xl font-bold text-slate-900">
+              Past Question Papers Archive Pending
             </h2>
-            <span className="text-xs text-slate-500">
-              Select a semester to access subject-wise past examination papers
-            </span>
+            <p className="text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+              Examination question papers for this programme will be published alongside official curriculum digitization.
+            </p>
+            <div className="pt-2 flex flex-wrap justify-center gap-3">
+              <Link
+                href={`/programmes/${encodeURIComponent(programme.code)}`}
+                className="inline-flex items-center space-x-1.5 px-4 py-2.5 bg-brand-900 hover:bg-brand-800 text-white rounded-lg text-xs font-bold transition"
+              >
+                <span>View Programme Details & Eligibility</span>
+                <ArrowRight className="w-4 h-4 ml-1" />
+              </Link>
+              <Link
+                href="/pyq"
+                className="inline-flex items-center space-x-1.5 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition"
+              >
+                <span>Browse Active PYQ Library</span>
+              </Link>
+            </div>
           </div>
+        ) : (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold text-slate-900 flex items-center">
+                <Layers className="h-5 w-5 mr-2 text-blue-700" />
+                Choose Semester
+              </h2>
+              <span className="text-xs text-slate-500">
+                Select a semester to access subject-wise past examination papers
+              </span>
+            </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {semesters.map((sem) => {
-              const pyqCount = sem.subjects.reduce(
-                (sum, s) => sum + s.resources.length,
-                0
-              );
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {semesters.map((sem) => {
+                const pyqCount = sem.subjects.reduce(
+                  (sum, s) => sum + s.resources.length,
+                  0
+                );
 
-              return (
-                <div
-                  key={sem.id}
-                  className="bg-white rounded-xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition-all duration-200 p-5 flex flex-col justify-between group"
-                >
-                  <div>
-                    {/* Semester Number Header */}
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="w-8 h-8 rounded-lg bg-blue-50 text-blue-800 font-bold text-sm flex items-center justify-center border border-blue-200">
-                        {sem.semesterNumber}
-                      </span>
-                      <span className="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded">
-                        {sem.subjects.length} Subjects
-                      </span>
-                    </div>
+                return (
+                  <div
+                    key={sem.id}
+                    className="bg-white rounded-xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition-all duration-200 p-5 flex flex-col justify-between group"
+                  >
+                    <div>
+                      {/* Semester Number Header */}
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="w-8 h-8 rounded-lg bg-blue-50 text-blue-800 font-bold text-sm flex items-center justify-center border border-blue-200">
+                          {sem.semesterNumber}
+                        </span>
+                        <span className="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-600 rounded">
+                          {sem.subjects.length} Subjects
+                        </span>
+                      </div>
 
-                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-800 transition mb-2">
-                      {sem.title}
-                    </h3>
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-800 transition mb-2">
+                        {sem.title}
+                      </h3>
 
-                    <div className="text-xs text-slate-600 mb-5">
-                      <div className="flex items-center justify-between py-1 border-b border-slate-100">
-                        <span className="text-slate-500">Archived Papers:</span>
-                        <strong className="text-blue-800 font-semibold">{pyqCount} Available</strong>
+                      <div className="text-xs text-slate-600 mb-5">
+                        <div className="flex items-center justify-between py-1 border-b border-slate-100">
+                          <span className="text-slate-500">Archived Papers:</span>
+                          <strong className="text-blue-800 font-semibold">{pyqCount} Available</strong>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Link to Semester Subjects */}
-                  <Link
-                    href={`/pyq/${encodeURIComponent(programme.code)}/semester/${sem.semesterNumber}`}
-                    className="w-full inline-flex items-center justify-between px-3.5 py-2.5 text-xs font-semibold text-blue-800 bg-blue-50 group-hover:bg-blue-800 group-hover:text-white rounded-lg transition"
-                  >
-                    <span>View Subject Papers</span>
-                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              );
-            })}
+                    {/* Link to Semester Subjects */}
+                    <Link
+                      href={`/pyq/${encodeURIComponent(programme.code)}/semester/${sem.semesterNumber}`}
+                      className="w-full inline-flex items-center justify-between px-3.5 py-2.5 text-xs font-semibold text-blue-800 bg-blue-50 group-hover:bg-blue-800 group-hover:text-white rounded-lg transition"
+                    >
+                      <span>View Subject Papers</span>
+                      <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -16,7 +16,8 @@ import {
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const programmes = await db.programme.findMany({
+  const activeSyllabusProgrammes = await db.programme.findMany({
+    where: { hasOfficialSyllabus: true },
     include: {
       curriculumVersions: {
         include: {
@@ -32,6 +33,8 @@ export default async function HomePage() {
     },
   });
 
+  const totalProgrammes = await db.programme.count();
+  const totalDepartments = await db.department.count();
   const totalSubjects = await db.subject.count();
   const totalResources = await db.academicResource.count();
 
@@ -52,37 +55,46 @@ export default async function HomePage() {
           </h1>
 
           <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed mb-10">
-            *Your Academic Companion* — Official course syllabi, curriculum regulations, and faculty-verified
-            academic resources for engineering and technology students.
+            *Your Academic Companion* — Official course syllabi, past examination papers, curriculum regulations, and faculty-verified
+            academic resources for Invertis University students.
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/programmes"
+              className="inline-flex items-center px-6 py-3.5 rounded-lg text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-900/40 transition transform hover:-translate-y-0.5"
+            >
+              <GraduationCap className="w-5 h-5 mr-2" />
+              <span>Explore All {totalProgrammes} Programmes</span>
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+
             <Link
               href="/syllabus"
               className="inline-flex items-center px-6 py-3.5 rounded-lg text-sm font-bold text-brand-950 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 shadow-lg shadow-amber-950/20 transition transform hover:-translate-y-0.5"
             >
               <BookOpen className="w-5 h-5 mr-2 text-brand-950" />
-              <span>Explore Syllabus Library</span>
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <span>Syllabus Library (137 Courses)</span>
             </Link>
 
-            <a
-              href="#roadmap"
+            <Link
+              href="/pyq"
               className="inline-flex items-center px-6 py-3.5 rounded-lg text-sm font-semibold text-slate-200 bg-white/10 hover:bg-white/15 border border-white/10 transition"
             >
-              <span>View Development Roadmap</span>
-            </a>
+              <FileText className="w-4 h-4 mr-2 text-emerald-400" />
+              <span>PYQ Library</span>
+            </Link>
           </div>
 
           {/* Quick Metrics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-12 border-t border-slate-800">
             <div className="bg-white/5 backdrop-blur rounded-lg p-4 border border-white/10">
-              <div className="text-3xl font-extrabold text-blue-400">{programmes.length}</div>
-              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Programmes</div>
+              <div className="text-3xl font-extrabold text-blue-400">{totalProgrammes}</div>
+              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">{totalDepartments} Faculties / Depts</div>
             </div>
             <div className="bg-white/5 backdrop-blur rounded-lg p-4 border border-white/10">
               <div className="text-3xl font-extrabold text-amber-400">12</div>
-              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Semesters</div>
+              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Active Semesters</div>
             </div>
             <div className="bg-white/5 backdrop-blur rounded-lg p-4 border border-white/10">
               <div className="text-3xl font-extrabold text-emerald-400">{totalSubjects}</div>
@@ -90,7 +102,7 @@ export default async function HomePage() {
             </div>
             <div className="bg-white/5 backdrop-blur rounded-lg p-4 border border-white/10">
               <div className="text-3xl font-extrabold text-purple-400">{totalResources}</div>
-              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Official Syllabi Linked</div>
+              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Syllabi & PYQ Resources</div>
             </div>
           </div>
         </div>
@@ -99,16 +111,20 @@ export default async function HomePage() {
       {/* Verified Curricula Loaded */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <div className="mb-10 text-center">
+          <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold uppercase tracking-wider mb-2">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Tier 1 Gold Standard Curriculum Ingested</span>
+          </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-brand-900 tracking-tight">
             Curriculum Regulations in Platform
           </h2>
           <p className="text-sm text-slate-600 mt-2">
-            Mirrored directly from official Invertis Institute of Engineering & Technology syllabi.
+            Mirrored directly from official Invertis Institute of Engineering & Technology syllabus documents.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {programmes.map((prog) => {
+          {activeSyllabusProgrammes.map((prog) => {
             const currentVersion = prog.curriculumVersions[0];
             const semesterCount = currentVersion?.semesters.length || 0;
             const subCount = currentVersion?.semesters.reduce(
@@ -151,13 +167,22 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                <Link
-                  href={`/syllabus/${encodeURIComponent(prog.code)}`}
-                  className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-brand-900 text-white hover:bg-brand-800 transition"
-                >
-                  <span>Browse {prog.code} Syllabi</span>
-                  <ArrowRight className="w-4 h-4 ml-1.5" />
-                </Link>
+                <div className="flex gap-2">
+                  <Link
+                    href={`/syllabus/${encodeURIComponent(prog.code)}`}
+                    className="flex-1 inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-brand-900 text-white hover:bg-brand-800 transition"
+                  >
+                    <span>Browse Syllabi</span>
+                    <ArrowRight className="w-4 h-4 ml-1.5" />
+                  </Link>
+                  <Link
+                    href={`/pyq/${encodeURIComponent(prog.code)}`}
+                    className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 transition"
+                  >
+                    <FileText className="w-4 h-4 mr-1 text-emerald-600" />
+                    <span>PYQ</span>
+                  </Link>
+                </div>
               </div>
             );
           })}

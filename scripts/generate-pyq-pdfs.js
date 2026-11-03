@@ -359,3 +359,4 @@ fs.writeFileSync(path.join(outDir, "MCS101_EndSem_2022_23.pdf"), mcs101_2022);
 console.log("Created: MCS101_EndSem_2022_23.pdf");
 
 console.log("All authentic demo examination paper PDFs generated successfully!");
+

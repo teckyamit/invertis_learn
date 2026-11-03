@@ -8,7 +8,7 @@ export const revalidate = 3600; // Cache for 1 hour
 
 export default async function SyllabusProgrammeListPage() {
   const programmes = await db.programme.findMany({
-    where: { isActive: true },
+    where: { isActive: true, hasOfficialSyllabus: true },
     include: {
       department: true,
       curriculumVersions: {
@@ -24,6 +24,8 @@ export default async function SyllabusProgrammeListPage() {
     },
     orderBy: { degreeLevel: "desc" },
   });
+
+  const totalCatalogCount = await db.programme.count();
 
   return (
     <div className="min-h-screen bg-slate-50 py-8">
@@ -52,10 +54,10 @@ export default async function SyllabusProgrammeListPage() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-slate-900">
-              Select Your Academic Programme
+              Active Digitized Curricula (137 Courses)
             </h2>
             <span className="text-xs text-slate-500 font-medium">
-              {programmes.length} Programmes Active (Session 2023-2024)
+              Tier 1 Official PDFs Linked (Session 2023-2024)
             </span>
           </div>
 
@@ -139,6 +141,30 @@ export default async function SyllabusProgrammeListPage() {
               );
             })}
           </div>
+        </div>
+
+        {/* Catalog Discovery Callout Banner */}
+        <div className="bg-gradient-to-r from-blue-900 to-indigo-900 rounded-2xl p-6 sm:p-8 text-white shadow-md flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-2xl">
+            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-200 text-xs font-semibold uppercase tracking-wider">
+              <GraduationCap className="w-3.5 h-3.5 text-blue-400" />
+              <span>Full University Course Catalog</span>
+            </div>
+            <h3 className="text-xl font-bold text-white">
+              Explore All {totalCatalogCount} Programmes Across 9 Faculties
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Looking for programmes outside Computer Science? Browse Engineering specializations (AI, Cloud, IoT), 
+              Polytechnic Diplomas, Lateral Entry courses, Management (BBA/MBA FinTech), Pharmacy, Law, Sciences, and Doctoral Ph.D. tracks.
+            </p>
+          </div>
+          <Link
+            href="/programmes"
+            className="inline-flex items-center space-x-2 px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-brand-950 font-bold text-xs sm:text-sm transition shadow-lg flex-shrink-0"
+          >
+            <span>Browse Full Catalog</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
         {/* Academic Policy Note */}

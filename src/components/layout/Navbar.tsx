@@ -30,6 +30,19 @@ export function Navbar() {
           {/* Academic Modules Navigation */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
             <Link
+              href="/programmes"
+              className={`flex items-center space-x-1.5 px-3 py-2 rounded-md text-sm font-semibold transition ${
+                pathname.startsWith("/programmes")
+                  ? "bg-brand-50 text-brand-900 border border-brand-200"
+                  : "text-slate-700 hover:text-brand-900 hover:bg-slate-100"
+              }`}
+            >
+              <GraduationCap className="w-4 h-4 text-purple-600" />
+              <span>Programmes</span>
+              <span className="ml-1 text-[10px] bg-purple-100 text-purple-800 font-bold px-1.5 py-0.5 rounded-full">60 Courses</span>
+            </Link>
+
+            <Link
               href="/syllabus"
               className={`flex items-center space-x-1.5 px-3 py-2 rounded-md text-sm font-semibold transition ${
                 pathname.startsWith("/syllabus")

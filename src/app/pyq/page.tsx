@@ -8,7 +8,7 @@ export const revalidate = 3600;
 
 export default async function PYQProgrammeListPage() {
   const programmes = await db.programme.findMany({
-    where: { isActive: true },
+    where: { isActive: true, hasOfficialSyllabus: true },
     include: {
       department: true,
       curriculumVersions: {
