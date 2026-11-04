@@ -13,7 +13,8 @@ import {
   ShieldCheck,
   Download,
   FolderOpen,
-  FolderGit2
+  FolderGit2,
+  Compass
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -253,6 +254,29 @@ export default async function ResourcesPage() {
               );
             })}
           </div>
+        </div>
+
+        {/* Career Pathways & Specialization Tracks Banner */}
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-2xl">
+            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 text-xs font-semibold border border-purple-200">
+              <Compass className="w-3.5 h-3.5 text-purple-600" />
+              <span>Phase 6: Career Pathways</span>
+            </div>
+            <h3 className="text-xl font-bold tracking-tight text-slate-900">
+              Explore 6 Department Specialization Tracks & Industry Certifications
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Discover how your academic subjects connect to AI/ML Engineering, Cloud DevOps, Cybersecurity, Big Data Analytics, and Embedded IoT careers with recognized industry credentials.
+            </p>
+          </div>
+          <Link
+            href="/pathways"
+            className="shrink-0 inline-flex items-center space-x-2 px-5 py-3 rounded-lg text-xs font-bold text-white bg-purple-700 hover:bg-purple-800 shadow-md transition"
+          >
+            <span>Explore Career Pathways</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
         {/* University ERP Callout Card */}

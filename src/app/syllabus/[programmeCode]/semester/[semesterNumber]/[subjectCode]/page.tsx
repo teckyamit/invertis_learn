@@ -9,6 +9,7 @@ import { PYQSection } from "@/components/pyq/PYQSection";
 import { NotesSection } from "@/components/notes/NotesSection";
 import { LabManualSection } from "@/components/labs/LabManualSection";
 import { ProjectArchiveSection } from "@/components/projects/ProjectArchiveSection";
+import { SubjectPathwaysSection } from "@/components/pathways/SubjectPathwaysSection";
 import { Sparkles, CheckCircle } from "lucide-react";
 
 interface PageProps {
@@ -265,14 +266,20 @@ export default async function SubjectDetailPage({ params }: PageProps) {
         />
       )}
 
-      {/* 11. Academic Modules Roadmap */}
+      {/* 11. Career Pathways & Department Specialization Tracks (Phase 6) */}
+      <SubjectPathwaysSection
+        subjectCode={subject.code}
+        subjectName={subject.name}
+      />
+
+      {/* 12. Academic Modules Roadmap */}
       <div className="bg-slate-100/70 border border-dashed border-slate-300 rounded-2xl p-6 text-slate-600">
         <div className="flex items-center space-x-2 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
           <Sparkles className="h-4 w-4 text-emerald-600" />
           <span>Department Academic Progression</span>
         </div>
         <p className="text-xs text-slate-500 leading-relaxed mb-4">
-          In accordance with our platform roadmap, all core curriculum resources, question banks, lecture notes, lab guides, and capstone project specifications are actively verified and accessible without authentication.
+          In accordance with our platform roadmap, all core curriculum resources, question banks, lecture notes, lab guides, capstone project specifications, and career specialization tracks are actively verified and accessible without authentication.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
           <div className="bg-emerald-50/70 p-3 rounded-lg border border-emerald-200 text-slate-700">
@@ -281,11 +288,11 @@ export default async function SubjectDetailPage({ params }: PageProps) {
             </span>
             <span>Active: IEEE synopses, capstone timelines, manuals & viva rubrics</span>
           </div>
-          <div className="bg-white p-3 rounded-lg border border-slate-200 text-slate-600">
-            <span className="font-semibold block text-slate-700 flex items-center">
-              <CheckCircle className="h-3.5 w-3.5 mr-1 text-blue-600" /> Phase 6: Career Pathways
+          <div className="bg-emerald-50/70 p-3 rounded-lg border border-emerald-200 text-slate-700">
+            <span className="font-semibold block text-emerald-800 flex items-center">
+              <CheckCircle className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Phase 6: Career Pathways
             </span>
-            <span>Industry skill alignments, certifications & specialization tracks</span>
+            <span>Active: 6 specialization tracks, industry certifications & skill roadmaps</span>
           </div>
         </div>
       </div>
