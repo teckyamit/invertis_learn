@@ -87,16 +87,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Hamburger Button */}
-          <div className="flex md:hidden items-center space-x-2">
-            <a
-              href="https://erp.invertisuniversity.ac.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-amber-50 text-amber-900 border border-amber-300"
-            >
-              <span>ERP</span>
-              <ExternalLink className="w-3 h-3 text-amber-700" />
-            </a>
+          <div className="flex md:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none"
