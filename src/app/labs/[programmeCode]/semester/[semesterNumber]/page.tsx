@@ -178,3 +178,4 @@ export default async function LabsSemesterSubjectsPage({ params }: PageProps) {
     </div>
   );
 }
+

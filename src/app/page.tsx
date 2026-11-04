@@ -9,11 +9,22 @@ import {
   Clock, 
   FileText, 
   FlaskConical, 
-  Compass, 
-  Layers 
+  Layers,
+  Wrench,
+  ExternalLink,
+  Unlock,
+  ChevronRight,
+  Building2,
+  Cpu,
+  Sparkles
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
+
+export const metadata = {
+  title: "Invertis Learn | Academic Resources for Invertis University",
+  description: "Simple, organized, publicly accessible academic resource platform for Invertis University students. Verified syllabi, past examination papers, notes, and lab manuals.",
+};
 
 export default async function HomePage() {
   const activeSyllabusProgrammes = await db.programme.findMany({
@@ -38,108 +49,152 @@ export default async function HomePage() {
   const totalSubjects = await db.subject.count();
   const totalResources = await db.academicResource.count();
 
+  // Other university departments for the preview section
+  const otherDepartments = await db.department.findMany({
+    where: {
+      NOT: { code: "ENG" }
+    },
+    include: {
+      _count: {
+        select: { programmes: true }
+      }
+    },
+    take: 6
+  });
+
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-brand-900 via-brand-950 to-slate-900 text-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
-        
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-semibold uppercase tracking-wider mb-6">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>Invertis University Academic Portal • Session 2023–24</span>
+    <div className="flex flex-col min-h-screen bg-slate-50">
+      {/* Hero Section - Clean, Academic, Professional */}
+      <section className="bg-white border-b border-slate-200 py-14 sm:py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto text-center space-y-6">
+          {/* Institutional Header Pill */}
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-semibold">
+            <ShieldCheck className="w-4 h-4 text-blue-600" />
+            <span>Academic Resource Companion • Invertis University, Bareilly</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-            INVERTIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-amber-300">LEARN</span>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            Academic Materials for <br className="hidden sm:inline" />
+            <span className="text-blue-600">Invertis University</span> Students
           </h1>
 
-          <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed mb-10">
-            *Your Academic Companion* — Official course syllabi, past examination papers, curriculum regulations, and faculty-verified
-            academic resources for Invertis University students.
+          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            Instant, friction-free access to verified course syllabi, past examination papers, faculty lecture notes, 
+            and laboratory manuals. <strong>No login or student registration required.</strong>
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4">
+          {/* Primary Action Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <Link
-              href="/programmes"
-              className="inline-flex items-center px-6 py-3.5 rounded-lg text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-900/40 transition transform hover:-translate-y-0.5"
+              href="/engineering"
+              className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-600/20 transition"
             >
-              <GraduationCap className="w-5 h-5 mr-2" />
-              <span>Explore All {totalProgrammes} Programmes</span>
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <Wrench className="w-4 h-4" />
+              <span>Explore Engineering Programmes</span>
+              <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
 
             <Link
-              href="/syllabus"
-              className="inline-flex items-center px-6 py-3.5 rounded-lg text-sm font-bold text-brand-950 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 shadow-lg shadow-amber-950/20 transition transform hover:-translate-y-0.5"
+              href="/resources"
+              className="inline-flex items-center space-x-2 px-5 py-3.5 rounded-xl text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition"
             >
-              <BookOpen className="w-5 h-5 mr-2 text-brand-950" />
-              <span>Syllabus Library (137 Courses)</span>
+              <BookOpen className="w-4 h-4 text-slate-600" />
+              <span>Academic Resources Hub</span>
             </Link>
 
-            <Link
-              href="/pyq"
-              className="inline-flex items-center px-6 py-3.5 rounded-lg text-sm font-semibold text-slate-200 bg-white/10 hover:bg-white/15 border border-white/10 transition"
+            <a
+              href="https://erp.invertisuniversity.ac.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 px-5 py-3.5 rounded-xl text-sm font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-300 transition"
+              title="Official Invertis University ERP (Attendance, Marks, Fees)"
             >
-              <FileText className="w-4 h-4 mr-2 text-emerald-400" />
-              <span>PYQ Library</span>
-            </Link>
-
-            <Link
-              href="/notes"
-              className="inline-flex items-center px-6 py-3.5 rounded-lg text-sm font-semibold text-emerald-200 bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/30 transition"
-            >
-              <Layers className="w-4 h-4 mr-2 text-emerald-400" />
-              <span>Notes Hub</span>
-            </Link>
-
-            <Link
-              href="/labs"
-              className="inline-flex items-center px-6 py-3.5 rounded-lg text-sm font-semibold text-emerald-200 bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/30 transition"
-            >
-              <FlaskConical className="w-4 h-4 mr-2 text-emerald-400" />
-              <span>Lab Manuals (Phase 4)</span>
-            </Link>
+              <span>University ERP</span>
+              <ExternalLink className="w-4 h-4 text-amber-700" />
+            </a>
           </div>
 
-          {/* Quick Metrics */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-12 border-t border-slate-800">
-            <div className="bg-white/5 backdrop-blur rounded-lg p-4 border border-white/10">
-              <div className="text-3xl font-extrabold text-blue-400">{totalProgrammes}</div>
-              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">{totalDepartments} Faculties / Depts</div>
-            </div>
-            <div className="bg-white/5 backdrop-blur rounded-lg p-4 border border-white/10">
-              <div className="text-3xl font-extrabold text-amber-400">12</div>
-              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Active Semesters</div>
-            </div>
-            <div className="bg-white/5 backdrop-blur rounded-lg p-4 border border-white/10">
-              <div className="text-3xl font-extrabold text-emerald-400">{totalSubjects}</div>
-              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Verified Courses</div>
-            </div>
-            <div className="bg-white/5 backdrop-blur rounded-lg p-4 border border-white/10">
-              <div className="text-3xl font-extrabold text-purple-400">{totalResources}</div>
-              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Syllabi & PYQ Resources</div>
-            </div>
+          {/* Zero Authentication Assurance Badge */}
+          <div className="pt-4 flex items-center justify-center space-x-4 text-xs text-slate-500">
+            <span className="inline-flex items-center space-x-1.5">
+              <Unlock className="w-3.5 h-3.5 text-emerald-600" />
+              <span>100% Free & Open Access</span>
+            </span>
+            <span>•</span>
+            <span className="inline-flex items-center space-x-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />
+              <span>Zero Account / Login Barrier</span>
+            </span>
+            <span>•</span>
+            <span className="inline-flex items-center space-x-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Official 2023–24 Syllabi</span>
+            </span>
           </div>
         </div>
       </section>
 
-      {/* Verified Curricula Loaded */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="mb-10 text-center">
-          <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold uppercase tracking-wider mb-2">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Tier 1 Gold Standard Curriculum Ingested</span>
+      {/* Student Journey: Simple, Predictable Navigation Flow */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">
+          <div className="text-center max-w-2xl mx-auto space-y-1">
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900">
+              Straightforward Student Journey
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500">
+              Locate your course and study resources in seconds with zero complicated menus or authentication gates.
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-brand-900 tracking-tight">
-            Curriculum Regulations in Platform
-          </h2>
-          <p className="text-sm text-slate-600 mt-2">
-            Mirrored directly from official Invertis Institute of Engineering & Technology syllabus documents.
-          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-3 pt-2">
+            {[
+              { step: "Step 1", label: "Home", desc: "Select Engineering", active: true },
+              { step: "Step 2", label: "Engineering", desc: "B.Tech, M.Tech, Diploma", active: true },
+              { step: "Step 3", label: "Programme", desc: "e.g. B.Tech CSE", active: true },
+              { step: "Step 4", label: "Semester", desc: "Choose 1 to 8", active: true },
+              { step: "Step 5", label: "Subject", desc: "Isolated Course", active: true },
+              { step: "Step 6", label: "Resources", desc: "PYQ, Notes, Labs", active: true },
+            ].map((s, idx) => (
+              <div
+                key={idx}
+                className="bg-slate-50 rounded-xl p-3 border border-slate-200 text-center relative group hover:border-blue-300 transition"
+              >
+                <div className="text-[10px] font-mono font-bold text-blue-600 mb-1">{s.step}</div>
+                <div className="text-xs font-bold text-slate-800">{s.label}</div>
+                <div className="text-[10px] text-slate-500 mt-0.5">{s.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Currently Available Programmes: Engineering Focus */}
+      <section className="pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div className="inline-flex items-center space-x-1.5 text-xs font-bold text-blue-700 uppercase tracking-wider mb-1">
+              <Wrench className="w-3.5 h-3.5" />
+              <span>Current Release Scope</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+              Engineering Programmes (Fully Accessible)
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              Verified academic branches from Invertis Institute of Engineering & Technology.
+            </p>
+          </div>
+
+          <Link
+            href="/engineering"
+            className="inline-flex items-center space-x-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 self-start sm:self-auto"
+          >
+            <span>View All Engineering Branches</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Highlighted Engineering Curricula */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {activeSyllabusProgrammes.map((prog) => {
             const currentVersion = prog.curriculumVersions[0];
             const semesterCount = currentVersion?.semesters.length || 0;
@@ -151,114 +206,247 @@ export default async function HomePage() {
             return (
               <div
                 key={prog.id}
-                className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between"
+                className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-blue-300 hover:shadow-md transition flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-800">
-                      {prog.degreeLevel}
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="px-2.5 py-0.5 rounded-md text-xs font-bold uppercase bg-blue-50 text-blue-700 border border-blue-200">
+                      {prog.category || prog.degreeLevel}
                     </span>
-                    <span className="text-xs font-semibold text-emerald-700 flex items-center">
-                      <CheckCircle2 className="w-3.5 h-3.5 mr-1" />
-                      Session 2023–24
+                    <span className="text-xs font-bold text-emerald-700 flex items-center space-x-1 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Resources Active</span>
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-brand-900 mb-2">
+                  <h3 className="text-lg font-bold text-slate-900 mb-1">
                     {prog.name}
                   </h3>
-                  <p className="text-xs text-slate-500 mb-6 font-mono">
-                    Code: {prog.code} • Duration: {prog.durationYears} Years
-                  </p>
+                  <div className="flex items-center space-x-2 text-xs text-slate-500 mb-4 font-mono">
+                    <span className="font-bold text-slate-700">{prog.code}</span>
+                    <span>•</span>
+                    <span>{prog.durationYears} Years Duration</span>
+                  </div>
 
-                  <div className="grid grid-cols-2 gap-3 mb-6 bg-slate-50 p-3.5 rounded-lg border border-slate-100 text-xs">
+                  <div className="grid grid-cols-2 gap-3 mb-5 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs">
                     <div>
                       <span className="text-slate-500">Semesters:</span>{" "}
-                      <span className="font-bold text-slate-900">{semesterCount} Semesters</span>
+                      <span className="font-bold text-slate-800">{semesterCount} Semesters</span>
                     </div>
                     <div>
-                      <span className="text-slate-500">Verified Subjects:</span>{" "}
-                      <span className="font-bold text-slate-900">{subCount} Subjects</span>
+                      <span className="text-slate-500">Curriculum:</span>{" "}
+                      <span className="font-bold text-slate-800">{subCount} Verified Subjects</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
                   <Link
                     href={`/syllabus/${encodeURIComponent(prog.code)}`}
-                    className="flex-1 inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-brand-900 text-white hover:bg-brand-800 transition"
+                    className="flex-1 inline-flex items-center justify-center space-x-1.5 px-4 py-2.5 rounded-lg text-xs font-bold bg-blue-600 text-white hover:bg-blue-700 transition shadow-sm"
                   >
-                    <span>Browse Syllabi</span>
-                    <ArrowRight className="w-4 h-4 ml-1.5" />
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>Browse Syllabi & Semesters</span>
                   </Link>
                   <Link
                     href={`/pyq/${encodeURIComponent(prog.code)}`}
-                    className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 transition"
+                    className="inline-flex items-center justify-center space-x-1 px-3.5 py-2.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition"
                   >
-                    <FileText className="w-4 h-4 mr-1 text-emerald-600" />
-                    <span>PYQ</span>
+                    <FileText className="w-3.5 h-3.5 text-slate-500" />
+                    <span>PYQs</span>
                   </Link>
                 </div>
               </div>
             );
           })}
         </div>
+
+        {/* Engineering Categories Quick Overview Card */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div className="bg-white rounded-xl border border-slate-200 p-4 space-y-1.5">
+            <div className="text-xs font-bold text-blue-700 uppercase">B.Tech Degrees</div>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Computer Science, AI & ML, Cloud Computing, IoT, Mechanical, Civil, Electrical, Biotechnology, and Lateral Entry.
+            </p>
+          </div>
+          <div className="bg-white rounded-xl border border-slate-200 p-4 space-y-1.5">
+            <div className="text-xs font-bold text-indigo-700 uppercase">M.Tech Programmes</div>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Postgraduate master courses in Computer Science & Engineering, Mechanical Engineering, and Civil Engineering.
+            </p>
+          </div>
+          <div className="bg-white rounded-xl border border-slate-200 p-4 space-y-1.5">
+            <div className="text-xs font-bold text-amber-700 uppercase">Diploma Engineering</div>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Polytechnic Diploma curricula in CSE, Civil, Electrical, Mechanical Production, Mechanical Automobile, and Lateral Entry.
+            </p>
+          </div>
+        </div>
       </section>
 
-      {/* Incremental Roadmap Overview */}
-      <section id="roadmap" className="bg-slate-100 py-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-              Architectural Roadmap
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-brand-900 mt-3">
-              Incremental Development Phases
+      {/* Academic Resources 4 Pillars Section */}
+      <section className="py-12 bg-white border-y border-slate-200 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto space-y-8">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <div className="inline-flex items-center space-x-1 text-xs font-bold text-blue-600 uppercase tracking-wider">
+              <span>Comprehensive Library</span>
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900">
+              Everything Needed for Examination Preparation
             </h2>
-            <p className="text-sm text-slate-600 max-w-xl mx-auto mt-2">
-              Strictly developed one verified phase at a time with university-authorized sources.
+            <p className="text-xs sm:text-sm text-slate-500">
+              Subject-wise isolated documents designed strictly around Invertis University scheme of instruction.
             </p>
           </div>
 
-          <div className="space-y-3">
-            {[
-              { phase: "Phase 0", title: "Project Foundation & Architecture", status: "COMPLETED", icon: CheckCircle2, active: true, color: "text-emerald-600" },
-              { phase: "Phase 1", title: "Syllabus Library (B.Tech & M.Tech CSE)", status: "COMPLETED", icon: CheckCircle2, active: true, color: "text-emerald-600" },
-              { phase: "Phase 2", title: "Previous-Year Question Papers (PYQs)", status: "COMPLETED", icon: CheckCircle2, active: true, color: "text-emerald-600" },
-              { phase: "Phase 3", title: "Faculty Notes & Learning Materials", status: "COMPLETED", icon: CheckCircle2, active: true, color: "text-emerald-600" },
-              { phase: "Phase 4", title: "Practical & Laboratory Manuals", status: "ACTIVE", icon: FlaskConical, active: true, color: "text-emerald-600" },
-              { phase: "Phase 5", title: "Department Knowledge Centre", status: "Planned", icon: GraduationCap, active: false, color: "text-slate-400" },
-              { phase: "Phase 6", title: "Career & Skill Roadmaps", status: "Planned", icon: Compass, active: false, color: "text-slate-400" },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className={`flex items-center justify-between p-4 rounded-lg border transition ${
-                  item.active
-                    ? "bg-white border-slate-300 shadow-sm"
-                    : "bg-slate-50 border-slate-200 opacity-60"
-                }`}
-              >
-                <div className="flex items-center space-x-3.5">
-                  <item.icon className={`w-5 h-5 ${item.color}`} />
-                  <div>
-                    <span className="text-xs font-bold font-mono text-slate-500 mr-2">{item.phase}:</span>
-                    <span className="text-sm font-semibold text-slate-900">{item.title}</span>
-                  </div>
-                </div>
-                <span
-                  className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-                    item.status === "COMPLETED"
-                      ? "bg-emerald-100 text-emerald-800"
-                      : item.status === "CURRENT PRIORITY"
-                      ? "bg-blue-100 text-blue-800"
-                      : "bg-slate-200 text-slate-600"
-                  }`}
-                >
-                  {item.status}
-                </span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <Link
+              href="/syllabus"
+              className="bg-slate-50 hover:bg-blue-50/50 rounded-xl border border-slate-200 hover:border-blue-300 p-5 transition group"
+            >
+              <div className="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center mb-3">
+                <BookOpen className="w-5 h-5" />
               </div>
-            ))}
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition mb-1">
+                Subject-Wise Syllabi
+              </h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Unit outlines, lecture hour distributions, course credits, and recommended reference books.
+              </p>
+            </Link>
+
+            <Link
+              href="/pyq"
+              className="bg-slate-50 hover:bg-emerald-50/50 rounded-xl border border-slate-200 hover:border-emerald-300 p-5 transition group"
+            >
+              <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center mb-3">
+                <FileText className="w-5 h-5" />
+              </div>
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition mb-1">
+                Past Question Papers
+              </h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                End-semester, mid-semester, and pre-university question papers with full answer keys.
+              </p>
+            </Link>
+
+            <Link
+              href="/notes"
+              className="bg-slate-50 hover:bg-indigo-50/50 rounded-xl border border-slate-200 hover:border-indigo-300 p-5 transition group"
+            >
+              <div className="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center mb-3">
+                <Layers className="w-5 h-5" />
+              </div>
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition mb-1">
+                Faculty Lecture Notes
+              </h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Curated chapter presentations, topic summaries, and quick-revision cheat-sheets.
+              </p>
+            </Link>
+
+            <Link
+              href="/labs"
+              className="bg-slate-50 hover:bg-amber-50/50 rounded-xl border border-slate-200 hover:border-amber-300 p-5 transition group"
+            >
+              <div className="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center mb-3">
+                <FlaskConical className="w-5 h-5" />
+              </div>
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-amber-800 transition mb-1">
+                Practical Lab Manuals
+              </h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Prescribed laboratory experiments, circuit diagrams, starter code templates, and viva Q&A.
+              </p>
+            </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Other University Programmes: Clearly Marked "Coming Soon" */}
+      <section className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div className="inline-flex items-center space-x-1.5 text-xs font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded uppercase tracking-wider mb-1">
+              <Clock className="w-3.5 h-3.5 text-amber-700" />
+              <span>Upcoming Curricula</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
+              Other University Programmes (Coming Soon)
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              Departments are visible in the directory; study resources will unlock upon official syllabus ingestion.
+            </p>
+          </div>
+
+          <Link
+            href="/programmes"
+            className="inline-flex items-center space-x-1.5 text-xs font-bold text-slate-700 hover:text-blue-600 self-start sm:self-auto"
+          >
+            <span>Explore All 60 Discovered Programmes</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        {/* Coming Soon Department Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {otherDepartments.map((dept) => (
+            <div
+              key={dept.id}
+              className="bg-white rounded-xl border border-slate-200 p-4 flex items-center justify-between shadow-sm"
+            >
+              <div className="space-y-1">
+                <div className="flex items-center space-x-2">
+                  <span className="font-mono text-[10px] font-bold text-slate-600 bg-slate-100 px-1.5 py-0.2 rounded">
+                    {dept.code}
+                  </span>
+                  <span className="text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded">
+                    Coming Soon
+                  </span>
+                </div>
+                <h3 className="text-xs font-bold text-slate-900 leading-snug line-clamp-1">
+                  {dept.name}
+                </h3>
+                <p className="text-[11px] text-slate-500">
+                  {dept._count.programmes} Discovered Programmes
+                </p>
+              </div>
+
+              <Link
+                href="/programmes"
+                className="shrink-0 p-2 text-slate-400 hover:text-blue-600 transition"
+                title="View in directory"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* University ERP Callout Section */}
+      <section className="pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div className="bg-gradient-to-r from-slate-900 to-blue-950 text-white rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-2xl">
+            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-xs font-semibold">
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>Official Student Portal Link</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Looking for University ERP?</h2>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Invertis Learn provides open academic materials and syllabus frameworks. For student attendance, semester results, 
+              fee receipts, and examination hall tickets, access the official Invertis University ERP.
+            </p>
+          </div>
+          <a
+            href="https://erp.invertisuniversity.ac.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 inline-flex items-center space-x-2 px-5 py-3 rounded-xl text-xs font-bold text-brand-950 bg-amber-400 hover:bg-amber-300 shadow-md transition"
+          >
+            <span>Open University ERP</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
         </div>
       </section>
     </div>

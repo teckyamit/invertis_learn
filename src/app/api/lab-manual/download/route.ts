@@ -38,3 +38,4 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Failed to download laboratory manual" }, { status: 500 });
   }
 }
+
