@@ -4,6 +4,11 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
 import { ArrowRight, Layers, BookOpen, ChevronLeft, Calendar } from "lucide-react";
+import { 
+  isLateralEntryProgramme, 
+  getLateralEntryConfig, 
+  getParentProgrammeCode 
+} from "@/lib/lateralEntry";
 
 interface PageProps {
   params: {
@@ -48,8 +53,51 @@ export default async function NotesProgrammeSemestersPage({ params }: PageProps)
     notFound();
   }
 
-  const currentCurriculum = programme.curriculumVersions[0];
-  const semesters = currentCurriculum?.semesters || [];
+  const isLateral = isLateralEntryProgramme(programmeCode);
+  const lateralConfig = getLateralEntryConfig(programmeCode);
+
+  let currentCurriculum = programme.curriculumVersions[0];
+  let semesters = currentCurriculum?.semesters || [];
+
+  if (isLateral && lateralConfig) {
+    const parentProgramme = await db.programme.findUnique({
+      where: { code: lateralConfig.parentCode },
+      include: {
+        curriculumVersions: {
+          where: { isCurrent: true },
+          include: {
+            semesters: {
+              where: {
+                semesterNumber: {
+                  gte: lateralConfig.minSemester,
+                  lte: lateralConfig.maxSemester,
+                },
+              },
+              include: {
+                subjects: {
+                  where: { isActive: true },
+                  include: {
+                    resources: {
+                      where: {
+                        category: { code: "NOTES" },
+                        isPublished: true,
+                      },
+                    },
+                  },
+                },
+              },
+              orderBy: { semesterNumber: "asc" },
+            },
+          },
+        },
+      },
+    });
+
+    if (parentProgramme?.curriculumVersions?.[0]) {
+      currentCurriculum = parentProgramme.curriculumVersions[0];
+      semesters = currentCurriculum.semesters;
+    }
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 py-8">

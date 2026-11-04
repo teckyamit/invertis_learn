@@ -4,6 +4,11 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
 import { ArrowRight, BookOpen, Layers, Award, Calendar, ChevronLeft, GraduationCap } from "lucide-react";
+import { 
+  isLateralEntryProgramme, 
+  getLateralEntryConfig, 
+  getParentProgrammeCode 
+} from "@/lib/lateralEntry";
 
 interface PageProps {
   params: {
@@ -15,6 +20,9 @@ export const revalidate = 3600;
 
 export default async function ProgrammeSemestersPage({ params }: PageProps) {
   const programmeCode = decodeURIComponent(params.programmeCode);
+
+  const isLateral = isLateralEntryProgramme(programmeCode);
+  const lateralConfig = getLateralEntryConfig(programmeCode);
 
   const programme = await db.programme.findUnique({
     where: { code: programmeCode },
@@ -40,8 +48,43 @@ export default async function ProgrammeSemestersPage({ params }: PageProps) {
     notFound();
   }
 
-  const currentCurriculum = programme.curriculumVersions[0];
-  const semesters = currentCurriculum?.semesters || [];
+  let currentCurriculum = programme.curriculumVersions[0];
+  let semesters = currentCurriculum?.semesters || [];
+
+  // Shared Reference Architecture for Lateral Entry:
+  // If lateral entry, fetch parent programme curriculum and filter Semesters 3 to 8
+  let parentProgramme = null;
+  if (isLateral && lateralConfig) {
+    parentProgramme = await db.programme.findUnique({
+      where: { code: lateralConfig.parentCode },
+      include: {
+        curriculumVersions: {
+          where: { isCurrent: true },
+          include: {
+            semesters: {
+              where: {
+                semesterNumber: {
+                  gte: lateralConfig.minSemester,
+                  lte: lateralConfig.maxSemester,
+                },
+              },
+              include: {
+                subjects: {
+                  where: { isActive: true },
+                },
+              },
+              orderBy: { semesterNumber: "asc" },
+            },
+          },
+        },
+      },
+    });
+
+    if (parentProgramme?.curriculumVersions?.[0]) {
+      currentCurriculum = parentProgramme.curriculumVersions[0];
+      semesters = currentCurriculum.semesters;
+    }
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 py-8">
@@ -114,6 +157,27 @@ export default async function ProgrammeSemestersPage({ params }: PageProps) {
               </span>
             </div>
           </div>
+
+          {/* Lateral Entry Pathway Callout */}
+          {isLateral && lateralConfig && (
+            <div className="mt-6 p-4 rounded-xl bg-purple-50/80 border border-purple-200 text-purple-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="space-y-1">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-purple-700 bg-purple-100 px-2 py-0.5 rounded border border-purple-200">
+                  Lateral Entry Pathway (Direct Admission to 2nd Year)
+                </span>
+                <p className="text-xs text-purple-900 leading-relaxed">
+                  Students in this programme enter directly into <strong>Semester III</strong> and follow the official <strong>{lateralConfig.parentName}</strong> curriculum through <strong>Semester VIII</strong>.
+                </p>
+              </div>
+              <Link
+                href={`/syllabus/${lateralConfig.parentCode}`}
+                className="shrink-0 text-xs font-bold text-purple-800 hover:text-purple-950 bg-white px-3 py-1.5 rounded-lg border border-purple-200 shadow-2xs hover:shadow-xs transition flex items-center"
+              >
+                <span>View 4-Year Parent Programme</span>
+                <ArrowRight className="h-3 w-3 ml-1" />
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Semester Selection Grid */}

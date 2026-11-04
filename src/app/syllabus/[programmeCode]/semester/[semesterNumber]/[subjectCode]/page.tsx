@@ -11,6 +11,12 @@ import { LabManualSection } from "@/components/labs/LabManualSection";
 import { ProjectArchiveSection } from "@/components/projects/ProjectArchiveSection";
 import { SubjectPathwaysSection } from "@/components/pathways/SubjectPathwaysSection";
 import { Sparkles, CheckCircle } from "lucide-react";
+import { 
+  isLateralEntryProgramme, 
+  getParentProgrammeCode, 
+  isSemesterAllowedForProgramme, 
+  getLateralEntryConfig 
+} from "@/lib/lateralEntry";
 
 interface PageProps {
   params: {
@@ -31,7 +37,24 @@ export default async function SubjectDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  // Find programme, semester, and subject
+  // Strict Lateral Entry Rule: Semesters 1 and 2 do NOT exist for lateral entry
+  if (!isSemesterAllowedForProgramme(programmeCode, semNum)) {
+    notFound();
+  }
+
+  const isLateral = isLateralEntryProgramme(programmeCode);
+  const lookupProgCode = getParentProgrammeCode(programmeCode);
+
+  // Find requested programme metadata (for displaying proper lateral title & breadcrumbs)
+  const requestedProgramme = await db.programme.findUnique({
+    where: { code: programmeCode },
+  });
+
+  if (!requestedProgramme) {
+    notFound();
+  }
+
+  // Find programme, semester, and subject (using shared parent programme curriculum)
   const subject = await db.subject.findFirst({
     where: {
       code: subjectCode,
@@ -40,7 +63,7 @@ export default async function SubjectDetailPage({ params }: PageProps) {
         curriculumVersion: {
           isCurrent: true,
           programme: {
-            code: programmeCode,
+            code: lookupProgCode,
           },
         },
       },
@@ -80,7 +103,7 @@ export default async function SubjectDetailPage({ params }: PageProps) {
 
   const semester = subject.semester;
   const curriculum = semester.curriculumVersion;
-  const programme = curriculum.programme;
+  const programme = requestedProgramme || curriculum.programme;
 
   // Identify syllabus resource
   const syllabusDbResource = subject.resources.find((r) => r.category.code === "SYLLABUS");

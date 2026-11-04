@@ -5,6 +5,12 @@ import { db } from "@/lib/db";
 import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
 import { SemesterFilter } from "@/components/syllabus/SemesterFilter";
 import { ChevronLeft, BookOpen, Layers, Award, FileText } from "lucide-react";
+import { 
+  isLateralEntryProgramme, 
+  getParentProgrammeCode, 
+  isSemesterAllowedForProgramme, 
+  getLateralEntryConfig 
+} from "@/lib/lateralEntry";
 
 interface PageProps {
   params: {
@@ -23,9 +29,26 @@ export default async function SemesterSubjectsPage({ params }: PageProps) {
     notFound();
   }
 
-  // Find programme and its current curriculum
+  // Strict Lateral Entry Rule: Semesters 1 and 2 do NOT exist for lateral entry
+  if (!isSemesterAllowedForProgramme(programmeCode, semNum)) {
+    notFound();
+  }
+
+  const isLateral = isLateralEntryProgramme(programmeCode);
+  const lookupProgCode = getParentProgrammeCode(programmeCode);
+
+  // Find programme metadata
   const programme = await db.programme.findUnique({
     where: { code: programmeCode },
+  });
+
+  if (!programme) {
+    notFound();
+  }
+
+  // Resolve curriculum & semester from parent programme (or self if regular)
+  const curriculumProgramme = await db.programme.findUnique({
+    where: { code: lookupProgCode },
     include: {
       curriculumVersions: {
         where: { isCurrent: true },
@@ -44,11 +67,11 @@ export default async function SemesterSubjectsPage({ params }: PageProps) {
     },
   });
 
-  if (!programme) {
+  if (!curriculumProgramme) {
     notFound();
   }
 
-  const currentCurriculum = programme.curriculumVersions[0];
+  const currentCurriculum = curriculumProgramme.curriculumVersions[0];
   const semester = currentCurriculum?.semesters[0];
 
   if (!semester) {

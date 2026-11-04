@@ -21,6 +21,11 @@ import {
   Zap,
   Dna
 } from "lucide-react";
+import { 
+  getProgrammeDisplayName, 
+  isLateralEntryProgramme, 
+  getParentProgrammeCode 
+} from "@/lib/lateralEntry";
 
 interface Programme {
   id: string;
@@ -89,11 +94,15 @@ export function EngineeringDirectory({ programmes }: EngineeringDirectoryProps) 
     if (!searchQuery.trim()) return list;
 
     const q = searchQuery.toLowerCase().trim();
-    return list.filter(p => 
-      p.name.toLowerCase().includes(q) || 
-      p.code.toLowerCase().includes(q) ||
-      (p.specializations && p.specializations.toLowerCase().includes(q))
-    );
+    return list.filter(p => {
+      const dName = getProgrammeDisplayName(p.code, p.name).toLowerCase();
+      return (
+        dName.includes(q) ||
+        p.name.toLowerCase().includes(q) || 
+        p.code.toLowerCase().includes(q) ||
+        (p.specializations && p.specializations.toLowerCase().includes(q))
+      );
+    });
   }, [programmes, activeTab, btechProgrammes, mtechProgrammes, diplomaProgrammes, searchQuery]);
 
   // Helper icon for branch
@@ -212,10 +221,28 @@ export function EngineeringDirectory({ programmes }: EngineeringDirectoryProps) 
             specs = prog.specializations ? prog.specializations.split(",") : [];
           }
 
+          const isLateral = isLateralEntryProgramme(prog.code);
+          const displayName = getProgrammeDisplayName(prog.code, prog.name);
           const hasCurriculum = prog.hasOfficialSyllabus;
-          const currentCurriculum = prog.curriculumVersions?.[0];
-          const totalSubjects = currentCurriculum?.semesters.reduce((acc, s) => acc + s._count.subjects, 0) || 0;
-          const totalSemesters = currentCurriculum?.semesters.length || (prog.durationYears * 2);
+
+          // For lateral entry, resolve parent programme's curriculum & semesters 3 to 8
+          let totalSubjects = 0;
+          let totalSemesters = prog.durationYears * 2;
+
+          if (isLateral) {
+            const parentCode = getParentProgrammeCode(prog.code);
+            const parentProg = programmes.find(p => p.code === parentCode);
+            const parentCurriculum = parentProg?.curriculumVersions?.[0];
+            const lateralSemesters = parentCurriculum?.semesters.filter(
+              s => s.semesterNumber >= 3 && s.semesterNumber <= 8
+            ) || [];
+            totalSubjects = lateralSemesters.reduce((acc, s) => acc + s._count.subjects, 0);
+            totalSemesters = 6;
+          } else {
+            const currentCurriculum = prog.curriculumVersions?.[0];
+            totalSubjects = currentCurriculum?.semesters.reduce((acc, s) => acc + s._count.subjects, 0) || 0;
+            totalSemesters = currentCurriculum?.semesters.length || (prog.durationYears * 2);
+          }
 
           return (
             <div
@@ -257,10 +284,10 @@ export function EngineeringDirectory({ programmes }: EngineeringDirectoryProps) 
                 <h3 className="text-base font-bold text-slate-900 leading-snug mb-2 hover:text-blue-600 transition">
                   {hasCurriculum ? (
                     <Link href={`/syllabus/${prog.code}`}>
-                      {prog.name}
+                      {displayName}
                     </Link>
                   ) : (
-                    <span>{prog.name}</span>
+                    <span>{displayName}</span>
                   )}
                 </h3>
 
@@ -268,14 +295,20 @@ export function EngineeringDirectory({ programmes }: EngineeringDirectoryProps) 
                 <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-3">
                   <span className="flex items-center space-x-1">
                     <Clock className="w-3.5 h-3.5 text-slate-400" />
-                    <span>{prog.durationYears} Years ({prog.durationYears * 2} Semesters)</span>
+                    {isLateral ? (
+                      <span>3 Years (6 Semesters: Sem III to VIII)</span>
+                    ) : (
+                      <span>{prog.durationYears} Years ({prog.durationYears * 2} Semesters)</span>
+                    )}
                   </span>
                   <span>•</span>
                   <span className="capitalize">{prog.category.toLowerCase()}</span>
                   {prog.isLateralEntry && (
                     <>
                       <span>•</span>
-                      <span className="text-purple-700 font-semibold">Lateral Entry</span>
+                      <span className="text-purple-700 font-semibold bg-purple-50 px-1.5 py-0.5 rounded border border-purple-200 text-[11px]">
+                        Lateral Entry
+                      </span>
                     </>
                   )}
                 </div>

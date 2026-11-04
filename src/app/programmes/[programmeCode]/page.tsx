@@ -18,6 +18,11 @@ import {
   Layers,
   Wrench
 } from "lucide-react";
+import { 
+  isLateralEntryProgramme, 
+  getLateralEntryConfig, 
+  getParentProgrammeCode 
+} from "@/lib/lateralEntry";
 
 interface ProgrammeDetailPageProps {
   params: {
@@ -77,10 +82,48 @@ export default async function ProgrammeDetailPage({ params }: ProgrammeDetailPag
     specsList = programme.specializations ? programme.specializations.split(",") : [];
   }
 
-  const activeCurriculum = programme.curriculumVersions[0];
-  const totalSubjectsInCurriculum = activeCurriculum 
-    ? activeCurriculum.semesters.reduce((acc, sem) => acc + sem._count.subjects, 0)
-    : 0;
+  const isLateral = isLateralEntryProgramme(programme.code);
+  const lateralConfig = getLateralEntryConfig(programme.code);
+
+  let activeCurriculum = programme.curriculumVersions[0];
+  let semestersList = activeCurriculum?.semesters || [];
+
+  if (isLateral && lateralConfig) {
+    const parentProg = await db.programme.findUnique({
+      where: { code: lateralConfig.parentCode },
+      include: {
+        curriculumVersions: {
+          where: { isCurrent: true },
+          include: {
+            semesters: {
+              where: {
+                semesterNumber: {
+                  gte: lateralConfig.minSemester,
+                  lte: lateralConfig.maxSemester,
+                },
+              },
+              orderBy: { semesterNumber: "asc" },
+              include: {
+                _count: {
+                  select: { subjects: true },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (parentProg?.curriculumVersions?.[0]) {
+      activeCurriculum = parentProg.curriculumVersions[0];
+      semestersList = activeCurriculum.semesters;
+    }
+  }
+
+  const totalSubjectsInCurriculum = semestersList.reduce(
+    (acc, sem) => acc + sem._count.subjects,
+    0
+  );
 
   const isEngineering = programme.department.code === "ENG" || programme.department.name.toLowerCase().includes("engineering");
 
