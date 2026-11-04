@@ -108,3 +108,141 @@ export function getProgrammeDisplayName(code: string, defaultName?: string): str
       return defaultName || code;
   }
 }
+
+export interface ProgrammeWithCurriculum {
+  id?: string;
+  code: string;
+  name?: string;
+  durationYears: number;
+  category?: string;
+  degreeLevel?: string;
+  isLateralEntry?: boolean;
+  hasOfficialSyllabus?: boolean;
+  curriculumVersions?: {
+    isCurrent?: boolean;
+    regulationName?: string | null;
+    semesters: {
+      id?: string;
+      semesterNumber: number;
+      title?: string;
+      _count?: { subjects: number };
+      subjects?: {
+        id?: string;
+        code?: string;
+        name?: string;
+        resources?: any[];
+      }[];
+    }[];
+  }[];
+}
+
+export interface ProgrammeCurriculumStats {
+  semesterCount: number;
+  subjectCount: number;
+  resourceCount: number;
+  hasActiveResources: boolean;
+  isLateral: boolean;
+  parentCode?: string;
+}
+
+/**
+ * Dynamically resolves curriculum statistics (semesters, verified subjects, resources)
+ * for any programme, properly handling 3-year lateral entry programmes mapped to parent curricula.
+ *
+ * For lateral entry programmes:
+ * - Reuses the parent curriculum (Semesters 3 through 8)
+ * - Excludes first-year subjects (Semesters 1 and 2)
+ * - Dynamically calculates actual subject count from the parent curriculum
+ * - Returns exactly 6 semesters and the dynamic subject count
+ *
+ * For regular programmes:
+ * - Dynamically calculates from its own curriculum
+ */
+export function getProgrammeCurriculumStats(
+  programme: ProgrammeWithCurriculum,
+  allProgrammes?: ProgrammeWithCurriculum[]
+): ProgrammeCurriculumStats {
+  const isLateral = isLateralEntryProgramme(programme.code);
+
+  if (isLateral) {
+    const lateralConfig = getLateralEntryConfig(programme.code);
+    const parentCode = lateralConfig?.parentCode || getParentProgrammeCode(programme.code);
+    
+    // Find parent programme from provided list if available
+    const parentProg = allProgrammes?.find(
+      p => p.code.toUpperCase() === parentCode.toUpperCase()
+    );
+    const parentCurriculum = parentProg?.curriculumVersions?.[0];
+    
+    if (parentCurriculum) {
+      const minSem = lateralConfig?.minSemester ?? 3;
+      const maxSem = lateralConfig?.maxSemester ?? 8;
+      const lateralSemesters = parentCurriculum.semesters.filter(
+        s => s.semesterNumber >= minSem && s.semesterNumber <= maxSem
+      );
+
+      let subjectCount = 0;
+      let resourceCount = 0;
+
+      lateralSemesters.forEach(s => {
+        if (s._count?.subjects !== undefined) {
+          subjectCount += s._count.subjects;
+        } else if (s.subjects) {
+          subjectCount += s.subjects.length;
+          s.subjects.forEach(subj => {
+            if (subj.resources) {
+              resourceCount += subj.resources.length;
+            }
+          });
+        }
+      });
+
+      return {
+        semesterCount: lateralSemesters.length || (lateralConfig?.availableSemesters.length ?? 6),
+        subjectCount,
+        resourceCount,
+        hasActiveResources: subjectCount > 0,
+        isLateral: true,
+        parentCode,
+      };
+    }
+
+    // Default lateral configuration if parent not in memory array
+    return {
+      semesterCount: lateralConfig?.availableSemesters.length ?? 6,
+      subjectCount: 0,
+      resourceCount: 0,
+      hasActiveResources: false,
+      isLateral: true,
+      parentCode,
+    };
+  }
+
+  // Regular Programme
+  const currentCurriculum = programme.curriculumVersions?.[0];
+  const semesters = currentCurriculum?.semesters || [];
+  let subjectCount = 0;
+  let resourceCount = 0;
+
+  semesters.forEach(s => {
+    if (s._count?.subjects !== undefined) {
+      subjectCount += s._count.subjects;
+    } else if (s.subjects) {
+      subjectCount += s.subjects.length;
+      s.subjects.forEach(subj => {
+        if (subj.resources) {
+          resourceCount += subj.resources.length;
+        }
+      });
+    }
+  });
+
+  return {
+    semesterCount: semesters.length || programme.durationYears * 2,
+    subjectCount,
+    resourceCount,
+    hasActiveResources: subjectCount > 0,
+    isLateral: false,
+  };
+}
+

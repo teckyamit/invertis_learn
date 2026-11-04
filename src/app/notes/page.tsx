@@ -13,6 +13,10 @@ import {
   BookmarkCheck,
   UserCheck
 } from "lucide-react";
+import { 
+  getProgrammeCurriculumStats, 
+  getProgrammeDisplayName 
+} from "@/lib/lateralEntry";
 
 export const revalidate = 3600;
 
@@ -117,17 +121,8 @@ export default async function NotesProgrammeListPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {programmes.map((prog) => {
-              const currentCurriculum = prog.curriculumVersions[0];
-              const totalSemesters = currentCurriculum?.semesters.length || prog.durationYears * 2;
-              let totalProgNotes = 0;
-              let totalSubjects = 0;
-
-              currentCurriculum?.semesters.forEach((sem) => {
-                totalSubjects += sem.subjects.length;
-                sem.subjects.forEach((s) => {
-                  totalProgNotes += s.resources.length;
-                });
-              });
+              const stats = getProgrammeCurriculumStats(prog, programmes);
+              const displayName = getProgrammeDisplayName(prog.code, prog.name);
 
               return (
                 <div
@@ -152,7 +147,7 @@ export default async function NotesProgrammeListPage() {
                         {prog.code}
                       </span>
                       <h3 className="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition">
-                        {prog.name}
+                        {displayName}
                       </h3>
                       <p className="text-xs text-slate-500">
                         {prog.department.name}
@@ -163,11 +158,11 @@ export default async function NotesProgrammeListPage() {
                     <div className="grid grid-cols-2 gap-3 mb-6 p-4 rounded-xl bg-slate-50 border border-slate-100">
                       <div>
                         <span className="text-xs text-slate-500 block mb-0.5">Available Notes</span>
-                        <span className="text-lg font-bold text-emerald-700">{totalProgNotes} Documents</span>
+                        <span className="text-lg font-bold text-emerald-700">{stats.resourceCount} Documents</span>
                       </div>
                       <div>
                         <span className="text-xs text-slate-500 block mb-0.5">Academic Semesters</span>
-                        <span className="text-lg font-bold text-slate-900">{totalSemesters} Semesters</span>
+                        <span className="text-lg font-bold text-slate-900">{stats.semesterCount} Semesters</span>
                       </div>
                     </div>
                   </div>

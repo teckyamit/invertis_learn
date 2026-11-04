@@ -3,6 +3,10 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
 import { GraduationCap, BookOpen, ArrowRight, ShieldCheck, Calendar, Layers } from "lucide-react";
+import { 
+  getProgrammeCurriculumStats, 
+  getProgrammeDisplayName 
+} from "@/lib/lateralEntry";
 
 export const revalidate = 3600; // Cache for 1 hour
 
@@ -63,12 +67,9 @@ export default async function SyllabusProgrammeListPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {programmes.map((prog) => {
+              const stats = getProgrammeCurriculumStats(prog, programmes);
+              const displayName = getProgrammeDisplayName(prog.code, prog.name);
               const currentCurriculum = prog.curriculumVersions[0];
-              const totalSemesters = currentCurriculum?.semesters.length || prog.durationYears * 2;
-              const totalSubjects = currentCurriculum?.semesters.reduce(
-                (acc, sem) => acc + sem.subjects.length,
-                0
-              ) || 0;
 
               return (
                 <div
@@ -93,7 +94,7 @@ export default async function SyllabusProgrammeListPage() {
                         {prog.code}
                       </span>
                       <h3 className="text-xl font-bold text-slate-900 group-hover:text-emerald-800 transition">
-                        {prog.name}
+                        {displayName}
                       </h3>
                       <p className="text-xs text-slate-500">
                         {prog.department?.name || "Department of Computer Science & Engineering"}
@@ -111,13 +112,13 @@ export default async function SyllabusProgrammeListPage() {
                       <div className="p-2 bg-slate-50 rounded-lg">
                         <span className="block text-xs text-slate-500">Semesters</span>
                         <span className="text-sm font-bold text-slate-900">
-                          {totalSemesters} Sems
+                          {stats.semesterCount} Sems
                         </span>
                       </div>
                       <div className="p-2 bg-slate-50 rounded-lg">
                         <span className="block text-xs text-slate-500">Subjects</span>
                         <span className="text-sm font-bold text-slate-900">
-                          {totalSubjects} Total
+                          {stats.subjectCount} Total
                         </span>
                       </div>
                     </div>

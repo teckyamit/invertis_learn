@@ -3,6 +3,10 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
 import { FileQuestion, ShieldCheck, ArrowRight, Calendar, Layers, BookOpen } from "lucide-react";
+import { 
+  getProgrammeCurriculumStats, 
+  getProgrammeDisplayName 
+} from "@/lib/lateralEntry";
 
 export const revalidate = 3600;
 
@@ -70,17 +74,8 @@ export default async function PYQProgrammeListPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {programmes.map((prog) => {
-              const currentCurriculum = prog.curriculumVersions[0];
-              const totalSemesters = currentCurriculum?.semesters.length || prog.durationYears * 2;
-              let totalPyqs = 0;
-              let totalSubjects = 0;
-
-              currentCurriculum?.semesters.forEach((sem) => {
-                totalSubjects += sem.subjects.length;
-                sem.subjects.forEach((s) => {
-                  totalPyqs += s.resources.length;
-                });
-              });
+              const stats = getProgrammeCurriculumStats(prog, programmes);
+              const displayName = getProgrammeDisplayName(prog.code, prog.name);
 
               return (
                 <div
@@ -105,7 +100,7 @@ export default async function PYQProgrammeListPage() {
                         {prog.code}
                       </span>
                       <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-800 transition">
-                        {prog.name}
+                        {displayName}
                       </h3>
                       <p className="text-xs text-slate-500">
                         {prog.department?.name || "Department of Computer Science & Engineering"}
@@ -117,19 +112,19 @@ export default async function PYQProgrammeListPage() {
                       <div className="p-2 bg-slate-50 rounded-lg">
                         <span className="block text-xs text-slate-500">Semesters</span>
                         <span className="text-sm font-bold text-slate-900">
-                          {totalSemesters} Sems
+                          {stats.semesterCount} Sems
                         </span>
                       </div>
                       <div className="p-2 bg-slate-50 rounded-lg">
                         <span className="block text-xs text-slate-500">Subjects</span>
                         <span className="text-sm font-bold text-slate-900">
-                          {totalSubjects} Courses
+                          {stats.subjectCount} Courses
                         </span>
                       </div>
                       <div className="p-2 bg-slate-50 rounded-lg">
                         <span className="block text-xs text-slate-500">PYQ Archive</span>
                         <span className="text-sm font-bold text-blue-800">
-                          {totalPyqs} Papers
+                          {stats.resourceCount} Papers
                         </span>
                       </div>
                     </div>
