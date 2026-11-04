@@ -163,3 +163,4 @@ export default async function NotesProgrammeSemestersPage({ params }: PageProps)
     </div>
   );
 }
+

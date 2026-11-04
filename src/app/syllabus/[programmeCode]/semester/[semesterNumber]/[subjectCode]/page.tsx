@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
 import { PDFViewer } from "@/components/syllabus/PDFViewer";
 import { PYQSection } from "@/components/pyq/PYQSection";
 import { NotesSection } from "@/components/notes/NotesSection";
+import { LabManualSection } from "@/components/labs/LabManualSection";
 import {
   ChevronLeft,
   BookOpen,
@@ -121,6 +122,19 @@ export default async function SubjectDetailPage({ params }: PageProps) {
       fileSizeBytes: r.fileSizeBytes,
       authorName: r.authorName,
       unitNumber: r.unitNumber,
+      resourceType: r.resourceType,
+      createdAt: r.createdAt,
+    }));
+  const labResources = subject.resources
+    .filter((r) => r.category.code === "LAB_MANUAL")
+    .map((r) => ({
+      id: r.id,
+      title: r.title,
+      originalFileName: r.originalFileName,
+      storedFileName: r.storedFileName,
+      storagePath: r.storagePath,
+      fileSizeBytes: r.fileSizeBytes,
+      authorName: r.authorName,
       resourceType: r.resourceType,
       createdAt: r.createdAt,
     }));
@@ -461,25 +475,36 @@ export default async function SubjectDetailPage({ params }: PageProps) {
             />
           </div>
 
-          {/* 9. Modular Placeholder for Future Academic Resources (Phase 4) */}
+          {/* 9. Laboratory Manuals & Practical Materials (Phase 4) */}
+          <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+            <LabManualSection
+              subjectId={subject.id}
+              subjectCode={subject.code}
+              subjectName={subject.name}
+              initialLabs={labResources}
+              labExperiments={details?.labExperiments || []}
+            />
+          </div>
+
+          {/* 10. Modular Placeholder for Future Academic Resources (Phase 5 & 6) */}
           <div className="bg-slate-100/70 border border-dashed border-slate-300 rounded-2xl p-6 text-slate-600">
             <div className="flex items-center space-x-2 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
               <Sparkles className="h-4 w-4 text-emerald-600" />
               <span>Future Academic Modules Roadmap</span>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed mb-4">
-              In accordance with our incremental engineering roadmap, laboratory viva resources and practical experiment manuals for <strong>{subject.code}</strong> will be integrated into this workspace once authorized in subsequent phases.
+              In accordance with our incremental engineering roadmap, departmental knowledge archives, capstone projects, and career specialization tracks for <strong>{subject.code}</strong> will be integrated into this workspace once authorized in subsequent phases.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div className="bg-emerald-50/70 p-3 rounded-lg border border-emerald-200 text-slate-700">
                 <span className="font-semibold block text-emerald-800 flex items-center">
-                  <CheckCircle className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Phase 3: Learning Notes
+                  <CheckCircle className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Phase 4: Practical Manuals
                 </span>
-                <span>Active: Faculty lecture notes, unit summaries & PPT decks</span>
+                <span>Active: Official lab manuals, viva questions & code templates</span>
               </div>
               <div className="bg-white p-3 rounded-lg border border-slate-200 text-slate-400">
-                <span className="font-semibold block text-slate-500">Phase 4: Lab & Viva</span>
-                <span>Lab experiment manuals, code templates & viva questions</span>
+                <span className="font-semibold block text-slate-500">Phase 5: Knowledge Centre</span>
+                <span>Departmental project archives, research colloquia & seminars</span>
               </div>
             </div>
           </div>

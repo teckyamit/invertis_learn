@@ -120,3 +120,4 @@ runPhase3Verification()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
