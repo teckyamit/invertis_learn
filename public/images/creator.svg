@@ -1,0 +1,51 @@
+<svg width="400" height="480" viewBox="0 0 400 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B192C"/>
+      <stop offset="50%" stop-color="#1E3A8A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+    <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background Card -->
+  <rect width="400" height="480" rx="24" fill="url(#bgGrad)"/>
+
+  <!-- Subtle Decorative Grid Lines -->
+  <path d="M40 0V480 M120 0V480 M200 0V480 M280 0V480 M360 0V480" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1"/>
+  <path d="M0 80H400 M0 160H400 M0 240H400 M0 320H400 M0 400H400" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1"/>
+
+  <!-- Accent Circle Glow -->
+  <circle cx="200" cy="180" r="110" fill="url(#accentGrad)" fill-opacity="0.15" filter="url(#shadow)"/>
+  <circle cx="200" cy="180" r="85" fill="#1E293B" stroke="url(#accentGrad)" stroke-width="2"/>
+
+  <!-- Stylized Developer Silhouette Icon -->
+  <!-- Head -->
+  <circle cx="200" cy="155" r="38" fill="url(#avatarGrad)"/>
+  
+  <!-- Shoulders & Torso -->
+  <path d="M140 238 C140 200, 165 195, 200 195 C235 195, 260 200, 260 238 L260 250 L140 250 Z" fill="url(#avatarGrad)"/>
+  
+  <!-- Graduation / Tech Monogram Pill -->
+  <rect x="155" y="275" width="90" height="26" rx="13" fill="#2563EB" fill-opacity="0.3" stroke="#60A5FA" stroke-width="1"/>
+  <text x="200" y="292" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#93C5FD" letter-spacing="1.5">CREATOR</text>
+
+  <!-- Creator Details -->
+  <text x="200" y="345" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">Amit Kumar Pal</text>
+  <text x="200" y="372" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#94A3B8">Founder &amp; Developer • Invertis Learn</text>
+  <text x="200" y="394" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#38BDF8">Computer Science Graduate</text>
+
+  <!-- Bottom Helper Note for photo replacement -->
+  <rect x="50" y="425" width="300" height="30" rx="8" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.1" stroke-dasharray="3 3"/>
+  <text x="200" y="444" text-anchor="middle" font-family="monospace" font-size="10" fill="#94A3B8">Photo: public/images/creator.jpg</text>
+</svg>
