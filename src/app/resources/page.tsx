@@ -12,7 +12,8 @@ import {
   Sparkles,
   ShieldCheck,
   Download,
-  FolderOpen
+  FolderOpen,
+  FolderGit2
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -76,8 +77,8 @@ export default async function ResourcesPage() {
           </div>
         </div>
 
-        {/* 4 Pillars of Resources */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {/* 5 Pillars of Academic Resources */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
           {/* 1. Syllabi */}
           <div className="bg-white rounded-xl border border-slate-200 hover:border-blue-300 p-5 shadow-sm transition flex flex-col justify-between">
             <div>
@@ -154,6 +155,26 @@ export default async function ResourcesPage() {
               className="inline-flex items-center justify-between text-xs font-bold text-amber-700 hover:text-amber-900 pt-3 border-t border-slate-100"
             >
               <span>Browse Lab Manuals</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          {/* 5. Capstone Projects & Knowledge Centre */}
+          <div className="bg-white rounded-xl border border-slate-200 hover:border-purple-300 p-5 shadow-sm transition flex flex-col justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center mb-4 border border-purple-100">
+                <FolderGit2 className="w-5 h-5" />
+              </div>
+              <h2 className="text-base font-bold text-slate-900 mb-1">Capstone Projects</h2>
+              <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                IEEE format synopsis templates, project manuals, evaluation rubrics, and internship handbooks.
+              </p>
+            </div>
+            <Link
+              href="/projects"
+              className="inline-flex items-center justify-between text-xs font-bold text-purple-700 hover:text-purple-900 pt-3 border-t border-slate-100"
+            >
+              <span>Explore Projects Hub</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

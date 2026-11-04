@@ -230,27 +230,27 @@ async function runVerification() {
     fail('DIP-CSE route failed', err.message);
   }
 
-  // Test 3.7: Incomplete / In-Review Subject (BCS-753 Project-II)
+  // Test 3.7: Incomplete / In-Review Subject (IIOT1)
   try {
-    const res = await fetchUrl('/syllabus/BTECH-CSE/semester/7/BCS-753');
+    const res = await fetchUrl('/syllabus/BTECH-CSE/semester/1/IIOT1');
     if (res.statusCode === 200) {
-      pass('HTTP GET /syllabus/BTECH-CSE/semester/7/BCS-753 -> 200 OK (Incomplete/Project Subject)');
+      pass('HTTP GET /syllabus/BTECH-CSE/semester/1/IIOT1 -> 200 OK (Incomplete/In-Review Subject)');
       const html = res.body;
       if (html.includes('Academic Content Verification Notice') || html.includes('In Review')) {
-        pass('BCS-753 shows In-Review / Verification notice gracefully');
+        pass('IIOT1 shows In-Review / Verification notice gracefully');
       } else {
-        fail('BCS-753 missing in-review notification');
+        fail('IIOT1 missing in-review notification');
       }
       if (!html.includes('href="/api/syllabus/download')) {
-        pass('BCS-753 does NOT show misleading completed download button (Protected by Phase 4 rules)');
+        pass('IIOT1 does NOT show misleading completed download button (Protected by Phase 4 rules)');
       } else {
-        fail('BCS-753 showed misleading download button despite incomplete extraction');
+        fail('IIOT1 showed misleading download button despite incomplete extraction');
       }
     } else {
-      fail(`BCS-753 returned ${res.statusCode}`);
+      fail(`IIOT1 returned ${res.statusCode}`);
     }
   } catch (err) {
-    fail('BCS-753 route failed', err.message);
+    fail('IIOT1 route failed', err.message);
   }
 
   // Step 4: Subject-Wise Syllabus Isolation & Zero Cross-Contamination

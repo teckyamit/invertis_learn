@@ -8,6 +8,7 @@ import {
 import { PYQSection } from "@/components/pyq/PYQSection";
 import { NotesSection } from "@/components/notes/NotesSection";
 import { LabManualSection } from "@/components/labs/LabManualSection";
+import { ProjectArchiveSection } from "@/components/projects/ProjectArchiveSection";
 import { Sparkles, CheckCircle } from "lucide-react";
 
 interface PageProps {
@@ -169,6 +170,27 @@ export default async function SubjectDetailPage({ params }: PageProps) {
       createdAt: r.createdAt,
     }));
 
+  const projectResources = subject.resources
+    .filter((r) => r.category.code === "PROJECT_ARCHIVE")
+    .map((r) => ({
+      id: r.id,
+      title: r.title,
+      originalFileName: r.originalFileName,
+      storedFileName: r.storedFileName,
+      storagePath: r.storagePath,
+      fileSizeBytes: r.fileSizeBytes,
+      authorName: r.authorName,
+      resourceType: r.resourceType,
+    }));
+
+  const isCapstoneSubject =
+    projectResources.length > 0 ||
+    subject.code.toLowerCase().includes("proj") ||
+    subject.name.toLowerCase().includes("project") ||
+    subject.name.toLowerCase().includes("thesis") ||
+    subject.name.toLowerCase().includes("industrial training") ||
+    subject.name.toLowerCase().includes("colloquium");
+
   return (
     <SubjectSyllabusView
       subject={{
@@ -234,25 +256,36 @@ export default async function SubjectDetailPage({ params }: PageProps) {
         />
       </div>
 
-      {/* 10. Future Academic Modules Roadmap (Phase 5 & 6) */}
+      {/* 10. Department Knowledge Centre & Capstone Academic Projects (Phase 5) */}
+      {isCapstoneSubject && (
+        <ProjectArchiveSection
+          subjectCode={subject.code}
+          subjectName={subject.name}
+          projectResources={projectResources}
+        />
+      )}
+
+      {/* 11. Academic Modules Roadmap */}
       <div className="bg-slate-100/70 border border-dashed border-slate-300 rounded-2xl p-6 text-slate-600">
         <div className="flex items-center space-x-2 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
           <Sparkles className="h-4 w-4 text-emerald-600" />
-          <span>Future Academic Modules Roadmap</span>
+          <span>Department Academic Progression</span>
         </div>
         <p className="text-xs text-slate-500 leading-relaxed mb-4">
-          In accordance with our incremental engineering roadmap, departmental knowledge archives, capstone projects, and career specialization tracks for <strong>{subject.code}</strong> will be integrated into this workspace once authorized in subsequent phases.
+          In accordance with our platform roadmap, all core curriculum resources, question banks, lecture notes, lab guides, and capstone project specifications are actively verified and accessible without authentication.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
           <div className="bg-emerald-50/70 p-3 rounded-lg border border-emerald-200 text-slate-700">
             <span className="font-semibold block text-emerald-800 flex items-center">
-              <CheckCircle className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Phase 4: Practical Manuals
+              <CheckCircle className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Phase 5: Knowledge Centre
             </span>
-            <span>Active: Official lab manuals, viva questions & code templates</span>
+            <span>Active: IEEE synopses, capstone timelines, manuals & viva rubrics</span>
           </div>
-          <div className="bg-white p-3 rounded-lg border border-slate-200 text-slate-400">
-            <span className="font-semibold block text-slate-500">Phase 5: Knowledge Centre</span>
-            <span>Departmental project archives, research colloquia & seminars</span>
+          <div className="bg-white p-3 rounded-lg border border-slate-200 text-slate-600">
+            <span className="font-semibold block text-slate-700 flex items-center">
+              <CheckCircle className="h-3.5 w-3.5 mr-1 text-blue-600" /> Phase 6: Career Pathways
+            </span>
+            <span>Industry skill alignments, certifications & specialization tracks</span>
           </div>
         </div>
       </div>
