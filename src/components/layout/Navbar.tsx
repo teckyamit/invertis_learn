@@ -11,7 +11,8 @@ import {
   Wrench, 
   BookOpen, 
   Info, 
-  Home
+  Home,
+  Compass
 } from "lucide-react";
 
 export function Navbar() {
@@ -22,6 +23,7 @@ export function Navbar() {
     { label: "Home", href: "/", icon: Home, exact: true },
     { label: "Engineering", href: "/engineering", icon: Wrench },
     { label: "Resources", href: "/resources", icon: BookOpen },
+    { label: "Career Pathways", href: "/career-pathways", icon: Compass },
     { label: "About", href: "/about", icon: Info },
   ];
 

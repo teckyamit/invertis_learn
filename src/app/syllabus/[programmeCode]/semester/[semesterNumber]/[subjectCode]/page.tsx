@@ -307,13 +307,13 @@ export default async function SubjectDetailPage({ params }: PageProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
           <div className="bg-emerald-50/70 p-3 rounded-lg border border-emerald-200 text-slate-700">
             <span className="font-semibold block text-emerald-800 flex items-center">
-              <CheckCircle className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Phase 5: Knowledge Centre
+              <CheckCircle className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Knowledge Centre & Archives
             </span>
             <span>Active: IEEE synopses, capstone timelines, manuals & viva rubrics</span>
           </div>
           <div className="bg-emerald-50/70 p-3 rounded-lg border border-emerald-200 text-slate-700">
             <span className="font-semibold block text-emerald-800 flex items-center">
-              <CheckCircle className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Phase 6: Career Pathways
+              <CheckCircle className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Career Pathways & Specializations
             </span>
             <span>Active: 6 specialization tracks, industry certifications & skill roadmaps</span>
           </div>
