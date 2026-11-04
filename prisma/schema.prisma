@@ -87,6 +87,8 @@ model Subject {
   syllabusDetails String?            // JSON: { objectives, outcomes, modules, textBooks, referenceBooks, labExperiments }
   isActive        Boolean            @default(true)
   resources       AcademicResource[]
+  externalResources ExternalResource[]
+  videoLectures     VideoLecture[]
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
 
@@ -143,4 +145,45 @@ model User {
   resources    AcademicResource[]
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
+}
+
+model ExternalResource {
+  id           String   @id @default(cuid())
+  subjectId    String
+  subject      Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  title        String
+  platform     String   // e.g. "NPTEL", "MIT OpenCourseWare", "GeeksforGeeks", "MDN Web Docs"
+  url          String
+  description  String
+  category     String   // "Online Tutorials", "Official Documentation", "Free Online Courses", "Lecture Notes", "Programming Practice", "Reference Materials", "Useful Tools and Simulators"
+  unitNumber   Int?     // 1, 2, 3, etc. or null
+  topic        String?
+  pricingType  String   @default("FREE") // "FREE", "FREEMIUM", "PAID"
+  resourceType String   @default("TUTORIAL") // "DOCUMENTATION", "TUTORIAL", "COURSE", "PRACTICE", "SIMULATOR", "NOTES"
+  isVerified   Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([subjectId, category])
+  @@index([subjectId, unitNumber])
+}
+
+model VideoLecture {
+  id          String   @id @default(cuid())
+  subjectId   String
+  subject     Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  title       String
+  youtubeUrl  String
+  youtubeId   String   // Video ID or Playlist ID
+  videoType   String   @default("PLAYLIST") // "INDIVIDUAL_VIDEO" or "PLAYLIST"
+  channelName String   // e.g. "NPTEL-NOC IITM", "MIT OpenCourseWare", "freeCodeCamp.org"
+  unitNumber  Int?     // 1, 2, 3, etc. or null
+  topic       String?
+  description String
+  pricingType String   @default("FREE")
+  isVerified  Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([subjectId, unitNumber])
 }

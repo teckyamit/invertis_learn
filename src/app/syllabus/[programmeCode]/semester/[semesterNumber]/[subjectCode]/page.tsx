@@ -61,6 +61,14 @@ export default async function SubjectDetailPage({ params }: PageProps) {
           category: true,
         },
       },
+      externalResources: {
+        where: { isVerified: true },
+        orderBy: [{ unitNumber: "asc" }, { title: "asc" }],
+      },
+      videoLectures: {
+        where: { isVerified: true },
+        orderBy: [{ unitNumber: "asc" }, { title: "asc" }],
+      },
     },
   });
 
@@ -189,6 +197,8 @@ export default async function SubjectDetailPage({ params }: PageProps) {
         versionYear: curriculum.versionYear || undefined,
       }}
       syllabusResource={syllabusResource}
+      externalResources={subject.externalResources}
+      videoLectures={subject.videoLectures}
       isDownloadEligible={isDownloadEligible}
       validationStatus={validationStatus}
       validationNotes={validationNotes}

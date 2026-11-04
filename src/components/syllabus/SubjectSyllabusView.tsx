@@ -19,6 +19,14 @@ import {
   FileCheck
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
+import {
+  ExternalResourcesSection,
+  ExternalResourceItem,
+} from "@/components/resources/ExternalResourcesSection";
+import {
+  VideoLecturesSection,
+  VideoLectureItem,
+} from "@/components/video/VideoLecturesSection";
 
 export interface SyllabusDetails {
   objectives?: string[];
@@ -69,6 +77,8 @@ export interface SubjectSyllabusViewProps {
     versionYear?: string;
   };
   syllabusResource?: SubjectResourceItem | null;
+  externalResources?: ExternalResourceItem[];
+  videoLectures?: VideoLectureItem[];
   isDownloadEligible: boolean;
   validationStatus: "VERIFIED" | "IN_REVIEW" | "PENDING";
   validationNotes?: string;
@@ -81,6 +91,8 @@ export function SubjectSyllabusView({
   programme,
   curriculum,
   syllabusResource,
+  externalResources = [],
+  videoLectures = [],
   isDownloadEligible,
   validationStatus,
   validationNotes,
@@ -445,7 +457,27 @@ export function SubjectSyllabusView({
         )}
 
         {/* ========================================================================= */}
-        {/* SECTION 6: OFFICIAL SYLLABUS PDF DOCUMENT (NO EMBEDDED VIEWER)             */}
+        {/* SECTION 6: EXTERNAL LEARNING RESOURCES (Phase 2 & 3 Standard)             */}
+        {/* ========================================================================= */}
+        {externalResources && externalResources.length > 0 && (
+          <ExternalResourcesSection
+            subjectCode={subject.code}
+            subjectName={subject.name}
+            resources={externalResources}
+          />
+        )}
+
+        {/* ========================================================================= */}
+        {/* SECTION 7: CURATED VIDEO LECTURES (Phase 4 & 5 Standard)                  */}
+        {/* ========================================================================= */}
+        <VideoLecturesSection
+          subjectCode={subject.code}
+          subjectName={subject.name}
+          videos={videoLectures || []}
+        />
+
+        {/* ========================================================================= */}
+        {/* SECTION 8: OFFICIAL SYLLABUS PDF DOCUMENT (NO EMBEDDED VIEWER)             */}
         {/* ========================================================================= */}
         {syllabusResource && isDownloadEligible ? (
           <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-4">
@@ -539,3 +571,4 @@ export function SubjectSyllabusView({
     </div>
   );
 }
+

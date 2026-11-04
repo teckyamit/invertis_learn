@@ -5,3 +5,4 @@ console.log('Items in review:');
 for (const item of res.inReviewOrPending) {
   console.log(`- [${item.code}] ${item.name} (${item.programme} Sem ${item.semester}) -> ${item.reason}`);
 }
+
