@@ -1,0 +1,576 @@
+{
+  "totalProgrammes": 24,
+  "programmesWithCurriculum": 3,
+  "totalSemesters": 20,
+  "totalSubjects": 220,
+  "subjectsWithFullSyllabus": 8,
+  "subjectsWithPartialSyllabus": 68,
+  "subjectsWithNoSyllabusDetails": 144,
+  "subjectsWithValidIsolatedPdf": 220,
+  "programmes": [
+    {
+      "code": "BTECH-CSE",
+      "name": "Bachelor of Technology in Computer Science & Engineering",
+      "category": "UNDERGRADUATE",
+      "degreeLevel": "UNDERGRADUATE",
+      "hasOfficialSyllabus": true,
+      "curriculumVersion": "2023-2024",
+      "semesterCount": 8,
+      "subjectsCount": 110,
+      "fullyExtractedCount": 8,
+      "partialCount": 14,
+      "noDataCount": 88,
+      "pdfCount": 110,
+      "validPdfCount": 110
+    },
+    {
+      "code": "MTECH-CSE",
+      "name": "Master of Technology in Computer Science & Engineering",
+      "category": "POSTGRADUATE",
+      "degreeLevel": "POSTGRADUATE",
+      "hasOfficialSyllabus": true,
+      "curriculumVersion": "2023-2024",
+      "semesterCount": 4,
+      "subjectsCount": 28,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 28,
+      "pdfCount": 28,
+      "validPdfCount": 28
+    },
+    {
+      "code": "BTECH-CSE-AI",
+      "name": "B.Tech CSE (Artificial Intelligence & Machine Learning)",
+      "category": "UNDERGRADUATE",
+      "degreeLevel": "UNDERGRADUATE",
+      "hasOfficialSyllabus": true,
+      "curriculumVersion": "2023-2024",
+      "semesterCount": 8,
+      "subjectsCount": 82,
+      "fullyExtractedCount": 0,
+      "partialCount": 54,
+      "noDataCount": 28,
+      "pdfCount": 82,
+      "validPdfCount": 82
+    },
+    {
+      "code": "BTECH-CSE-CC",
+      "name": "B.Tech CSE (Cloud Computing & Cyber Security)",
+      "category": "UNDERGRADUATE",
+      "degreeLevel": "UNDERGRADUATE",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "BTECH-CSE-IOT",
+      "name": "B.Tech CSE (Internet of Things - IoT)",
+      "category": "UNDERGRADUATE",
+      "degreeLevel": "UNDERGRADUATE",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "BTECH-ME",
+      "name": "Bachelor of Technology in Mechanical Engineering",
+      "category": "UNDERGRADUATE",
+      "degreeLevel": "UNDERGRADUATE",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "BTECH-CE",
+      "name": "Bachelor of Technology in Civil Engineering",
+      "category": "UNDERGRADUATE",
+      "degreeLevel": "UNDERGRADUATE",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "BTECH-EE",
+      "name": "Bachelor of Technology in Electrical Engineering",
+      "category": "UNDERGRADUATE",
+      "degreeLevel": "UNDERGRADUATE",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "BTECH-BT",
+      "name": "Bachelor of Technology in Biotechnology Engineering",
+      "category": "UNDERGRADUATE",
+      "degreeLevel": "UNDERGRADUATE",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "BTECH-CSE-LAT",
+      "name": "B.Tech CSE (Lateral Entry - 2nd Year Direct)",
+      "category": "UNDERGRADUATE",
+      "degreeLevel": "UNDERGRADUATE",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "BTECH-CE-LAT",
+      "name": "B.Tech Civil Engineering (Lateral Entry)",
+      "category": "UNDERGRADUATE",
+      "degreeLevel": "UNDERGRADUATE",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "BTECH-EE-LAT",
+      "name": "B.Tech Electrical Engineering (Lateral Entry)",
+      "category": "UNDERGRADUATE",
+      "degreeLevel": "UNDERGRADUATE",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "BTECH-ME-LAT",
+      "name": "B.Tech Mechanical Engineering (Lateral Entry)",
+      "category": "UNDERGRADUATE",
+      "degreeLevel": "UNDERGRADUATE",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "DIP-CSE",
+      "name": "Diploma in Computer Science & Engineering",
+      "category": "DIPLOMA",
+      "degreeLevel": "DIPLOMA",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "DIP-CE",
+      "name": "Diploma in Civil Engineering",
+      "category": "DIPLOMA",
+      "degreeLevel": "DIPLOMA",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "DIP-EE",
+      "name": "Diploma in Electrical Engineering",
+      "category": "DIPLOMA",
+      "degreeLevel": "DIPLOMA",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "DIP-ME-PROD",
+      "name": "Diploma in Mechanical Engineering (Production)",
+      "category": "DIPLOMA",
+      "degreeLevel": "DIPLOMA",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "DIP-ME-AUTO",
+      "name": "Diploma in Mechanical Engineering (Automobile)",
+      "category": "DIPLOMA",
+      "degreeLevel": "DIPLOMA",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "DIP-ENG-LAT",
+      "name": "Polytechnic Diploma in Engineering (Lateral Entry)",
+      "category": "DIPLOMA",
+      "degreeLevel": "DIPLOMA",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "MTECH-ME",
+      "name": "Master of Technology in Mechanical Engineering",
+      "category": "POSTGRADUATE",
+      "degreeLevel": "POSTGRADUATE",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "MTECH-CE",
+      "name": "Master of Technology in Civil Engineering",
+      "category": "POSTGRADUATE",
+      "degreeLevel": "POSTGRADUATE",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "PHD-009",
+      "name": "Ph.D. in Computer Science & Engineering",
+      "category": "DOCTORAL",
+      "degreeLevel": "DOCTORAL",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "PHD-010",
+      "name": "Ph.D. in Mechanical Engineering",
+      "category": "DOCTORAL",
+      "degreeLevel": "DOCTORAL",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    },
+    {
+      "code": "PHD-011",
+      "name": "Ph.D. in Electrical Engineering",
+      "category": "DOCTORAL",
+      "degreeLevel": "DOCTORAL",
+      "hasOfficialSyllabus": false,
+      "curriculumVersion": null,
+      "semesterCount": 0,
+      "subjectsCount": 0,
+      "fullyExtractedCount": 0,
+      "partialCount": 0,
+      "noDataCount": 0,
+      "pdfCount": 0,
+      "validPdfCount": 0
+    }
+  ],
+  "incompleteSubjectsCount": 212,
+  "incompleteSubjectsSample": [
+    {
+      "programme": "BTECH-CSE",
+      "semester": 1,
+      "code": "BAS101",
+      "name": "Physics",
+      "type": "THEORY",
+      "missing": [
+        "course_outcomes"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 1,
+      "code": "BAS102",
+      "name": "Engineering Mathematics - I",
+      "type": "THEORY",
+      "missing": [
+        "course_outcomes"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 1,
+      "code": "BAS151",
+      "name": "Physics Lab",
+      "type": "PRACTICAL",
+      "missing": [
+        "course_outcomes"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 1,
+      "code": "BCE101",
+      "name": "Engineering Graphics and Design",
+      "type": "THEORY",
+      "missing": [
+        "course_outcomes"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 1,
+      "code": "BCE151",
+      "name": "Engineering Graphics and Design Lab",
+      "type": "PRACTICAL",
+      "missing": [
+        "all_syllabus_data"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 1,
+      "code": "BCS101",
+      "name": "Computer Fundamentals (Introduction to Computers)",
+      "type": "THEORY",
+      "missing": [
+        "course_outcomes"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 1,
+      "code": "BCS151",
+      "name": "Introduction to Computers Lab",
+      "type": "PRACTICAL",
+      "missing": [
+        "all_syllabus_data"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 1,
+      "code": "BEE101",
+      "name": "Basic Electrical Engineering",
+      "type": "THEORY",
+      "missing": [
+        "course_outcomes"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 1,
+      "code": "BEE151",
+      "name": "Basic Electrical Engineering Lab",
+      "type": "PRACTICAL",
+      "missing": [
+        "all_syllabus_data"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 1,
+      "code": "IIOT1",
+      "name": "Fundamentals of IoT Development",
+      "type": "THEORY",
+      "missing": [
+        "all_syllabus_data"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 2,
+      "code": "BAS-251",
+      "name": "Chemistry Lab",
+      "type": "PRACTICAL",
+      "missing": [
+        "all_syllabus_data"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 2,
+      "code": "BAS201",
+      "name": "Chemistry",
+      "type": "THEORY",
+      "missing": [
+        "course_outcomes"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 2,
+      "code": "BAS202",
+      "name": "Mathematics-II",
+      "type": "THEORY",
+      "missing": [
+        "course_outcomes"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 2,
+      "code": "BCS-251",
+      "name": "Programming for Problem Solving Lab",
+      "type": "PRACTICAL",
+      "missing": [
+        "course_outcomes"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 2,
+      "code": "BME251",
+      "name": "Workshop/Manufacturing Practice Lab",
+      "type": "PRACTICAL",
+      "missing": [
+        "all_syllabus_data"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 2,
+      "code": "HAS-251",
+      "name": "English Lab",
+      "type": "PRACTICAL",
+      "missing": [
+        "all_syllabus_data"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 2,
+      "code": "IIOT2",
+      "name": "Industrial Communication Protocols & Connectivity",
+      "type": "THEORY",
+      "missing": [
+        "all_syllabus_data"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 3,
+      "code": "BAS-301",
+      "name": "Mathematics-III",
+      "type": "THEORY",
+      "missing": [
+        "all_syllabus_data"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 3,
+      "code": "BCS-304",
+      "name": "Python",
+      "type": "THEORY",
+      "missing": [
+        "course_outcomes"
+      ]
+    },
+    {
+      "programme": "BTECH-CSE",
+      "semester": 3,
+      "code": "BCS-351",
+      "name": "Data Structures Lab",
+      "type": "PRACTICAL",
+      "missing": [
+        "course_outcomes"
+      ]
+    }
+  ],
+  "verifiedSubjectsCount": 8
+}
