@@ -24,7 +24,7 @@ export async function serveResource(request: NextRequest, category?: string, sto
     const resolved = resolveStoragePath(resource.storagePath);
     const filePath = await fs.realpath(resolved);
     const allowedRoots = await Promise.all(
-      allowedStorageRoots().map(async r => {
+      allowedStorageRoots().map(async (r: string) => {
         try {
           return await fs.realpath(r);
         } catch {
@@ -61,7 +61,8 @@ export async function serveResource(request: NextRequest, category?: string, sto
     if (range) headers.set("Content-Range", `bytes ${start}-${end}/${stat.size}`);
     return new NextResponse(Readable.toWeb(createReadStream(filePath, { start, end })) as ReadableStream, { status: range ? 206 : 200, headers });
   } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === "ENOENT") return NextResponse.json({ error: "File unavailable" }, { status: 404 });
+    const err = error as NodeJS.ErrnoException;
+    if (err?.code === "ENOENT" || (error as { code?: string })?.code === "ENOENT") return NextResponse.json({ error: "File unavailable" }, { status: 404 });
     const incidentId = reportError("resource.download", error);
     return NextResponse.json({ error: "Download failed", incidentId }, { status: 500 });
   }

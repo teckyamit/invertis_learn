@@ -1,5 +1,6 @@
 import path from "path";
 import fs from "fs/promises";
+import { existsSync } from "fs";
 import { randomUUID } from "crypto";
 
 export function storageRoot() {
@@ -24,8 +25,7 @@ export function resolveStoragePath(storedPath: string) {
   // Fallback to public/uploads if file is physically stored there
   const publicUploads = path.resolve("./public/uploads");
   const fallbackResult = path.resolve(publicUploads, relative);
-  const fsSync = require("fs");
-  if (!fsSync.existsSync(result) && fsSync.existsSync(fallbackResult)) {
+  if (!existsSync(result) && existsSync(fallbackResult)) {
     if (fallbackResult.startsWith(publicUploads + path.sep)) {
       return fallbackResult;
     }
