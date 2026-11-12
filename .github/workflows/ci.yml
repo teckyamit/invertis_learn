@@ -44,11 +44,16 @@ jobs:
           npx prisma db push --skip-generate
           npm run db:seed
 
-      - name: Run Regression Tests
-        run: npm run test:regression
-
       - name: Verify Production Build
         run: npm run build
         env:
           NODE_ENV: production
+
+      - name: Run Regression Tests
+        run: |
+          npx next start -H 127.0.0.1 -p 3000 &
+          SERVER_PID=$!
+          node -e "const http=require('http'); function ping(t=30){http.get('http://127.0.0.1:3000/api/health',r=>{if(r.statusCode===200)process.exit(0);else retry(t);}).on('error',()=>retry(t));} function retry(t){if(t<=0){process.exit(1);}setTimeout(()=>ping(t-1),1000);} ping();"
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          npm run test:regression
 
