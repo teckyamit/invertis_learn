@@ -16,6 +16,7 @@
   <img src="https://img.shields.io/badge/TailwindCSS-3.4.14-38B2AC?logo=tailwind-css" alt="Tailwind CSS" />
   <img src="https://img.shields.io/badge/Prisma-5.21.1-2D3748?logo=prisma" alt="Prisma" />
   <img src="https://img.shields.io/badge/Node-%3E%3D22.14-green?logo=node.js" alt="Node Version" />
+  <img src="https://img.shields.io/badge/CI-GitHub_Actions-2088FF?logo=github-actions" alt="CI Status" />
 </p>
 
 ---
@@ -285,12 +286,14 @@ Comprehensive technical guides are available in the [`docs/`](file:///g:/inverti
 
 ## Deployment
 
-Invertis Learn requires a **persistent Node.js runtime** or a containerized environment with **persistent disk storage** to preserve SQLite database state and uploaded PDF files.
+Invertis Learn supports multiple deployment targets:
+- **Vercel**: Optimized for Next.js App Router with globally distributed Edge CDN caching for static syllabus and examination PDFs. Database persistence is achieved via external PostgreSQL (e.g. Neon, Supabase).
+- **Cloud VPS (DigitalOcean / Hetzner / AWS EC2)**: 100% native out-of-the-box compatibility with the default SQLite database (`prisma/dev.db`) and local persistent filesystem.
+- **PaaS (Railway / Render)**: Containerized deployment using persistent volumes.
 
-> [!IMPORTANT]
-> Standard serverless platforms with ephemeral filesystems (e.g., standard Vercel or Netlify deploys) will discard local uploads and the SQLite database upon container recreation. For serverless deployments, external database hosting (PostgreSQL via Supabase/Neon) and cloud object storage (AWS S3 / Cloudflare R2) are required.
-> 
-> Refer to [**Deployment Guide (`docs/DEPLOYMENT.md`)**](docs/DEPLOYMENT.md) for step-by-step VPS (Docker/PM2), Railway, and Render deployment guides.
+For step-by-step setup instructions, refer to:
+- [**Quick-Start Deployment Guide (`DEPLOYMENT.md`)**](DEPLOYMENT.md)
+- [**Comprehensive Production Architecture (`docs/DEPLOYMENT.md`)**](docs/DEPLOYMENT.md)
 
 ---
 

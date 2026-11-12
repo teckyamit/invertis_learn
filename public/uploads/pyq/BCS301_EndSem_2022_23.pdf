@@ -1,0 +1,66 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 2892 >>
+stream
+BT /F2 16 Tf 176.9 790.0 Td (INVERTIS UNIVERSITY, BAREILLY) Tj ET
+BT /F2 12 Tf 188.3 770.0 Td (FACULTY OF ENGINEERING & TECHNOLOGY) Tj ET
+BT /F2 13 Tf 189.3 750.0 Td (END-SEMESTER EXAMINATION 2022-23) Tj ET
+BT /F1 11 Tf 220.3 732.0 Td (Academic Session: 2022-2023) Tj ET
+BT /F1 9 Tf 30.0 718.0 Td (-------------------------------------------------------------------------------------------------------------------) Tj ET
+BT /F2 10 Tf 50.0 702.0 Td (Programme: B.Tech. \(Computer Science & Engineering\)) Tj ET
+BT /F2 10 Tf 380.0 702.0 Td (Semester: Semester III) Tj ET
+BT /F2 10 Tf 50.0 686.0 Td (Course Code: BCS-301) Tj ET
+BT /F2 10 Tf 380.0 686.0 Td (Course Title: Data Structures) Tj ET
+BT /F1 10 Tf 50.0 670.0 Td (Time Allowed: 3 Hours) Tj ET
+BT /F1 10 Tf 380.0 670.0 Td (Maximum Marks: 50) Tj ET
+BT /F1 9 Tf 30.0 658.0 Td (-------------------------------------------------------------------------------------------------------------------) Tj ET
+BT /F1 9 Tf 50.0 644.0 Td (Note: Attempt all sections as per instructions. Assume missing data suitably, if any.) Tj ET
+BT /F2 11 Tf 50.0 620.0 Td (SECTION A \(Short Answer Questions - 2 Marks each\)) Tj ET
+BT /F1 10 Tf 50.0 602.0 Td (Q1\(a\). Define Abstract Data Type \(ADT\) with an appropriate example.) Tj ET
+BT /F1 10 Tf 50.0 584.0 Td (Q1\(b\). Differentiate between Linear Search and Binary Search time complexity.) Tj ET
+BT /F1 10 Tf 50.0 566.0 Td (Q1\(c\). Explain the condition for Stack Overflow and Stack Underflow.) Tj ET
+BT /F1 10 Tf 50.0 548.0 Td (Q1\(d\). What is a Circular Queue? How does it overcome linear queue limitation?) Tj ET
+BT /F1 10 Tf 50.0 530.0 Td (Q1\(e\). Define Depth First Search \(DFS\) and Breadth First Search \(BFS\).) Tj ET
+BT /F2 11 Tf 50.0 502.0 Td (SECTION B \(Analytical Questions - 5 Marks each\)) Tj ET
+BT /F1 10 Tf 50.0 484.0 Td (Q2. Write an algorithm to insert and delete a node from a Doubly Linked List.) Tj ET
+BT /F1 10 Tf 50.0 466.0 Td (Q3. Convert the infix expression \(\(A + B\) * C - \(D - E\)\) ^ \(F + G\) into postfix form.) Tj ET
+BT /F1 10 Tf 50.0 448.0 Td (Q4. Construct an AVL Tree by inserting keys: 21, 26, 30, 9, 4, 14, 28, 18, 15, 10.) Tj ET
+BT /F2 11 Tf 50.0 420.0 Td (SECTION C \(Descriptive Questions - 10 Marks each, Attempt Any Two\)) Tj ET
+BT /F1 10 Tf 50.0 402.0 Td (Q5. Explain Quick Sort algorithm with partition logic. Analyze its Best, Average, and) Tj ET
+BT /F1 10 Tf 50.0 387.0 Td (   Worst case time complexity.) Tj ET
+BT /F1 10 Tf 50.0 369.0 Td (Q6. Define Minimum Cost Spanning Tree. Describe Prim's and Kruskal's algorithm with a) Tj ET
+BT /F1 10 Tf 50.0 354.0 Td (   graph example.) Tj ET
+BT /F1 10 Tf 50.0 336.0 Td (Q7. Write short notes on: \(a\) Collision resolution in Hashing, \(b\) Threaded Binary) Tj ET
+BT /F1 10 Tf 50.0 321.0 Td (   Tree.) Tj ET
+BT /F2 9 Tf 145.4 293.0 Td (===================== END OF QUESTION PAPER =====================) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000321 00000 n 
+0000000396 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+3339
+%%EOF

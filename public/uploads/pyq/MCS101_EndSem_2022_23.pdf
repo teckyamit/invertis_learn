@@ -1,0 +1,65 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 2567 >>
+stream
+BT /F2 16 Tf 176.9 790.0 Td (INVERTIS UNIVERSITY, BAREILLY) Tj ET
+BT /F2 12 Tf 188.3 770.0 Td (FACULTY OF ENGINEERING & TECHNOLOGY) Tj ET
+BT /F2 13 Tf 189.3 750.0 Td (END-SEMESTER EXAMINATION 2022-23) Tj ET
+BT /F1 11 Tf 220.3 732.0 Td (Academic Session: 2022-2023) Tj ET
+BT /F1 9 Tf 30.0 718.0 Td (-------------------------------------------------------------------------------------------------------------------) Tj ET
+BT /F2 10 Tf 50.0 702.0 Td (Programme: M.Tech. \(Computer Science & Engineering\)) Tj ET
+BT /F2 10 Tf 380.0 702.0 Td (Semester: Semester I) Tj ET
+BT /F2 10 Tf 50.0 686.0 Td (Course Code: MCS-101) Tj ET
+BT /F2 10 Tf 380.0 686.0 Td (Course Title: Advanced Computer Architecture) Tj ET
+BT /F1 10 Tf 50.0 670.0 Td (Time Allowed: 3 Hours) Tj ET
+BT /F1 10 Tf 380.0 670.0 Td (Maximum Marks: 70) Tj ET
+BT /F1 9 Tf 30.0 658.0 Td (-------------------------------------------------------------------------------------------------------------------) Tj ET
+BT /F1 9 Tf 50.0 644.0 Td (Note: Attempt all sections as per instructions. Assume missing data suitably, if any.) Tj ET
+BT /F2 11 Tf 50.0 620.0 Td (SECTION A \(Short Answers - 3.5 Marks each\)) Tj ET
+BT /F1 10 Tf 50.0 602.0 Td (Q1\(a\). State Amdahl's Law and calculate speedup with 80% parallelized code on 8) Tj ET
+BT /F1 10 Tf 50.0 587.0 Td (   processors.) Tj ET
+BT /F1 10 Tf 50.0 569.0 Td (Q1\(b\). Explain Flynn's taxonomy classification of computer architectures.) Tj ET
+BT /F1 10 Tf 50.0 551.0 Td (Q1\(c\). Differentiate between static and dynamic pipeline processors.) Tj ET
+BT /F1 10 Tf 50.0 533.0 Td (Q1\(d\). Explain the cache coherence problem in multiprocessor systems.) Tj ET
+BT /F2 11 Tf 50.0 505.0 Td (SECTION B \(7 Marks each\)) Tj ET
+BT /F1 10 Tf 50.0 487.0 Td (Q2. Describe Tomasulo's algorithm for dynamic instruction scheduling with reservation) Tj ET
+BT /F1 10 Tf 50.0 472.0 Td (   stations.) Tj ET
+BT /F1 10 Tf 50.0 454.0 Td (Q3. Explain branch prediction strategies: 1-bit, 2-bit saturating counters, and) Tj ET
+BT /F1 10 Tf 50.0 439.0 Td (   correlating branch predictors.) Tj ET
+BT /F2 11 Tf 50.0 411.0 Td (SECTION C \(14 Marks each\)) Tj ET
+BT /F1 10 Tf 50.0 393.0 Td (Q4. Discuss snooping vs directory-based cache coherence protocols \(MESI / MOESI\) in) Tj ET
+BT /F1 10 Tf 50.0 378.0 Td (   detail.) Tj ET
+BT /F1 10 Tf 50.0 360.0 Td (Q5. Explain Vector Processing and SIMD architecture with Matrix Multiplication) Tj ET
+BT /F1 10 Tf 50.0 345.0 Td (   application.) Tj ET
+BT /F2 9 Tf 145.4 317.0 Td (===================== END OF QUESTION PAPER =====================) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000321 00000 n 
+0000000396 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+3014
+%%EOF

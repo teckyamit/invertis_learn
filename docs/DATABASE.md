@@ -273,7 +273,7 @@ For multi-instance or serverless deployments requiring concurrent writes:
    ```
 2. **Update `.env`**:
    ```ini
-   DATABASE_URL="postgresql://user:password@host:5432/invertislearn?sslmode=require"
+   DATABASE_URL="postgresql://<username>:<password>@<host>:5432/invertislearn?sslmode=require"
    ```
 3. **Deploy Migrations**:
    ```bash

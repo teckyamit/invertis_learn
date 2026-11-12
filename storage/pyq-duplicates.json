@@ -1,0 +1,116 @@
+[
+  {
+    "original": {
+      "file": "G:\\invertis learn\\storage\\temp_pyq_extract\\FOET\\B.Tech (CSE) VIII SEM\\MCS202-PARALLEL COMPUTING.pdf",
+      "relPath": "FOET/B.Tech (CSE) VIII SEM/MCS202-PARALLEL COMPUTING.pdf",
+      "filename": "MCS202-PARALLEL COMPUTING.pdf",
+      "parentFolder": "B.Tech (CSE) VIII SEM",
+      "detectedSession": "2024-2025",
+      "detectedExamType": "END_SEMESTER",
+      "detectedCourse": "B. Tech. M.Tech./ M. Tech. (CSE)",
+      "detectedSemester": 8,
+      "detectedCode": "MCS202",
+      "detectedTitle": "PARALLEL COMPUTING",
+      "matchedSubjects": [
+        {
+          "subjectId": "cmw0yvivx007kpkgby8cwu8rn",
+          "subjectCode": "MCS-202",
+          "subjectName": "Parallel Computing",
+          "programmeCode": "MTECH-CSE",
+          "semesterNumber": 2,
+          "matchRule": "EXACT_CODE",
+          "semMatch": false
+        }
+      ],
+      "status": "MATCHED",
+      "statusReason": "Matched to MTECH-CSE Sem 2 (MCS-202)",
+      "fileSize": 112157,
+      "sha256": "0ae2a37d8910528f735a7fc0f741f3355fabf24693cddd71f7e5f290d8dc76bf"
+    },
+    "duplicate": {
+      "file": "G:\\invertis learn\\storage\\temp_pyq_extract\\FOET\\M. Tech. (CSE) II SEM\\MCS202-PARALLEL COMPUTING.pdf",
+      "relPath": "FOET/M. Tech. (CSE) II SEM/MCS202-PARALLEL COMPUTING.pdf",
+      "filename": "MCS202-PARALLEL COMPUTING.pdf",
+      "parentFolder": "M. Tech. (CSE) II SEM",
+      "detectedSession": "2024-2025",
+      "detectedExamType": "END_SEMESTER",
+      "detectedCourse": "B. Tech. M.Tech./ M. Tech. (CSE)",
+      "detectedSemester": 8,
+      "detectedCode": "MCS202",
+      "detectedTitle": "PARALLEL COMPUTING",
+      "matchedSubjects": [
+        {
+          "subjectId": "cmw0yvivx007kpkgby8cwu8rn",
+          "subjectCode": "MCS-202",
+          "subjectName": "Parallel Computing",
+          "programmeCode": "MTECH-CSE",
+          "semesterNumber": 2,
+          "matchRule": "EXACT_CODE",
+          "semMatch": false
+        }
+      ],
+      "status": "MATCHED",
+      "statusReason": "Matched to MTECH-CSE Sem 2 (MCS-202)",
+      "fileSize": 112157,
+      "sha256": "0ae2a37d8910528f735a7fc0f741f3355fabf24693cddd71f7e5f290d8dc76bf"
+    },
+    "hash": "0ae2a37d8910528f735a7fc0f741f3355fabf24693cddd71f7e5f290d8dc76bf"
+  },
+  {
+    "original": {
+      "file": "G:\\invertis learn\\storage\\temp_pyq_extract\\FOET\\B.Tech (CSE) II SEM\\MCS213-Q. 1. ANSWER THE FOLLOWING QUESTIONS (1 × 5 = 5 MARKS).pdf",
+      "relPath": "FOET/B.Tech (CSE) II SEM/MCS213-Q. 1. ANSWER THE FOLLOWING QUESTIONS (1 × 5 = 5 MARKS).pdf",
+      "filename": "MCS213-Q. 1. ANSWER THE FOLLOWING QUESTIONS (1 × 5 = 5 MARKS).pdf",
+      "parentFolder": "B.Tech (CSE) II SEM",
+      "detectedSession": "2024-2025",
+      "detectedExamType": "END_SEMESTER",
+      "detectedCourse": "M. Tech. / B. Tech. M. Tech. (CSE)",
+      "detectedSemester": 2,
+      "detectedCode": "MCS213",
+      "detectedTitle": "NETWORK SECURITY AND CRYPTOGRAPHY",
+      "matchedSubjects": [
+        {
+          "subjectId": "cmw0yvjn9007upkgbwyxvgcv4",
+          "subjectCode": "MCS-213",
+          "subjectName": "Network Security & Cryptography",
+          "programmeCode": "MTECH-CSE",
+          "semesterNumber": 2,
+          "matchRule": "EXACT_CODE",
+          "semMatch": true
+        }
+      ],
+      "status": "MATCHED",
+      "statusReason": "Matched to MTECH-CSE Sem 2 (MCS-213)",
+      "fileSize": 128376,
+      "sha256": "4ede8b4870ed36b94f3980ecfcc64b2aca39a2675ccb111f3ebecbc8c99a45eb"
+    },
+    "duplicate": {
+      "file": "G:\\invertis learn\\storage\\temp_pyq_extract\\FOET\\M. Tech. (CSE) II SEM\\MCS213-NETWORK SECURITY AND CRYPTOGRAPHY.pdf",
+      "relPath": "FOET/M. Tech. (CSE) II SEM/MCS213-NETWORK SECURITY AND CRYPTOGRAPHY.pdf",
+      "filename": "MCS213-NETWORK SECURITY AND CRYPTOGRAPHY.pdf",
+      "parentFolder": "M. Tech. (CSE) II SEM",
+      "detectedSession": "2024-2025",
+      "detectedExamType": "END_SEMESTER",
+      "detectedCourse": "M. Tech. / B. Tech. M. Tech. (CSE)",
+      "detectedSemester": 2,
+      "detectedCode": "MCS213",
+      "detectedTitle": "NETWORK SECURITY AND CRYPTOGRAPHY",
+      "matchedSubjects": [
+        {
+          "subjectId": "cmw0yvjn9007upkgbwyxvgcv4",
+          "subjectCode": "MCS-213",
+          "subjectName": "Network Security & Cryptography",
+          "programmeCode": "MTECH-CSE",
+          "semesterNumber": 2,
+          "matchRule": "EXACT_CODE",
+          "semMatch": true
+        }
+      ],
+      "status": "MATCHED",
+      "statusReason": "Matched to MTECH-CSE Sem 2 (MCS-213)",
+      "fileSize": 128376,
+      "sha256": "4ede8b4870ed36b94f3980ecfcc64b2aca39a2675ccb111f3ebecbc8c99a45eb"
+    },
+    "hash": "4ede8b4870ed36b94f3980ecfcc64b2aca39a2675ccb111f3ebecbc8c99a45eb"
+  }
+]

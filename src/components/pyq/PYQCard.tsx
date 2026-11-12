@@ -2,7 +2,7 @@
 import { provenanceLabel } from "@/lib/resource-policy";
 
 import React from "react";
-import { Download, FileText, Calendar, CheckCircle2, Award, Eye } from "lucide-react";
+import { Download, FileText, Calendar, CheckCircle2, Award, Eye, ExternalLink } from "lucide-react";
 
 export interface PYQResource {
   id: string;
@@ -29,6 +29,7 @@ export function PYQCard({ pyq, onPreview }: PYQCardProps) {
     : "PDF";
 
   const downloadUrl = `/api/pyq/download?file=${encodeURIComponent(pyq.storedFileName)}&name=${encodeURIComponent(pyq.title)}`;
+  const viewUrl = `/api/pyq/download?file=${encodeURIComponent(pyq.storedFileName)}&name=${encodeURIComponent(pyq.title)}&inline=1`;
 
   const examTypeLabel =
     pyq.examType === "MID_SEMESTER"
@@ -84,22 +85,25 @@ export function PYQCard({ pyq, onPreview }: PYQCardProps) {
 
       {/* Action Buttons */}
       <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-        {onPreview && (
-          <button
-            onClick={() => onPreview(pyq)}
-            className="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition min-h-[38px]"
-          >
-            <Eye className="h-3.5 w-3.5 mr-1" />
-            Preview
-          </button>
-        )}
+        <a
+          href={viewUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition min-h-[38px]"
+          title="Open question paper in a new tab"
+        >
+          <ExternalLink className="h-3.5 w-3.5 mr-1 text-slate-500" />
+          View PDF
+        </a>
 
         <a
           href={downloadUrl}
+          download={pyq.storedFileName}
           className="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-lg shadow-sm transition min-h-[38px]"
+          title="Download question paper PDF"
         >
           <Download className="h-3.5 w-3.5 mr-1" />
-          Download
+          Download PDF
         </a>
       </div>
     </div>

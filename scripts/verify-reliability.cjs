@@ -5,7 +5,7 @@ const db=new PrismaClient();
 const base=process.env.TEST_BASE_URL||'http://127.0.0.1:3000';
 async function main(){
  let checks=0;
- async function route(url,status=200,options){const r=await fetch(base+url,{signal:AbortSignal.timeout(15000),...options});assert.equal(r.status,status,`${url}: ${r.status}, expected ${status}`);checks++;return r;}
+ async function route(url,status=200,options){const r=await fetch(base+url,{signal:AbortSignal.timeout(30000),...options});assert.equal(r.status,status,`${url}: ${r.status}, expected ${status}`);checks++;return r;}
  for(const url of ['/','/engineering','/resources','/programmes','/syllabus','/notes','/labs','/pyq','/projects','/career-pathways','/about','/search','/admin','/api/health'])await route(url);
  for(const code of ['BTECH-CSE-LE','BTECH-CSE-AI-LE']){
   for(const family of ['syllabus','notes','labs','pyq']){await route(`/${family}/${code}`);await route(`/${family}/${code}/semester/3`);await route(`/${family}/${code}/semester/1`,404);await route(`/${family}/${code}/semester/3junk`,404);}

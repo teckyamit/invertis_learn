@@ -13,12 +13,16 @@ interface PageProps {
     semesterNumber: string;
     subjectCode: string;
   }>;
+  searchParams?: Promise<{
+    entry?: string;
+  }>;
 }
 
 export const revalidate = 3600;
 
-export default async function PYQSubjectArchivePage({ params: paramsPromise }: PageProps) {
+export default async function PYQSubjectArchivePage({ params: paramsPromise, searchParams: searchParamsPromise }: PageProps) {
   const params = await paramsPromise;
+  const searchParams = searchParamsPromise ? await searchParamsPromise : undefined;
   const programmeCode = params.programmeCode;
   const semNum = Number(params.semesterNumber);
   const subjectCode = params.subjectCode;
@@ -27,7 +31,7 @@ export default async function PYQSubjectArchivePage({ params: paramsPromise }: P
     notFound();
   }
 
-  const { programme: requestedProgramme, parentCode } = await resolveProgrammeRoute(programmeCode, semNum);
+  const { programme: requestedProgramme, parentCode } = await resolveProgrammeRoute(programmeCode, semNum, searchParams?.entry);
   const subject = await db.subject.findFirst({
     where: {
       code: subjectCode,

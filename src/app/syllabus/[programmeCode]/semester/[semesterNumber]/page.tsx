@@ -42,6 +42,9 @@ export async function generateMetadata({ params: paramsPromise, searchParams: se
   }
 
   const modeLabel = entryMode === "lateral" ? " (Lateral Entry)" : "";
+  if (!isSemesterAllowedForMode(canonicalCode, semNum, entryMode)) {
+    return { title: "Semester Not Found | Invertis Learn" };
+  }
   return {
     title: `Semester ${semNum} — ${programme.name}${modeLabel} | Invertis Learn`,
     description: `Official subject syllabus, course modules, lecture hours, and credit breakdown for Semester ${semNum} of ${programme.name} at Invertis University.`,
@@ -71,6 +74,9 @@ export default async function SemesterSubjectsPage({ params: paramsPromise, sear
 
   // If lateral mode was requested for a semester prior to lateral entry start (e.g. Sem 1 or 2)
   const isSemAllowedInCurrentMode = isSemesterAllowedForMode(canonicalCode, semNum, entryMode);
+  if (!isSemAllowedInCurrentMode) {
+    notFound();
+  }
 
   // Find programme metadata
   const programme = await db.programme.findUnique({

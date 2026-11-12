@@ -11,12 +11,16 @@ interface PageProps {
     programmeCode: string;
     semesterNumber: string;
   }>;
+  searchParams?: Promise<{
+    entry?: string;
+  }>;
 }
 
 export const revalidate = 3600;
 
-export default async function NotesSemesterSubjectsPage({ params: paramsPromise }: PageProps) {
+export default async function NotesSemesterSubjectsPage({ params: paramsPromise, searchParams: searchParamsPromise }: PageProps) {
   const params = await paramsPromise;
+  const searchParams = searchParamsPromise ? await searchParamsPromise : undefined;
   const programmeCode = params.programmeCode;
   const semNum = Number(params.semesterNumber);
 
@@ -24,7 +28,7 @@ export default async function NotesSemesterSubjectsPage({ params: paramsPromise 
     notFound();
   }
 
-  const { programme: requestedProgramme, parentCode } = await resolveProgrammeRoute(programmeCode, semNum);
+  const { programme: requestedProgramme, parentCode } = await resolveProgrammeRoute(programmeCode, semNum, searchParams?.entry);
   const curriculumProgramme = await db.programme.findUnique({
     where: { code: parentCode, isActive: true },
     include: {
