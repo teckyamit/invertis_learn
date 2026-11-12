@@ -1,0 +1,61 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 2433 >>
+stream
+BT /F2 16 Tf 176.9 795.0 Td (INVERTIS UNIVERSITY, BAREILLY) Tj ET
+BT /F2 11 Tf 197.4 775.0 Td (FACULTY OF ENGINEERING & TECHNOLOGY) Tj ET
+BT /F1 10 Tf 154.5 760.0 Td (OFFICIAL ACADEMIC LEARNING RESOURCE • DEPARTMENT OF CSE) Tj ET
+BT /F1 9 Tf 30.0 745.0 Td (-------------------------------------------------------------------------------------------------------------------) Tj ET
+BT /F2 11 Tf 50.0 730.0 Td (Course: [BCS201] Programming in C \(Programming for Problem Solving\)) Tj ET
+BT /F1 10 Tf 50.0 714.0 Td (Programme: Bachelor of Technology in Computer Science & Engineering) Tj ET
+BT /F2 10 Tf 380.0 714.0 Td (Resource Type: LECTURE NOTES) Tj ET
+BT /F1 10 Tf 50.0 698.0 Td (Module / Unit: Unit 1) Tj ET
+BT /F2 10 Tf 380.0 698.0 Td (Faculty Author: Prof. Neha Gupta \(Assistant Prof., Dept. of CSE\)) Tj ET
+BT /F1 9 Tf 30.0 686.0 Td (-------------------------------------------------------------------------------------------------------------------) Tj ET
+BT /F2 13 Tf 67.7 668.0 Td (Unit 1 & 2 Comprehensive Notes: C Syntax, Control Structures & Loops) Tj ET
+BT /F1 8 Tf 93.7 654.0 Td (==================================================================================================) Tj ET
+BT /F2 11 Tf 50.0 636.0 Td (1. C Language Fundamentals & Translation Pipeline) Tj ET
+BT /F1 9.5 Tf 55.0 619.0 Td (- Compilation Phases: Preprocessing \(#include, #define\), Compilation, Assembly, Linking.) Tj ET
+BT /F1 9.5 Tf 55.0 603.0 Td (- Primitive Data Types: int, char, float, double with size ranges and signedness) Tj ET
+BT /F1 9.5 Tf 55.0 589.0 Td (  modifiers.) Tj ET
+BT /F1 9.5 Tf 55.0 573.0 Td (- Storage Classes: auto, register, static, extern with scope, lifetime, and default) Tj ET
+BT /F1 9.5 Tf 55.0 559.0 Td (  linkage.) Tj ET
+BT /F2 11 Tf 50.0 535.0 Td (2. Control Flow, Branching & Loop Optimization) Tj ET
+BT /F1 9.5 Tf 55.0 518.0 Td (- Conditional Branching: if-else ladders, nested decisions, switch-case fallthrough) Tj ET
+BT /F1 9.5 Tf 55.0 504.0 Td (  rules.) Tj ET
+BT /F1 9.5 Tf 55.0 488.0 Td (- Iterative Structures: entry-controlled \(for, while\) vs exit-controlled \(do-while\)) Tj ET
+BT /F1 9.5 Tf 55.0 474.0 Td (  loops.) Tj ET
+BT /F1 9.5 Tf 55.0 458.0 Td (- Flow Control: break, continue, return, and disciplined avoidance of unconditional) Tj ET
+BT /F1 9.5 Tf 55.0 444.0 Td (  goto.) Tj ET
+BT /F2 8 Tf 156.1 420.0 Td (INVERTIS LEARN ACADEMIC REPOSITORY • FACULTY-VERIFIED STUDY RESOURCE) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000321 00000 n 
+0000000396 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2880
+%%EOF
