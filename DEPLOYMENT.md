@@ -43,7 +43,7 @@ Invertis Learn is built on **Next.js 15 (App Router)** and is optimized for depl
    | :--- | :--- |
    | `DATABASE_URL` | Neon pooled connection string (`-pooler`) for serverless queries |
    | `DIRECT_URL` | Neon direct connection string (unpooled) for Prisma schema migrations |
-   | `PRIVATE_STORAGE_PATH` | `./public/uploads` |
+   | `PRIVATE_STORAGE_PATH` | `./storage/uploads` |
    | `CURATOR_ACCESS_KEY` | Strong 64-character secret key (generate with `npm run curator:setup`) |
    | `APP_ORIGIN` | Your production Vercel URL (e.g. `https://invertis-learn.vercel.app`) |
    | `NODE_ENV` | `production` |

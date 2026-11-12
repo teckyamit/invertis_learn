@@ -31,9 +31,9 @@ jobs:
           --health-retries 5
 
     env:
-      DATABASE_URL: "postgresql://runner:runnerpassword@localhost:5432/invertis_learn_test"
-      DIRECT_URL: "postgresql://runner:runnerpassword@localhost:5432/invertis_learn_test"
-      PRIVATE_STORAGE_PATH: "./public/uploads"
+      DATABASE_URL: "postgresql://runner:runnerpassword@127.0.0.1:5432/invertis_learn_test"
+      DIRECT_URL: "postgresql://runner:runnerpassword@127.0.0.1:5432/invertis_learn_test"
+      PRIVATE_STORAGE_PATH: "./storage/uploads"
       CURATOR_ACCESS_KEY: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
 
     steps:
@@ -69,7 +69,7 @@ jobs:
         run: |
           npx next start -H 127.0.0.1 -p 3000 &
           SERVER_PID=$!
-          node -e "const http=require('http'); function ping(t=30){http.get('http://127.0.0.1:3000/api/health',r=>{if(r.statusCode===200)process.exit(0);else retry(t);}).on('error',()=>retry(t));} function retry(t){if(t<=0){process.exit(1);}setTimeout(()=>ping(t-1),1000);} ping();"
           trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          node -e "const http=require('http'); function ping(t=45){http.get('http://127.0.0.1:3000/api/health',r=>{if(r.statusCode===200){console.log('Next.js server is healthy (200 OK)');process.exit(0);}else{console.log('Health check returned status:', r.statusCode);retry(t);}}).on('error',e=>{console.log('Waiting for Next.js to start ('+e.message+')...');retry(t);});} function retry(t){if(t<=0){console.error('Next.js server failed to become ready');process.exit(1);}setTimeout(()=>ping(t-1),1000);} ping();"
           npm run test:regression
 
