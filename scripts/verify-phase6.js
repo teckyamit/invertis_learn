@@ -70,11 +70,14 @@ async function runVerification() {
     assert(componentContent.includes("Career Pathways & Industry Relevance"), "Component has proper heading");
     assert(componentContent.includes("Explore All 6 Pathways"), "Component links to pathways hub");
 
-    // 3. Live HTTP Testing: /pathways Hub Page
-    const pathwaysRes = await fetchUrl("/pathways");
-    assert(pathwaysRes.statusCode === 200, "GET /pathways returns HTTP 200 OK");
-    assert(pathwaysRes.body.includes("Engineering Career Pathways &amp; Specialization Tracks") || 
-           pathwaysRes.body.includes("Engineering Career Pathways & Specialization Tracks"),
+    // 3. Live HTTP Testing: /career-pathways Page & legacy redirect
+    const legacyRedirectRes = await fetchUrl("/pathways");
+    assert(legacyRedirectRes.statusCode === 307 || legacyRedirectRes.statusCode === 308, "GET /pathways redirects to /career-pathways");
+
+    const pathwaysRes = await fetchUrl("/career-pathways");
+    assert(pathwaysRes.statusCode === 200, "GET /career-pathways returns HTTP 200 OK");
+    assert(pathwaysRes.body.includes("Turn Your Academic Knowledge Into Career Opportunities") ||
+           pathwaysRes.body.includes("Career Specialization Tracks"),
            "Pathways Hub contains main title header");
     assert(pathwaysRes.body.includes("Artificial Intelligence &amp; Machine Learning Engineer") ||
            pathwaysRes.body.includes("Artificial Intelligence & Machine Learning Engineer"),
@@ -99,7 +102,9 @@ async function runVerification() {
     assert(pathwaysRes.body.includes("AWS Certified Solutions Architect") || pathwaysRes.body.includes("CompTIA Security+"),
            "Pathways Hub renders recognized industry certification badges");
     assert(pathwaysRes.body.includes("Target Industry Positions"), "Pathways Hub displays industry job titles & salary bands");
-    assert(pathwaysRes.body.includes("Invertis University Curriculum Mapping"), "Pathways Hub maps directly to Invertis subjects");
+    assert(pathwaysRes.body.includes("Related Academic Subjects (Invertis University Curriculum)") ||
+           pathwaysRes.body.includes("Invertis University Curriculum"),
+           "Pathways Hub maps directly to Invertis subjects");
 
     // 4. Live HTTP Testing: Subject Detail Page Integration (BCS201)
     const bcs201Res = await fetchUrl("/syllabus/BTECH-CSE/semester/2/BCS201");
@@ -109,7 +114,7 @@ async function runVerification() {
            "BCS201 displays Career Pathways & Industry Relevance section");
     assert(bcs201Res.body.includes("FOUNDATIONAL REQUIREMENT") || bcs201Res.body.includes("REQUIREMENT"),
            "BCS201 identifies course as foundational requirement");
-    assert(bcs201Res.body.includes("Phase 6: Career Pathways"), "BCS201 roadmap includes Phase 6: Career Pathways");
+    assert(bcs201Res.body.includes("Career Pathways &amp; Specializations") || bcs201Res.body.includes("Career Pathways & Specializations"), "BCS201 roadmap includes Career Pathways & Specializations");
 
     // 5. Live HTTP Testing: Subject Detail Page Integration (BCS-301 Data Structures)
     const bcs301Res = await fetchUrl("/syllabus/BTECH-CSE/semester/3/BCS-301");
@@ -118,12 +123,13 @@ async function runVerification() {
            bcs301Res.body.includes("Career Pathways & Industry Relevance"),
            "BCS-301 displays Career Pathways section");
 
-    // 6. Live HTTP Testing: Resources Page Cross-Link
+    // 6. Live HTTP Testing: Dedicated Navbar Link and Absence of Banner on Resources
+    const navRes = await fetchUrl("/");
+    assert(navRes.body.includes("/career-pathways"), "Platform Navbar contains /career-pathways link");
+
     const resourcesRes = await fetchUrl("/resources");
     assert(resourcesRes.statusCode === 200, "GET /resources returns HTTP 200");
-    assert(resourcesRes.body.includes("/pathways"), "Resources Hub links to /pathways");
-    assert(resourcesRes.body.includes("Explore Career Pathways") || resourcesRes.body.includes("Specialization Tracks"),
-           "Resources Hub displays Specialization Tracks banner");
+    assert(!resourcesRes.body.includes("Phase 6: Career Pathways"), "Resources Hub cleaned of promotional Phase 6 banner");
 
     // 7. Zero Authentication Rule
     assert(!pathwaysRes.body.includes("Sign In to Access") && !pathwaysRes.body.includes("Please Login"),

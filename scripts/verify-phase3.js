@@ -22,6 +22,7 @@ async function runPhase3Verification() {
     } else {
       console.error(`  [FAIL] ${message}`);
       passedAll = false;
+      process.exitCode = 1;
     }
   }
 
@@ -48,15 +49,15 @@ async function runPhase3Verification() {
   assert(bcs301Notes.some(n => n.resourceType === 'PPT_SLIDES'), "Contains Comprehensive Course PPT Slide Deck");
 
   const sampleNote = bcs301Notes[0];
-  assert(!!sampleNote.authorName && sampleNote.authorName.includes("Dr. R. K. Sharma"), `Author attribution present: '${sampleNote.authorName}'`);
+  assert(sampleNote.provenanceStatus === "PRACTICE" && !sampleNote.authorName, `Practice material has no unverified author attribution: '${sampleNote.authorName}'`);
 
   // 3. Verify Physical PDF Validity on Disk
   console.log("\nStep 3: Verify Physical PDF Validity of Notes Documents on Disk");
-  const notesDir = path.join(process.cwd(), 'public', 'uploads', 'notes');
+  const notesDir = require("./lib/storage-path.cjs").resourcePath('notes');
   assert(fs.existsSync(notesDir), `Notes upload directory exists: ${notesDir}`);
 
   for (const n of bcs301Notes) {
-    const fullPath = path.join(process.cwd(), 'public', n.storagePath);
+    const fullPath = require("./lib/storage-path.cjs").resourcePath(n.storagePath);
     assert(fs.existsSync(fullPath), `Physical file exists: ${n.storedFileName}`);
     const bytes = fs.readFileSync(fullPath);
     const pdfDoc = await PDFDocument.load(bytes);

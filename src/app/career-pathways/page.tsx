@@ -23,6 +23,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { CAREER_PATHWAYS, CareerPathway } from "@/data/careerPathways";
+import AcademicCareerRoadmap from "@/components/pathways/AcademicCareerRoadmap";
 
 export const revalidate = 3600;
 
@@ -68,6 +69,12 @@ const PATHWAY_LEARNING_RESOURCES: Record<string, { title: string; provider: stri
     { title: "ESP32 & Arduino Core Documentation", provider: "Espressif Systems", type: "Hardware Docs", url: "https://docs.espressif.com/", free: true },
     { title: "FreeRTOS Kernel Documentation & Reference", provider: "FreeRTOS / Amazon", type: "RTOS Architecture Guide", url: "https://www.freertos.org/Documentation/RTOS_book.html", free: true },
     { title: "Introduction to Internet of Things", provider: "NPTEL / IIT Kharagpur", type: "University Course", url: "https://nptel.ac.in/courses/106105166", free: true }
+  ],
+  "academic-research-professor": [
+    { title: "NPTEL Swayam Faculty Development Programs (FDP)", provider: "MoE / IIT Madras", type: "AICTE-Approved Certification", url: "https://swayam.gov.in/", free: true },
+    { title: "UGC CU-Chayan Central Universities Recruitment Portal", provider: "University Grants Commission", type: "Official Career Portal", url: "https://cuchayan.samarth.ac.in/", free: true },
+    { title: "Research Methodology & Intellectual Property Rights (IPR)", provider: "NPTEL / IIT Roorkee", type: "University Video Course", url: "https://nptel.ac.in/courses/121106007", free: true },
+    { title: "UGC-CARE List of Approved Peer-Reviewed Journals", provider: "UGC Consortium / SPPU", type: "Official Journal Directory", url: "https://ugccare.unipune.ac.in/", free: true }
   ]
 };
 
@@ -86,14 +93,16 @@ export default function CareerPathwaysPage() {
         return <Terminal className="h-6 w-6 text-sky-600" />;
       case "embedded-iot-systems":
         return <Wifi className="h-6 w-6 text-amber-600" />;
+      case "academic-research-professor":
+        return <GraduationCap className="h-6 w-6 text-indigo-600" />;
       default:
         return <Compass className="h-6 w-6 text-indigo-600" />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 sm:py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
+    <div className="w-full min-h-screen py-8 sm:py-12">
+      <div className="site-container space-y-10 sm:space-y-12">
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="flex items-center space-x-2 text-xs text-slate-500">
           <Link href="/" className="hover:text-blue-600 transition">
@@ -104,14 +113,14 @@ export default function CareerPathwaysPage() {
         </nav>
 
         {/* Hero Section */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-6">
+        <div className="card-hero bg-white border border-slate-200 p-4 sm:p-6 md:p-8 lg:p-10 space-y-6">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-100">
-            <div className="space-y-3 max-w-3xl">
+            <div className="space-y-3 max-w-4xl min-w-0">
               <div className="inline-flex items-center space-x-2 px-3 py-1 bg-purple-50 text-purple-700 border border-purple-200 rounded-full text-xs font-bold uppercase tracking-wider">
-                <Compass className="h-3.5 w-3.5 text-purple-600" />
-                <span>Career Specialization Tracks</span>
+                <Compass className="h-3.5 w-3.5 text-purple-600 shrink-0" />
+                <span className="truncate">Career Specialization Tracks</span>
               </div>
-              <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
                 Turn Your Academic Knowledge Into Career Opportunities.
               </h1>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
@@ -119,14 +128,14 @@ export default function CareerPathwaysPage() {
               </p>
             </div>
 
-            <div className="flex sm:flex-row lg:flex-col gap-2.5 shrink-0">
-              <div className="bg-purple-50/80 border border-purple-200 rounded-xl px-5 py-3 text-center">
-                <span className="block text-2xl font-extrabold text-purple-700">{CAREER_PATHWAYS.length}</span>
-                <span className="text-xs text-purple-900 font-semibold">Specialization Tracks</span>
+            <div className="grid grid-cols-2 lg:grid-cols-1 gap-2.5 w-full lg:w-auto shrink-0">
+              <div className="bg-purple-50/80 border border-purple-200 rounded-xl px-3 sm:px-5 py-2.5 sm:py-3 text-center min-w-0">
+                <span className="font-heading block text-xl sm:text-2xl font-bold text-purple-700">{CAREER_PATHWAYS.length}</span>
+                <span className="text-[11px] sm:text-xs text-purple-900 font-semibold truncate block">Specialization Tracks</span>
               </div>
-              <div className="bg-blue-50/80 border border-blue-200 rounded-xl px-5 py-3 text-center">
-                <span className="block text-2xl font-extrabold text-blue-700">60+</span>
-                <span className="text-xs text-blue-900 font-semibold">Mapped Invertis Courses</span>
+              <div className="bg-blue-50/80 border border-blue-200 rounded-xl px-3 sm:px-5 py-2.5 sm:py-3 text-center min-w-0">
+                <span className="font-heading block text-xl sm:text-2xl font-bold text-blue-700">60+</span>
+                <span className="text-[11px] sm:text-xs text-blue-900 font-semibold truncate block">Mapped Invertis Courses</span>
               </div>
             </div>
           </div>
@@ -160,7 +169,7 @@ export default function CareerPathwaysPage() {
             <span className="text-xs text-slate-400">Click to jump to track</span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
             {CAREER_PATHWAYS.map((p) => (
               <a
                 key={p.id}
@@ -187,7 +196,7 @@ export default function CareerPathwaysPage() {
               <section
                 key={pathway.id}
                 id={pathway.slug}
-                className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-8 scroll-mt-24"
+                className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 md:p-8 shadow-sm space-y-8 scroll-mt-24"
               >
                 {/* Header Banner */}
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 pb-6 border-b border-slate-100">
@@ -221,7 +230,7 @@ export default function CareerPathwaysPage() {
                     </span>
                     <div className="space-y-1.5">
                       {pathway.careerRoles.map((role) => (
-                        <div key={role.title} className="flex items-center justify-between gap-3">
+                        <div key={`${pathway.id}-role-${role.title}`} className="flex items-center justify-between gap-3">
                           <span className="font-medium text-slate-800 leading-snug">{role.title}</span>
                           <span className="text-[10px] font-mono font-semibold text-slate-600 bg-white px-1.5 py-0.5 rounded border border-slate-200 shrink-0">
                             {role.typicalLevel.split("/")[0].trim()}
@@ -265,7 +274,7 @@ export default function CareerPathwaysPage() {
 
                       return (
                         <Link
-                          key={course.code}
+                          key={`${pathway.id}-course-${course.code}`}
                           href={subjectUrl}
                           className="p-3.5 bg-slate-50/70 border border-slate-200 hover:border-indigo-300 rounded-xl transition hover:bg-white flex flex-col justify-between space-y-2 group shadow-2xs"
                         >
@@ -317,7 +326,7 @@ export default function CareerPathwaysPage() {
                         <div className="flex flex-wrap gap-1.5">
                           {pathway.technicalSkills.languages.map((lang) => (
                             <span
-                              key={lang}
+                              key={`${pathway.id}-lang-${lang}`}
                               className="bg-white border border-slate-200 text-slate-800 font-mono text-[11px] px-2 py-0.5 rounded shadow-2xs"
                             >
                               {lang}
@@ -333,7 +342,7 @@ export default function CareerPathwaysPage() {
                         <div className="flex flex-wrap gap-1.5">
                           {pathway.technicalSkills.frameworksAndTools.map((tool) => (
                             <span
-                              key={tool}
+                              key={`${pathway.id}-tool-${tool}`}
                               className="bg-white border border-slate-200 text-slate-800 text-[11px] px-2 py-0.5 rounded shadow-2xs"
                             >
                               {tool}
@@ -349,7 +358,7 @@ export default function CareerPathwaysPage() {
                         <div className="flex flex-wrap gap-1.5">
                           {pathway.technicalSkills.concepts.map((concept) => (
                             <span
-                              key={concept}
+                              key={`${pathway.id}-concept-${concept}`}
                               className="bg-indigo-50/70 border border-indigo-100 text-indigo-900 text-[11px] px-2 py-0.5 rounded"
                             >
                               {concept}
@@ -370,7 +379,7 @@ export default function CareerPathwaysPage() {
                     <div className="space-y-2.5">
                       {pathway.certifications.map((cert) => (
                         <div
-                          key={cert.name}
+                          key={`${pathway.id}-cert-${cert.name}`}
                           className="bg-white border border-slate-200 rounded-lg p-3 space-y-1 shadow-2xs"
                         >
                           <div className="flex items-center justify-between">
@@ -405,7 +414,7 @@ export default function CareerPathwaysPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                       {learningResources.map((res) => (
                         <a
-                          key={res.title}
+                          key={`${pathway.slug}-res-${res.title}`}
                           href={res.url}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -444,28 +453,40 @@ export default function CareerPathwaysPage() {
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    {pathway.semesterMilestones.map((ms) => (
-                      <div
-                        key={ms.year}
-                        className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold text-slate-900">{ms.year}</span>
-                          <span className="text-[10px] font-mono font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
-                            {ms.semester}
-                          </span>
+                    {pathway.semesterMilestones.map((ms, msIndex) => {
+                      const milestoneKey =
+                        ms.id || `${pathway.id}-milestone-${ms.year}-${ms.semester || msIndex}`;
+
+                      return (
+                        <div
+                          key={milestoneKey}
+                          className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2"
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-slate-900">{ms.year}</span>
+                            <span className="text-[10px] font-mono font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
+                              {ms.semester}
+                            </span>
+                          </div>
+                          <p className="text-xs font-medium text-slate-700 leading-snug">
+                            {ms.focus}
+                          </p>
+                          <div className="pt-2 border-t border-slate-200 text-[11px] text-slate-500">
+                            <span className="font-semibold text-slate-700 block">Deliverable:</span>
+                            <span>{ms.deliverable}</span>
+                          </div>
                         </div>
-                        <p className="text-xs font-medium text-slate-700 leading-snug">
-                          {ms.focus}
-                        </p>
-                        <div className="pt-2 border-t border-slate-200 text-[11px] text-slate-500">
-                          <span className="font-semibold text-slate-700 block">Deliverable:</span>
-                          <span>{ms.deliverable}</span>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
+
+                {/* 5. Interactive Academic Roadmap & Statutory Guidance */}
+                {pathway.slug === "academic-research-professor" && (
+                  <div className="pt-6 border-t border-slate-100">
+                    <AcademicCareerRoadmap />
+                  </div>
+                )}
               </section>
             );
           })}

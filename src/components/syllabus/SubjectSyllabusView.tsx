@@ -1,6 +1,7 @@
 "use client";
+import { provenanceLabel } from "@/lib/resource-policy";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import {
   ChevronLeft,
@@ -45,8 +46,15 @@ export interface SubjectResourceItem {
   title: string;
   originalFileName: string;
   storedFileName: string;
+  provenanceStatus?: string;
   storagePath: string;
   fileSizeBytes: number;
+  openUrl?: string;
+  downloadUrl?: string;
+  isAvailable?: boolean;
+  verificationStatus?: "verified" | "pending" | "rejected" | "unknown";
+  sourceReference?: string;
+  checksumSha256?: string;
 }
 
 export interface SubjectSyllabusViewProps {
@@ -98,8 +106,6 @@ export function SubjectSyllabusView({
   validationNotes,
   children
 }: SubjectSyllabusViewProps) {
-  const [downloading, setDownloading] = useState(false);
-
   // Parse structured details
   let details: SyllabusDetails | null = null;
   if (subject.syllabusDetails) {
@@ -116,42 +122,43 @@ export function SubjectSyllabusView({
     ? `${(syllabusResource.fileSizeBytes / 1024).toFixed(0)} KB`
     : "PDF Document";
 
-  const downloadUrl = syllabusResource
-    ? `/api/syllabus/download?file=${encodeURIComponent(syllabusResource.storedFileName)}&name=${encodeURIComponent(
+  const isAvailable = Boolean(syllabusResource && (syllabusResource.isAvailable ?? true));
+  const isVerified = syllabusResource?.verificationStatus === "verified" || syllabusResource?.provenanceStatus === "VERIFIED";
+
+  // Unified canonical endpoints for both Open in Tab and Download PDF
+  const openUrl = syllabusResource?.openUrl || (syllabusResource
+    ? `/api/syllabus/download?id=${encodeURIComponent(syllabusResource.id)}&inline=1`
+    : "#");
+
+  const downloadUrl = syllabusResource?.downloadUrl || (syllabusResource
+    ? `/api/syllabus/download?id=${encodeURIComponent(syllabusResource.id)}&name=${encodeURIComponent(
         `${subject.code}-${subject.name}`
       )}`
-    : "#";
-
-  const staticPdfUrl = syllabusResource?.storagePath
-    ? (syllabusResource.storagePath.startsWith("/") ? syllabusResource.storagePath : `/${syllabusResource.storagePath}`)
-    : syllabusResource
-    ? `/uploads/syllabus/${syllabusResource.storedFileName}`
-    : "#";
-
-  const handleDownload = () => {
-    if (!syllabusResource || !isDownloadEligible) return;
-    setDownloading(true);
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.download = syllabusResource.storedFileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    setTimeout(() => setDownloading(false), 2000);
-  };
+    : "#");
 
   const isPractical = subject.subjectType === "PRACTICAL";
-  const hasModules = !!(details?.modules && details.modules.length > 0);
-  const hasOutcomes = !!(details?.outcomes && details.outcomes.length > 0);
-  const hasBooks = !!(
-    (details?.textBooks && details.textBooks.length > 0) ||
-    (details?.referenceBooks && details.referenceBooks.length > 0)
-  );
-  const hasExperiments = !!(details?.labExperiments && details.labExperiments.length > 0);
+  const hasModules = !!(details?.modules && Array.isArray(details.modules) && details.modules.length > 0);
+  
+  // Safe normalization for outcomes (handles both Array and single String)
+  const outcomesList: string[] = details?.outcomes
+    ? Array.isArray(details.outcomes)
+      ? details.outcomes
+      : typeof details.outcomes === "string"
+      ? (details.outcomes as string).split(/(?:CO\d+:|\n)/).map(s => s.trim()).filter(Boolean)
+      : []
+    : [];
+  const hasOutcomes = outcomesList.length > 0;
+
+  const textBooksList: string[] = details?.textBooks && Array.isArray(details.textBooks) ? details.textBooks : [];
+  const referenceBooksList: string[] = details?.referenceBooks && Array.isArray(details.referenceBooks) ? details.referenceBooks : [];
+  const hasBooks = textBooksList.length > 0 || referenceBooksList.length > 0;
+
+  const labExperimentsList: string[] = details?.labExperiments && Array.isArray(details.labExperiments) ? details.labExperiments : [];
+  const hasExperiments = labExperimentsList.length > 0;
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="w-full min-h-screen py-8 sm:py-12">
+      <div className="site-container space-y-8">
         {/* Navigation Breadcrumbs */}
         <Breadcrumbs
           items={[
@@ -168,7 +175,7 @@ export function SubjectSyllabusView({
         {/* Back Link */}
         <Link
           href={`/syllabus/${encodeURIComponent(programme.code)}/semester/${semester.semesterNumber}`}
-          className="inline-flex items-center text-xs font-semibold text-slate-500 hover:text-emerald-700 transition"
+          className="inline-flex items-center text-xs sm:text-sm font-semibold text-slate-500 hover:text-blue-600 transition"
         >
           <ChevronLeft className="h-4 w-4 mr-1" />
           Back to {semester.title} Subjects
@@ -177,7 +184,7 @@ export function SubjectSyllabusView({
         {/* ========================================================================= */}
         {/* SECTION 1: SUBJECT OVERVIEW (Master Reference Design: BCS201 Layout)       */}
         {/* ========================================================================= */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+        <div className="card-hero bg-white border border-slate-200 p-4 sm:p-6 md:p-8">
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 pb-6 border-b border-slate-100">
             <div className="space-y-3 min-w-0">
               {/* Badges Row */}
@@ -186,7 +193,7 @@ export function SubjectSyllabusView({
                   {subject.code}
                 </span>
 
-                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
                   {subject.subjectType}
                 </span>
 
@@ -199,7 +206,7 @@ export function SubjectSyllabusView({
                 {validationStatus === "VERIFIED" ? (
                   <span className="inline-flex items-center text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
                     <ShieldCheck className="h-3 w-3 mr-1 text-blue-600" />
-                    Verified Authentic
+                    Source reviewed
                   </span>
                 ) : (
                   <span className="inline-flex items-center text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
@@ -214,7 +221,7 @@ export function SubjectSyllabusView({
               </div>
 
               {/* Subject Title */}
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight break-words">
+              <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight break-words">
                 {subject.name}
               </h1>
 
@@ -229,18 +236,18 @@ export function SubjectSyllabusView({
               </p>
             </div>
 
-            {/* Top-Right Download Action (Shown only when extraction & document are verified eligible) */}
-            {syllabusResource && isDownloadEligible && (
+            {/* Top-Right Download Action (Shown only when physical file exists and is verified eligible) */}
+            {syllabusResource && isDownloadEligible && isAvailable && (
               <div className="flex-shrink-0">
-                <button
-                  onClick={handleDownload}
-                  disabled={downloading}
-                  className="inline-flex items-center px-4 py-2.5 text-xs font-semibold text-white bg-emerald-800 hover:bg-emerald-900 rounded-xl shadow-sm transition disabled:opacity-75"
+                <a
+                  href={downloadUrl}
+                  download={syllabusResource.storedFileName}
+                  className="inline-flex items-center px-4 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-sm transition"
                   title={`Download official syllabus for ${subject.code}`}
                 >
                   <Download className="h-4 w-4 mr-2" />
-                  {downloading ? "Downloading..." : "Download Official PDF"}
-                </button>
+                  Download syllabus PDF
+                </a>
               </div>
             )}
           </div>
@@ -274,8 +281,8 @@ export function SubjectSyllabusView({
                 <Layers className="h-3.5 w-3.5 text-slate-500 mr-1.5 flex-shrink-0" />
                 Examination & Assessment Structure
               </span>
-              <span className="text-sm font-semibold text-slate-900 block truncate">
-                {subject.evaluationMarks || "CA: 25, EE: 50, Total: 75"}
+              <span className="text-sm font-semibold text-slate-900 block break-words">
+                {subject.evaluationMarks || "Not specified in the imported curriculum"}
               </span>
               <span className="block text-[10px] text-slate-400 mt-0.5">Continuous Assessment (CA) & End Semester (EE)</span>
             </div>
@@ -312,7 +319,7 @@ export function SubjectSyllabusView({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-              {details!.outcomes!.map((co, idx) => {
+              {outcomesList.map((co, idx) => {
                 const cleanOutcome = co.replace(/^(?:CO\s*\d+[:.]?|Course\s+Outcome\s*\d+[:.]?)\s*/i, "").trim();
                 return (
                   <div
@@ -342,7 +349,7 @@ export function SubjectSyllabusView({
                 </div>
                 <div>
                   <h2 className="text-lg font-bold text-slate-900">Unit-Wise Detailed Syllabus</h2>
-                  <p className="text-xs text-slate-500">Official syllabus modules prescribed by the Academic Council</p>
+                  <p className="text-xs text-slate-500">Modules from the imported curriculum</p>
                 </div>
               </div>
               <span className="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded-md">
@@ -377,7 +384,7 @@ export function SubjectSyllabusView({
         {/* SECTION 3B: PRESCRIBED PRACTICAL EXPERIMENTS (For Laboratory Subjects)    */}
         {/* ========================================================================= */}
         {hasExperiments && (
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+          <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 md:p-8 shadow-sm">
             <div className="flex items-center justify-between pb-3 mb-5 border-b border-slate-100">
               <div className="flex items-center space-x-2.5">
                 <div className="p-2 bg-emerald-50 text-emerald-700 rounded-lg">
@@ -385,16 +392,16 @@ export function SubjectSyllabusView({
                 </div>
                 <div>
                   <h2 className="text-lg font-bold text-slate-900">Prescribed Practical Experiments</h2>
-                  <p className="text-xs text-slate-500">Official laboratory exercises for continuous evaluation</p>
+                  <p className="text-xs text-slate-500">Laboratory exercises from the imported curriculum</p>
                 </div>
               </div>
               <span className="text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-md">
-                {details!.labExperiments!.length} Experiments
+                {labExperimentsList.length} Experiments
               </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {details!.labExperiments!.map((exp, idx) => (
+              {labExperimentsList.map((exp, idx) => (
                 <div
                   key={idx}
                   className="p-3.5 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-800 font-medium leading-relaxed flex items-start space-x-2.5"
@@ -415,14 +422,14 @@ export function SubjectSyllabusView({
         {hasBooks && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Section 4: Recommended Textbooks */}
-            {details?.textBooks && details.textBooks.length > 0 && (
-              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+            {textBooksList.length > 0 && (
+              <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-sm">
                 <h3 className="text-base font-bold text-slate-900 mb-3 flex items-center">
                   <BookOpen className="h-4 w-4 mr-2 text-emerald-700 flex-shrink-0" />
                   Recommended Textbooks
                 </h3>
                 <ul className="space-y-2 text-xs text-slate-700">
-                  {details.textBooks.map((book, idx) => (
+                  {textBooksList.map((book, idx) => (
                     <li
                       key={idx}
                       className="p-3 bg-slate-50 rounded-lg border border-slate-100 leading-relaxed"
@@ -435,14 +442,14 @@ export function SubjectSyllabusView({
             )}
 
             {/* Section 5: Reference Books */}
-            {details?.referenceBooks && details.referenceBooks.length > 0 && (
-              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+            {referenceBooksList.length > 0 && (
+              <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-sm">
                 <h3 className="text-base font-bold text-slate-900 mb-3 flex items-center">
                   <BookOpen className="h-4 w-4 mr-2 text-slate-600 flex-shrink-0" />
                   Reference Books
                 </h3>
                 <ul className="space-y-2 text-xs text-slate-700">
-                  {details.referenceBooks.map((book, idx) => (
+                  {referenceBooksList.map((book, idx) => (
                     <li
                       key={idx}
                       className="p-3 bg-slate-50 rounded-lg border border-slate-100 leading-relaxed"
@@ -479,24 +486,24 @@ export function SubjectSyllabusView({
         {/* ========================================================================= */}
         {/* SECTION 8: OFFICIAL SYLLABUS PDF DOCUMENT (NO EMBEDDED VIEWER)             */}
         {/* ========================================================================= */}
-        {syllabusResource && isDownloadEligible ? (
+        {syllabusResource && isDownloadEligible && isAvailable ? (
           <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-4">
             <div>
-              <h2 className="text-lg font-bold text-slate-900">Official Syllabus PDF Document</h2>
+              <h2 className="text-lg font-bold text-slate-900">Syllabus PDF document</h2>
               <p className="text-xs text-slate-500">
-                Official curriculum document containing the complete syllabus scheme for {subject.name}
+                Official curriculum document for {subject.name}
               </p>
             </div>
 
             {/* Document Information Card (Pure Document Card, NO Inline PDF Object / Iframe) */}
             <div className="bg-slate-900 text-white rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
-              <div className="flex items-center space-x-3.5 min-w-0">
+              <div className="flex items-center space-x-3.5 min-w-0 w-full sm:w-auto sm:flex-1">
                 <div className="p-3 bg-emerald-500/20 text-emerald-400 rounded-xl flex-shrink-0">
                   <FileText className="h-6 w-6" />
                 </div>
                 <div className="min-w-0">
                   <h4 className="text-sm font-semibold text-white truncate">
-                    Official Syllabus - {subject.code} {subject.name}
+                    Syllabus - {subject.code} {subject.name}
                   </h4>
                   <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 mt-1">
                     <span className="font-mono text-slate-300">{syllabusResource.storedFileName}</span>
@@ -505,58 +512,70 @@ export function SubjectSyllabusView({
                       {formattedFileSize}
                     </span>
                     <span>•</span>
-                    <span className="text-emerald-400 font-medium">Official Invertis University Document</span>
+                    {isVerified ? (
+                      <span className="inline-flex items-center gap-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded text-[11px] font-semibold">
+                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+                        Verified by Invertis Learn
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded text-[11px] font-medium">
+                        <AlertCircle className="h-3.5 w-3.5 text-amber-400" />
+                        {provenanceLabel(syllabusResource?.provenanceStatus)}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons: Displayed only when physical file exists */}
               <div className="flex items-center gap-2.5 flex-shrink-0 w-full sm:w-auto">
                 <a
-                  href={staticPdfUrl}
+                  href={openUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-3.5 py-2 text-xs font-medium text-slate-200 bg-slate-800 hover:bg-slate-700 rounded-xl transition flex-1 sm:flex-initial"
-                  title="Open PDF in a new tab"
+                  className="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold text-slate-100 bg-slate-800 hover:bg-slate-700 hover:text-white rounded-xl border border-slate-700/60 transition shadow-sm flex-1 sm:flex-initial"
+                  title="Open syllabus PDF in a new tab"
                 >
                   <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
                   Open in Tab
                 </a>
 
-                <button
-                  onClick={handleDownload}
-                  disabled={downloading}
-                  className="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl shadow-sm transition disabled:opacity-75 flex-1 sm:flex-initial"
-                  title="Download verified official subject syllabus"
+                <a
+                  href={downloadUrl}
+                  download={syllabusResource.storedFileName}
+                  className="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl shadow-sm transition flex-1 sm:flex-initial"
+                  title="Download official subject syllabus PDF"
                 >
                   <Download className="h-4 w-4 mr-1.5" />
-                  {downloading ? "Downloading..." : "Download PDF"}
-                </button>
+                  Download PDF
+                </a>
               </div>
             </div>
 
             {/* Document Verification Notice */}
-            <div className="flex items-center justify-between text-xs text-slate-500 pt-1 border-t border-slate-100">
-              <span className="flex items-center">
-                <FileCheck className="h-3.5 w-3.5 text-emerald-600 mr-1.5" />
-                Verified authentic curriculum document approved by Invertis University Academic Council
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-100 gap-2">
+              <span className="flex items-center text-slate-600">
+                <FileCheck className="h-3.5 w-3.5 text-emerald-600 mr-1.5 flex-shrink-0" />
+                {isVerified
+                  ? "Authenticated against official university curriculum & academic council ordinance."
+                  : "Confirm current syllabus and examination requirements with your department."}
               </span>
-              <span className="font-mono text-slate-400 hidden sm:inline">
-                PDF • Session {curriculum.versionYear || "2023-2024"}
+              <span className="font-mono text-slate-400 text-[11px] hidden sm:inline">
+                PDF • Invertis University • Session {curriculum.versionYear || "2023-2024"}
               </span>
             </div>
           </div>
         ) : (
-          /* Graceful State when extraction is in review or unverified */
+          /* Friendly Graceful State when extraction is in review or physical file is in progress */
           <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
-            <div className="flex items-start space-x-3">
-              <div className="p-2 bg-slate-100 text-slate-600 rounded-xl flex-shrink-0">
-                <FileText className="h-5 w-5" />
+            <div className="flex items-start space-x-3.5">
+              <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl flex-shrink-0 border border-amber-200/50">
+                <Clock className="h-5 w-5" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base font-bold text-slate-900">Official Syllabus Document Status</h3>
+                <h3 className="text-sm font-bold text-slate-900">Official Syllabus Document In Progress</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  The subject-specific syllabus for <strong>{subject.code}</strong> is managed under the official Invertis University curriculum. In accordance with university standards, verified PDF download links are activated once all unit modules and examination criteria have undergone academic council cross-verification.
+                  The official subject-specific syllabus document for <strong>{subject.code} — {subject.name}</strong> is currently being digitized and verified from university records. Interactive modules and unit details above remain accessible.
                 </p>
               </div>
             </div>

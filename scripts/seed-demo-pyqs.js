@@ -5,7 +5,7 @@ const path = require('path');
 const prisma = new PrismaClient();
 
 async function seedDemoPYQs() {
-  console.log("Seeding authentic demo examination papers for Phase 2...");
+  console.log("Seeding generated practice examination papers for Phase 2...");
 
   const pyqCategory = await prisma.resourceCategory.upsert({
     where: { code: "PYQ" },
@@ -94,7 +94,7 @@ async function seedDemoPYQs() {
         academicYear: p.academicYear,
         examType: p.examType,
         hasSolutions: p.hasSolutions,
-        isPublished: true,
+        isPublished: false, provenanceStatus: "PRACTICE", sourceReference: "Repository-generated practice material",
       },
       create: {
         id: resourceId,
@@ -108,7 +108,7 @@ async function seedDemoPYQs() {
         academicYear: p.academicYear,
         examType: p.examType,
         hasSolutions: p.hasSolutions,
-        isPublished: true,
+        isPublished: false, provenanceStatus: "PRACTICE", sourceReference: "Repository-generated practice material",
       },
     });
 

@@ -22,6 +22,7 @@ async function runPhase4Verification() {
     } else {
       console.error(`  [FAIL] ${message}`);
       passedAll = false;
+      process.exitCode = 1;
     }
   }
 
@@ -72,7 +73,7 @@ async function runPhase4Verification() {
 
   // 4. Verify Physical Lab Manual PDF Validity on Disk
   console.log("\nStep 4: Verify Physical Lab Manual PDFs Validity on Disk");
-  const labsDir = path.join(process.cwd(), 'public', 'uploads', 'lab_manuals');
+  const labsDir = require("./lib/storage-path.cjs").resourcePath('lab_manuals');
   assert(fs.existsSync(labsDir), `Lab manuals upload directory exists: ${labsDir}`);
 
   const allLabs = await prisma.academicResource.findMany({
@@ -81,7 +82,7 @@ async function runPhase4Verification() {
   assert(allLabs.length >= 11, `Total seeded lab resources is at least 11 (Found: ${allLabs.length})`);
 
   for (const l of allLabs) {
-    const fullPath = path.join(process.cwd(), 'public', l.storagePath);
+    const fullPath = require("./lib/storage-path.cjs").resourcePath(l.storagePath);
     assert(fs.existsSync(fullPath), `Physical file exists: ${l.storedFileName}`);
     const bytes = fs.readFileSync(fullPath);
     const pdfDoc = await PDFDocument.load(bytes);

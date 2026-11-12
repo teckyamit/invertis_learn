@@ -4,6 +4,8 @@
  * without duplicating subject records or syllabus content.
  */
 
+import { getProgramAdmissionConfig } from "./admissionModes";
+
 export interface LateralEntryConfig {
   code: string;
   name: string;
@@ -17,6 +19,8 @@ export interface LateralEntryConfig {
   admissionMode: string;
   description: string;
   eligibility: string;
+  /** Official university catalogue code (e.g. "BTECH-008") — displayed as a badge on programme cards. */
+  officialCode?: string;
 }
 
 export const LATERAL_ENTRY_MAP: Record<string, LateralEntryConfig> = {
@@ -35,6 +39,7 @@ export const LATERAL_ENTRY_MAP: Record<string, LateralEntryConfig> = {
       "3-year undergraduate lateral entry programme designed for polytechnic diploma holders and B.Sc. graduates. Students join directly in Semester III and follow the verified Invertis University B.Tech CSE (Regular) curriculum through Semester VIII.",
     eligibility:
       "3-Year Polytechnic Diploma in Engineering / Technology or B.Sc. with Mathematics (Minimum 50% aggregate marks, 45% for SC/ST); Direct Admission to 2nd Year (Semester III).",
+    officialCode: "BTECH-008",
   },
   "BTECH-CSE-AI-LE": {
     code: "BTECH-CSE-AI-LE",
@@ -51,6 +56,23 @@ export const LATERAL_ENTRY_MAP: Record<string, LateralEntryConfig> = {
       "3-year specialized undergraduate lateral entry programme entering directly into Semester III of the B.Tech CSE (Artificial Intelligence & Machine Learning) curriculum through Semester VIII.",
     eligibility:
       "3-Year Polytechnic Diploma in CSE/IT/ECE or B.Sc. with Mathematics (Minimum 60% aggregate); Direct Admission to 2nd Year (Semester III).",
+  },
+  "BTECH-CSE-CC-LE": {
+    code: "BTECH-CSE-CC-LE",
+    name: "B.Tech CSE (Cloud Computing) - Lateral Entry",
+    displayName: "B.Tech CSE (Cloud Computing) - Lateral Entry",
+    parentCode: "BTECH-CSE-CC",
+    parentName: "B.Tech CSE (Cloud Computing & Cyber Security)",
+    minSemester: 3,
+    maxSemester: 8,
+    durationYears: 3,
+    availableSemesters: [3, 4, 5, 6, 7, 8],
+    admissionMode: "Lateral Entry (Direct Admission to 2nd Year / Semester III)",
+    description:
+      "3-year specialized undergraduate lateral entry programme entering directly into Semester III of the B.Tech CSE (Cloud Computing & Cyber Security) curriculum through Semester VIII.",
+    eligibility:
+      "3-Year Polytechnic Diploma in CSE/IT/ECE or B.Sc. with Mathematics (Minimum 50% aggregate marks, 45% for SC/ST); Direct Admission to 2nd Year (Semester III).",
+    officialCode: "BTECH-019",
   },
 };
 
@@ -104,9 +126,47 @@ export function getProgrammeDisplayName(code: string, defaultName?: string): str
       return "B.Tech CSE (AI Specialization)";
     case "BTECH-CSE-AI-LE":
       return "B.Tech CSE (AI Specialization) - Lateral Entry";
+    case "BTECH-CSE-CC":
+      return "B.Tech CSE (Cloud Computing & Cyber Security)";
+    case "BTECH-CSE-CC-LE":
+      return "B.Tech CSE (Cloud Computing) - Lateral Entry";
+    case "MTECH-CSE":
+      return "M.Tech CSE (Computer Science & Engineering)";
+    case "DIP-CSE":
+      return "Diploma in Computer Science & Engineering";
+    case "PHD-009":
+      return "Ph.D. in Computer Science & Engineering";
     default:
       return defaultName || code;
   }
+}
+
+/**
+ * Curated, verified list of approved Computer Science & Engineering programme codes.
+ * Covers diploma, undergraduate, lateral entry, postgraduate, and doctoral levels
+ * in standardized academic hierarchy order:
+ * 1. Diploma (DIP-CSE)
+ * 2. Undergraduate (BTECH-CSE, BTECH-CSE-LE, BTECH-CSE-AI, BTECH-CSE-AI-LE, BTECH-CSE-CC, BTECH-CSE-CC-LE)
+ * 3. Postgraduate (MTECH-CSE)
+ * 4. Doctoral (PHD-009)
+ */
+export const APPROVED_CSE_PROGRAMME_CODES = [
+  "DIP-CSE",          // Diploma in Computer Science & Engineering (Priority 1: Diploma)
+  "BTECH-CSE",        // B.Tech CSE (Regular) (Priority 2: UG)
+  "BTECH-CSE-LE",     // B.Tech CSE (Regular) - Lateral Entry (BTECH-008)
+  "BTECH-CSE-AI",     // B.Tech CSE (Artificial Intelligence & Machine Learning)
+  "BTECH-CSE-AI-LE",  // B.Tech CSE (AI Specialization) - Lateral Entry
+  "BTECH-CSE-CC",     // B.Tech CSE (Cloud Computing & Cyber Security)
+  "BTECH-CSE-CC-LE",  // B.Tech CSE (Cloud Computing) - Lateral Entry
+  "MTECH-CSE",        // Master of Technology in Computer Science & Engineering (Priority 3: PG)
+  "PHD-009",          // Ph.D. in Computer Science & Engineering (Priority 4: Doctoral)
+] as const;
+
+export type ApprovedCseProgrammeCode = (typeof APPROVED_CSE_PROGRAMME_CODES)[number];
+
+export function isApprovedCseProgramme(code: string): boolean {
+  if (!code) return false;
+  return (APPROVED_CSE_PROGRAMME_CODES as readonly string[]).includes(code.toUpperCase());
 }
 
 export interface ProgrammeWithCurriculum {
@@ -139,6 +199,8 @@ export interface ProgrammeWithCurriculum {
 export interface ProgrammeCurriculumStats {
   semesterCount: number;
   subjectCount: number;
+  lateralSubjectCount?: number;
+  regularSubjectCount?: number;
   resourceCount: number;
   hasActiveResources: boolean;
   isLateral: boolean;
@@ -237,9 +299,33 @@ export function getProgrammeCurriculumStats(
     }
   });
 
+  // Calculate lateral curriculum statistics dynamically from actual semester data if programme supports lateral admission
+  let lateralSubjectCount: number | undefined;
+  const admissionConfig = getProgramAdmissionConfig(programme.code);
+  if (admissionConfig?.supportsLateral && admissionConfig.lateral) {
+    const minSem = admissionConfig.lateral.minSemester;
+    const maxSem = admissionConfig.lateral.maxSemester;
+    const lateralSemesters = semesters.filter(
+      s => s.semesterNumber >= minSem && s.semesterNumber <= maxSem
+    );
+    let latSubj = 0;
+    lateralSemesters.forEach(s => {
+      if (s._count?.subjects !== undefined) {
+        latSubj += s._count.subjects;
+      } else if (s.subjects) {
+        latSubj += s.subjects.length;
+      }
+    });
+    if (latSubj > 0 || subjectCount > 0) {
+      lateralSubjectCount = latSubj;
+    }
+  }
+
   return {
     semesterCount: semesters.length || programme.durationYears * 2,
     subjectCount,
+    lateralSubjectCount,
+    regularSubjectCount: subjectCount,
     resourceCount,
     hasActiveResources: subjectCount > 0,
     isLateral: false,

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { db } from "@/lib/db";
+import { ContentNotice } from "@/components/resources/ContentNotice";
 import {
   FolderGit2,
   FileText,
@@ -81,32 +82,32 @@ export default async function ProjectsHubPage() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+    <div className="min-h-screen bg-surface-ground py-10">
+      <div className="site-container space-y-10">
         {/* Hero Header */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-8 sm:p-10 shadow-sm space-y-4 text-center sm:text-left">
+        <div className="card-hero p-8 sm:p-10 space-y-4 text-center sm:text-left">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
-            <div className="space-y-2">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-full text-xs font-bold uppercase tracking-wider">
-                <FolderGit2 className="h-3.5 w-3.5 text-indigo-600" />
-                <span>Phase 5: Knowledge Centre</span>
+            <div className="space-y-2 max-w-4xl">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 bg-blue-50 text-brand-blue border border-blue-200 rounded-full text-xs font-bold uppercase tracking-wider">
+                <FolderGit2 className="h-3.5 w-3.5 text-brand-blue" />
+                <span>Knowledge Centre & Capstone Repository</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="font-heading text-3xl sm:text-4xl font-extrabold text-brand-navy tracking-tight">
                 Department Knowledge Centre & Capstone Projects
               </h1>
-              <p className="text-sm text-slate-600 max-w-3xl leading-relaxed">
+              <p className="text-sm text-slate-600 leading-relaxed">
                 Official Invertis University capstone guidelines, IEEE format synopsis templates, evaluation rubrics, and internship handbooks for undergraduate and postgraduate engineering students.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-2 self-start sm:self-auto flex-shrink-0">
-              <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-center">
-                <span className="block text-xl font-bold text-slate-900">{capstoneSubjects.length}</span>
+              <div className="bg-surface-ground border border-slate-200 rounded-xl px-4 py-2 text-center">
+                <span className="block text-xl font-bold text-brand-navy">{capstoneSubjects.length}</span>
                 <span className="text-[11px] text-slate-500 font-medium">Capstone Courses</span>
               </div>
-              <div className="bg-indigo-50 border border-indigo-200 rounded-xl px-4 py-2 text-center">
-                <span className="block text-xl font-bold text-indigo-700">{uniqueTemplates.length}</span>
-                <span className="text-[11px] text-indigo-800 font-medium">Official Templates</span>
+              <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-2 text-center">
+                <span className="block text-xl font-bold text-brand-blue">{uniqueTemplates.length}</span>
+                <span className="text-[11px] text-brand-blue font-medium">Official Templates</span>
               </div>
             </div>
           </div>
@@ -129,11 +130,14 @@ export default async function ProjectsHubPage() {
           </div>
         </div>
 
+        {/* Resource Provenance Disclaimer */}
+        <ContentNotice compact />
+
         {/* Capstone Milestone & Evaluation Framework */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm space-y-6">
+        <div className="card-hero p-6 md:p-8 space-y-6">
           <div>
-            <h2 className="text-lg font-bold text-slate-900 flex items-center">
-              <Calendar className="h-5 w-5 mr-2 text-indigo-600" />
+            <h2 className="font-heading text-lg font-bold text-brand-navy flex items-center">
+              <Calendar className="h-5 w-5 mr-2 text-brand-blue" />
               Department Capstone Evaluation Lifecycle & Timeline
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
@@ -142,9 +146,9 @@ export default async function ProjectsHubPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-4 rounded-xl border border-indigo-100 bg-indigo-50/40 space-y-2">
+            <div className="p-4 rounded-xl border border-blue-100 bg-blue-50/50 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">Phase I • Weeks 1-3</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-brand-blue bg-blue-100 px-2 py-0.5 rounded">Phase I • Weeks 1-3</span>
                 <span className="text-xs font-bold text-slate-700">20% Marks</span>
               </div>
               <h3 className="text-sm font-bold text-slate-900">IEEE 4-Page Synopsis Defense</h3>
@@ -153,9 +157,9 @@ export default async function ProjectsHubPage() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border border-blue-100 bg-blue-50/40 space-y-2">
+            <div className="p-4 rounded-xl border border-indigo-100 bg-indigo-50/50 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-100 px-2 py-0.5 rounded">Phase II • Weeks 4-7</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">Phase II • Weeks 4-7</span>
                 <span className="text-xs font-bold text-slate-700">30% Marks</span>
               </div>
               <h3 className="text-sm font-bold text-slate-900">Architecture & Mid-Term Review</h3>
@@ -164,7 +168,7 @@ export default async function ProjectsHubPage() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border border-purple-100 bg-purple-50/40 space-y-2">
+            <div className="p-4 rounded-xl border border-purple-100 bg-purple-50/50 space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-purple-700 bg-purple-100 px-2 py-0.5 rounded">Phase III • Weeks 8-12</span>
                 <span className="text-xs font-bold text-slate-700">30% Marks</span>
@@ -175,7 +179,7 @@ export default async function ProjectsHubPage() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border border-emerald-100 bg-emerald-50/40 space-y-2">
+            <div className="p-4 rounded-xl border border-emerald-100 bg-emerald-50/50 space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">Phase IV • Weeks 13-16</span>
                 <span className="text-xs font-bold text-slate-700">20% Marks</span>
@@ -191,8 +195,8 @@ export default async function ProjectsHubPage() {
         {/* Official Downloadable Templates Grid */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-slate-900 flex items-center">
-              <FileText className="h-5 w-5 mr-2 text-indigo-600" />
+            <h2 className="font-heading text-lg font-bold text-brand-navy flex items-center">
+              <FileText className="h-5 w-5 mr-2 text-brand-blue" />
               Official Handbooks & Downloadable IEEE Templates
             </h2>
             <span className="text-xs text-slate-500 font-mono">PDF-1.4 Formats</span>
@@ -207,14 +211,14 @@ export default async function ProjectsHubPage() {
               return (
                 <div
                   key={tpl.id}
-                  className="bg-white border border-slate-200 hover:border-indigo-300 rounded-xl p-5 shadow-2xs hover:shadow-sm transition flex flex-col justify-between space-y-4 group"
+                  className="card-standard p-5 flex flex-col justify-between space-y-4 group hover:border-blue-400 transition"
                 >
                   <div className="space-y-2">
-                    <span className="font-mono text-[10px] font-bold px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded uppercase">
+                    <span className="font-mono text-[10px] font-bold px-2 py-0.5 bg-blue-50 text-brand-blue rounded uppercase">
                       {tpl.resourceType || "DOCUMENT"}
                     </span>
 
-                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition leading-snug">
+                    <h3 className="font-heading text-sm font-bold text-brand-navy group-hover:text-brand-blue transition leading-snug">
                       {tpl.title}
                     </h3>
 
@@ -228,7 +232,7 @@ export default async function ProjectsHubPage() {
 
                     <a
                       href={`/api/projects/download?file=${encodeURIComponent(tpl.storedFileName)}&name=${encodeURIComponent(tpl.title)}`}
-                      className="inline-flex items-center px-3 py-1.5 text-xs font-semibold text-white bg-indigo-700 hover:bg-indigo-800 rounded-lg shadow-2xs transition"
+                      className="inline-flex items-center px-3 py-1.5 text-xs font-semibold text-white bg-brand-navy hover:bg-brand-blue rounded-lg shadow-xs transition"
                       title="Download official PDF"
                     >
                       <Download className="h-3.5 w-3.5 mr-1" />
@@ -245,8 +249,8 @@ export default async function ProjectsHubPage() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold text-slate-900 flex items-center">
-                <GraduationCap className="h-5 w-5 mr-2 text-indigo-600" />
+              <h2 className="font-heading text-lg font-bold text-brand-navy flex items-center">
+                <GraduationCap className="h-5 w-5 mr-2 text-brand-blue" />
                 Department Capstone, Internship & Thesis Courses
               </h2>
               <p className="text-xs text-slate-500">
@@ -265,19 +269,19 @@ export default async function ProjectsHubPage() {
                 <Link
                   key={sub.id}
                   href={subjectUrl}
-                  className="bg-white border border-slate-200 hover:border-indigo-400 rounded-xl p-5 shadow-2xs hover:shadow-sm transition flex flex-col justify-between space-y-3 group"
+                  className="card-standard p-5 flex flex-col justify-between space-y-3 group hover:border-blue-400 transition"
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-xs font-bold px-2.5 py-0.5 bg-slate-900 text-white rounded">
+                      <span className="font-mono text-xs font-bold px-2.5 py-0.5 bg-brand-navy text-white rounded">
                         {sub.code}
                       </span>
-                      <span className="text-[11px] font-semibold text-indigo-700 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded-full">
+                      <span className="text-[11px] font-semibold text-brand-blue bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-full">
                         {sub.subjectType}
                       </span>
                     </div>
 
-                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition">
+                    <h3 className="font-heading text-sm font-bold text-brand-navy group-hover:text-brand-blue transition">
                       {sub.name}
                     </h3>
 
@@ -286,7 +290,7 @@ export default async function ProjectsHubPage() {
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-indigo-700 font-semibold group-hover:underline">
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-brand-blue font-semibold group-hover:underline">
                     <span>Open Capstone Workspace</span>
                     <ArrowRight className="h-3.5 w-3.5 transition transform group-hover:translate-x-1" />
                   </div>

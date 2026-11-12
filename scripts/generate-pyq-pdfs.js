@@ -105,7 +105,7 @@ function createSimplePDF({ universityName, examTitle, session, subjectCode, subj
 }
 
 // Generate past papers for subjects
-const outDir = path.join(process.cwd(), 'public', 'uploads', 'pyq');
+const outDir = require("./lib/storage-path.cjs").resourcePath('pyq');
 if (!fs.existsSync(outDir)) {
   fs.mkdirSync(outDir, { recursive: true });
 }
@@ -358,5 +358,5 @@ const mcs101_2022 = createSimplePDF({
 fs.writeFileSync(path.join(outDir, "MCS101_EndSem_2022_23.pdf"), mcs101_2022);
 console.log("Created: MCS101_EndSem_2022_23.pdf");
 
-console.log("All authentic demo examination paper PDFs generated successfully!");
+console.log("All generated practice examination paper PDFs generated successfully!");
 

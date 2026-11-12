@@ -59,8 +59,9 @@ export function SemesterFilter({ programmeCode, semesterNumber, subjects }: Seme
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            aria-label="Search subjects by name or code"
             placeholder="Search subjects by name or code (e.g. BCS-301, Data Structures)..."
-            className="w-full pl-10 pr-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
+            className="w-full pl-10 pr-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white transition"
           />
           {searchQuery && (
             <button
@@ -84,7 +85,7 @@ export function SemesterFilter({ programmeCode, semesterNumber, subjects }: Seme
               onClick={() => setSelectedType(cat)}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition whitespace-nowrap ${
                 selectedType === cat
-                  ? "bg-emerald-700 text-white shadow-sm"
+                  ? "bg-blue-600 text-white shadow-sm"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >

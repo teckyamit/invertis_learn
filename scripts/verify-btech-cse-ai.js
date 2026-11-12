@@ -117,7 +117,7 @@ async function verify() {
       if (spotCheckCodes.includes(sub.code)) {
         const syllabusResource = sub.resources.find(r => r.category.code === 'SYLLABUS');
         if (syllabusResource) {
-          const physicalPath = path.join(process.cwd(), 'public', syllabusResource.storagePath);
+          const physicalPath = require("./lib/storage-path.cjs").resourcePath(syllabusResource.storagePath);
           if (fs.existsSync(physicalPath)) {
             const stats = fs.statSync(physicalPath);
             pass(`[${sub.code}] ${sub.name}: Physical isolated PDF exists (${(stats.size / 1024).toFixed(1)} KB)`);

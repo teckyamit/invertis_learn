@@ -3,111 +3,7 @@ const path = require('path');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-function escapePdfText(str) {
-  return str.replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
-}
-
-function createAcademicNotesPDF({
-  universityName = "INVERTIS UNIVERSITY, BAREILLY",
-  faculty = "FACULTY OF ENGINEERING & TECHNOLOGY",
-  subjectCode,
-  subjectName,
-  programme,
-  resourceTitle,
-  resourceType,
-  unitLabel,
-  author,
-  contentSections
-}) {
-  const lines = [
-    { text: universityName, size: 16, bold: true, align: 'center', y: 795 },
-    { text: faculty, size: 11, bold: true, align: 'center', y: 775 },
-    { text: "OFFICIAL ACADEMIC LEARNING RESOURCE • DEPARTMENT OF CSE", size: 10, bold: false, align: 'center', y: 760 },
-    { text: "-------------------------------------------------------------------------------------------------------------------", size: 9, bold: false, align: 'center', y: 745 },
-    { text: `Course: [${subjectCode}] ${subjectName}`, size: 11, bold: true, x: 50, y: 730 },
-    { text: `Programme: ${programme}`, size: 10, bold: false, x: 50, y: 714 },
-    { text: `Resource Type: ${resourceType.replace(/_/g, ' ')}`, size: 10, bold: true, x: 380, y: 714 },
-    { text: `Module / Unit: ${unitLabel || 'Comprehensive Course Coverage'}`, size: 10, bold: false, x: 50, y: 698 },
-    { text: `Faculty Author: ${author}`, size: 10, bold: true, x: 380, y: 698 },
-    { text: "-------------------------------------------------------------------------------------------------------------------", size: 9, bold: false, align: 'center', y: 686 },
-    { text: resourceTitle, size: 13, bold: true, align: 'center', y: 668 },
-    { text: "==================================================================================================", size: 8, bold: false, align: 'center', y: 654 }
-  ];
-
-  let currentY = 636;
-
-  contentSections.forEach((section) => {
-    if (currentY < 120) return; // avoid overflow
-    lines.push({ text: section.heading, size: 11, bold: true, x: 50, y: currentY });
-    currentY -= 17;
-
-    section.points.forEach((pt) => {
-      if (currentY < 90) return;
-      if (pt.length > 88) {
-        const splitIdx = pt.lastIndexOf(' ', 88);
-        lines.push({ text: pt.substring(0, splitIdx), size: 9.5, bold: false, x: 55, y: currentY });
-        currentY -= 14;
-        lines.push({ text: "  " + pt.substring(splitIdx + 1), size: 9.5, bold: false, x: 55, y: currentY });
-        currentY -= 16;
-      } else {
-        lines.push({ text: pt, size: 9.5, bold: false, x: 55, y: currentY });
-        currentY -= 16;
-      }
-    });
-
-    currentY -= 8;
-  });
-
-  lines.push({
-    text: "INVERTIS LEARN ACADEMIC REPOSITORY • FACULTY-VERIFIED STUDY RESOURCE",
-    size: 8,
-    bold: true,
-    align: 'center',
-    y: Math.max(currentY, 45)
-  });
-
-  let streamContent = "";
-  lines.forEach((l) => {
-    const escaped = escapePdfText(l.text);
-    const fontName = l.bold ? "/F2" : "/F1";
-    let xPos = l.x || 50;
-    if (l.align === 'center') {
-      const approxWidth = l.text.length * (l.size * 0.52);
-      xPos = Math.max(30, (595 - approxWidth) / 2);
-    }
-    streamContent += `BT ${fontName} ${l.size} Tf ${xPos.toFixed(1)} ${l.y.toFixed(1)} Td (${escaped}) Tj ET\n`;
-  });
-
-  const streamLength = Buffer.byteLength(streamContent, 'utf-8');
-
-  const pdfChunks = [];
-  pdfChunks.push("%PDF-1.4\n");
-  const offsets = [];
-
-  function addObj(content) {
-    offsets.push(pdfChunks.reduce((acc, c) => acc + Buffer.byteLength(c, 'utf-8'), 0));
-    pdfChunks.push(content);
-  }
-
-  addObj("1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n");
-  addObj("2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n");
-  addObj("3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>\nendobj\n");
-  addObj("4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n");
-  addObj("5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>\nendobj\n");
-  addObj(`6 0 obj\n<< /Length ${streamLength} >>\nstream\n${streamContent}endstream\nendobj\n`);
-
-  const xrefOffset = pdfChunks.reduce((acc, c) => acc + Buffer.byteLength(c, 'utf-8'), 0);
-  let xref = `xref\n0 ${offsets.length + 1}\n0000000000 65535 f \n`;
-  for (let i = 0; i < offsets.length; i++) {
-    xref += String(offsets[i]).padStart(10, '0') + " 00000 n \n";
-  }
-
-  const trailer = `trailer\n<< /Size ${offsets.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`;
-  pdfChunks.push(xref);
-  pdfChunks.push(trailer);
-
-  return Buffer.from(pdfChunks.join(''), 'utf-8');
-}
+const { createPracticePdf: createAcademicNotesPDF } = require('./lib/practice-pdf.cjs');
 
 const NOTES_DATA = [
   // 1. BCS-301 Data Structures - Unit 1
@@ -479,7 +375,7 @@ async function seedPhase3Notes() {
     const relStoragePath = `uploads/notes/${item.fileName}`;
 
     // 2. Generate PDF document
-    const pdfBuffer = createAcademicNotesPDF({
+    const pdfBuffer = await createAcademicNotesPDF({
       subjectCode: subject.code,
       subjectName: subject.name,
       programme: progName,
@@ -503,10 +399,12 @@ async function seedPhase3Notes() {
         storedFileName: item.fileName,
         storagePath: relStoragePath,
         fileSizeBytes: pdfBuffer.length,
-        authorName: item.author,
+        authorName: null,
         unitNumber: item.unitNumber,
         resourceType: item.resourceType,
-        isPublished: true
+        isPublished: false,
+        provenanceStatus: "PRACTICE",
+        sourceReference: "Repository-generated practice material"
       },
       create: {
         id: resourceId,
@@ -517,10 +415,12 @@ async function seedPhase3Notes() {
         storedFileName: item.fileName,
         storagePath: relStoragePath,
         fileSizeBytes: pdfBuffer.length,
-        authorName: item.author,
+        authorName: null,
         unitNumber: item.unitNumber,
         resourceType: item.resourceType,
-        isPublished: true
+        isPublished: false,
+        provenanceStatus: "PRACTICE",
+        sourceReference: "Repository-generated practice material"
       }
     });
 

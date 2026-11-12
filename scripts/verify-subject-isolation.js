@@ -113,7 +113,7 @@ async function runSubjectIsolationVerification() {
   assert(cResource.storagePath === 'uploads/syllabus/subjects/BCS201_Syllabus.pdf', `Resource path is '${cResource.storagePath}'`);
 
   // Verify physical PDF file
-  const cPdfPath = path.join(process.cwd(), 'public', cResource.storagePath);
+  const cPdfPath = require("./lib/storage-path.cjs").resourcePath(cResource.storagePath);
   assert(fs.existsSync(cPdfPath), `Physical subject PDF exists: ${cPdfPath}`);
   const cPdfDoc = await PDFDocument.load(fs.readFileSync(cPdfPath));
   assert(cPdfDoc.getPageCount() === 2, `PDF contains exactly 2 pages for Programming in C (Found: ${cPdfDoc.getPageCount()})`);
@@ -158,7 +158,7 @@ async function runSubjectIsolationVerification() {
   assert(mathResource.storagePath === 'uploads/syllabus/subjects/BAS102_Syllabus.pdf', `Resource path is '${mathResource.storagePath}'`);
 
   // Verify physical PDF file
-  const mathPdfPath = path.join(process.cwd(), 'public', mathResource.storagePath);
+  const mathPdfPath = require("./lib/storage-path.cjs").resourcePath(mathResource.storagePath);
   assert(fs.existsSync(mathPdfPath), `Physical subject PDF exists: ${mathPdfPath}`);
   const mathPdfDoc = await PDFDocument.load(fs.readFileSync(mathPdfPath));
   assert(mathPdfDoc.getPageCount() === 1, `PDF contains exactly 1 page for Mathematics-I (Found: ${mathPdfDoc.getPageCount()})`);

@@ -1,4 +1,6 @@
 "use client";
+import { provenanceLabel } from "@/lib/resource-policy";
+import { Modal } from "@/components/ui/Modal";
 
 import React, { useState, useMemo } from "react";
 import {
@@ -23,6 +25,7 @@ export interface NoteResource {
   title: string;
   originalFileName: string;
   storedFileName: string;
+  provenanceStatus?: string;
   storagePath: string;
   fileSizeBytes: number;
   authorName?: string | null;
@@ -296,6 +299,7 @@ export function NotesSection({
                     <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition leading-snug">
                       {note.title}
                     </h3>
+        <p className="text-xs text-amber-800 mt-2">{provenanceLabel(note.provenanceStatus)}</p>
                     {note.authorName && (
                       <p className="text-xs text-slate-500 mt-1 flex items-center">
                         <span className="font-medium text-slate-700">{note.authorName}</span>
@@ -355,7 +359,7 @@ export function NotesSection({
 
       {/* In-Browser PDF Preview Modal */}
       {previewNote && (
-        <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6">
+        <Modal label="Notes preview" onClose={() => setPreviewNote(null)}>
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-5xl h-[90vh] flex flex-col overflow-hidden">
             {/* Modal Header */}
             <div className="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
@@ -375,7 +379,7 @@ export function NotesSection({
                 </div>
               </div>
 
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
                 <a
                   href={`/${previewNote.storagePath}`}
                   target="_blank"
@@ -396,7 +400,7 @@ export function NotesSection({
                   Download
                 </a>
 
-                <button
+                <button aria-label="Close preview"
                   onClick={() => setPreviewNote(null)}
                   className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition"
                 >
@@ -430,7 +434,7 @@ export function NotesSection({
               </object>
             </div>
           </div>
-        </div>
+        </Modal>
       )}
     </div>
   );

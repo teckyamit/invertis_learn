@@ -1,18 +1,100 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Official Invertis Learn Color Palette */
+  --brand-navy: #101E3A;
+  --brand-blue: #2563EB;
+  --brand-blue-secondary: #3B82F6;
+  --brand-blue-light: #EFF6FF;
+
+  --bg-main: #F7F9FC;
+  --bg-surface: #FFFFFF;
+
+  --text-primary: #111827;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+
+  --border-subtle: #E2E8F0;
+
+  --status-success: #059669;
+  --status-warning: #D97706;
+  --status-danger: #DC2626;
+
+  /* Font Variables (fallback to Google Webfonts / system stack) */
+  /* Font variables are supplied by next/font on the root element. */
+
+  /* Fluid Layout Standards */
+  --container-max-width: 1600px;
 }
 
 body {
   font-family: var(--font-inter);
-  color: #0f172a;
-  background-color: #f8fafc;
+  color: var(--text-primary);
+  background-color: var(--bg-main);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+@layer components {
+  /* Mobile-first Fluid Global Container System */
+  .site-container {
+    width: 100%;
+    margin-inline: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .site-container {
+      width: min(92%, 1600px);
+      padding-left: clamp(1rem, 2.5vw, 2.5rem);
+      padding-right: clamp(1rem, 2.5vw, 2.5rem);
+    }
+  }
+
+  .site-container-wide {
+    width: 100%;
+    margin-inline: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .site-container-wide {
+      width: min(95%, 1680px);
+      padding-left: clamp(1rem, 2vw, 2rem);
+      padding-right: clamp(1rem, 2vw, 2rem);
+    }
+  }
+
+  /* Standardized Typography Classes */
+  .font-display {
+    font-family: var(--font-heading);
+    letter-spacing: -0.025em;
+  }
+
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  /* Standard Card Styles */
+  .card-standard {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 0.75rem; /* 12px */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .card-hero {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 1rem; /* 16px */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06);
+  }
 }
 
 /* Custom scrollbars */
@@ -32,4 +114,13 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+/* Hide scrollbar utility for touch-friendly horizontal swipe containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

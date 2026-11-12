@@ -1,4 +1,5 @@
 "use client";
+import { Modal } from "@/components/ui/Modal";
 
 import React, { useState, useMemo } from "react";
 import { FileQuestion, Filter, Plus, Calendar, AlertCircle, X, Download, ExternalLink } from "lucide-react";
@@ -67,7 +68,7 @@ export function PYQSection({
               Previous-Year Question Papers (PYQs)
             </h2>
             <p className="text-xs text-slate-500">
-              Official past university end-semester and mid-semester examination papers
+              Archived papers and clearly labelled practice materials
             </p>
           </div>
         </div>
@@ -85,12 +86,12 @@ export function PYQSection({
       {pyqs.length > 0 && (
         <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs">
           {/* Year Filter */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 min-w-0 max-w-full">
             <span className="font-semibold text-slate-500 uppercase tracking-wider flex items-center">
               <Calendar className="h-3.5 w-3.5 mr-1" />
               Session:
             </span>
-            <div className="flex items-center space-x-1 overflow-x-auto">
+            <div className="flex items-center space-x-1 overflow-x-auto min-w-0">
               {availableYears.map((yr) => (
                 <button
                   key={yr}
@@ -188,14 +189,14 @@ export function PYQSection({
 
       {/* In-Browser PDF Preview Modal */}
       {previewPyq && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/75 backdrop-blur-sm animate-in fade-in duration-200">
+        <Modal label="Question paper preview" onClose={() => setPreviewPyq(null)}>
           <div className="bg-white rounded-2xl max-w-4xl w-full h-[85vh] border border-slate-200 shadow-2xl flex flex-col overflow-hidden">
             {/* Header */}
             <div className="bg-slate-900 text-white px-5 py-3.5 flex items-center justify-between">
               <div className="truncate">
                 <h4 className="text-sm font-semibold truncate text-white">{previewPyq.title}</h4>
                 <p className="text-xs text-slate-400">
-                  Session {previewPyq.academicYear} • Invertis University Official Examination Paper
+                  Session {previewPyq.academicYear} • Archived resource — check source status
                 </p>
               </div>
               <div className="flex items-center space-x-2 flex-shrink-0">
@@ -215,7 +216,7 @@ export function PYQSection({
                   <Download className="h-3.5 w-3.5 mr-1" />
                   Download
                 </a>
-                <button
+                <button aria-label="Close preview"
                   onClick={() => setPreviewPyq(null)}
                   className="p-1 text-slate-400 hover:text-white rounded-lg transition"
                 >
@@ -245,7 +246,7 @@ export function PYQSection({
               </object>
             </div>
           </div>
-        </div>
+        </Modal>
       )}
     </div>
   );

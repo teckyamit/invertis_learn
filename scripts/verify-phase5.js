@@ -63,7 +63,7 @@ async function runVerification() {
     assert(allFound, `Capstone subjects properly associated with project archives: ${Array.from(associatedCodes).join(", ")}`);
 
     // 4. Verify Physical Document Assets
-    const projectUploadsDir = path.join(process.cwd(), "public", "uploads", "projects");
+    const projectUploadsDir = require("./lib/storage-path.cjs").resourcePath("projects");
     const requiredFiles = [
       "Invertis_BTech_Capstone_Project_Manual_2023-24.pdf",
       "Invertis_Industrial_Training_Internship_Report_Guide.pdf",

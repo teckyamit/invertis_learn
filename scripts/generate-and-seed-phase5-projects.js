@@ -106,7 +106,7 @@ async function createProjectPdf(filename, title, subtitle, author, sections) {
     color: rgb(0.85, 0.88, 0.9)
   });
 
-  page.drawText("Invertis Learn Academic Companion — Verified Official Departmental Project Archive", {
+  page.drawText("Invertis Learn Academic Companion — Generated Practice Project Archive", {
     x: 50,
     y: 36,
     size: 8,
@@ -123,7 +123,7 @@ async function createProjectPdf(filename, title, subtitle, author, sections) {
   });
 
   const pdfBytes = await pdfDoc.save();
-  const destDir = path.join(process.cwd(), 'public', 'uploads', 'projects');
+  const destDir = require("./lib/storage-path.cjs").resourcePath('projects');
   if (!fs.existsSync(destDir)) {
     fs.mkdirSync(destDir, { recursive: true });
   }
@@ -159,7 +159,7 @@ async function seedPhase5() {
     {
       filename: "Invertis_BTech_Capstone_Project_Manual_2023-24.pdf",
       title: "B.Tech Final-Year Capstone Project Guidelines & Manual",
-      subtitle: "Official Handbook for Project-II (BCS-753) and Project-III (BCS-854)",
+      subtitle: "Practice Handbook for Project-II (BCS-753) and Project-III (BCS-854)",
       author: "Department of Computer Science & Engineering, Academic Council",
       resourceType: "PROJECT_MANUAL",
       targetCodes: ['BCS-753', 'BCS-854', 'BCSAI 706', 'BCSAI 802'],
@@ -196,7 +196,7 @@ async function seedPhase5() {
     {
       filename: "Invertis_Industrial_Training_Internship_Report_Guide.pdf",
       title: "Summer Industrial Training & Internship Diary Guidelines",
-      subtitle: "Official Handbook for Industrial Training Evaluation (BCS-754 / BCSAI 801)",
+      subtitle: "Practice Handbook for Industrial Training Evaluation (BCS-754 / BCSAI 801)",
       author: "Directorate of Training & Placement, Invertis University",
       resourceType: "INTERNSHIP_GUIDE",
       targetCodes: ['BCS-754', 'BCSAI 801'],
@@ -337,7 +337,7 @@ async function seedPhase5() {
             fileSizeBytes: stats.size,
             authorName: doc.author,
             resourceType: doc.resourceType,
-            isPublished: true
+            isPublished: false, provenanceStatus: "PRACTICE", sourceReference: "Repository-generated practice material"
           }
         });
         resourcesCount++;

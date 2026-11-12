@@ -1,4 +1,5 @@
 "use client";
+import { provenanceLabel } from "@/lib/resource-policy";
 
 import React, { useState } from "react";
 import {
@@ -24,6 +25,7 @@ export interface ProjectResourceItem {
   title: string;
   originalFileName: string;
   storedFileName: string;
+  provenanceStatus?: string;
   storagePath: string;
   fileSizeBytes: number;
   authorName?: string | null;
@@ -156,6 +158,7 @@ export function ProjectArchiveSection({
                     <h4 className="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition leading-snug">
                       {res.title}
                     </h4>
+        <p className="text-xs text-amber-800 mt-2">{provenanceLabel(res.provenanceStatus)}</p>
 
                     {res.authorName && (
                       <p className="text-xs text-slate-500">

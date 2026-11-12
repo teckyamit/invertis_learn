@@ -2,11 +2,13 @@ import React from "react";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
+import { ContentNotice } from "@/components/resources/ContentNotice";
 import { FileQuestion, ShieldCheck, ArrowRight, Calendar, Layers, BookOpen } from "lucide-react";
 import { 
   getProgrammeCurriculumStats, 
   getProgrammeDisplayName 
 } from "@/lib/lateralEntry";
+import { compareProgrammesByAcademicLevel } from "@/lib/academicLevels";
 
 export const revalidate = 3600;
 
@@ -35,31 +37,35 @@ export default async function PYQProgrammeListPage() {
         },
       },
     },
-    orderBy: { degreeLevel: "desc" },
   });
 
+  const sortedProgrammes = [...programmes].sort(compareProgrammesByAcademicLevel);
+
   return (
-    <div className="min-h-screen bg-slate-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="w-full min-h-screen py-8 sm:py-12">
+      <div className="site-container space-y-8">
         {/* Navigation Breadcrumbs */}
         <Breadcrumbs items={[{ label: "PYQ Library" }]} />
 
         {/* Header Banner */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-50 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
-          <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-xs font-semibold uppercase tracking-wider mb-3 border border-blue-200">
+        <div className="card-hero bg-white border border-slate-200 p-6 sm:p-10 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50/70 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+          <div className="relative z-10 max-w-4xl space-y-2">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-xs font-semibold uppercase tracking-wider mb-2 border border-blue-200">
               <ShieldCheck className="h-3.5 w-3.5 text-blue-600" />
               <span>University Examination Papers Repository</span>
             </div>
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+            <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
               Previous-Year Question Papers (PYQ Library)
             </h1>
-            <p className="mt-3 text-base text-slate-600 leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-3xl">
               Browse subject-wise university examination papers for Invertis University engineering programmes. Filter by academic year, examination session (End-Semester & Mid-Semester), and view solutions where available.
             </p>
           </div>
         </div>
+
+        {/* Resource Provenance Disclaimer */}
+        <ContentNotice compact />
 
         {/* Programme Selection Grid */}
         <div className="space-y-4">
@@ -73,9 +79,12 @@ export default async function PYQProgrammeListPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {programmes.map((prog) => {
-              const stats = getProgrammeCurriculumStats(prog, programmes);
+            {sortedProgrammes.map((prog) => {
+              const stats = getProgrammeCurriculumStats(prog, sortedProgrammes);
               const displayName = getProgrammeDisplayName(prog.code, prog.name);
+              const isDip = prog.category === "DIPLOMA" || prog.code.startsWith("DIP");
+              const isPhd = prog.category === "DOCTORAL" || prog.code.startsWith("PHD");
+              const isPg = prog.category === "POSTGRADUATE" || prog.code.startsWith("MTECH");
 
               return (
                 <div
@@ -85,8 +94,13 @@ export default async function PYQProgrammeListPage() {
                   <div>
                     {/* Top Row: Degree Level & Regulation */}
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs font-bold px-3 py-1 bg-blue-50 text-blue-800 rounded-full border border-blue-200">
-                        {prog.degreeLevel === "UNDERGRADUATE" ? "Undergraduate (UG)" : "Postgraduate (PG)"}
+                      <span className={`text-xs font-bold px-3 py-1 rounded-full border ${
+                        isDip ? "bg-amber-50 text-amber-800 border-amber-200" :
+                        isPhd ? "bg-rose-50 text-rose-800 border-rose-200" :
+                        isPg ? "bg-indigo-50 text-indigo-800 border-indigo-200" :
+                        "bg-blue-50 text-blue-800 border-blue-200"
+                      }`}>
+                        {isDip ? "Diploma" : isPhd ? "Doctoral (Ph.D.)" : isPg ? "Postgraduate (PG)" : "Undergraduate (UG)"}
                       </span>
                       <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md flex items-center">
                         <Calendar className="h-3 w-3 mr-1 text-slate-400" />

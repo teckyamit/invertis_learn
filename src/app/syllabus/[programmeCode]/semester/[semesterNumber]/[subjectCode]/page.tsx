@@ -17,23 +17,32 @@ import {
   isSemesterAllowedForProgramme, 
   getLateralEntryConfig 
 } from "@/lib/lateralEntry";
+import { toCanonicalPdfResource } from "@/lib/pdf-resource-service";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     programmeCode: string;
     semesterNumber: string;
     subjectCode: string;
-  };
+  }>;
 }
 
 export const revalidate = 3600;
 
-export default async function SubjectDetailPage({ params }: PageProps) {
-  const programmeCode = decodeURIComponent(params.programmeCode);
-  const semNum = parseInt(params.semesterNumber, 10);
-  const subjectCode = decodeURIComponent(params.subjectCode);
+export default async function SubjectDetailPage({ params: paramsPromise }: PageProps) {
+  const params = await paramsPromise;
+  const programmeCode = params.programmeCode;
+  const semNum = Number(params.semesterNumber);
+  const rawSubjectCode = params.subjectCode;
+  const decodedSubjectCode = (() => {
+    try {
+      return decodeURIComponent(rawSubjectCode);
+    } catch {
+      return rawSubjectCode;
+    }
+  })();
 
-  if (isNaN(semNum)) {
+  if (!Number.isInteger(semNum) || semNum < 1 || semNum > 12) {
     notFound();
   }
 
@@ -47,7 +56,7 @@ export default async function SubjectDetailPage({ params }: PageProps) {
 
   // Find requested programme metadata (for displaying proper lateral title & breadcrumbs)
   const requestedProgramme = await db.programme.findUnique({
-    where: { code: programmeCode },
+    where: { code: programmeCode, isActive: true },
   });
 
   if (!requestedProgramme) {
@@ -57,13 +66,18 @@ export default async function SubjectDetailPage({ params }: PageProps) {
   // Find programme, semester, and subject (using shared parent programme curriculum)
   const subject = await db.subject.findFirst({
     where: {
-      code: subjectCode,
+      isActive: true,
+      OR: [
+        { code: decodedSubjectCode },
+        { code: rawSubjectCode },
+      ],
       semester: {
         semesterNumber: semNum,
         curriculumVersion: {
           isCurrent: true,
           programme: {
             code: lookupProgCode,
+            isActive: true,
           },
         },
       },
@@ -105,23 +119,28 @@ export default async function SubjectDetailPage({ params }: PageProps) {
   const curriculum = semester.curriculumVersion;
   const programme = requestedProgramme || curriculum.programme;
 
-  // Identify syllabus resource
+  // Identify and resolve canonical syllabus resource
   const syllabusDbResource = subject.resources.find((r) => r.category.code === "SYLLABUS");
-  const syllabusResource: SubjectResourceItem | null = syllabusDbResource
+  const canonicalSyllabus = syllabusDbResource
+    ? toCanonicalPdfResource(syllabusDbResource, subject.code, subject.name)
+    : null;
+
+  const syllabusResource: SubjectResourceItem | null = canonicalSyllabus
     ? {
-        id: syllabusDbResource.id,
-        title: syllabusDbResource.title,
-        originalFileName: syllabusDbResource.originalFileName,
-        storedFileName: syllabusDbResource.storedFileName,
-        storagePath: syllabusDbResource.storagePath,
-        fileSizeBytes: syllabusDbResource.fileSizeBytes,
+        id: canonicalSyllabus.id,
+        title: canonicalSyllabus.filename,
+        originalFileName: canonicalSyllabus.filename,
+        storedFileName: canonicalSyllabus.filename,
+        provenanceStatus: syllabusDbResource!.provenanceStatus,
+        storagePath: canonicalSyllabus.storageKey,
+        fileSizeBytes: canonicalSyllabus.fileSizeBytes,
+        openUrl: canonicalSyllabus.openUrl,
+        downloadUrl: canonicalSyllabus.downloadUrl,
+        isAvailable: canonicalSyllabus.isAvailable,
+        verificationStatus: canonicalSyllabus.verificationStatus,
       }
     : null;
 
-  // Phase 4 Validation & Download Eligibility Check:
-  // PDF download is eligible ONLY if:
-  // 1. The original PDF belongs specifically to this subject (isolated PDF, not a composite multi-subject book)
-  // 2. Structured syllabus information has been extracted and validated
   let details: any = null;
   if (subject.syllabusDetails) {
     try {
@@ -131,20 +150,9 @@ export default async function SubjectDetailPage({ params }: PageProps) {
     }
   }
 
-  const isIsolatedPdf = !!(
-    syllabusResource &&
-    syllabusResource.storedFileName.includes("_Syllabus.pdf") &&
-    !syllabusResource.storedFileName.toLowerCase().includes("year")
-  );
-
-  const hasStructuredContent = !!(
-    details &&
-    ((details.modules && details.modules.length > 0) ||
-      (details.labExperiments && details.labExperiments.length > 0))
-  );
-
-  const isDownloadEligible = isIsolatedPdf && hasStructuredContent;
-  const validationStatus = isDownloadEligible ? "VERIFIED" : "IN_REVIEW";
+  // Physical PDF availability check: available if physical file exists on disk
+  const isDownloadEligible = Boolean(syllabusResource && syllabusResource.isAvailable);
+  const validationStatus = syllabusDbResource?.provenanceStatus === "VERIFIED" ? "VERIFIED" : "IN_REVIEW";
   const validationNotes = isDownloadEligible
     ? undefined
     : `The syllabus for ${subject.code} (${subject.name}) is undergoing departmental digitization. Units and verified download actions will become accessible as soon as academic cross-validation completes.`;
@@ -157,6 +165,7 @@ export default async function SubjectDetailPage({ params }: PageProps) {
       title: r.title,
       originalFileName: r.originalFileName,
       storedFileName: r.storedFileName,
+        provenanceStatus: r.provenanceStatus,
       storagePath: r.storagePath,
       fileSizeBytes: r.fileSizeBytes,
       academicYear: r.academicYear,
@@ -172,6 +181,7 @@ export default async function SubjectDetailPage({ params }: PageProps) {
       title: r.title,
       originalFileName: r.originalFileName,
       storedFileName: r.storedFileName,
+        provenanceStatus: r.provenanceStatus,
       storagePath: r.storagePath,
       fileSizeBytes: r.fileSizeBytes,
       authorName: r.authorName,
@@ -187,6 +197,7 @@ export default async function SubjectDetailPage({ params }: PageProps) {
       title: r.title,
       originalFileName: r.originalFileName,
       storedFileName: r.storedFileName,
+        provenanceStatus: r.provenanceStatus,
       storagePath: r.storagePath,
       fileSizeBytes: r.fileSizeBytes,
       authorName: r.authorName,
@@ -201,6 +212,7 @@ export default async function SubjectDetailPage({ params }: PageProps) {
       title: r.title,
       originalFileName: r.originalFileName,
       storedFileName: r.storedFileName,
+        provenanceStatus: r.provenanceStatus,
       storagePath: r.storagePath,
       fileSizeBytes: r.fileSizeBytes,
       authorName: r.authorName,
@@ -250,7 +262,7 @@ export default async function SubjectDetailPage({ params }: PageProps) {
       validationNotes={validationNotes}
     >
       {/* 7. Previous Year Question Papers (PYQ Library - Phase 2) */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+      <div className="card-standard p-6 md:p-8">
         <PYQSection
           subjectId={subject.id}
           subjectCode={subject.code}
@@ -260,7 +272,7 @@ export default async function SubjectDetailPage({ params }: PageProps) {
       </div>
 
       {/* 8. Faculty Lecture Notes & Learning Resources (Phase 3) */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+      <div className="card-standard p-6 md:p-8">
         <NotesSection
           subjectId={subject.id}
           subjectCode={subject.code}
@@ -270,7 +282,7 @@ export default async function SubjectDetailPage({ params }: PageProps) {
       </div>
 
       {/* 9. Laboratory Manuals & Practical Materials (Phase 4) */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+      <div className="card-standard p-6 md:p-8">
         <LabManualSection
           subjectId={subject.id}
           subjectCode={subject.code}
@@ -296,24 +308,24 @@ export default async function SubjectDetailPage({ params }: PageProps) {
       />
 
       {/* 12. Academic Modules Roadmap */}
-      <div className="bg-slate-100/70 border border-dashed border-slate-300 rounded-2xl p-6 text-slate-600">
+      <div className="card-standard p-6 bg-surface-ground text-slate-600">
         <div className="flex items-center space-x-2 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-          <Sparkles className="h-4 w-4 text-emerald-600" />
+          <Sparkles className="h-4 w-4 text-brand-blue" />
           <span>Department Academic Progression</span>
         </div>
         <p className="text-xs text-slate-500 leading-relaxed mb-4">
           In accordance with our platform roadmap, all core curriculum resources, question banks, lecture notes, lab guides, capstone project specifications, and career specialization tracks are actively verified and accessible without authentication.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          <div className="bg-emerald-50/70 p-3 rounded-lg border border-emerald-200 text-slate-700">
-            <span className="font-semibold block text-emerald-800 flex items-center">
-              <CheckCircle className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Knowledge Centre & Archives
+          <div className="bg-blue-50/70 p-3 rounded-lg border border-blue-200 text-slate-700">
+            <span className="font-semibold block text-brand-blue flex items-center">
+              <CheckCircle className="h-3.5 w-3.5 mr-1 text-brand-blue" /> Knowledge Centre & Archives
             </span>
             <span>Active: IEEE synopses, capstone timelines, manuals & viva rubrics</span>
           </div>
-          <div className="bg-emerald-50/70 p-3 rounded-lg border border-emerald-200 text-slate-700">
-            <span className="font-semibold block text-emerald-800 flex items-center">
-              <CheckCircle className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Career Pathways & Specializations
+          <div className="bg-blue-50/70 p-3 rounded-lg border border-blue-200 text-slate-700">
+            <span className="font-semibold block text-brand-blue flex items-center">
+              <CheckCircle className="h-3.5 w-3.5 mr-1 text-brand-blue" /> Career Pathways & Specializations
             </span>
             <span>Active: 6 specialization tracks, industry certifications & skill roadmaps</span>
           </div>

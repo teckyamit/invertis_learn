@@ -27,18 +27,18 @@ export function SubjectCard({ programmeCode, semesterNumber, subject }: SubjectC
     ? "bg-purple-50 text-purple-700 border-purple-200"
     : isElective
     ? "bg-amber-50 text-amber-700 border-amber-200"
-    : "bg-emerald-50 text-emerald-700 border-emerald-200";
+    : "bg-blue-50 text-blue-700 border-blue-200";
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between group overflow-hidden">
-      <div className="p-5">
+    <div className="card-standard hover:border-blue-400 hover:shadow-md transition-all duration-200 flex flex-col justify-between group overflow-hidden bg-white">
+      <div className="p-4 sm:p-6">
         {/* Top Meta: Code & Type Badges */}
         <div className="flex items-start justify-between gap-2 mb-3">
           <span className="font-mono text-xs font-bold px-2.5 py-1 bg-slate-900 text-white rounded-md tracking-wider">
             {subject.code}
           </span>
           <div className="flex flex-wrap gap-1.5 justify-end">
-            <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border ${categoryColor}`}>
+            <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${categoryColor}`}>
               {subject.subjectType}
             </span>
             {subject.electiveGroup && (
@@ -50,14 +50,14 @@ export function SubjectCard({ programmeCode, semesterNumber, subject }: SubjectC
         </div>
 
         {/* Subject Title */}
-        <h3 className="font-bold text-slate-900 group-hover:text-emerald-800 transition line-clamp-2 text-base leading-snug mb-3">
+        <h3 className="font-heading font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 text-base leading-snug mb-3">
           {subject.name}
         </h3>
 
         {/* Academic Details Grid */}
-        <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 bg-slate-50/70 p-2.5 rounded-lg border border-slate-100">
+        <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 bg-slate-50/80 p-3 rounded-xl border border-slate-100">
           <div className="flex items-center space-x-1.5">
-            <Award className="h-3.5 w-3.5 text-emerald-600 flex-shrink-0" />
+            <Award className="h-3.5 w-3.5 text-blue-600 flex-shrink-0" />
             <span>
               Credits: <strong className="text-slate-900 font-semibold">{subject.credits}</strong>
             </span>
@@ -80,14 +80,14 @@ export function SubjectCard({ programmeCode, semesterNumber, subject }: SubjectC
       </div>
 
       {/* Card Action Link */}
-      <div className="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between group-hover:bg-emerald-50/50 transition">
-        <span className="text-xs font-semibold text-emerald-700 group-hover:text-emerald-800 flex items-center">
-          <FileCheck className="h-3.5 w-3.5 mr-1" />
+      <div className="px-5 sm:px-6 py-3.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between group-hover:bg-blue-50/50 transition">
+        <span className="text-xs font-bold text-blue-600 group-hover:text-blue-800 flex items-center">
+          <FileCheck className="h-3.5 w-3.5 mr-1.5" />
           View Syllabus & PDF
         </span>
         <Link
           href={`/syllabus/${encodeURIComponent(programmeCode)}/semester/${semesterNumber}/${encodeURIComponent(subject.code)}`}
-          className="inline-flex items-center text-xs font-semibold text-emerald-700 group-hover:text-emerald-800 group-hover:translate-x-0.5 transition-transform"
+          className="inline-flex items-center text-xs font-bold text-blue-600 group-hover:text-blue-800 group-hover:translate-x-0.5 transition-transform"
         >
           Explore
           <ArrowRight className="h-3.5 w-3.5 ml-1" />

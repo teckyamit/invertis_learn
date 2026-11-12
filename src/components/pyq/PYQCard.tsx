@@ -1,4 +1,5 @@
 "use client";
+import { provenanceLabel } from "@/lib/resource-policy";
 
 import React from "react";
 import { Download, FileText, Calendar, CheckCircle2, Award, Eye } from "lucide-react";
@@ -8,6 +9,7 @@ export interface PYQResource {
   title: string;
   originalFileName: string;
   storedFileName: string;
+  provenanceStatus?: string;
   storagePath: string;
   fileSizeBytes: number;
   academicYear: string | null;
@@ -43,15 +45,15 @@ export function PYQCard({ pyq, onPreview }: PYQCardProps) {
       : "bg-blue-50 text-blue-800 border-blue-200";
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 hover:border-blue-400 hover:shadow-md transition p-5 flex flex-col justify-between group">
+    <div className="bg-white rounded-xl border border-slate-200 hover:border-blue-400 hover:shadow-md transition p-4 sm:p-5 flex flex-col justify-between group">
       <div>
         {/* Top Badges */}
-        <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="inline-flex items-center text-xs font-bold px-2.5 py-1 bg-slate-900 text-white rounded-md tracking-wider">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <span className="inline-flex items-center text-xs font-bold px-2.5 py-1 bg-slate-900 text-white rounded-md tracking-wider shrink-0">
             <Calendar className="h-3 w-3 mr-1 text-amber-400" />
             Session {pyq.academicYear || "Past Year"}
           </span>
-          <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${examTypeBadge}`}>
+          <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full border shrink-0 ${examTypeBadge}`}>
             {examTypeLabel}
           </span>
         </div>
@@ -60,6 +62,7 @@ export function PYQCard({ pyq, onPreview }: PYQCardProps) {
         <h4 className="font-bold text-slate-900 group-hover:text-blue-800 transition line-clamp-2 text-sm leading-snug mb-2">
           {pyq.title}
         </h4>
+        <p className="text-xs text-amber-800 mt-2">{provenanceLabel(pyq.provenanceStatus)}</p>
 
         {/* Details */}
         <div className="flex items-center space-x-3 text-xs text-slate-500 mb-4">
@@ -84,16 +87,16 @@ export function PYQCard({ pyq, onPreview }: PYQCardProps) {
         {onPreview && (
           <button
             onClick={() => onPreview(pyq)}
-            className="flex-1 inline-flex items-center justify-center px-3 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition"
+            className="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition min-h-[38px]"
           >
-            <Eye className="h-3.5 w-3.5 mr-1 text-slate-500" />
+            <Eye className="h-3.5 w-3.5 mr-1" />
             Preview
           </button>
         )}
 
         <a
           href={downloadUrl}
-          className="flex-1 inline-flex items-center justify-center px-3 py-1.5 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-lg shadow-sm transition"
+          className="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-lg shadow-sm transition min-h-[38px]"
         >
           <Download className="h-3.5 w-3.5 mr-1" />
           Download

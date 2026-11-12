@@ -1,3 +1,4 @@
+const { PDFDocument } = require("pdf-lib");
 const { PrismaClient } = require('@prisma/client');
 const fs = require('fs');
 const path = require('path');
@@ -17,6 +18,7 @@ async function runPhase2Verification() {
     } else {
       console.error(`  [FAIL] ${message}`);
       passedAll = false;
+      process.exitCode = 1;
     }
   }
 
@@ -39,7 +41,7 @@ async function runPhase2Verification() {
     }
   });
   assert(!!bcs301, "BCS-301 Data Structures exists");
-  assert(bcs301.resources.length === 3, `BCS-301 has 3 archived past papers (Found: ${bcs301.resources.length})`);
+  assert(bcs301.resources.length >= 3, `BCS-301 retains at least 3 seeded papers (Found: ${bcs301.resources.length})`);
 
   const sessions = bcs301.resources.map(r => r.academicYear);
   assert(sessions.includes("2023-2024"), "Contains Session 2023-2024 Mid-Semester paper");
@@ -55,10 +57,10 @@ async function runPhase2Verification() {
   // 3. Verify Physical Files on Disk
   console.log("\nStep 3: Verify Physical PDF Validity on Disk");
   for (const res of bcs301.resources) {
-    const filePath = path.join(process.cwd(), "public", "uploads", "pyq", res.storedFileName);
+    const filePath = require("./lib/storage-path.cjs").resourcePath("pyq/" + res.storedFileName);
     assert(fs.existsSync(filePath), `Physical file exists: ${res.storedFileName}`);
-    const content = fs.readFileSync(filePath, "utf-8");
-    assert(content.startsWith("%PDF-1.4"), `File ${res.storedFileName} is a valid PDF-1.4 format`);
+    const content = await PDFDocument.load(fs.readFileSync(filePath));
+    assert(content.getPageCount() > 0, `File ${res.storedFileName} is a readable PDF document`);
   }
 
   // 4. Verify BCS-302 & BCS-303 Isolation

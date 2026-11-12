@@ -1,4 +1,6 @@
 import { db } from "@/lib/db";
+import { activeSubject, publicResource } from "@/lib/resource-policy";
+import { ContentNotice } from "@/components/resources/ContentNotice";
 import Link from "next/link";
 import { 
   BookOpen, 
@@ -24,17 +26,19 @@ export const metadata = {
 };
 
 export default async function ResourcesPage() {
-  const totalResources = await db.academicResource.count();
-  const totalSubjects = await db.subject.count();
+  const totalResources = await db.academicResource.count({ where: publicResource });
+  const totalSubjects = await db.subject.count({ where: activeSubject });
   const categories = await db.resourceCategory.findMany();
 
   // Fetch subjects with resource counts
   const subjectsWithResources = await db.subject.findMany({
     where: {
-      resources: { some: {} }
+      ...activeSubject,
+      resources: { some: { isPublished: true } }
     },
     include: {
       resources: {
+        where: { isPublished: true },
         include: { category: true }
       },
       semester: {
@@ -45,37 +49,41 @@ export default async function ResourcesPage() {
         }
       }
     },
-    take: 12
+    take: 12,
+    orderBy: { code: "asc" }
   });
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="w-full min-h-screen py-8 sm:py-12">
+      <div className="site-container space-y-8">
         {/* Header */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <div className="inline-flex items-center space-x-2 text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 mb-3">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span>100% Free & Open Academic Materials • No Login Required</span>
+        <div className="card-hero bg-white border border-slate-200 p-4 sm:p-6 md:p-8 lg:p-10">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="space-y-2 min-w-0">
+              <div className="inline-flex max-w-full items-center space-x-2 text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 mb-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                <span className="truncate">100% Free & Open Academic Materials • No Login Required</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
                 Academic Resources Library
               </h1>
-              <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-3xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 max-w-4xl leading-relaxed">
                 Centralized repository of verified educational materials for Invertis University students.
                 Download authentic syllabi, previous semester exam papers with answer keys, faculty notes, and laboratory viva guides.
               </p>
             </div>
 
-            <div className="flex sm:flex-col gap-2 shrink-0">
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-center sm:text-right">
-                <div className="text-xl font-extrabold text-blue-900">{totalResources}+ Files</div>
-                <div className="text-[11px] font-medium text-blue-700">Verified Resources</div>
+            <div className="w-full sm:w-auto shrink-0">
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 sm:p-3.5 text-center sm:text-left lg:text-right min-w-0">
+                <div className="font-heading text-xl sm:text-2xl font-bold text-blue-900">{totalResources}+ Files</div>
+                <div className="text-[10px] sm:text-[11px] font-medium text-blue-700">Available Resources</div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Resource Provenance Disclaimer */}
+        <ContentNotice compact />
 
         {/* 5 Pillars of Academic Resources */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">

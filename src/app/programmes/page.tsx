@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { ProgrammeDirectory } from "@/components/programmes/ProgrammeDirectory";
 import { GraduationCap, ShieldCheck, Sparkles, Building2, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { compareProgrammesByAcademicLevel } from "@/lib/academicLevels";
 
 export const dynamic = "force-dynamic";
 
@@ -22,13 +23,27 @@ export default async function ProgrammesPage() {
   });
 
   const programmes = await db.programme.findMany({
-    where: { isActive: true },
+    where: { isActive: true, isLateralEntry: false },
     include: {
       department: {
         select: {
           id: true,
           code: true,
           name: true,
+        },
+      },
+      curriculumVersions: {
+        where: { isCurrent: true },
+        select: {
+          semesters: {
+            select: {
+              id: true,
+              semesterNumber: true,
+              _count: {
+                select: { subjects: true },
+              },
+            },
+          },
         },
       },
     },
@@ -39,27 +54,29 @@ export default async function ProgrammesPage() {
     ],
   });
 
+  const sortedProgrammes = [...programmes].sort(compareProgrammesByAcademicLevel);
+
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="w-full min-h-screen py-8 sm:py-12">
+      <div className="site-container space-y-8">
         {/* Page Hero Header */}
-        <div className="bg-gradient-to-r from-brand-950 via-brand-900 to-slate-900 rounded-2xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="relative z-10 max-w-3xl">
+        <div className="bg-gradient-to-r from-brand-950 via-brand-900 to-slate-900 rounded-2xl p-6 sm:p-10 lg:p-12 text-white shadow-xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative z-10 max-w-4xl">
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-semibold uppercase tracking-wider mb-4">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
               <span>Official Institutional Course Directory</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-3">
+            <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-3">
               Invertis University Academic Catalog
             </h1>
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
-              Discover official academic programmes across all 4 university levels: Undergraduate, Postgraduate, 
-              Polytechnic Diploma, and Doctoral research. Filter by faculty, inspect specializations, verify eligibility criteria, 
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-6 max-w-3xl">
+              Discover official academic programmes across all 4 university levels: Diploma, Undergraduate (UG), 
+              Postgraduate (PG), and Doctoral (Ph.D.) research. Filter by faculty, inspect specializations, verify eligibility criteria, 
               and explore official curriculum structures.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs text-slate-300 pt-2 border-t border-white/10">
+            <div className="flex flex-wrap items-center gap-4 text-xs text-slate-300 pt-3 border-t border-white/10">
               <div className="flex items-center space-x-1.5">
                 <Building2 className="w-4 h-4 text-amber-400" />
                 <span className="font-semibold text-white">9 Faculties / Departments</span>
@@ -67,7 +84,7 @@ export default async function ProgrammesPage() {
               <span>•</span>
               <div className="flex items-center space-x-1.5">
                 <GraduationCap className="w-4 h-4 text-blue-400" />
-                <span className="font-semibold text-white">60 Discovered Programmes</span>
+                <span className="font-semibold text-white">{sortedProgrammes.length} Discovered Programmes</span>
               </div>
               <span>•</span>
               <a
@@ -84,7 +101,7 @@ export default async function ProgrammesPage() {
         </div>
 
         {/* Directory Client Filter and Grid */}
-        <ProgrammeDirectory initialProgrammes={programmes} departments={departments} />
+        <ProgrammeDirectory initialProgrammes={sortedProgrammes} departments={departments} />
       </div>
     </div>
   );

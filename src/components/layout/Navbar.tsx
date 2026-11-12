@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { 
   GraduationCap, 
@@ -24,6 +25,7 @@ export function Navbar() {
     { label: "Engineering", href: "/engineering", icon: Wrench },
     { label: "Resources", href: "/resources", icon: BookOpen },
     { label: "Career Pathways", href: "/career-pathways", icon: Compass },
+    { label: "Ph.D. Hub", href: "/phd", icon: GraduationCap },
     { label: "About", href: "/about", icon: Info },
   ];
 
@@ -33,20 +35,25 @@ export function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-xs">
+      <div className="site-container">
         <div className="flex items-center justify-between h-16">
           {/* Logo & University Brand */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 rounded-lg bg-brand-900 flex items-center justify-center text-white shadow-md group-hover:bg-brand-800 transition">
-              <GraduationCap className="w-6 h-6 text-amber-400" />
-            </div>
-            <div>
-              <div className="flex items-center space-x-1.5">
-                <span className="text-xl font-bold tracking-tight text-brand-900">INVERTIS</span>
-                <span className="text-xl font-extrabold text-blue-600">LEARN</span>
+          <Link href="/" className="flex items-center space-x-2.5 sm:space-x-3 group min-w-0">
+            <Image
+              src="/images/invertis-learn-logo.png"
+              alt="Invertis Learn Logo"
+              width={48}
+              height={48}
+              priority
+              className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 aspect-square object-contain shrink-0 transition-transform group-hover:scale-105"
+            />
+            <div className="min-w-0">
+              <div className="flex items-center space-x-1 sm:space-x-1.5">
+                <span className="font-heading text-lg sm:text-xl font-bold tracking-tight text-brand-navy">INVERTIS</span>
+                <span className="font-heading text-lg sm:text-xl font-extrabold text-brand-blue">LEARN</span>
               </div>
-              <p className="text-[11px] font-medium text-slate-500 uppercase tracking-wider">
+              <p className="text-[10px] sm:text-[11px] font-medium text-slate-500 uppercase tracking-wider truncate hidden min-[360px]:block">
                 Academic Companion
               </p>
             </div>
@@ -62,8 +69,8 @@ export function Navbar() {
                   href={link.href}
                   className={`px-3.5 py-2 rounded-lg text-sm font-semibold transition ${
                     active
-                      ? "bg-blue-50 text-blue-700 border border-blue-200"
-                      : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
+                      ? "bg-blue-50 text-brand-blue border border-blue-200"
+                      : "text-slate-700 hover:text-brand-navy hover:bg-slate-100"
                   }`}
                 >
                   {link.label}
@@ -78,7 +85,7 @@ export function Navbar() {
               href="https://erp.invertisuniversity.ac.in/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 shadow-sm transition group"
+              className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 shadow-xs transition group"
               title="Official Invertis University ERP (Attendance, Marks, Fees)"
             >
               <span>University ERP</span>
@@ -87,11 +94,12 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Hamburger Button */}
-          <div className="flex md:hidden items-center">
+          <div className="flex md:hidden items-center shrink-0">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none"
+              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label="Toggle navigation menu"
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? (
                 <X className="w-6 h-6 text-slate-800" />
@@ -105,7 +113,7 @@ export function Navbar() {
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-5 space-y-2 shadow-lg">
+        <div className="md:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-5 space-y-2 shadow-lg animate-in fade-in-50 duration-150">
           {navLinks.map((link) => {
             const active = isActive(link.href, link.exact);
             return (
@@ -113,13 +121,13 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center space-x-2.5 px-3 py-2.5 rounded-lg text-sm font-semibold transition ${
+                className={`flex items-center space-x-3 px-3.5 py-3 rounded-lg text-sm font-semibold min-h-[44px] transition ${
                   active
                     ? "bg-blue-50 text-blue-700 border border-blue-200"
                     : "text-slate-700 hover:bg-slate-100"
                 }`}
               >
-                <link.icon className="w-4 h-4 text-slate-500" />
+                <link.icon className="w-4 h-4 text-slate-500 shrink-0" />
                 <span>{link.label}</span>
               </Link>
             );
@@ -130,14 +138,14 @@ export function Navbar() {
               href="https://erp.invertisuniversity.ac.in/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold bg-amber-50 text-amber-900 border border-amber-300"
+              className="flex items-center justify-between px-3.5 py-3 rounded-lg text-sm font-bold bg-amber-50 text-amber-900 border border-amber-300 min-h-[44px]"
             >
               <div className="flex items-center space-x-2">
                 <span>Official University ERP</span>
               </div>
-              <ExternalLink className="w-4 h-4 text-amber-700" />
+              <ExternalLink className="w-4 h-4 text-amber-700 shrink-0" />
             </a>
-            <p className="text-[11px] text-slate-500 mt-1 px-3">
+            <p className="text-[11px] text-slate-500 mt-1.5 px-3.5">
               Official university portal for attendance, exam results, and fee receipts.
             </p>
           </div>

@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
+import { ContentNotice } from "@/components/resources/ContentNotice";
 import {
   Layers,
   ShieldCheck,
@@ -66,23 +67,23 @@ export default async function NotesProgrammeListPage() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div className="w-full min-h-screen py-8 sm:py-12">
+      <div className="site-container space-y-8">
         {/* Navigation Breadcrumbs */}
         <Breadcrumbs items={[{ label: "Learning Notes & Materials" }]} />
 
         {/* Header Banner */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-50 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
-          <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold uppercase tracking-wider mb-3 border border-emerald-200">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-              <span>Faculty Learning Resources Hub • Phase 3</span>
+        <div className="card-hero bg-white border border-slate-200 p-6 sm:p-10 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-50/70 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+          <div className="relative z-10 max-w-4xl space-y-2">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-800 text-xs font-semibold uppercase tracking-wider mb-2 border border-indigo-200">
+              <ShieldCheck className="h-3.5 w-3.5 text-indigo-600" />
+              <span>Faculty Learning Resources Hub</span>
             </div>
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
+            <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight">
               Faculty Lecture Notes & Learning Materials
             </h1>
-            <p className="mt-3 text-base text-slate-600 leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-3xl">
               Explore faculty-verified lecture notes, unit summaries, lecture presentations (PPTs), and quick revision formula sheets for Invertis University engineering programmes.
             </p>
 
@@ -107,6 +108,9 @@ export default async function NotesProgrammeListPage() {
             </div>
           </div>
         </div>
+
+        {/* Resource Provenance Disclaimer */}
+        <ContentNotice compact />
 
         {/* Programme Selection Grid */}
         <div className="space-y-4">

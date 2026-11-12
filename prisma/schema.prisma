@@ -123,6 +123,11 @@ model AcademicResource {
   resourceType     String?           // "LECTURE_NOTES", "PPT_SLIDES", "UNIT_SUMMARY", "FORMULA_SHEET"
   authorName       String?           // Faculty / Instructor name or "Department Faculty"
   isPublished      Boolean           @default(true)
+  provenanceStatus String            @default("UNVERIFIED") // UNVERIFIED, PRACTICE, VERIFIED
+  sourceReference  String?
+  reviewedBy       String?
+  reviewedAt       DateTime?
+  reviewNote       String?
   uploadedById     String?
   uploadedBy       User?             @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
   createdAt        DateTime          @default(now())
@@ -186,4 +191,15 @@ model VideoLecture {
   updatedAt   DateTime @updatedAt
 
   @@index([subjectId, unitNumber])
+}
+
+model AuditEvent {
+  id        String   @id @default(cuid())
+  action    String
+  targetId  String?
+  actor     String
+  detail    String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
 }

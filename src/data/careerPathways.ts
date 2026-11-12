@@ -48,6 +48,7 @@ export interface CareerPathway {
   certifications: IndustryCertification[];
   careerRoles: CareerRole[];
   semesterMilestones: {
+    id?: string;
     year: string;
     semester: string;
     focus: string;
@@ -698,6 +699,193 @@ export const CAREER_PATHWAYS: CareerPathway[] = [
       { year: "Year 2", semester: "Sem 3 - 4", focus: "Digital logic, Microprocessor architecture, Serial communication protocols (SPI/I2C)", deliverable: "Multi-sensor hardware board communicating with display over I2C." },
       { year: "Year 3", semester: "Sem 5 - 6", focus: "IoT telemetry (MQTT), Wireless networking (BLE/Wi-Fi), Cloud IoT gateways", deliverable: "Cloud-connected smart telemetry device with real-time web dashboard." },
       { year: "Year 4", semester: "Sem 7 - 8", focus: "Real-Time Operating Systems (FreeRTOS), Edge ML inference, Capstone IoT prototype", deliverable: "Complete industrial IoT monitoring prototype with edge anomaly detection." }
+    ]
+  },
+  {
+    id: "assistant-professor-academic-research",
+    slug: "academic-research-professor",
+    title: "Assistant Professor & Academic Research (After M.Tech)",
+    shortTitle: "Academic & Faculty Career",
+    tagline: "Transition from M.Tech to higher education teaching, peer-reviewed research, Ph.D. pathways, and AICTE/UGC academic recruitment.",
+    overview: "A comprehensive academic career track engineered for M.Tech graduates aspiring to enter university teaching and research institutions. In technical education across India, faculty appointment standards are governed by the AICTE Gazette Regulations (B.E./B.Tech and M.E./M.Tech in relevant branch with First Class in either degree), while university departments and science disciplines adhere to UGC Regulations. This pathway covers pedagogical preparation, demo lecture mastery, research methodology, publishing in Scopus/SCI/UGC-CARE journals, UGC-NET preparation where applicable, Ph.D. admissions (GATE/NET-JRF/PMRF), and academic Career Advancement Scheme (CAS) promotional ladders.",
+    badgeColor: "bg-indigo-50 text-indigo-700 border-indigo-200",
+    themeGradient: "from-indigo-700 to-slate-900",
+    mappedSubjectCodes: [
+      "MCS-101", "MCS-102", "MCS-103", "MCS-104", "MCS-105", "MCS-151",
+      "MCS-201", "MCS-211", "MCS-214", "MCS-251", "MCS-322", "MCS-323",
+      "MCS351", "MCS393", "MCS-394"
+    ],
+    courses: [
+      {
+        code: "MCS-102",
+        name: "Foundation of Computer Science",
+        semesterNumber: 1,
+        programmeCode: "MTECH-CSE",
+        importance: "FOUNDATIONAL",
+        roleInPathway: "Theoretical CS foundations essential for teaching Discrete Mathematics, Theory of Computation, and Formal Languages."
+      },
+      {
+        code: "MCS-151",
+        name: "Colloquium & Research Review Paper-I",
+        semesterNumber: 1,
+        programmeCode: "MTECH-CSE",
+        importance: "CORE",
+        roleInPathway: "Systematic literature survey methodology, citation tracking, and oral academic presentation skills."
+      },
+      {
+        code: "MCS-214",
+        name: "Machine Learning",
+        semesterNumber: 2,
+        programmeCode: "MTECH-CSE",
+        importance: "SPECIALIZED",
+        roleInPathway: "Advanced elective domain expertise for modern undergraduate course instruction and research grant proposals."
+      },
+      {
+        code: "MCS-251",
+        name: "Colloquium & Research Review Paper-II",
+        semesterNumber: 2,
+        programmeCode: "MTECH-CSE",
+        importance: "CORE",
+        roleInPathway: "Critical analysis of SCI/Scopus journal manuscripts, LaTeX document preparation, and peer-review simulation."
+      },
+      {
+        code: "MCS-322",
+        name: "Design and Analysis of Algorithms",
+        semesterNumber: 3,
+        programmeCode: "MTECH-CSE",
+        importance: "FOUNDATIONAL",
+        roleInPathway: "Core benchmark course for college classroom teaching demonstrations, written faculty tests, and interview viva."
+      },
+      {
+        code: "MCS-323",
+        name: "Intellectual Property Rights",
+        semesterNumber: 3,
+        programmeCode: "MTECH-CSE",
+        importance: "CORE",
+        roleInPathway: "Academic copyright, patent law, research ethics, and compliance with anti-plagiarism regulations."
+      },
+      {
+        code: "MCS-394",
+        name: "Thesis / Dissertation",
+        semesterNumber: 4,
+        programmeCode: "MTECH-CSE",
+        importance: "CAPSTONE",
+        roleInPathway: "Master's research capstone demonstrating independent scientific inquiry, experimental validation, and publishable findings."
+      }
+    ],
+    technicalSkills: {
+      languages: ["Python", "C / C++", "LaTeX", "R", "Java", "SQL"],
+      frameworksAndTools: [
+        "Overleaf / LaTeX",
+        "Zotero / Mendeley",
+        "Google Scholar & ORCID",
+        "MATLAB / GNU Octave",
+        "Jupyter Lab",
+        "Turnitin / Urkund (Plagiarism Checks)",
+        "Moodle & Google Classroom LMS",
+        "OBS Studio & Digital Pen Tablets"
+      ],
+      concepts: [
+        "Outcome-Based Education (OBE) & CO-PO Mapping",
+        "Bloom's Revised Taxonomy in Exam Paper Setting",
+        "Demonstration Lecture (Chalk-and-Talk + Digital)",
+        "Research Methodology & Statistical Significance",
+        "Peer-Review Publishing (SCI / Scopus / UGC-CARE)",
+        "Academic Ethics & UGC Plagiarism Regulations 2018",
+        "Career Advancement Scheme (CAS & API Scoring)",
+        "Sponsored Project Proposal Formulation (DST/SERB/AICTE)"
+      ]
+    },
+    certifications: [
+      {
+        name: "NPTEL / SWAYAM Faculty Development Programme (FDP)",
+        issuer: "Ministry of Education / IITs & AICTE",
+        code: "AICTE-FDP",
+        level: "PROFESSIONAL",
+        description: "Official 4-week, 8-week, or 12-week national teaching and advanced domain FDPs approved by AICTE for CAS promotional credits."
+      },
+      {
+        name: "UGC-NET / JRF in Computer Science & Applications (Where Applicable)",
+        issuer: "National Testing Agency (NTA) on behalf of UGC",
+        code: "Subject Code 87",
+        level: "SPECIALTY",
+        description: "National Eligibility Test certificate required for University Departments and general colleges (non-mandatory for AICTE engineering colleges, but strengthens academic profiles)."
+      },
+      {
+        name: "AICTE ATAL Academy Faculty Training Certification",
+        issuer: "AICTE Training and Learning (ATAL) Academy",
+        code: "ATAL-FDP",
+        level: "PROFESSIONAL",
+        description: "Specialized government-certified pedagogy and research training in emerging technologies for technical education faculty."
+      },
+      {
+        name: "Researcher Academy Scientific Publishing Certification",
+        issuer: "Elsevier / Springer Nature Researcher Academy",
+        level: "ASSOCIATE",
+        description: "Certified coursework in manuscript preparation, academic peer review, ethical scientific reporting, and citation metrics."
+      }
+    ],
+    careerRoles: [
+      {
+        title: "Assistant Professor (Engineering & Tech)",
+        typicalLevel: "Academic Level 10 (Entry)",
+        marketDemand: "VERY_HIGH",
+        salaryBandIndia: "₹6.5 - ₹12 LPA (7th CPC / State University Scale)"
+      },
+      {
+        title: "Ad-hoc / Guest Faculty (Engineering)",
+        typicalLevel: "Contractual / Hourly",
+        marketDemand: "HIGH",
+        salaryBandIndia: "₹35,000 - ₹60,000 / month (Per-Lecture / Consolidated)"
+      },
+      {
+        title: "Junior Research Fellow (JRF / SRF)",
+        typicalLevel: "Funded Research (DST/SERB/CSIR)",
+        marketDemand: "HIGH",
+        salaryBandIndia: "₹37,000 - ₹42,000 / month + HRA"
+      },
+      {
+        title: "Doctoral Research Scholar (Ph.D.)",
+        typicalLevel: "Institute / PMRF Fellow",
+        marketDemand: "HIGH",
+        salaryBandIndia: "₹37,000 - ₹80,000 / month (PMRF Fellowship)"
+      },
+      {
+        title: "Higher Education Curriculum Specialist",
+        typicalLevel: "Academic Staff / EdTech",
+        marketDemand: "STEADY",
+        salaryBandIndia: "₹7 - ₹15 LPA"
+      }
+    ],
+    semesterMilestones: [
+      {
+        id: "academic-mtech-sem-1",
+        year: "M.Tech Year 1",
+        semester: "Semester 1",
+        focus: "Advanced core CS mastery, foundational research methodology, and topic exploration.",
+        deliverable: "Comprehensive literature survey with bibliography of 30+ peer-reviewed papers using Mendeley/Zotero."
+      },
+      {
+        id: "academic-mtech-sem-2",
+        year: "M.Tech Year 1",
+        semester: "Semester 2",
+        focus: "Experimental framework design, benchmark dataset curation, and conference manuscript drafting.",
+        deliverable: "Submission of peer-reviewed paper to an IEEE/ACM or Scopus-indexed conference + seminar presentation."
+      },
+      {
+        id: "academic-mtech-sem-3",
+        year: "M.Tech Year 2",
+        semester: "Semester 3",
+        focus: "Thesis preliminary validation, pedagogical lesson planning, and undergraduate mock lecture preparation.",
+        deliverable: "Complete 15-minute mock demo lecture plan (chalk-and-talk + slides) for Data Structures/Algorithms + preliminary thesis."
+      },
+      {
+        id: "academic-mtech-sem-4",
+        year: "M.Tech Year 2",
+        semester: "Semester 4",
+        focus: "Dissertation defense, journal publication under review, Academic CV dossier, and faculty applications.",
+        deliverable: "Defended M.Tech thesis + manuscript under review in UGC-CARE / Scopus journal + curated Academic CV dossier."
+      }
     ]
   }
 ];

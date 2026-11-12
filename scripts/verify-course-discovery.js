@@ -60,12 +60,12 @@ async function verifyDiscovery() {
   assert(engCodes.includes('BTECH-CSE'), 'B.Tech CSE exists');
   assert(engCodes.includes('BTECH-CSE-AI'), 'B.Tech CSE with AI & ML exists');
   assert(engCodes.includes('BTECH-CSE-CC'), 'B.Tech CSE with Cloud Computing exists');
-  assert(engCodes.includes('BTECH-CSE-IOT'), 'B.Tech CSE with IoT exists');
+  assert(!engCodes.includes('BTECH-CSE-IOT'), 'B.Tech CSE with IoT cleanly removed');
   assert(engCodes.includes('BTECH-ME'), 'B.Tech Mechanical Engineering exists');
   assert(engCodes.includes('BTECH-CE'), 'B.Tech Civil Engineering exists');
   assert(engCodes.includes('BTECH-EE'), 'B.Tech Electrical Engineering exists');
   assert(engCodes.includes('BTECH-BT'), 'B.Tech Biotechnology Engineering exists');
-  assert(engCodes.includes('BTECH-CSE-LAT'), 'B.Tech CSE (Lateral Entry) exists');
+  assert(engCodes.includes('BTECH-CSE-LE') || engCodes.includes('BTECH-CSE-LAT'), 'B.Tech CSE (Lateral Entry) exists');
   assert(engCodes.includes('DIP-CSE'), 'Polytechnic Diploma in CSE exists');
   assert(engCodes.includes('DIP-CE'), 'Polytechnic Diploma in Civil exists');
   assert(engCodes.includes('DIP-EE'), 'Polytechnic Diploma in Electrical exists');
@@ -77,7 +77,7 @@ async function verifyDiscovery() {
   console.log('\nStep 4: Verify Lateral Entry Programmes & Duration');
   const lateralProgs = await prisma.programme.findMany({ where: { isLateralEntry: true } });
   assert(lateralProgs.length >= 5, `Found ${lateralProgs.length} Lateral Entry programmes`);
-  const btechCseLat = lateralProgs.find(p => p.code === 'BTECH-CSE-LAT');
+  const btechCseLat = lateralProgs.find(p => p.code === 'BTECH-CSE-LE' || p.code === 'BTECH-CSE-LAT');
   assert(btechCseLat && btechCseLat.durationYears === 3, 'B.Tech CSE Lateral duration is 3 years');
   const dipLat = lateralProgs.find(p => p.code === 'DIP-ENG-LAT');
   assert(dipLat && dipLat.durationYears === 2, 'Polytechnic Diploma Lateral duration is 2 years');

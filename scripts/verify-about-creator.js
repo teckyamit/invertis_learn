@@ -116,7 +116,7 @@ async function runVerification() {
   console.log("Test 4: Educational Background Timeline");
   assert(aboutHtml.includes("Educational Background"), "Educational Background header present");
   assert(aboutHtml.includes("B.Tech in Computer Science &amp; Engineering") || aboutHtml.includes("B.Tech in Computer Science & Engineering"), "B.Tech in CSE present");
-  assert(aboutHtml.includes("Diploma in Computer Science &amp; Engineering") || aboutHtml.includes("Diploma in Computer Science & Engineering"), "Diploma in CSE present");
+  // Diploma in CSE entry commented out per user request
   assert(aboutHtml.includes("Invertis University, Bareilly"), "Invertis University alma mater noted");
   console.log("");
 
@@ -145,12 +145,15 @@ async function runVerification() {
   // TEST 6: Local Image Asset Verification
   // -------------------------------------------------------------------------
   console.log("Test 6: Local Creator Image Asset");
-  const creatorSvgPath = path.join(process.cwd(), "public", "images", "creator.svg");
-  assert(fs.existsSync(creatorSvgPath), "Local image file exists at public/images/creator.svg");
+  const creatorJpgPath = path.join(process.cwd(), "public", "images", "creator.jpg");
+  assert(fs.existsSync(creatorJpgPath), "Local image file exists at public/images/creator.jpg");
+  assert(aboutHtml.includes("/images/creator.jpg"), "About page references /images/creator.jpg");
+  assert(aboutHtml.includes("Amit Kumar Pal, Founder and Developer of Invertis Learn"), "Image has descriptive alt text");
+  assert(!aboutHtml.includes("Photo: public/images/creator.jpg"), "Placeholder text is not present");
   
-  const imgResp = await fetch("http://localhost:3000/images/creator.svg");
-  assert(imgResp.statusCode === 200, "HTTP GET /images/creator.svg returns 200 OK");
-  assert(imgResp.headers["content-type"].includes("svg") || imgResp.headers["content-type"].includes("xml") || imgResp.headers["content-type"].includes("image"), "Image serves correct content-type");
+  const imgResp = await fetch("http://localhost:3000/images/creator.jpg");
+  assert(imgResp.statusCode === 200, "HTTP GET /images/creator.jpg returns 200 OK");
+  assert(imgResp.headers["content-type"].includes("jpeg") || imgResp.headers["content-type"].includes("image"), "Image serves correct content-type");
   console.log("");
 
   // -------------------------------------------------------------------------
@@ -169,3 +172,4 @@ runVerification().catch((err) => {
   console.error("FATAL ERROR running verification:", err);
   process.exit(1);
 });
+

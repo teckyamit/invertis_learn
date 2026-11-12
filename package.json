@@ -3,37 +3,61 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --hostname 127.0.0.1 --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint src --max-warnings=0",
     "db:push": "prisma db push",
-    "db:seed": "node --loader ts-node/esm prisma/seed.ts",
+    "db:seed": "node scripts/import-catalogue.cjs",
     "test:phase1": "node scripts/verify-phase1.js",
     "test:phase2": "node scripts/verify-phase2.js",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "typecheck": "tsc --noEmit --incremental false",
+    "db:migrate": "prisma migrate deploy",
+    "db:backup": "node scripts/backup.cjs",
+    "test:regression": "node scripts/verify-reliability.cjs",
+    "test": "npm run typecheck && npm run lint && npm run test:regression",
+    "test:browser": "playwright test",
+    "curator:setup": "node scripts/setup-curator.cjs",
+    "db:restore": "node scripts/restore-backup.cjs",
+    "pretest:browser": "node scripts/prepare-browser.cjs"
   },
   "dependencies": {
     "@prisma/client": "^5.21.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.453.0",
-    "next": "14.2.15",
+    "lucide-react": "1.70.0",
+    "next": "15.5.29",
     "pdf-lib": "^1.17.1",
     "pdf-parse": "^2.4.5",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "19.2.9",
+    "react-dom": "19.2.9",
     "tailwind-merge": "^2.5.4",
-    "zod": "^3.23.8"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
     "@types/node": "^20.16.11",
-    "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.47",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^15.5.29",
+    "postcss": "^8.5.32",
     "prisma": "^5.21.1",
     "tailwindcss": "^3.4.14",
     "ts-node": "^10.9.2",
+    "tsx": "^4.23.15",
     "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=22.14 <25"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "^8.5.32"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.1"
+    }
   }
 }

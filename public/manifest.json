@@ -1,0 +1,21 @@
+{
+  "name": "Invertis Learn",
+  "short_name": "Invertis Learn",
+  "description": "Academic Companion for Invertis University students",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F9FC",
+  "theme_color": "#0052CC",
+  "icons": [
+    {
+      "src": "/images/invertis-learn-logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/invertis-learn-logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

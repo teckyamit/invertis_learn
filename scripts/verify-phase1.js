@@ -17,6 +17,7 @@ async function runAcceptanceVerification() {
     } else {
       console.error(`  [FAIL] ${message}`);
       passedAll = false;
+      process.exitCode = 1;
     }
   }
 
@@ -84,7 +85,7 @@ async function runAcceptanceVerification() {
   assert(resource301.storedFileName === 'BCS-301_Syllabus.pdf', `Resource PDF is ${resource301.storedFileName}`);
 
   // Check physical file existence
-  const pdfPath301 = path.join(process.cwd(), 'public', resource301.storagePath);
+  const pdfPath301 = require("./lib/storage-path.cjs").resourcePath(resource301.storagePath);
   assert(fs.existsSync(pdfPath301), `Physical PDF file exists on disk: ${pdfPath301}`);
 
   // 5. Verify Subject 2: BCS-302 (Distinct Syllabus Verification)

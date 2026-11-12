@@ -49,3 +49,4 @@
   <rect x="50" y="425" width="300" height="30" rx="8" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.1" stroke-dasharray="3 3"/>
   <text x="200" y="444" text-anchor="middle" font-family="monospace" font-size="10" fill="#94A3B8">Photo: public/images/creator.jpg</text>
 </svg>
+

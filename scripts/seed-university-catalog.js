@@ -106,21 +106,6 @@ const PROGRAMMES = [
     isLateralEntry: false
   },
   {
-    code: 'BTECH-CSE-IOT',
-    name: 'B.Tech CSE (Internet of Things - IoT)',
-    deptCode: 'ENG',
-    degreeLevel: 'UNDERGRADUATE',
-    category: 'UNDERGRADUATE',
-    durationYears: 4,
-    eligibility: '10+2 with Physics and Mathematics (Minimum 55% aggregate); JEE Main / CUET / IUCET.',
-    specializations: JSON.stringify(['Embedded Systems', 'Sensor Networks', 'Edge Computing', 'Microcontrollers & Smart Devices']),
-    description: 'Specialized programme connecting hardware microcontrollers, sensor nodes, wireless communication protocols, and cloud computing for smart ecosystems.',
-    careerProspects: 'IoT Solutions Architect, Embedded Systems Engineer, Firmware Developer, Smart Systems Specialist.',
-    officialSourceUrl: 'https://www.invertisuniversity.ac.in/ug-programmes',
-    hasOfficialSyllabus: false,
-    isLateralEntry: false
-  },
-  {
     code: 'BTECH-ME',
     name: 'Bachelor of Technology in Mechanical Engineering',
     deptCode: 'ENG',
@@ -193,7 +178,8 @@ const PROGRAMMES = [
     careerProspects: 'Software Engineer, Systems Developer, Technical Lead.',
     officialSourceUrl: 'https://www.invertisuniversity.ac.in/ug-programmes',
     hasOfficialSyllabus: false,
-    isLateralEntry: true
+    isLateralEntry: true,
+    isActive: false  // Superseded by canonical BTECH-CSE-LE (official code BTECH-008)
   },
   {
     code: 'BTECH-CE-LAT',
