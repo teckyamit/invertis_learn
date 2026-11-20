@@ -44,6 +44,8 @@ model Programme {
   curriculumVersions  CurriculumVersion[]
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @updatedAt
+
+  @@index([isActive, category, degreeLevel])
 }
 
 model CurriculumVersion {
@@ -131,12 +133,22 @@ model AcademicResource {
   reviewNote       String?
   uploadedById     String?
   uploadedBy       User?             @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+  blob             ResourceBlob?
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
 
   @@index([subjectId, categoryId])
   @@index([categoryId, academicYear])
   @@index([categoryId, resourceType])
+  @@index([isPublished, categoryId, createdAt])
+}
+
+model ResourceBlob {
+  id         String           @id @default(cuid())
+  resourceId String           @unique
+  resource   AcademicResource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  fileData   Bytes
+  createdAt  DateTime         @default(now())
 }
 
 model User {

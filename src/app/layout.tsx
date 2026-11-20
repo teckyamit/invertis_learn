@@ -19,12 +19,37 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   fallback: ["Inter", "-apple-system", "sans-serif"],
 });
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.APP_ORIGIN || "https://invertislearn.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(appUrl),
   title: {
     default: "Invertis Learn | Academic Companion",
     template: "%s | Invertis Learn",
   },
   description: "Independent academic resource and syllabus library for Invertis University students.",
+  openGraph: {
+    title: "Invertis Learn | Academic Companion",
+    description: "Independent academic resource and syllabus library for Invertis University students.",
+    url: appUrl,
+    siteName: "Invertis Learn",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "/images/invertis-learn-logo-512.png",
+        width: 512,
+        height: 512,
+        alt: "Invertis Learn Academic Companion",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Invertis Learn | Academic Companion",
+    description: "Independent academic resource and syllabus library for Invertis University students.",
+    images: ["/images/invertis-learn-logo-512.png"],
+  },
   icons: {
     icon: [
       { url: "/favicon.ico" },

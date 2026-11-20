@@ -37,9 +37,20 @@ export function resolveStoragePath(storedPath: string) {
 export async function savePdf(buffer: Buffer) {
   const storedFileName = `${randomUUID()}.pdf`;
   const storagePath = `uploads/pyq/${storedFileName}`;
-  const filePath = resolveStoragePath(storagePath);
-  await fs.mkdir(path.dirname(filePath), { recursive: true });
-  await fs.writeFile(filePath, buffer, { flag: "wx" });
+  try {
+    const filePath = resolveStoragePath(storagePath);
+    await fs.mkdir(path.dirname(filePath), { recursive: true });
+    await fs.writeFile(filePath, buffer, { flag: "wx" });
+  } catch {
+    // If the filesystem is read-only (e.g. Vercel serverless functions),
+    // the file is persistently saved in PostgreSQL ResourceBlob.
+  }
   return { storedFileName, storagePath };
 }
-export async function removeStoredFile(storagePath: string) { await fs.unlink(resolveStoragePath(storagePath)); }
+export async function removeStoredFile(storagePath: string) {
+  try {
+    await fs.unlink(resolveStoragePath(storagePath));
+  } catch {
+    // File may not exist on disk if stored in database blob
+  }
+}

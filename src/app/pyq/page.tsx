@@ -9,6 +9,7 @@ import {
   getProgrammeDisplayName 
 } from "@/lib/lateralEntry";
 import { compareProgrammesByAcademicLevel } from "@/lib/academicLevels";
+import { UploadPaperButton } from "@/components/pyq/UploadPaperButton";
 
 export const revalidate = 3600;
 
@@ -69,13 +70,11 @@ export default async function PYQProgrammeListPage() {
 
         {/* Programme Selection Grid */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h2 className="text-xl font-bold text-slate-900">
               Select Your Academic Programme
             </h2>
-            <span className="text-xs text-slate-500 font-medium">
-              Phase 2 Active
-            </span>
+            <UploadPaperButton />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

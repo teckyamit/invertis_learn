@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { activeSubject } from "@/lib/resource-policy";
-import { compareProgrammesByAcademicLevel } from "@/lib/academicLevels";
+import { getSearchProgrammes } from "@/lib/catalogue";
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Find subjects | Invertis Learn" };
 export default async function SearchPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
@@ -9,12 +9,27 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const value = (key: string) => typeof params[key] === "string" ? params[key] as string : "";
   const q = value("q").trim().slice(0, 100), programme = value("programme"), semester = Number(value("semester"));
   const page = Math.max(1, Math.min(10000, Math.floor(Number(value("page")) || 1)));
-  const where = { ...activeSubject, ...(q ? { OR: [{ code: { contains: q } }, { name: { contains: q } }] } : {}), semester: { ...(semester >= 1 && semester <= 12 ? { semesterNumber: semester } : {}), curriculumVersion: { isCurrent: true, programme: { isActive: true, department: { isActive: true }, ...(programme ? { code: programme } : {}) } } } };
-  const [subjects, total, programmes] = await Promise.all([
+  const where = {
+    ...activeSubject,
+    ...(q ? {
+      OR: [
+        { code: { contains: q, mode: "insensitive" as const } },
+        { name: { contains: q, mode: "insensitive" as const } }
+      ]
+    } : {}),
+    semester: {
+      ...(semester >= 1 && semester <= 12 ? { semesterNumber: semester } : {}),
+      curriculumVersion: {
+        isCurrent: true,
+        programme: { isActive: true, department: { isActive: true }, ...(programme ? { code: programme } : {}) }
+      }
+    }
+  };
+  const [subjects, total, sortedProgrammes] = await Promise.all([
     db.subject.findMany({ where, select: { id: true, code: true, name: true, semester: { select: { semesterNumber: true, curriculumVersion: { select: { programme: { select: { code: true, name: true } } } } } } }, orderBy: [{ code: "asc" }, { id: "asc" }], take: 24, skip: (page - 1) * 24 }),
-    db.subject.count({ where }), db.programme.findMany({ where: { isActive: true, curriculumVersions: { some: { isCurrent: true } } }, select: { code: true, name: true, category: true, degreeLevel: true }, orderBy: { name: "asc" } }),
+    db.subject.count({ where }),
+    getSearchProgrammes(),
   ]);
-  const sortedProgrammes = [...programmes].sort(compareProgrammesByAcademicLevel);
   const pageUrl = (n: number) => `/search?${new URLSearchParams({ q, programme, semester: value("semester"), page: String(n) })}`;
   return <div className="site-container py-10 space-y-6"><h1 className="text-3xl font-bold">Find a subject</h1>
     <form className="bg-white border rounded-xl p-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-4" action="/search">

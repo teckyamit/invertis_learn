@@ -21,6 +21,43 @@ export async function serveResource(request: NextRequest, category?: string, sto
       orderBy: { createdAt: "desc" },
     });
     if (!resource) return NextResponse.json({ error: "Resource not available" }, { status: 404 });
+
+    // Check if resource is stored persistently in database ResourceBlob
+    const blobRecord = await db.resourceBlob.findUnique({
+      where: { resourceId: resource.id },
+      select: { fileData: true }
+    });
+
+    if (blobRecord && blobRecord.fileData) {
+      const buffer = Buffer.from(blobRecord.fileData);
+      const size = buffer.length;
+      let start = 0, end = size - 1;
+      const range = request.headers.get("range");
+      if (range) {
+        const match = /^bytes=(\d*)-(\d*)$/.exec(range);
+        if (!match || (!match[1] && !match[2])) return new NextResponse(null, { status: 416, headers: { "Content-Range": `bytes */${size}` } });
+        if (!match[1]) start = Math.max(0, size - Number(match[2]));
+        else { start = Number(match[1]); if (match[2]) end = Math.min(end, Number(match[2])); }
+        if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start > end || start >= size) return new NextResponse(null, { status: 416, headers: { "Content-Range": `bytes */${size}` } });
+      }
+      const isInline = Boolean(storagePath || request.nextUrl.searchParams.get("inline") === "1" || request.nextUrl.searchParams.get("view") === "inline");
+      const name = (request.nextUrl.searchParams.get("name") || resource.originalFileName).slice(0, 180).replace(/[\r\n"\\]/g, "_");
+      const safeName = name.endsWith(".pdf") ? name : `${name}.pdf`;
+      const dispositionType = isInline ? "inline" : "attachment";
+
+      const headers = new Headers({
+        "Content-Type": "application/pdf",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Disposition": `${dispositionType}; filename="document.pdf"; filename*=UTF-8''${encodeURIComponent(safeName)}`,
+        "Content-Length": String(end - start + 1),
+        "Accept-Ranges": "bytes",
+        "Cache-Control": isInline ? "public, max-age=3600, must-revalidate" : "private, no-store",
+      });
+      if (range) headers.set("Content-Range", `bytes ${start}-${end}/${size}`);
+      const slice = buffer.subarray(start, end + 1);
+      return new NextResponse(slice, { status: range ? 206 : 200, headers });
+    }
+
     const resolved = resolveStoragePath(resource.storagePath);
     const filePath = await fs.realpath(resolved);
     const allowedRoots = await Promise.all(
