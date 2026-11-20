@@ -78,17 +78,8 @@ export default async function SemesterSubjectsPage({ params: paramsPromise, sear
     notFound();
   }
 
-  // Find programme metadata
+  // Resolve curriculum & semester in a single query
   const programme = await db.programme.findUnique({
-    where: { code: canonicalCode, isActive: true },
-  });
-
-  if (!programme) {
-    notFound();
-  }
-
-  // Resolve curriculum & semester
-  const curriculumProgramme = await db.programme.findUnique({
     where: { code: canonicalCode, isActive: true },
     include: {
       curriculumVersions: {
@@ -108,11 +99,11 @@ export default async function SemesterSubjectsPage({ params: paramsPromise, sear
     },
   });
 
-  if (!curriculumProgramme) {
+  if (!programme) {
     notFound();
   }
 
-  const currentCurriculum = curriculumProgramme.curriculumVersions[0];
+  const currentCurriculum = programme.curriculumVersions[0];
   const semester = currentCurriculum?.semesters[0];
 
   if (!semester) {

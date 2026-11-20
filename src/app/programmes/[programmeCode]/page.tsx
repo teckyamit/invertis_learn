@@ -37,7 +37,7 @@ interface ProgrammeDetailPageProps {
   }>;
 }
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export async function generateMetadata({ params: paramsPromise, searchParams: searchParamsPromise }: ProgrammeDetailPageProps) {
   const params = await paramsPromise;

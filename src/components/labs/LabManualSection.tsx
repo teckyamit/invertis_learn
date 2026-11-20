@@ -1,6 +1,7 @@
 "use client";
 import { provenanceLabel } from "@/lib/resource-policy";
 import { Modal } from "@/components/ui/Modal";
+import { ResourceUploadModal } from "@/components/upload/ResourceUploadModal";
 
 import React, { useState, useMemo } from "react";
 import {
@@ -16,7 +17,12 @@ import {
   CheckCircle2,
   ListOrdered,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Plus,
+  BookOpen,
+  Terminal,
+  FileCheck2,
+  FolderArchive
 } from "lucide-react";
 
 export interface LabResource {
@@ -47,11 +53,13 @@ export function LabManualSection({
   initialLabs,
   labExperiments = [],
 }: LabManualSectionProps) {
-  const [labs] = useState<LabResource[]>(initialLabs);
+  const [labs, setLabs] = useState<LabResource[]>(initialLabs);
   const [selectedType, setSelectedType] = useState<string>("ALL");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [previewLab, setPreviewLab] = useState<LabResource | null>(null);
   const [showAllExperiments, setShowAllExperiments] = useState(false);
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [uploadInitialType, setUploadInitialType] = useState<string>("LAB_MANUAL");
 
   // Filtered lab resources
   const filteredLabs = useMemo(() => {
@@ -72,12 +80,19 @@ export function LabManualSection({
     switch (type) {
       case "LAB_MANUAL":
         return <FlaskConical className="h-4 w-4 text-emerald-600" />;
+      case "LAB_NOTES":
+        return <FileText className="h-4 w-4 text-teal-600" />;
+      case "PRACTICAL_FILE":
+        return <FileCheck2 className="h-4 w-4 text-indigo-600" />;
+      case "PRACTICAL_PROGRAMS":
+      case "EXPERIMENT_SOLUTIONS":
+        return <Terminal className="h-4 w-4 text-blue-600" />;
       case "VIVA_QUESTIONS":
         return <HelpCircle className="h-4 w-4 text-purple-600" />;
       case "CODE_TEMPLATE":
-        return <Code className="h-4 w-4 text-blue-600" />;
+        return <Code className="h-4 w-4 text-sky-600" />;
       default:
-        return <FileText className="h-4 w-4 text-slate-600" />;
+        return <FlaskConical className="h-4 w-4 text-slate-600" />;
     }
   };
 
@@ -87,6 +102,30 @@ export function LabManualSection({
         return (
           <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
             Laboratory Manual
+          </span>
+        );
+      case "LAB_NOTES":
+        return (
+          <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-800 border border-teal-200">
+            Lab Notes
+          </span>
+        );
+      case "PRACTICAL_FILE":
+        return (
+          <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200">
+            Practical File
+          </span>
+        );
+      case "PRACTICAL_PROGRAMS":
+        return (
+          <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200">
+            Practical Programs
+          </span>
+        );
+      case "EXPERIMENT_SOLUTIONS":
+        return (
+          <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-sky-50 text-sky-800 border border-sky-200">
+            Experiment Solutions
           </span>
         );
       case "VIVA_QUESTIONS":
@@ -114,6 +153,11 @@ export function LabManualSection({
     ? labExperiments
     : labExperiments.slice(0, 6);
 
+  const openUploadModal = (type = "LAB_MANUAL") => {
+    setUploadInitialType(type);
+    setUploadModalOpen(true);
+  };
+
   return (
     <div className="space-y-6">
       {/* Section Header */}
@@ -125,21 +169,27 @@ export function LabManualSection({
           <div>
             <div className="flex items-center space-x-2">
               <h2 className="text-lg font-bold text-slate-900">
-                Official Laboratory Manuals & Practical Materials
+                Practical Materials & Laboratory Archive
               </h2>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200 uppercase tracking-wide">
-                Phase 4 Verified
+                Practical Portal
               </span>
             </div>
             <p className="text-xs text-slate-500">
-              Department lab manuals, code templates, viva voce questions, and experiment guides
+              Department lab manuals, practical files, experiment programs, starter templates, and viva questions
             </p>
           </div>
         </div>
 
-        <div className="text-xs text-slate-600 font-medium bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg flex items-center">
-          <CheckCircle2 className="h-4 w-4 mr-1.5 text-emerald-600" />
-          <span>Curriculum Compliant (Session 2023–24)</span>
+        {/* Action Controls */}
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => openUploadModal("LAB_MANUAL")}
+            className="inline-flex items-center justify-center px-3 py-1.5 text-xs font-semibold text-white bg-indigo-700 hover:bg-indigo-800 rounded-xl shadow-xs transition"
+          >
+            <Plus className="h-3.5 w-3.5 mr-1" />
+            Upload Practical Material
+          </button>
         </div>
       </div>
 
@@ -175,64 +225,69 @@ export function LabManualSection({
             {displayedExperiments.map((exp, idx) => (
               <div
                 key={idx}
-                className="p-3 bg-slate-50 rounded-lg border border-slate-100 text-xs text-slate-800 flex items-start space-x-2"
+                className="p-3 bg-slate-50 rounded-lg border border-slate-100 text-xs text-slate-800 font-medium leading-relaxed flex items-start space-x-2"
               >
-                <span className="font-mono font-bold text-emerald-700 flex-shrink-0 mt-0.5">
-                  #{idx + 1}
+                <span className="font-mono text-[10px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded flex-shrink-0 mt-0.5">
+                  Exp {idx + 1}
                 </span>
-                <span className="leading-relaxed">{exp.replace(/^\d+\.\s*/, '')}</span>
+                <span className="break-words">{exp.replace(/^[0-9]+[.)]\s*/, "")}</span>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* Filter and Search Controls (if lab resources exist) */}
+      {/* Filter and Search Controls (if labs exist) */}
       {labs.length > 0 && (
-        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs">
-          {/* Search Input */}
-          <div className="relative flex-1 max-w-sm">
-            <Search className="h-3.5 w-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search lab manuals, viva or templates..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-              >
-                <X className="h-3 w-3" />
-              </button>
-            )}
-          </div>
+        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3 text-xs">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            {/* Search Input */}
+            <div className="relative flex-1 max-w-sm">
+              <Search className="h-3.5 w-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search practicals, viva questions, programs..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-8 pr-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              )}
+            </div>
 
-          {/* Type Filter Buttons */}
-          <div className="flex flex-wrap items-center gap-1.5">
-            <span className="font-semibold text-slate-500 uppercase tracking-wider mr-1 text-[11px]">
-              Type:
-            </span>
-            {[
-              { key: "ALL", label: "All Practical Docs" },
-              { key: "LAB_MANUAL", label: "Lab Manuals" },
-              { key: "VIVA_QUESTIONS", label: "Viva Questions" },
-              { key: "CODE_TEMPLATE", label: "Code Templates" },
-            ].map((t) => (
-              <button
-                key={t.key}
-                onClick={() => setSelectedType(t.key)}
-                className={`px-2.5 py-1 rounded-md font-semibold transition ${
-                  selectedType === t.key
-                    ? "bg-slate-900 text-white shadow-sm"
-                    : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
-                }`}
-              >
-                {t.label}
-              </button>
-            ))}
+            {/* Resource Type Filter Tabs */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="font-semibold text-slate-500 uppercase tracking-wider mr-1 text-[11px]">
+                Filter:
+              </span>
+              {[
+                { key: "ALL", label: "All Material" },
+                { key: "LAB_MANUAL", label: "Lab Manuals" },
+                { key: "LAB_NOTES", label: "Lab Notes" },
+                { key: "PRACTICAL_FILE", label: "Practical Files" },
+                { key: "PRACTICAL_PROGRAMS", label: "Programs" },
+                { key: "VIVA_QUESTIONS", label: "Viva Q&A" },
+                { key: "CODE_TEMPLATE", label: "Code Templates" },
+              ].map((t) => (
+                <button
+                  key={t.key}
+                  onClick={() => setSelectedType(t.key)}
+                  className={`px-2.5 py-1 rounded-md font-semibold transition ${
+                    selectedType === t.key
+                      ? "bg-slate-900 text-white shadow-sm"
+                      : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}
@@ -267,10 +322,10 @@ export function LabManualSection({
                     <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition leading-snug">
                       {lab.title}
                     </h3>
-        <p className="text-xs text-amber-800 mt-2">{provenanceLabel(lab.provenanceStatus)}</p>
+                    <p className="text-xs text-amber-800 mt-2">{provenanceLabel(lab.provenanceStatus)}</p>
                     {lab.authorName && (
                       <p className="text-xs text-slate-500 mt-1">
-                        Coordinator: <span className="font-medium text-slate-700">{lab.authorName}</span>
+                        Contributor: <span className="font-medium text-slate-700">{lab.authorName}</span>
                       </p>
                     )}
                   </div>
@@ -303,7 +358,7 @@ export function LabManualSection({
         </div>
       ) : labs.length > 0 ? (
         <div className="bg-slate-50 border border-dashed border-slate-300 rounded-xl p-8 text-center space-y-2">
-          <p className="text-xs font-semibold text-slate-700">No lab documents match the selected filter.</p>
+          <p className="text-xs font-semibold text-slate-700">No practical documents match the selected filter.</p>
           <button
             onClick={() => {
               setSelectedType("ALL");
@@ -315,12 +370,29 @@ export function LabManualSection({
           </button>
         </div>
       ) : (
-        <div className="bg-slate-50 border border-dashed border-slate-300 rounded-xl p-8 text-center space-y-2">
-          <FlaskConical className="h-8 w-8 text-slate-400 mx-auto mb-2" />
-          <h3 className="text-sm font-semibold text-slate-800">Lab Manual Under Academic Compilation</h3>
-          <p className="text-xs text-slate-500 max-w-md mx-auto">
-            Practical manuals, code templates, and viva questions for <strong>{subjectCode}</strong> are being compiled by the Department of Computer Science & Engineering.
+        /* Empty State */
+        <div className="bg-slate-50 border border-dashed border-slate-300 rounded-2xl p-8 text-center space-y-3">
+          <FlaskConical className="h-10 w-10 text-indigo-400 mx-auto mb-1" />
+          <h3 className="text-sm font-bold text-slate-800">No Practical Materials Uploaded Yet</h3>
+          <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+            Practical manuals, lab notes, completed practical files, and viva voce question banks for <strong>{subjectCode}</strong> can be contributed here.
           </p>
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
+            <button
+              onClick={() => openUploadModal("LAB_MANUAL")}
+              className="inline-flex items-center px-3.5 py-2 text-xs font-semibold text-white bg-indigo-700 hover:bg-indigo-800 rounded-xl shadow-xs transition"
+            >
+              <Plus className="h-3.5 w-3.5 mr-1" />
+              Upload Practical File or Manual
+            </button>
+            <button
+              onClick={() => openUploadModal("VIVA_QUESTIONS")}
+              className="inline-flex items-center px-3.5 py-2 text-xs font-semibold text-indigo-700 bg-white hover:bg-indigo-50 border border-indigo-200 rounded-xl shadow-xs transition"
+            >
+              <Plus className="h-3.5 w-3.5 mr-1" />
+              Upload Viva Questions
+            </button>
+          </div>
         </div>
       )}
 
@@ -348,7 +420,9 @@ export function LabManualSection({
 
               <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
                 <a
-                  href={`/${previewLab.storagePath}`}
+                  href={`/api/lab-manual/download?file=${encodeURIComponent(
+                    previewLab.storedFileName
+                  )}&view=inline`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-slate-200 bg-slate-800 hover:bg-slate-700 rounded-lg transition"
@@ -367,7 +441,8 @@ export function LabManualSection({
                   Download
                 </a>
 
-                <button aria-label="Close preview"
+                <button
+                  aria-label="Close preview"
                   onClick={() => setPreviewLab(null)}
                   className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition"
                 >
@@ -379,12 +454,12 @@ export function LabManualSection({
             {/* Embedded PDF Viewer */}
             <div className="flex-1 bg-slate-100 relative">
               <object
-                data={`/${previewLab.storagePath}#toolbar=1&navpanes=0`}
+                data={`/api/lab-manual/download?file=${encodeURIComponent(previewLab.storedFileName)}&view=inline#toolbar=1&navpanes=0`}
                 type="application/pdf"
                 className="w-full h-full"
               >
                 <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-                  <FlaskConical className="h-12 w-12 text-slate-400 mb-3" />
+                  <FileText className="h-12 w-12 text-slate-400 mb-3" />
                   <p className="text-sm font-semibold text-slate-800 mb-2">
                     PDF Preview Not Supported by Browser
                   </p>
@@ -395,7 +470,7 @@ export function LabManualSection({
                     className="inline-flex items-center px-4 py-2 text-xs font-semibold text-white bg-emerald-800 rounded-lg shadow-sm"
                   >
                     <Download className="h-4 w-4 mr-1.5" />
-                    Download Lab Manual Instead
+                    Download Document Instead
                   </a>
                 </div>
               </object>
@@ -403,7 +478,19 @@ export function LabManualSection({
           </div>
         </Modal>
       )}
+
+      {/* Upload Modal */}
+      {uploadModalOpen && (
+        <ResourceUploadModal
+          mode="PRACTICAL"
+          initialType={uploadInitialType}
+          subjectId={subjectId}
+          subjectCode={subjectCode}
+          subjectName={subjectName}
+          isOpen={uploadModalOpen}
+          onClose={() => setUploadModalOpen(false)}
+        />
+      )}
     </div>
   );
 }
-

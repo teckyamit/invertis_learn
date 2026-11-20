@@ -21,8 +21,15 @@ import {
   BookOpen,
   Calendar,
   Layers,
-  Trash2
+  Trash2,
+  FlaskConical,
+  FileQuestion,
+  HelpCircle,
+  Edit3,
+  Check,
+  EyeOff
 } from "lucide-react";
+import { NOTE_RESOURCE_TYPES, PRACTICAL_RESOURCE_TYPES } from "@/lib/academic-categories";
 
 type Resource = {
   id: string;
@@ -36,6 +43,7 @@ type Resource = {
   examType: string | null;
   hasSolutions: boolean;
   resourceType: string | null;
+  unitNumber: number | null;
   authorName: string | null;
   isPublished: boolean;
   provenanceStatus: string;
@@ -64,11 +72,22 @@ type Resource = {
   };
 };
 
+interface CategoryCounts {
+  all: number;
+  pyq: number;
+  notes: number;
+  labs: number;
+  labNotes: number;
+  practicalFiles: number;
+  vivaQuestions: number;
+}
+
 interface Counts {
   pending: number;
   approved: number;
   rejected: number;
   total: number;
+  byCategory?: CategoryCounts;
 }
 
 export function CuratorDashboard({ authenticated, configured }: { authenticated: boolean; configured: boolean }) {
@@ -81,14 +100,24 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
   const [resources, setResources] = useState<Resource[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  const [counts, setCounts] = useState<Counts>({ pending: 0, approved: 0, rejected: 0, total: 0 });
+  const [counts, setCounts] = useState<Counts>({
+    pending: 0,
+    approved: 0,
+    rejected: 0,
+    total: 0,
+    byCategory: { all: 0, pyq: 0, notes: 0, labs: 0, labNotes: 0, practicalFiles: 0, vivaQuestions: 0 }
+  });
 
-  // Filter state: "pending" | "approved" | "rejected" | "all"
-  const [filter, setFilter] = useState<string>("pending");
+  // Filter states
+  const [filter, setFilter] = useState<string>("pending"); // "pending" | "approved" | "rejected" | "all"
+  const [categoryFilter, setCategoryFilter] = useState<string>("ALL"); // "ALL" | "PYQ" | "NOTES" | "LAB_MANUAL" | "LAB_NOTES" | "PRACTICAL_FILE" | "VIVA_QUESTIONS"
   const [searchQuery, setSearchQuery] = useState<string>("");
 
+  // Modals state
   const [selected, setSelected] = useState<Resource | null>(null);
-  const [previewResource, setPreviewResource] = useState<Resource | null>(null);
+  const [rejectingResource, setRejectingResource] = useState<Resource | null>(null);
+  const [rejectionReason, setRejectionReason] = useState<string>("");
+  const [editingResource, setEditingResource] = useState<Resource | null>(null);
 
   // Form input IDs for access key form
   const accessKeyInputId = useId();
@@ -96,7 +125,8 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
   const load = useCallback(async () => {
     try {
       const q = encodeURIComponent(searchQuery.trim());
-      const response = await fetch(`/api/admin/resources?page=${page}&filter=${filter}&q=${q}`);
+      const cat = encodeURIComponent(categoryFilter);
+      const response = await fetch(`/api/admin/resources?page=${page}&filter=${filter}&category=${cat}&q=${q}`);
       if (response.status === 401) {
         setSignedIn(false);
         return;
@@ -111,7 +141,7 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
     } catch {
       setErrorMessage("Unable to load resources. Please retry.");
     }
-  }, [page, filter, searchQuery]);
+  }, [page, filter, categoryFilter, searchQuery]);
 
   useEffect(() => {
     if (signedIn) void load();
@@ -151,7 +181,7 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
     const status = customStatus || (form.get("status") as string);
     const source = (form.get("source") as string) || "";
     const reviewer = (form.get("reviewer") as string) || "Academic Curator";
-    const note = (form.get("note") as string) || (publish ? "Approved after content verification" : "Reviewed and archived");
+    const note = (form.get("note") as string) || (publish ? "Approved after academic verification" : "Reviewed and archived");
 
     try {
       const response = await fetch("/api/admin/resources", {
@@ -178,8 +208,148 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
     }
   }
 
+  async function handleQuickApprove(res: Resource) {
+    setBusy(true);
+    setMessage("");
+    setErrorMessage("");
+    try {
+      const response = await fetch("/api/admin/resources", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: res.id,
+          publish: true,
+          provenanceStatus: "VERIFIED",
+          sourceReference: res.sourceReference || "Verified by Department Curator",
+          reviewedBy: "Academic Curator",
+          reviewNote: "Verified authentic and approved for catalog publication."
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Approval failed");
+      setMessage(`"${res.title}" has been approved and published to the student catalog.`);
+      await load();
+    } catch (e) {
+      setErrorMessage(e instanceof Error ? e.message : "Approval failed");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleUnpublish(res: Resource) {
+    if (!confirm(`Are you sure you want to unpublish "${res.title}"? It will no longer appear on the student website.`)) {
+      return;
+    }
+    setBusy(true);
+    setMessage("");
+    setErrorMessage("");
+    try {
+      const response = await fetch("/api/admin/resources", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: res.id,
+          publish: false,
+          provenanceStatus: "PRACTICE",
+          sourceReference: res.sourceReference || "",
+          reviewedBy: "Academic Curator",
+          reviewNote: "Unpublished from public catalog for revision."
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Unpublish failed");
+      setMessage(`"${res.title}" has been unpublished and withdrawn from public view.`);
+      await load();
+    } catch (e) {
+      setErrorMessage(e instanceof Error ? e.message : "Unpublish failed");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleRejectSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!rejectingResource) return;
+    if (!rejectionReason.trim() || rejectionReason.trim().length < 5) {
+      setErrorMessage("Please enter a rejection reason with at least 5 characters.");
+      return;
+    }
+
+    setBusy(true);
+    setMessage("");
+    setErrorMessage("");
+    try {
+      const response = await fetch("/api/admin/resources", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: rejectingResource.id,
+          publish: false,
+          provenanceStatus: "REJECTED",
+          sourceReference: rejectingResource.sourceReference || "",
+          reviewedBy: "Academic Curator",
+          reviewNote: rejectionReason.trim()
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Rejection failed");
+      setRejectingResource(null);
+      setRejectionReason("");
+      setMessage(`Resource has been marked as rejected with curator reason.`);
+      await load();
+    } catch (e) {
+      setErrorMessage(e instanceof Error ? e.message : "Rejection failed");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleEditMetadataSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!editingResource) return;
+    setBusy(true);
+    setMessage("");
+    setErrorMessage("");
+
+    const form = new FormData(e.currentTarget);
+    const title = (form.get("title") as string)?.trim();
+    const resourceType = (form.get("resourceType") as string)?.trim() || null;
+    const authorName = (form.get("authorName") as string)?.trim() || null;
+    const unitRaw = form.get("unitNumber") as string;
+    const unitNumber = unitRaw ? parseInt(unitRaw, 10) : null;
+    const sourceReference = (form.get("sourceReference") as string)?.trim() || "";
+
+    try {
+      const response = await fetch("/api/admin/resources", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: editingResource.id,
+          publish: editingResource.isPublished,
+          provenanceStatus: editingResource.provenanceStatus,
+          title: title || editingResource.title,
+          resourceType,
+          authorName,
+          unitNumber,
+          sourceReference,
+          reviewedBy: "Academic Curator",
+          reviewNote: editingResource.reviewNote || "Metadata updated by curator"
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Metadata update failed");
+      setEditingResource(null);
+      setMessage("Resource metadata updated successfully.");
+      await load();
+    } catch (e) {
+      setErrorMessage(e instanceof Error ? e.message : "Metadata update failed");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function handleDelete(id: string) {
-    if (!confirm("Are you sure you want to permanently delete this resource from database and storage?")) {
+    if (!confirm("Are you sure you want to permanently delete this resource from database and storage? This action cannot be undone.")) {
       return;
     }
     setBusy(true);
@@ -234,7 +404,63 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
     return `/api/${cat}/download?id=${res.id}`;
   };
 
-  const field = "w-full border border-slate-300 rounded-xl p-2.5 mt-1 text-slate-900 bg-white text-sm focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-100 transition";
+  const getCategoryBadge = (res: Resource) => {
+    if (res.category.code === "PYQ") {
+      return (
+        <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200 flex items-center space-x-1">
+          <FileQuestion className="h-3 w-3" />
+          <span>Question Paper</span>
+        </span>
+      );
+    }
+    if (res.category.code === "NOTES") {
+      return (
+        <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center space-x-1">
+          <BookOpen className="h-3 w-3" />
+          <span>Study Notes</span>
+        </span>
+      );
+    }
+    if (res.category.code === "LAB_MANUAL") {
+      if (res.resourceType === "VIVA_QUESTIONS") {
+        return (
+          <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-purple-50 text-purple-700 border border-purple-200 flex items-center space-x-1">
+            <HelpCircle className="h-3 w-3" />
+            <span>Viva Questions</span>
+          </span>
+        );
+      }
+      if (res.resourceType === "PRACTICAL_FILE") {
+        return (
+          <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center space-x-1">
+            <FlaskConical className="h-3 w-3" />
+            <span>Practical File</span>
+          </span>
+        );
+      }
+      if (res.resourceType === "LAB_NOTES") {
+        return (
+          <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-teal-50 text-teal-700 border border-teal-200 flex items-center space-x-1">
+            <FileText className="h-3 w-3" />
+            <span>Lab Notes</span>
+          </span>
+        );
+      }
+      return (
+        <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center space-x-1">
+          <FlaskConical className="h-3 w-3" />
+          <span>Lab Manual</span>
+        </span>
+      );
+    }
+    return (
+      <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+        {res.category.code}
+      </span>
+    );
+  };
+
+  const field = "w-full border border-slate-300 rounded-xl p-2.5 mt-1 text-slate-900 bg-white text-xs focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-100 transition";
 
   return (
     <div className="site-container py-8 sm:py-12 space-y-6">
@@ -246,10 +472,10 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
             <span>Academic Curator Portal</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900">
-            Resource Review & Moderation
+            Unified Resource Moderation Dashboard
           </h1>
           <p className="text-sm text-slate-600 mt-1">
-            Review submitted examination papers and study materials before publishing to the student catalogue.
+            Review, verify, edit, and publish student & faculty contributions across Question Papers, Study Notes, and Practical Materials.
           </p>
         </div>
 
@@ -282,15 +508,15 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
 
       {/* Notifications */}
       {message && (
-        <div role="status" className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-sm flex items-start space-x-2.5">
+        <div role="status" className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs flex items-start space-x-2.5">
           <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-          <span>{message}</span>
+          <span className="font-medium">{message}</span>
         </div>
       )}
       {errorMessage && (
-        <div role="alert" className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-sm flex items-start space-x-2.5">
+        <div role="alert" className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs flex items-start space-x-2.5">
           <AlertTriangle className="h-5 w-5 text-rose-600 shrink-0 mt-0.5" />
-          <span>{errorMessage}</span>
+          <span className="font-medium">{errorMessage}</span>
         </div>
       )}
 
@@ -330,89 +556,125 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
             <button
               type="submit"
               disabled={busy || !configured}
-              className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-2.5 rounded-xl shadow-xs transition disabled:opacity-50 text-sm"
+              className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl shadow-xs transition disabled:opacity-50 text-xs"
             >
-              {busy ? "Signing in…" : "Sign in"}
+              {busy ? "Signing in…" : "Sign in to Curator Dashboard"}
             </button>
           </form>
         </div>
       ) : (
         /* Curator Dashboard Main View */
         <div className="space-y-6">
-          {/* Controls Bar: Filters & Search */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
-            {/* Filter Tabs */}
-            <div className="flex items-center space-x-1 overflow-x-auto pb-1 md:pb-0">
-              <button
-                onClick={() => { setFilter("pending"); setPage(1); }}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 ${
-                  filter === "pending"
-                    ? "bg-amber-100 text-amber-900 border border-amber-200"
-                    : "text-slate-600 hover:bg-slate-100"
-                }`}
-              >
-                <span>Pending Review</span>
-                {counts.pending > 0 && (
-                  <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-amber-200 text-amber-900 font-extrabold">
-                    {counts.pending}
-                  </span>
-                )}
-              </button>
+          {/* Controls Bar: Status Filters, Category Filters & Search */}
+          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+            {/* Row 1: Status Tabs + Search */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 md:pb-0">
+                <button
+                  onClick={() => { setFilter("pending"); setPage(1); }}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 ${
+                    filter === "pending"
+                      ? "bg-amber-100 text-amber-900 border border-amber-200"
+                      : "text-slate-600 hover:bg-slate-100"
+                  }`}
+                >
+                  <span>Pending Review</span>
+                  {counts.pending > 0 && (
+                    <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-amber-200 text-amber-900 font-extrabold">
+                      {counts.pending}
+                    </span>
+                  )}
+                </button>
 
-              <button
-                onClick={() => { setFilter("approved"); setPage(1); }}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 ${
-                  filter === "approved"
-                    ? "bg-emerald-100 text-emerald-900 border border-emerald-200"
-                    : "text-slate-600 hover:bg-slate-100"
-                }`}
-              >
-                <span>Published</span>
-                {counts.approved > 0 && (
-                  <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-200 text-emerald-900 font-extrabold">
-                    {counts.approved}
-                  </span>
-                )}
-              </button>
+                <button
+                  onClick={() => { setFilter("approved"); setPage(1); }}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 ${
+                    filter === "approved"
+                      ? "bg-emerald-100 text-emerald-900 border border-emerald-200"
+                      : "text-slate-600 hover:bg-slate-100"
+                  }`}
+                >
+                  <span>Approved & Published</span>
+                  {counts.approved > 0 && (
+                    <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-200 text-emerald-900 font-extrabold">
+                      {counts.approved}
+                    </span>
+                  )}
+                </button>
 
-              <button
-                onClick={() => { setFilter("rejected"); setPage(1); }}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 ${
-                  filter === "rejected"
-                    ? "bg-rose-100 text-rose-900 border border-rose-200"
-                    : "text-slate-600 hover:bg-slate-100"
-                }`}
-              >
-                <span>Rejected</span>
-                {counts.rejected > 0 && (
-                  <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-200 text-rose-900 font-extrabold">
-                    {counts.rejected}
-                  </span>
-                )}
-              </button>
+                <button
+                  onClick={() => { setFilter("rejected"); setPage(1); }}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 ${
+                    filter === "rejected"
+                      ? "bg-rose-100 text-rose-900 border border-rose-200"
+                      : "text-slate-600 hover:bg-slate-100"
+                  }`}
+                >
+                  <span>Rejected</span>
+                  {counts.rejected > 0 && (
+                    <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-200 text-rose-900 font-extrabold">
+                      {counts.rejected}
+                    </span>
+                  )}
+                </button>
 
-              <button
-                onClick={() => { setFilter("all"); setPage(1); }}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition ${
-                  filter === "all"
-                    ? "bg-slate-200 text-slate-900"
-                    : "text-slate-600 hover:bg-slate-100"
-                }`}
-              >
-                All ({counts.total})
-              </button>
+                <button
+                  onClick={() => { setFilter("all"); setPage(1); }}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition ${
+                    filter === "all"
+                      ? "bg-slate-900 text-white"
+                      : "text-slate-600 hover:bg-slate-100"
+                  }`}
+                >
+                  All ({counts.total})
+                </button>
+              </div>
+
+              {/* Search Input */}
+              <div className="relative w-full md:w-80">
+                <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Search code, title, contributor, file..."
+                  value={searchQuery}
+                  onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
+                  className="w-full pl-9 pr-3.5 py-2 text-xs border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:border-blue-500 transition"
+                />
+              </div>
             </div>
 
-            {/* Search Input */}
-            <div className="relative w-full md:w-72">
-              <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-              <input
-                type="text"
-                placeholder="Search by code, title, file..."
-                value={searchQuery}
-                onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
-                className="w-full pl-9 pr-3.5 py-2 text-xs border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:border-blue-500 transition"
-              />
+            {/* Row 2: Category Filters */}
+            <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-1.5 text-xs">
+              <span className="font-semibold text-slate-500 uppercase tracking-wider mr-1 text-[11px] flex items-center">
+                <Filter className="h-3 w-3 mr-1" /> Category:
+              </span>
+
+              {[
+                { key: "ALL", label: "All Submissions", count: counts.byCategory?.all ?? counts.total },
+                { key: "PYQ", label: "Question Papers", count: counts.byCategory?.pyq ?? 0 },
+                { key: "NOTES", label: "Study Notes", count: counts.byCategory?.notes ?? 0 },
+                { key: "LAB_MANUAL", label: "Lab Manuals", count: counts.byCategory?.labs ?? 0 },
+                { key: "LAB_NOTES", label: "Lab Notes", count: counts.byCategory?.labNotes ?? 0 },
+                { key: "PRACTICAL_FILE", label: "Practical Files", count: counts.byCategory?.practicalFiles ?? 0 },
+                { key: "VIVA_QUESTIONS", label: "Viva Questions", count: counts.byCategory?.vivaQuestions ?? 0 },
+              ].map((c) => (
+                <button
+                  key={c.key}
+                  onClick={() => { setCategoryFilter(c.key); setPage(1); }}
+                  className={`px-3 py-1 rounded-lg font-semibold transition flex items-center space-x-1.5 ${
+                    categoryFilter === c.key
+                      ? "bg-slate-800 text-white shadow-xs"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  }`}
+                >
+                  <span>{c.label}</span>
+                  <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
+                    categoryFilter === c.key ? "bg-slate-700 text-white" : "bg-slate-200 text-slate-700"
+                  }`}>
+                    {c.count}
+                  </span>
+                </button>
+              ))}
             </div>
           </div>
 
@@ -460,9 +722,19 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
                           </span>
 
                           {/* Category Badge */}
-                          <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
-                            {resource.category.code}
-                          </span>
+                          {getCategoryBadge(resource)}
+
+                          {resource.resourceType && (
+                            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 text-slate-600">
+                              {resource.resourceType.replace(/_/g, " ")}
+                            </span>
+                          )}
+
+                          {resource.unitNumber && (
+                            <span className="text-xs text-slate-600 font-semibold bg-slate-50 px-2 py-0.5 rounded border border-slate-200">
+                              Unit/Exp {resource.unitNumber}
+                            </span>
+                          )}
 
                           {resource.academicYear && (
                             <span className="text-xs text-slate-500 font-medium">
@@ -498,15 +770,22 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
                               <span>Semester {semNum}</span>
                             </>
                           )}
-                          {resource.examType && (
+                          {resource.authorName && (
                             <>
                               <span>•</span>
-                              <span className="capitalize">{resource.examType.toLowerCase().replace(/_/g, " ")}</span>
+                              <span>Contributor: <strong>{resource.authorName}</strong></span>
                             </>
                           )}
                         </div>
 
-                        {/* Submission Time & Note */}
+                        {/* Source Reference if given */}
+                        {resource.sourceReference && (
+                          <p className="text-xs text-slate-500 italic">
+                            Attribution / Source: {resource.sourceReference}
+                          </p>
+                        )}
+
+                        {/* Submission Time & Reviewer */}
                         <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-400">
                           <span className="flex items-center space-x-1">
                             <Clock className="h-3 w-3" />
@@ -519,7 +798,7 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
 
                         {resource.reviewNote && (
                           <div className="p-2.5 bg-slate-50 rounded-lg text-xs text-slate-700 border border-slate-100">
-                            <span className="font-semibold text-slate-800">Review Note:</span> {resource.reviewNote}
+                            <span className="font-semibold text-slate-800">Curator Note:</span> {resource.reviewNote}
                           </div>
                         )}
                       </div>
@@ -547,21 +826,65 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
                           <span>Download</span>
                         </a>
 
-                        {/* Review / Decision Button */}
+                        {/* Quick Approve (for pending) */}
+                        {!resource.isPublished && resource.provenanceStatus !== "REJECTED" && (
+                          <button
+                            onClick={() => handleQuickApprove(resource)}
+                            disabled={busy}
+                            className="px-3.5 py-1.5 text-xs font-bold text-white bg-emerald-700 hover:bg-emerald-800 rounded-xl shadow-xs transition inline-flex items-center space-x-1"
+                          >
+                            <Check className="h-3.5 w-3.5" />
+                            <span>Quick Approve</span>
+                          </button>
+                        )}
+
+                        {/* Unpublish (for approved) */}
+                        {resource.isPublished && (
+                          <button
+                            onClick={() => handleUnpublish(resource)}
+                            disabled={busy}
+                            className="px-3 py-1.5 text-xs font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl transition inline-flex items-center space-x-1"
+                          >
+                            <EyeOff className="h-3.5 w-3.5" />
+                            <span>Unpublish</span>
+                          </button>
+                        )}
+
+                        {/* Full Review Modal Trigger */}
                         <button
                           onClick={() => { setSelected(resource); setMessage(""); setErrorMessage(""); }}
-                          className="px-4 py-1.5 text-xs font-bold text-white bg-blue-700 hover:bg-blue-800 rounded-xl shadow-xs transition inline-flex items-center space-x-1"
+                          className="px-3 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition inline-flex items-center space-x-1"
                         >
-                          <span>Review & Publish</span>
+                          <Edit3 className="h-3.5 w-3.5" />
+                          <span>Moderate</span>
+                        </button>
+
+                        {/* Reject Button (if pending or approved) */}
+                        {resource.provenanceStatus !== "REJECTED" && (
+                          <button
+                            onClick={() => { setRejectingResource(resource); setRejectionReason(""); }}
+                            className="px-3 py-1.5 text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl transition inline-flex items-center space-x-1"
+                          >
+                            <XCircle className="h-3.5 w-3.5" />
+                            <span>Reject</span>
+                          </button>
+                        )}
+
+                        {/* Edit Metadata */}
+                        <button
+                          onClick={() => setEditingResource(resource)}
+                          className="text-[11px] font-semibold text-slate-500 hover:text-slate-800 underline"
+                        >
+                          Edit Metadata
                         </button>
 
                         {/* Delete Permanent */}
                         <button
                           onClick={() => handleDelete(resource.id)}
-                          className="p-1.5 text-slate-400 hover:text-rose-600 rounded-lg transition"
+                          className="p-1 text-slate-300 hover:text-rose-600 rounded transition"
                           title="Delete permanently"
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-3.5 w-3.5" />
                         </button>
                       </div>
                     </div>
@@ -575,8 +898,8 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
               <p className="text-sm font-semibold text-slate-700">No resources found</p>
               <p className="text-xs text-slate-500">
                 {filter === "pending"
-                  ? "All submissions have been reviewed! Check published or rejected tabs."
-                  : "No resources matched your current filter or search criteria."}
+                  ? "All submissions in this category have been moderated! Check published or rejected tabs."
+                  : "No resources matched your current category or search criteria."}
               </p>
             </div>
           )}
@@ -656,7 +979,7 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
                 defaultValue={selected.provenanceStatus === "REJECTED" ? "REJECTED" : selected.provenanceStatus}
                 className={field}
               >
-                <option value="VERIFIED">Verified Official University Paper</option>
+                <option value="VERIFIED">Verified Official University Material</option>
                 <option value="PRACTICE">Practice & Preparation Material</option>
                 <option value="UNVERIFIED">Source Verification Pending</option>
                 <option value="REJECTED">Reject / Ineligible Resource</option>
@@ -724,7 +1047,6 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
             {/* Actions */}
             <div className="pt-3 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100">
               <div className="flex items-center space-x-2">
-                {/* One-click Reject */}
                 <button
                   type="button"
                   disabled={busy}
@@ -740,7 +1062,7 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
                   }}
                   className="px-3 py-2 text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl transition"
                 >
-                  Reject Paper
+                  Reject Resource
                 </button>
               </div>
 
@@ -756,11 +1078,160 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
                 <button
                   type="submit"
                   disabled={busy}
-                  className="px-5 py-2 text-xs font-bold text-white bg-blue-700 hover:bg-blue-800 rounded-xl shadow-xs transition disabled:opacity-50"
+                  className="px-5 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-xs transition disabled:opacity-50"
                 >
                   {busy ? "Saving…" : "Save Review"}
                 </button>
               </div>
+            </div>
+          </form>
+        </Modal>
+      )}
+
+      {/* Reject Resource Modal (Mandatory Reason) */}
+      {rejectingResource && (
+        <Modal label="Reject submission" onClose={() => setRejectingResource(null)}>
+          <form onSubmit={handleRejectSubmit} className="bg-white rounded-2xl p-6 sm:p-7 max-w-md w-full space-y-4 shadow-2xl border border-slate-200">
+            <div className="flex items-center space-x-2 text-rose-700">
+              <XCircle className="h-5 w-5" />
+              <h3 className="text-base font-bold text-slate-900">Reject Submission</h3>
+            </div>
+            <p className="text-xs text-slate-600">
+              You are rejecting <strong>&quot;{rejectingResource.title}&quot;</strong>. Please provide a clear rejection reason for the audit trail.
+            </p>
+
+            <div>
+              <label htmlFor="rejection-reason-input" className="block text-xs font-semibold text-slate-700 mb-1">
+                Rejection Reason <span className="text-rose-500">*</span>
+              </label>
+              <textarea
+                id="rejection-reason-input"
+                required
+                minLength={5}
+                maxLength={500}
+                rows={3}
+                value={rejectionReason}
+                onChange={(e) => setRejectionReason(e.target.value)}
+                placeholder="e.g. Unreadable scan, incorrect syllabus mapping, or duplicate of existing resource."
+                className={field}
+              />
+            </div>
+
+            <div className="pt-2 flex items-center justify-end space-x-2 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setRejectingResource(null)}
+                className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={busy || rejectionReason.trim().length < 5}
+                className="px-4 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 rounded-xl shadow-xs transition disabled:opacity-50"
+              >
+                Confirm Rejection
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
+
+      {/* Edit Metadata Modal */}
+      {editingResource && (
+        <Modal label="Edit resource metadata" onClose={() => setEditingResource(null)}>
+          <form onSubmit={handleEditMetadataSubmit} className="bg-white rounded-2xl p-6 sm:p-7 max-w-lg w-full space-y-4 shadow-2xl border border-slate-200">
+            <div className="flex items-center space-x-2 text-slate-800 border-b border-slate-100 pb-3">
+              <Edit3 className="h-5 w-5 text-blue-600" />
+              <h3 className="text-base font-bold text-slate-900">Edit Resource Metadata</h3>
+            </div>
+
+            <div>
+              <label htmlFor="edit-title-input" className="block text-xs font-semibold text-slate-700 mb-1">
+                Resource Title
+              </label>
+              <input
+                id="edit-title-input"
+                name="title"
+                defaultValue={editingResource.title}
+                required
+                maxLength={180}
+                className={field}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label htmlFor="edit-unit-input" className="block text-xs font-semibold text-slate-700 mb-1">
+                  Unit / Exp Number
+                </label>
+                <input
+                  id="edit-unit-input"
+                  name="unitNumber"
+                  type="number"
+                  min={1}
+                  max={50}
+                  defaultValue={editingResource.unitNumber ?? ""}
+                  placeholder="e.g. 1"
+                  className={field}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="edit-type-input" className="block text-xs font-semibold text-slate-700 mb-1">
+                  Resource Subtype
+                </label>
+                <input
+                  id="edit-type-input"
+                  name="resourceType"
+                  defaultValue={editingResource.resourceType ?? ""}
+                  placeholder="e.g. HANDWRITTEN, LAB_NOTES"
+                  className={field}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="edit-author-input" className="block text-xs font-semibold text-slate-700 mb-1">
+                Contributor / Author Name
+              </label>
+              <input
+                id="edit-author-input"
+                name="authorName"
+                defaultValue={editingResource.authorName ?? ""}
+                placeholder="e.g. Student name or Department Faculty"
+                className={field}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="edit-source-input" className="block text-xs font-semibold text-slate-700 mb-1">
+                Source Reference & Attribution
+              </label>
+              <input
+                id="edit-source-input"
+                name="sourceReference"
+                defaultValue={editingResource.sourceReference ?? ""}
+                placeholder="e.g. Self-authored lecture notes"
+                className={field}
+              />
+            </div>
+
+            <div className="pt-2 flex items-center justify-end space-x-2 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setEditingResource(null)}
+                className="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={busy}
+                className="px-4 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-xs transition disabled:opacity-50"
+              >
+                Save Metadata
+              </button>
             </div>
           </form>
         </Modal>

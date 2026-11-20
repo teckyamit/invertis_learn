@@ -26,7 +26,7 @@ import {
 import { programSupportsLateral, getProgramAdmissionConfig } from "@/lib/admissionModes";
 import { compareProgrammesByAcademicLevel } from "@/lib/academicLevels";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const metadata = {
   title: "Invertis Learn | Academic Companion",

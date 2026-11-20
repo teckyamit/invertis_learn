@@ -54,62 +54,62 @@ export default async function SubjectDetailPage({ params: paramsPromise }: PageP
   const isLateral = isLateralEntryProgramme(programmeCode);
   const lookupProgCode = getParentProgrammeCode(programmeCode);
 
-  // Find requested programme metadata (for displaying proper lateral title & breadcrumbs)
-  const requestedProgramme = await db.programme.findUnique({
-    where: { code: programmeCode, isActive: true },
-  });
-
-  if (!requestedProgramme) {
-    notFound();
-  }
-
-  // Find programme, semester, and subject (using shared parent programme curriculum)
-  const subject = await db.subject.findFirst({
-    where: {
-      isActive: true,
-      OR: [
-        { code: decodedSubjectCode },
-        { code: rawSubjectCode },
-      ],
-      semester: {
-        semesterNumber: semNum,
-        curriculumVersion: {
-          isCurrent: true,
-          programme: {
-            code: lookupProgCode,
-            isActive: true,
-          },
-        },
-      },
-    },
-    include: {
-      semester: {
-        include: {
+  // Fetch requested programme and subject in parallel
+  const [requestedProgramme, subject] = await Promise.all([
+    db.programme.findUnique({
+      where: { code: programmeCode, isActive: true },
+    }),
+    db.subject.findFirst({
+      where: {
+        isActive: true,
+        OR: [
+          { code: decodedSubjectCode },
+          { code: rawSubjectCode },
+        ],
+        semester: {
+          semesterNumber: semNum,
           curriculumVersion: {
-            include: {
-              programme: true,
+            isCurrent: true,
+            programme: {
+              code: lookupProgCode,
+              isActive: true,
             },
           },
         },
       },
-      resources: {
-        where: {
-          isPublished: true,
+      include: {
+        semester: {
+          include: {
+            curriculumVersion: {
+              include: {
+                programme: true,
+              },
+            },
+          },
         },
-        include: {
-          category: true,
+        resources: {
+          where: {
+            isPublished: true,
+          },
+          include: {
+            category: true,
+          },
+        },
+        externalResources: {
+          where: { isVerified: true },
+          orderBy: [{ unitNumber: "asc" }, { title: "asc" }],
+        },
+        videoLectures: {
+          where: { isVerified: true },
+          orderBy: [{ unitNumber: "asc" }, { title: "asc" }],
         },
       },
-      externalResources: {
-        where: { isVerified: true },
-        orderBy: [{ unitNumber: "asc" }, { title: "asc" }],
-      },
-      videoLectures: {
-        where: { isVerified: true },
-        orderBy: [{ unitNumber: "asc" }, { title: "asc" }],
-      },
-    },
-  });
+    }),
+  ]);
+
+  if (!requestedProgramme || !subject) {
+    notFound();
+  }
 
   if (!subject) {
     notFound();

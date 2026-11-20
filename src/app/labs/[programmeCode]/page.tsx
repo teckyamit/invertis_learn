@@ -10,6 +10,8 @@ import {
   getParentProgrammeCode 
 } from "@/lib/lateralEntry";
 
+import { getStaticProgrammeCodes } from "@/lib/cached-queries";
+
 interface PageProps {
   params: Promise<{
     programmeCode: string;
