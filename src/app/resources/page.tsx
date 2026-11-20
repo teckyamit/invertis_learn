@@ -18,7 +18,7 @@ import {
   FolderGit2
 } from "lucide-react";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Academic Resources Hub | Invertis Learn",

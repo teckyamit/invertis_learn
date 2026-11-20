@@ -11,7 +11,7 @@ import {
 import { compareProgrammesByAcademicLevel } from "@/lib/academicLevels";
 import { UploadPaperButton } from "@/components/pyq/UploadPaperButton";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function PYQProgrammeListPage() {
   const programmes = await db.programme.findMany({

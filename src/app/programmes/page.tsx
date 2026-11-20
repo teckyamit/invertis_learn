@@ -4,7 +4,7 @@ import { GraduationCap, ShieldCheck, Sparkles, Building2, ExternalLink } from "l
 import Link from "next/link";
 import { compareProgrammesByAcademicLevel } from "@/lib/academicLevels";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Academic Programmes & Course Catalog | Invertis Learn",

@@ -22,7 +22,7 @@ interface PageProps {
   }>;
 }
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params: paramsPromise, searchParams: searchParamsPromise }: PageProps) {
   const params = await paramsPromise;

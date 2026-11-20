@@ -6,8 +6,6 @@ import { db } from "@/lib/db";
 import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
 import { ChevronLeft, FlaskConical, ArrowRight, BookOpen, Clock, ListOrdered } from "lucide-react";
 
-import { getStaticSemesterParams } from "@/lib/cached-queries";
-
 interface PageProps {
   params: Promise<{
     programmeCode: string;
@@ -18,11 +16,7 @@ interface PageProps {
   }>;
 }
 
-export const revalidate = 3600;
-
-export async function generateStaticParams() {
-  return getStaticSemesterParams();
-}
+export const dynamic = "force-dynamic";
 
 export default async function LabsSemesterSubjectsPage({ params: paramsPromise, searchParams: searchParamsPromise }: PageProps) {
   const params = await paramsPromise;

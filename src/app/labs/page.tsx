@@ -19,7 +19,7 @@ import {
   getProgrammeDisplayName 
 } from "@/lib/lateralEntry";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function LabsProgrammeListPage() {
   const programmes = await db.programme.findMany({

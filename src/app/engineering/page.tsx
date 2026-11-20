@@ -5,7 +5,7 @@ import { CANONICAL_CSE_PROGRAMME_CODES } from "@/lib/admissionModes";
 import { compareProgrammesByAcademicLevel } from "@/lib/academicLevels";
 import Link from "next/link";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Computer Science & Engineering Programs | Invertis Learn",

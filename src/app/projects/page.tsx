@@ -18,7 +18,7 @@ import {
   GraduationCap
 } from "lucide-react";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function ProjectsHubPage() {
   // Fetch all PROJECT_ARCHIVE category resources

@@ -9,7 +9,7 @@ import {
 } from "@/lib/lateralEntry";
 import { compareProgrammesByAcademicLevel } from "@/lib/academicLevels";
 
-export const revalidate = 3600; // Cache for 1 hour
+export const dynamic = "force-dynamic";
 
 export default async function SyllabusProgrammeListPage() {
   const programmes = await db.programme.findMany({
