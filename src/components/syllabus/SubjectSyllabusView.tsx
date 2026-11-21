@@ -221,16 +221,37 @@ export function SubjectSyllabusView({
   const standalonePubPattern = /^(?:mcgraw[- ]*hill\.?|wiley\.?|pearson\.?|tata\s+mcgraw[- ]*hill\.?|phi\.?|tmh\.?|morgan\s+kufmann\s*\(an\s+imprint\s+of\s+elsevier\)\.?|morgan\s+kaufmann\.?)$/i;
 
   const textBooksList = textBooksRaw.filter(b => !standalonePubPattern.test(b.trim()));
-  const referenceBooksList = referenceBooksRaw.filter(b => !standalonePubPattern.test(b.trim()));
+  const initialRefBooksList = referenceBooksRaw.filter(b => !standalonePubPattern.test(b.trim()));
+
+  // Clean lab experiments: strictly filter out book bibliographic entries and dynamically rescue misfiled books
+  const rawExperiments = details?.labExperiments && Array.isArray(details.labExperiments) ? details.labExperiments : [];
+  const rescuedBooksFromExperiments = rawExperiments
+    .filter(exp => isBibliographicEntry(exp))
+    .map(exp => exp.replace(/^[0-9]+[.)]\s*/, "").trim());
+
+  // Attach any orphaned publisher if available
+  const orphanedPub = referenceBooksRaw.find(b => standalonePubPattern.test(b.trim()));
+  const normalizedRescuedBooks = rescuedBooksFromExperiments.map(b => {
+    if (orphanedPub && !b.toLowerCase().includes(orphanedPub.toLowerCase().replace(".", ""))) {
+      return `${b}, ${orphanedPub.replace(/\.$/, "")}.`;
+    }
+    return b;
+  });
+
+  const cleanExperiments = rawExperiments.filter(exp => !isBibliographicEntry(exp));
+  const hasExperiments = practicalEligible && cleanExperiments.length > 0;
+
+  // Combine reference books with rescued book citations
+  const referenceBooksList = [...initialRefBooksList];
+  for (const rescued of normalizedRescuedBooks) {
+    if (!referenceBooksList.some(b => b.toLowerCase().includes(rescued.toLowerCase().slice(0, 15)))) {
+      referenceBooksList.push(rescued);
+    }
+  }
 
   const hasTextBooks = textBooksList.length > 0;
   const hasRefBooks = referenceBooksList.length > 0;
   const hasBooks = hasTextBooks || hasRefBooks;
-
-  // Clean lab experiments: strictly filter out book bibliographic entries
-  const rawExperiments = details?.labExperiments && Array.isArray(details.labExperiments) ? details.labExperiments : [];
-  const cleanExperiments = rawExperiments.filter(exp => !isBibliographicEntry(exp));
-  const hasExperiments = practicalEligible && cleanExperiments.length > 0;
 
   return (
     <div className="w-full min-h-screen py-8 sm:py-12">
