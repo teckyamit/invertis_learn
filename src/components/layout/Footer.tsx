@@ -1,11 +1,29 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ShieldCheck, MapPin, ExternalLink, Wrench, BookOpen, Info, ArrowUpRight } from "lucide-react";
+import { ShieldCheck, MapPin, ExternalLink, Wrench, BookOpen, Info, ArrowUpRight, Search } from "lucide-react";
 
 export function Footer() {
   return (
     <footer className="mt-auto bg-brand-navy text-slate-300 border-t border-slate-800">
-      <nav aria-label="Resource tools" className="site-container py-4 flex gap-6"><Link href="/search" className="underline">Find subjects</Link><Link href="/admin" className="underline">Curator review</Link></nav>
+      <nav aria-label="Resource discovery" className="site-container py-3.5 flex flex-wrap items-center justify-between text-xs text-slate-400 border-b border-slate-800/80 gap-2">
+        <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+          <Link href="/search" className="hover:text-white transition flex items-center gap-1.5 font-medium text-slate-300">
+            <Search className="w-3.5 h-3.5 text-blue-400" />
+            <span>Search Subjects &amp; Syllabi</span>
+          </Link>
+          <span className="text-slate-600">•</span>
+          <Link href="/resources" className="hover:text-white transition">
+            Academic Resources Hub
+          </Link>
+          <span className="text-slate-600">•</span>
+          <Link href="/engineering" className="hover:text-white transition">
+            CSE Programmes
+          </Link>
+        </div>
+        <div className="text-[11px] text-slate-400 font-mono">
+          Invertis Learn · Independent Academic Companion
+        </div>
+      </nav>
       <div className="site-container py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Column 1: Brand Info & Campus */}

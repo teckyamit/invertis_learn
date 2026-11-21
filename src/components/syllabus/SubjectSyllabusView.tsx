@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { provenanceLabel } from "@/lib/resource-policy";
 import {
@@ -20,7 +20,9 @@ import {
   FileCheck,
   FlaskConical,
   Target,
-  Sparkles
+  Sparkles,
+  HelpCircle,
+  Flag
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/syllabus/Breadcrumbs";
 import {
@@ -37,6 +39,8 @@ import {
   getClassificationBadge,
   isBibliographicEntry,
 } from "@/lib/subject-classification";
+import { ResourceRequestModal } from "@/components/modals/ResourceRequestModal";
+import { ReportContentModal } from "@/components/modals/ReportContentModal";
 
 export interface SyllabusDetails {
   objectives?: string[];
@@ -135,6 +139,11 @@ export function SubjectSyllabusView({
   progressionSlot,
   children
 }: SubjectSyllabusViewProps) {
+  // Modal states for Student Material Requests & Content Reporting
+  const [requestModalOpen, setRequestModalOpen] = useState(false);
+  const [reportModalOpen, setReportModalOpen] = useState(false);
+  const [requestCategory, setRequestCategory] = useState<"PYQ" | "NOTES" | "LAB_MANUAL" | "OTHER">("PYQ");
+
   // Parse structured details
   let details: SyllabusDetails | null = null;
   if (subject.syllabusDetails) {
@@ -334,20 +343,40 @@ export function SubjectSyllabusView({
               </p>
             </div>
 
-            {/* Top-Right Download Action (Shown only when physical file exists and is verified eligible) */}
-            {syllabusResource && isDownloadEligible && isAvailable && (
-              <div className="flex-shrink-0">
+            {/* Top-Right Action Controls */}
+            <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => { setRequestCategory("PYQ"); setRequestModalOpen(true); }}
+                className="inline-flex items-center px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl transition cursor-pointer"
+                title="Request missing past papers or lecture notes"
+              >
+                <HelpCircle className="h-3.5 w-3.5 mr-1.5 text-blue-600" />
+                Request Notes / PYQ
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setReportModalOpen(true)}
+                className="inline-flex items-center px-3 py-2 text-xs font-semibold text-slate-500 hover:text-rose-600 bg-slate-50 hover:bg-rose-50 border border-slate-200 rounded-xl transition cursor-pointer"
+                title="Report inaccuracy in syllabus or broken resources"
+              >
+                <Flag className="h-3.5 w-3.5 mr-1.5 text-amber-500" />
+                Report Issue
+              </button>
+
+              {syllabusResource && isDownloadEligible && isAvailable && (
                 <a
                   href={downloadUrl}
                   download={syllabusResource.storedFileName}
-                  className="inline-flex items-center px-4 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-sm transition"
+                  className="inline-flex items-center px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition"
                   title={`Download official syllabus for ${subject.code}`}
                 >
-                  <Download className="h-4 w-4 mr-2" />
+                  <Download className="h-4 w-4 mr-1.5" />
                   Download syllabus PDF
                 </a>
-              </div>
-            )}
+              )}
+            </div>
           </div>
 
           {/* Academic Key Specifications 3-Card Grid */}
@@ -783,6 +812,66 @@ export function SubjectSyllabusView({
         {projectSlot}
         {pathwaysSlot}
         {progressionSlot}
+
+        {/* Academic Community Support & Contribution Card */}
+        <section className="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 text-white rounded-2xl p-6 md:p-8 shadow-sm">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-1.5 max-w-xl">
+              <div className="flex items-center space-x-2 text-xs font-bold text-blue-400 uppercase tracking-wider">
+                <Sparkles className="h-4 w-4" />
+                <span>Student Academic Support & Contribution</span>
+              </div>
+              <h3 className="text-lg font-bold text-white">
+                Help Keep {subject.code} Comprehensive & Accurate
+              </h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Can&apos;t find a specific past question paper or lecture note? Request it and our student curators will prioritize sourcing it. Found a discrepancy in syllabus modules or broken links? Report it for prompt review.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => { setRequestCategory("PYQ"); setRequestModalOpen(true); }}
+                className="inline-flex items-center px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer"
+              >
+                <HelpCircle className="h-4 w-4 mr-1.5" />
+                Request Study Material
+              </button>
+              <button
+                type="button"
+                onClick={() => setReportModalOpen(true)}
+                className="inline-flex items-center px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 rounded-xl text-xs font-semibold transition cursor-pointer"
+              >
+                <Flag className="h-4 w-4 mr-1.5 text-amber-400" />
+                Report Content Issue
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Modals */}
+        <ResourceRequestModal
+          isOpen={requestModalOpen}
+          onClose={() => setRequestModalOpen(false)}
+          subject={{
+            id: subject.id,
+            code: subject.code,
+            name: subject.name,
+            programmeCode: programme.code,
+            semesterNumber: semester.semesterNumber,
+          }}
+          initialCategory={requestCategory}
+        />
+
+        <ReportContentModal
+          isOpen={reportModalOpen}
+          onClose={() => setReportModalOpen(false)}
+          subject={{
+            id: subject.id,
+            code: subject.code,
+            name: subject.name,
+          }}
+        />
 
         {/* Backward compatibility for direct children */}
         {children}

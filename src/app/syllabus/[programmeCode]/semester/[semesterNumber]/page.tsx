@@ -10,7 +10,8 @@ import {
   programSupportsLateral,
   parseEntryMode,
   getActiveEntryDetails,
-  isSemesterAllowedForMode
+  isSemesterAllowedForMode,
+  getLateralSemesterRangeRoman
 } from "@/lib/admissionModes";
 
 interface PageProps {
@@ -178,7 +179,7 @@ export default async function SemesterSubjectsPage({ params: paramsPromise, sear
                   <>
                     <span>•</span>
                     <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-purple-100 text-purple-900 border border-purple-200">
-                      Lateral Entry (Sem III–VIII)
+                      Lateral Entry (Sem {getLateralSemesterRangeRoman(programme.code)})
                     </span>
                   </>
                 )}

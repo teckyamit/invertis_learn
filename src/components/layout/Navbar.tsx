@@ -13,7 +13,8 @@ import {
   BookOpen, 
   Info, 
   Home,
-  Compass
+  Compass,
+  Search
 } from "lucide-react";
 
 export function Navbar() {
@@ -22,6 +23,7 @@ export function Navbar() {
 
   const navLinks = [
     { label: "Home", href: "/", icon: Home, exact: true },
+    { label: "Search", href: "/search", icon: Search },
     { label: "Engineering", href: "/engineering", icon: Wrench },
     { label: "Resources", href: "/resources", icon: BookOpen },
     { label: "Career Pathways", href: "/career-pathways", icon: Compass },
@@ -79,8 +81,16 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* University ERP External Link (Desktop) */}
-          <div className="hidden md:flex items-center space-x-3">
+          {/* University ERP External Link & Quick Search (Desktop) */}
+          <div className="hidden md:flex items-center space-x-2.5">
+            <Link
+              href="/search"
+              className="inline-flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:text-brand-blue hover:bg-slate-100 border border-slate-200 transition"
+              title="Search subjects by code or title"
+            >
+              <Search className="w-3.5 h-3.5 text-slate-500" />
+              <span>Search</span>
+            </Link>
             <a
               href="https://erp.invertisuniversity.ac.in/"
               target="_blank"
@@ -93,8 +103,15 @@ export function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Menu Hamburger Button */}
-          <div className="flex md:hidden items-center shrink-0">
+          {/* Mobile Actions: Search & Menu Hamburger */}
+          <div className="flex md:hidden items-center space-x-1 shrink-0">
+            <Link
+              href="/search"
+              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-slate-700 hover:bg-slate-100"
+              aria-label="Search academic subjects"
+            >
+              <Search className="w-5 h-5 text-slate-700" />
+            </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"

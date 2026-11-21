@@ -83,7 +83,7 @@ export function ResourceUploadModal({
   const [unitNumber, setUnitNumber] = useState<string>("");
   const [authorName, setAuthorName] = useState<string>("");
   const [sourceReference, setSourceReference] = useState<string>("");
-  const [confirmedPermission, setConfirmedPermission] = useState<boolean>(true);
+  const [confirmedPermission, setConfirmedPermission] = useState<boolean>(false);
 
   // Practical Specific
   const [programmingLanguage, setProgrammingLanguage] = useState<string>("C");
@@ -198,6 +198,7 @@ export function ResourceUploadModal({
     setFileError("");
     setErrorMessage("");
     setSuccessData(null);
+    setConfirmedPermission(false);
     if (!initialSubjectId) {
       setSelectedSemester("");
       setSelectedSubjectId("");

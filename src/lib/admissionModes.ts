@@ -475,6 +475,18 @@ export function isSemesterAllowedForMode(code: string, semNum: number, mode: Adm
 }
 
 /**
+ * Returns a standardized Roman-numeral semester range for lateral entry (e.g. "III–VI" for Diploma, "III–VIII" for B.Tech).
+ */
+export function getLateralSemesterRangeRoman(code: string): string {
+  const config = getProgramAdmissionConfig(code);
+  if (!config?.lateral) return "III–VIII";
+  const romans: Record<number, string> = { 1: "I", 2: "II", 3: "III", 4: "IV", 5: "V", 6: "VI", 7: "VII", 8: "VIII" };
+  const min = romans[config.lateral.minSemester] || String(config.lateral.minSemester);
+  const max = romans[config.lateral.maxSemester] || String(config.lateral.maxSemester);
+  return `${min}–${max}`;
+}
+
+/**
  * Curated list of canonical CSE programme codes (one per academic programme).
  * Ordered by strict academic level priority:
  * 1. Diploma Programmes (DIP-CSE)

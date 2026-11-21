@@ -28,7 +28,11 @@ import {
   HelpCircle,
   Edit3,
   Check,
-  EyeOff
+  EyeOff,
+  Flag,
+  TrendingUp,
+  Sparkles,
+  FileCheck
 } from "lucide-react";
 import { NOTE_RESOURCE_TYPES, PRACTICAL_RESOURCE_TYPES } from "@/lib/academic-categories";
 
@@ -121,6 +125,14 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
   const [rejectionReason, setRejectionReason] = useState<string>("");
   const [editingResource, setEditingResource] = useState<Resource | null>(null);
 
+  // Master Portal View: Moderation vs Requests & Reports
+  const [activePortalTab, setActivePortalTab] = useState<"moderation" | "requests">("moderation");
+  const [requestsSubTab, setRequestsSubTab] = useState<"demand" | "requests" | "reports">("demand");
+  const [studentRequests, setStudentRequests] = useState<any[]>([]);
+  const [contentReports, setContentReports] = useState<any[]>([]);
+  const [rankedDemand, setRankedDemand] = useState<any[]>([]);
+  const [requestsLoading, setRequestsLoading] = useState(false);
+
   // Form input IDs for access key form
   const accessKeyInputId = useId();
 
@@ -145,9 +157,53 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
     }
   }, [page, filter, categoryFilter, searchQuery]);
 
+  const loadRequests = useCallback(async () => {
+    setRequestsLoading(true);
+    try {
+      const response = await fetch("/api/admin/requests");
+      if (response.status === 401) {
+        setSignedIn(false);
+        return;
+      }
+      if (!response.ok) throw new Error("Unable to load requests");
+      const result = await response.json();
+      setStudentRequests(result.requests || []);
+      setContentReports(result.reports || []);
+      setRankedDemand(result.rankedDemand || []);
+    } catch {
+      setErrorMessage("Unable to load student requests and reports.");
+    } finally {
+      setRequestsLoading(false);
+    }
+  }, []);
+
+  const handleResolveRequest = async (id: string, status: "RESOLVED" | "IN_PROGRESS" | "PENDING") => {
+    setBusy(true);
+    try {
+      const res = await fetch("/api/admin/requests", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status }),
+      });
+      if (!res.ok) throw new Error("Failed to update status");
+      setMessage(`Item marked as ${status.toLowerCase()}.`);
+      await loadRequests();
+    } catch (e: any) {
+      setErrorMessage(e.message || "Failed to update item status");
+    } finally {
+      setBusy(false);
+    }
+  };
+
   useEffect(() => {
-    if (signedIn) void load();
-  }, [signedIn, load]);
+    if (signedIn) {
+      if (activePortalTab === "moderation") {
+        void load();
+      } else {
+        void loadRequests();
+      }
+    }
+  }, [signedIn, activePortalTab, load, loadRequests]);
 
   async function login(e: React.FormEvent) {
     e.preventDefault();
@@ -484,11 +540,11 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
         {signedIn && (
           <div className="flex items-center space-x-3">
             <button
-              onClick={() => void load()}
-              disabled={busy}
-              className="inline-flex items-center space-x-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl shadow-xs transition"
+              onClick={() => activePortalTab === "moderation" ? void load() : void loadRequests()}
+              disabled={busy || requestsLoading}
+              className="inline-flex items-center space-x-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl shadow-xs transition cursor-pointer"
             >
-              <RefreshCw className={`h-3.5 w-3.5 ${busy ? "animate-spin" : ""}`} />
+              <RefreshCw className={`h-3.5 w-3.5 ${busy || requestsLoading ? "animate-spin" : ""}`} />
               <span>Refresh</span>
             </button>
             <button
@@ -567,8 +623,52 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
       ) : (
         /* Curator Dashboard Main View */
         <div className="space-y-6">
-          {/* Controls Bar: Status Filters, Category Filters & Search */}
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          {/* Master Portal View Tabs */}
+          <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 pb-3">
+            <button
+              type="button"
+              onClick={() => setActivePortalTab("moderation")}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 cursor-pointer ${
+                activePortalTab === "moderation"
+                  ? "bg-slate-900 text-white shadow-xs"
+                  : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+              }`}
+            >
+              <FileCheck className="h-4 w-4" />
+              <span>Resource Submissions Moderation</span>
+              {counts.pending > 0 && (
+                <span className="px-2 py-0.5 rounded-full text-[10px] bg-amber-400 text-slate-900 font-extrabold">
+                  {counts.pending}
+                </span>
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setActivePortalTab("requests");
+                void loadRequests();
+              }}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 cursor-pointer ${
+                activePortalTab === "requests"
+                  ? "bg-slate-900 text-white shadow-xs"
+                  : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+              }`}
+            >
+              <HelpCircle className="h-4 w-4 text-blue-500" />
+              <span>Student Demand & Content Reports</span>
+              {studentRequests.filter(r => r.status !== "RESOLVED").length + contentReports.filter(r => r.status !== "RESOLVED").length > 0 && (
+                <span className="px-2 py-0.5 rounded-full text-[10px] bg-blue-600 text-white font-extrabold">
+                  {studentRequests.filter(r => r.status !== "RESOLVED").length + contentReports.filter(r => r.status !== "RESOLVED").length}
+                </span>
+              )}
+            </button>
+          </div>
+
+          {activePortalTab === "moderation" ? (
+            <>
+              {/* Controls Bar: Status Filters, Category Filters & Search */}
+              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
             {/* Row 1: Status Tabs + Search */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 md:pb-0">
@@ -937,8 +1037,315 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
               </button>
             </div>
           )}
+        </>
+      ) : (
+        /* Student Demand & Content Reports View */
+        <div className="space-y-6">
+          {/* Summary Stat Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+              <span className="text-xs font-semibold text-slate-500 flex items-center mb-1">
+                <HelpCircle className="h-4 w-4 text-blue-600 mr-1.5" />
+                Material Requests
+              </span>
+              <div className="flex items-baseline space-x-2">
+                <span className="text-2xl font-bold text-slate-900">{studentRequests.length}</span>
+                <span className="text-xs text-amber-700 font-semibold">
+                  ({studentRequests.filter(r => r.status !== "RESOLVED").length} pending)
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-400 mt-1">Student demand for missing PYQs & notes</p>
+            </div>
+
+            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+              <span className="text-xs font-semibold text-slate-500 flex items-center mb-1">
+                <Flag className="h-4 w-4 text-rose-600 mr-1.5" />
+                Accuracy Reports
+              </span>
+              <div className="flex items-baseline space-x-2">
+                <span className="text-2xl font-bold text-slate-900">{contentReports.length}</span>
+                <span className="text-xs text-rose-700 font-semibold">
+                  ({contentReports.filter(r => r.status !== "RESOLVED").length} pending)
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-400 mt-1">Syllabus discrepancy & broken resource alerts</p>
+            </div>
+
+            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+              <span className="text-xs font-semibold text-slate-500 flex items-center mb-1">
+                <TrendingUp className="h-4 w-4 text-emerald-600 mr-1.5" />
+                Top Subject Demand
+              </span>
+              <div className="flex items-baseline space-x-2">
+                <span className="text-xl font-bold text-slate-900 truncate">
+                  {rankedDemand[0]?.code || "No requests"}
+                </span>
+                {rankedDemand[0] && (
+                  <span className="text-xs text-emerald-700 font-semibold">
+                    ({rankedDemand[0].count} requests)
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-slate-400 mt-1">Highest requested subject by student body</p>
+            </div>
+          </div>
+
+          {/* Sub-navigation Tabs */}
+          <div className="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center space-x-2">
+              <button
+                type="button"
+                onClick={() => setRequestsSubTab("demand")}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+                  requestsSubTab === "demand"
+                    ? "bg-blue-600 text-white shadow-xs"
+                    : "text-slate-600 hover:bg-slate-100"
+                }`}
+              >
+                Ranked Subject Demand ({rankedDemand.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setRequestsSubTab("requests")}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+                  requestsSubTab === "requests"
+                    ? "bg-blue-600 text-white shadow-xs"
+                    : "text-slate-600 hover:bg-slate-100"
+                }`}
+              >
+                Student Requests ({studentRequests.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setRequestsSubTab("reports")}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+                  requestsSubTab === "reports"
+                    ? "bg-rose-600 text-white shadow-xs"
+                    : "text-slate-600 hover:bg-slate-100"
+                }`}
+              >
+                Discrepancy Reports ({contentReports.length})
+              </button>
+            </div>
+          </div>
+
+          {/* Subtab Content 1: Ranked Subject Demand */}
+          {requestsSubTab === "demand" && (
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+              <div className="p-4 sm:p-5 border-b border-slate-100 bg-slate-50/50">
+                <h3 className="text-sm font-bold text-slate-900">Ranked Academic Demand by Subject</h3>
+                <p className="text-xs text-slate-500">Prioritize sourcing exam papers and notes for these high-demand courses.</p>
+              </div>
+
+              {rankedDemand.length === 0 ? (
+                <div className="p-8 text-center text-xs text-slate-500">
+                  No student resource requests recorded yet.
+                </div>
+              ) : (
+                <div className="divide-y divide-slate-100">
+                  {rankedDemand.map((item, idx) => (
+                    <div key={item.code} className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-slate-50/60 transition">
+                      <div className="flex items-center space-x-3 min-w-0">
+                        <span className={`w-8 h-8 rounded-xl font-mono text-xs font-bold flex items-center justify-center shrink-0 ${
+                          idx === 0
+                            ? "bg-amber-100 text-amber-900 border border-amber-300"
+                            : idx === 1
+                            ? "bg-slate-200 text-slate-800"
+                            : idx === 2
+                            ? "bg-amber-50 text-amber-800"
+                            : "bg-slate-100 text-slate-600"
+                        }`}>
+                          #{idx + 1}
+                        </span>
+                        <div className="min-w-0">
+                          <div className="flex items-center space-x-2">
+                            <span className="font-mono text-xs font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">
+                              {item.code}
+                            </span>
+                            <h4 className="text-xs sm:text-sm font-bold text-slate-800 truncate">
+                              {item.name}
+                            </h4>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                            {Object.entries(item.categories as Record<string, number>).map(([cat, count]) => (
+                              <span key={cat} className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">
+                                {count} {cat}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center space-x-3 shrink-0">
+                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-800 border border-blue-200">
+                          {item.count} {item.count === 1 ? "Request" : "Requests"}
+                        </span>
+                        <a
+                          href={`/search?q=${encodeURIComponent(item.code)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition inline-flex items-center"
+                        >
+                          <span>View Subject</span>
+                          <ExternalLink className="h-3 w-3 ml-1" />
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Subtab Content 2: Student Requests Log */}
+          {requestsSubTab === "requests" && (
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+              <div className="p-4 sm:p-5 border-b border-slate-100 bg-slate-50/50">
+                <h3 className="text-sm font-bold text-slate-900">Student Material Request Log</h3>
+                <p className="text-xs text-slate-500">Track and mark off student inquiries as study resources are uploaded.</p>
+              </div>
+
+              {studentRequests.length === 0 ? (
+                <div className="p-8 text-center text-xs text-slate-500">
+                  No material requests logged yet.
+                </div>
+              ) : (
+                <div className="divide-y divide-slate-100">
+                  {studentRequests.map((req) => (
+                    <div key={req.id} className="p-4 sm:p-5 flex flex-col md:flex-row md:items-start justify-between gap-4 hover:bg-slate-50/60 transition">
+                      <div className="space-y-1.5 min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-mono text-xs font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">
+                            {req.subjectCode}
+                          </span>
+                          <span className="text-xs font-bold text-slate-800">{req.subjectName}</span>
+                          <span className="text-[11px] px-2 py-0.5 rounded font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                            {req.category}
+                          </span>
+                          {req.academicYear && (
+                            <span className="text-[11px] px-2 py-0.5 rounded font-semibold bg-slate-100 text-slate-600">
+                              Session {req.academicYear}
+                            </span>
+                          )}
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                            req.status === "RESOLVED"
+                              ? "bg-emerald-100 text-emerald-800"
+                              : "bg-amber-100 text-amber-800"
+                          }`}>
+                            {req.status === "RESOLVED" ? "RESOLVED" : "PENDING"}
+                          </span>
+                        </div>
+                        {req.description && (
+                          <p className="text-xs text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-100 leading-relaxed">
+                            &quot;{req.description}&quot;
+                          </p>
+                        )}
+                        <span className="text-[10px] text-slate-400 block">
+                          Submitted: {new Date(req.createdAt).toLocaleString("en-IN")}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center space-x-2 shrink-0">
+                        {req.status !== "RESOLVED" ? (
+                          <button
+                            type="button"
+                            onClick={() => void handleResolveRequest(req.id, "RESOLVED")}
+                            disabled={busy}
+                            className="inline-flex items-center space-x-1 px-3 py-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl transition cursor-pointer"
+                          >
+                            <Check className="h-3.5 w-3.5" />
+                            <span>Mark Resolved</span>
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => void handleResolveRequest(req.id, "PENDING")}
+                            disabled={busy}
+                            className="inline-flex items-center space-x-1 px-3 py-1.5 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer"
+                          >
+                            <span>Reopen</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Subtab Content 3: Content Discrepancy Reports */}
+          {requestsSubTab === "reports" && (
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+              <div className="p-4 sm:p-5 border-b border-slate-100 bg-slate-50/50">
+                <h3 className="text-sm font-bold text-slate-900">Academic Content Discrepancy Reports</h3>
+                <p className="text-xs text-slate-500">Student and faculty submissions reporting incorrect modules or corrupted documents.</p>
+              </div>
+
+              {contentReports.length === 0 ? (
+                <div className="p-8 text-center text-xs text-slate-500">
+                  No discrepancy reports logged. All catalog content is in good standing!
+                </div>
+              ) : (
+                <div className="divide-y divide-slate-100">
+                  {contentReports.map((rep) => (
+                    <div key={rep.id} className="p-4 sm:p-5 flex flex-col md:flex-row md:items-start justify-between gap-4 hover:bg-slate-50/60 transition">
+                      <div className="space-y-1.5 min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-mono text-xs font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">
+                            {rep.subjectCode}
+                          </span>
+                          <span className="text-[11px] px-2 py-0.5 rounded font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                            {rep.issueType?.replace(/_/g, " ") || "CONTENT REPORT"}
+                          </span>
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                            rep.status === "RESOLVED"
+                              ? "bg-emerald-100 text-emerald-800"
+                              : "bg-rose-100 text-rose-800"
+                          }`}>
+                            {rep.status === "RESOLVED" ? "RESOLVED" : "PENDING ACTION"}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-800 bg-rose-50/40 p-2.5 rounded-xl border border-rose-100 leading-relaxed">
+                          &quot;{rep.description}&quot;
+                        </p>
+                        <span className="text-[10px] text-slate-400 block">
+                          Reported: {new Date(rep.createdAt).toLocaleString("en-IN")}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center space-x-2 shrink-0">
+                        {rep.status !== "RESOLVED" ? (
+                          <button
+                            type="button"
+                            onClick={() => void handleResolveRequest(rep.id, "RESOLVED")}
+                            disabled={busy}
+                            className="inline-flex items-center space-x-1 px-3 py-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl transition cursor-pointer"
+                          >
+                            <Check className="h-3.5 w-3.5" />
+                            <span>Mark Resolved</span>
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => void handleResolveRequest(rep.id, "PENDING")}
+                            disabled={busy}
+                            className="inline-flex items-center space-x-1 px-3 py-1.5 text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer"
+                          >
+                            <span>Reopen</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
+    </div>
+  )}
 
       {/* Review & Decision Modal */}
       {selected && (

@@ -30,7 +30,7 @@ const submissionSchema = z.object({
   // Practical specific fields
   programmingLanguage: z.string().trim().max(50).optional().default(""),
   experimentNumber: z.string().optional().default(""),
-  confirmedPermission: z.enum(["true", "false"]).optional().default("true"),
+  confirmedPermission: z.enum(["true", "false"]).optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -71,6 +71,12 @@ export async function POST(request: NextRequest) {
     }
 
     const rawData = Object.fromEntries(form);
+
+    // Explicit copyright and permission confirmation check
+    if (rawData.confirmedPermission !== "true") {
+      return NextResponse.json({ error: "Explicit confirmation of sharing rights and copyright permission is required." }, { status: 400 });
+    }
+
     const parsed = submissionSchema.safeParse(rawData);
     if (!parsed.success) {
       return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 });

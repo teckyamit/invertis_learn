@@ -62,33 +62,38 @@ export function PhdHubClient({ initialTab = "overview" }: { initialTab?: PhdTabI
       {/* Hero Header */}
       <PhdHubHeader />
 
-      {/* Main Tab Bar Container */}
-      <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-2.5 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 border-y border-slate-200/80 shadow-2xs">
-        {/* Desktop / Tablet Scrollable Tabs */}
-        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+      {/* Main Tab Bar Container with accessible horizontal scroll */}
+      <div className="sticky top-16 z-30 bg-slate-50/95 backdrop-blur-md py-2.5 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 border-y border-slate-200/80 shadow-2xs relative">
+        {/* Desktop / Mobile Scrollable Tabs with clear affordance */}
+        <div 
+          role="tablist" 
+          aria-label="Ph.D. Program Guidance Sections"
+          className="flex items-center gap-1.5 overflow-x-auto py-1 scroll-smooth focus:outline-none"
+        >
           {TABS.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
             return (
               <button
                 key={tab.id}
+                role="tab"
+                aria-selected={isActive}
                 type="button"
                 onClick={() => {
                   setActiveTab(tab.id);
-                  // Optional hash update without reload
                   if (typeof window !== "undefined") {
                     window.history.replaceState(null, "", `#${tab.id}`);
                   }
                 }}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer shrink-0 ${
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap cursor-pointer shrink-0 min-h-[36px] ${
                   isActive
                     ? "bg-brand-navy text-white shadow-sm ring-1 ring-brand-navy/20"
                     : "bg-white hover:bg-slate-100 text-slate-700 border border-slate-200/90"
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-amber-400" : "text-slate-500"}`} />
-                <span className="hidden sm:inline">{tab.label}</span>
-                <span className="sm:hidden">{tab.shortLabel}</span>
+                <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-amber-400" : "text-slate-500"}`} />
+                <span className="hidden md:inline">{tab.label}</span>
+                <span className="md:hidden">{tab.shortLabel}</span>
               </button>
             );
           })}

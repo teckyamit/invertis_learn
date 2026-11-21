@@ -232,15 +232,13 @@ export default function AboutPage() {
           <div className="space-y-3 max-w-4xl">
             <h2 className="font-heading text-lg sm:text-xl font-bold text-slate-900 flex items-center space-x-2">
               <Sparkles className="w-5 h-5 text-purple-600" />
-              <span>Current Release Scope: Engineering Focus</span>
+              <span>Current Release Scope: Computer Science &amp; Engineering Focus</span>
             </h2>
             <p className="text-sm text-slate-600 leading-relaxed">
-              For the current release, all <strong>Engineering programmes (B.Tech, M.Tech, and Polytechnic Diploma)</strong> from the 
-              Invertis Institute of Engineering &amp; Technology are fully active and accessible.
+              For the current release, Invertis Learn is an independent academic resource platform specifically dedicated to <strong>Computer Science &amp; Engineering programmes (Polytechnic Diploma in CSE, B.Tech CSE, B.Tech CSE Specializations, Lateral Entry, M.Tech CSE, and Ph.D. in CSE)</strong>. Academic curricula, syllabi PDFs, question papers, and notes for these programmes are active and organized with zero account barriers.
             </p>
             <p className="text-sm text-slate-600 leading-relaxed">
-              Other faculties—including Management, Pharmacy, Law, Applied Sciences, Agriculture, Education, and Journalism—are visible in the 
-              directory with a <strong>Coming Soon</strong> status. Their academic syllabi are undergoing verification to ensure zero discrepancy with official records.
+              Other academic faculties and departments—including Management, Pharmacy, Law, Applied Sciences, Agriculture, Education, and Journalism—are visible in the directory with a <strong>Coming Soon</strong> status as part of planned future academic expansion once official curriculum sources are fully ingested.
             </p>
           </div>
           <div className="shrink-0 self-start lg:self-center">

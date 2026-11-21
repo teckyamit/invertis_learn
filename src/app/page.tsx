@@ -23,8 +23,9 @@ import {
   getProgrammeCurriculumStats, 
   getProgrammeDisplayName 
 } from "@/lib/lateralEntry";
-import { programSupportsLateral, getProgramAdmissionConfig } from "@/lib/admissionModes";
+import { programSupportsLateral, getProgramAdmissionConfig, getLateralSemesterRangeRoman } from "@/lib/admissionModes";
 import { compareProgrammesByAcademicLevel } from "@/lib/academicLevels";
+import { MySemesterWidget } from "@/components/home/MySemesterWidget";
 
 export const dynamic = "force-dynamic";
 
@@ -149,6 +150,13 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Personalized Student Shortcut (Zero Auth / Local Preference) */}
+      <section className="pt-6 sm:pt-8 w-full">
+        <div className="site-container">
+          <MySemesterWidget />
+        </div>
+      </section>
+
       {/* Student Journey: Simple, Predictable Navigation Flow */}
       <section className="py-10 sm:py-12 w-full">
         <div className="site-container">
@@ -264,7 +272,7 @@ export default async function HomePage() {
                     <span className="font-bold text-slate-700">{prog.code}</span>
                     <span>•</span>
                     {isDoctoral ? (
-                      <span>{prog.durationYears} Years (Doctoral Research & Thesis)</span>
+                      <span>3–6 Years (Doctoral Research & Thesis)</span>
                     ) : supportsLateral ? (
                       <span>{prog.durationYears} Years Regular • {admissionConfig?.lateral?.durationYears ?? 3} Years Lateral</span>
                     ) : (
@@ -279,7 +287,7 @@ export default async function HomePage() {
                         {isDoctoral 
                           ? "1 Sem Coursework + Thesis" 
                           : supportsLateral 
-                          ? `${stats.semesterCount} Sem (Lateral: III–VIII)` 
+                          ? `${stats.semesterCount} Sem (Lateral: ${getLateralSemesterRangeRoman(prog.code)})` 
                           : `${stats.semesterCount} Semesters`}
                       </span>
                     </div>
@@ -340,7 +348,7 @@ export default async function HomePage() {
                         href={`/syllabus/${encodeURIComponent(prog.code)}?entry=lateral`}
                         className="font-bold text-purple-700 hover:text-purple-900 hover:underline inline-flex items-center gap-0.5"
                       >
-                        <span>Lateral Entry (Sem III–VIII)</span>
+                        <span>Lateral Entry (Sem {getLateralSemesterRangeRoman(prog.code)})</span>
                         <ArrowRight className="w-3 h-3" />
                       </Link>
                     </div>

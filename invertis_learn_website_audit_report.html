@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invertis Learn Website Audit Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/*
+  Tier 3 Utilitarian · Technical & UX Website Audit
+  Hero arrangement: compact answer-first split (headline/verdict left, single emphasis numeral right)
+  Section order: Hero verdict -> 3-col strengths strip -> SVG readiness scorecard -> Discrepancies table -> Asymmetric UI/UX split -> Full-bleed SEO & growth band -> Prioritized roadmap table -> Sources
+  Fonts: Space Grotesk (headline/headings), Inter (body), IBM Plex Mono (table headers, ticks, inline routes/codes)
+  Palette: Crisp Gallery White (#FFFFFF), Ink (#0F172A), Ink2 (#334155), Mute (#475569), Hair (#CBD5E1), Accent Cobalt (#1D4ED8 / #1E40AF text), Accent-2 Amber (#B45309 / #92400E text)
+  Image radius: 0px (no raster images; inline SVG scorecard)
+  Emphasis moment: single hero numeral (12 routes audited)
+  Signature element: horizontal audit readiness SVG scorecard
+  Chart types: horizontal bar scorecard
+*/
+
+:root {
+  --paper: #FFFFFF;
+  --ink: #0F172A;
+  --ink2: #334155;
+  --mute: #475569;
+  --hair: #CBD5E1;
+  --accent: #1D4ED8;
+  --accent-text: #1E40AF;
+  --accent-2: #B45309;
+  --accent-2-text: #92400E;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.page {
+  padding: 68px clamp(24px, 10.4vw, 112px) 92px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.sec {
+  margin-top: 68px;
+  padding-top: 32px;
+  border-top: 1px solid var(--hair);
+}
+
+.measure {
+  max-width: 68ch;
+}
+
+h1, h2, h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--ink);
+  margin: 0;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 4.2vw, 3.35rem);
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: clamp(1.55rem, 2.3vw, 2rem);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin-bottom: 18px;
+}
+
+h3 {
+  font-size: 1.125rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+p {
+  margin: 0 0 16px;
+  color: var(--ink2);
+  font-size: 1rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--ink);
+}
+
+code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.875rem;
+  color: var(--ink);
+}
+
+/* Hero */
+.hero-left {
+  grid-column: 1 / 9;
+}
+
+.hero-right {
+  grid-column: 10 / 13;
+  align-self: end;
+  border-left: 2px solid var(--accent);
+  padding-left: 22px;
+}
+
+.deck {
+  margin-top: 20px;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--ink2);
+  max-width: 64ch;
+}
+
+.verdict-lead {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--hair);
+  max-width: 66ch;
+  color: var(--ink);
+}
+
+.verdict-lead strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.emphasis-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--accent-text);
+}
+
+.emphasis-cap {
+  margin-top: 10px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.emphasis-sub {
+  margin-top: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--mute);
+}
+
+/* 3-column open strip */
+.col-3-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 24px;
+}
+
+.strip-item {
+  border-top: 2px solid var(--accent);
+  padding-top: 16px;
+}
+
+/* Figures & SVG */
+figure {
+  margin: 28px 0 0;
+  padding: 0;
+}
+
+.fig-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+figcaption {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  color: var(--mute);
+  line-height: 1.45;
+}
+
+/* Open tables */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 24px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9375rem;
+}
+
+thead th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink);
+  padding: 12px 16px 12px 0;
+  border-bottom: 2px solid var(--ink);
+  vertical-align: bottom;
+}
+
+tbody td {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--hair);
+  color: var(--ink2);
+  vertical-align: top;
+}
+
+tbody td:first-child {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.sev-high {
+  color: var(--accent-2-text);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.sev-med {
+  color: var(--accent-text);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.sev-low {
+  color: var(--mute);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Asymmetric split */
+.split-left {
+  grid-column: 1 / 5;
+}
+
+.split-right {
+  grid-column: 5 / 13;
+}
+
+.detail-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.detail-list li {
+  padding: 16px 0;
+  border-top: 1px solid var(--hair);
+}
+
+.detail-list li:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.detail-list strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Full-bleed band (max 1) */
+.full-band {
+  background: #0F172A;
+  color: #F8FAFC;
+  margin: 68px calc(-1 * clamp(24px, 10.4vw, 112px)) 0;
+  padding: 56px clamp(24px, 10.4vw, 112px);
+}
+
+.full-band h2,
+.full-band h3,
+.full-band strong {
+  color: #FFFFFF;
+}
+
+.full-band p {
+  color: #CBD5E1;
+}
+
+.full-band code {
+  color: #FFFFFF;
+}
+
+.full-band a {
+  color: #93C5FD;
+}
+
+.band-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 28px;
+}
+
+.band-col {
+  border-top: 1px solid #334155;
+  padding-top: 18px;
+}
+
+/* Pull quote */
+.pull-quote {
+  margin: 56px 0 0;
+  padding: 24px 0 24px 28px;
+  border-left: 3px solid var(--accent);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  line-height: 1.32;
+  font-weight: 500;
+  color: var(--ink);
+  max-width: 44ch;
+}
+
+/* Scope & limitations note */
+.scope-note {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--hair);
+  font-size: 0.9375rem;
+  color: var(--mute);
+  max-width: 68ch;
+}
+
+/* Sources list */
+.sources-list {
+  list-style: none;
+  counter-reset: src;
+  margin: 20px 0 0;
+  padding: 0;
+  max-width: 72ch;
+}
+
+.sources-list li {
+  counter-increment: src;
+  position: relative;
+  padding: 8px 0 8px 34px;
+  border-bottom: 1px solid var(--hair);
+  font-size: 0.9375rem;
+  color: var(--ink2);
+}
+
+.sources-list li::before {
+  content: counter(src) ".";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.875rem;
+  color: var(--mute);
+}
+
+@media (max-width: 900px) {
+  .hero-left,
+  .hero-right,
+  .split-left,
+  .split-right {
+    grid-column: 1 / -1;
+  }
+
+  .hero-right {
+    border-left: none;
+    border-top: 2px solid var(--accent);
+    padding-left: 0;
+    padding-top: 16px;
+  }
+
+  .col-3-strip,
+  .band-cols {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <!-- Hero: Answer-First Split -->
+  <header class="grid">
+    <div class="hero-left">
+      <h1>Solid Next.js foundation held back by empty resources and data drift</h1>
+      <p class="deck">Live audit of <a href="https://invertislearn.vercel.app/" target="_blank" rel="noopener noreferrer">invertislearn.vercel.app</a> across 12 public routes on November 21, 2026. The portal delivers fast, login-free syllabus browsing, but advertised file counts, cross-page factual errors, and hidden search undermine student trust.</p>
+      <p class="verdict-lead"><strong>Bottom line:</strong> Keep the clean Next.js architecture, visual hierarchy, and frictionless student access. Fix three high-impact blockers before promoting the site wider: reconcile the <code>496+ Files</code> claim with empty subject pages, correct factual errors across programme cards, and surface the 379-subject search tool plus Google indexing.</p>
+    </div>
+    <aside class="hero-right">
+      <div class="emphasis-num">12</div>
+      <div class="emphasis-cap">Public routes audited live</div>
+      <div class="emphasis-sub">0 runtime crashes · 0 Google-indexed pages · 5 data conflicts</div>
+    </aside>
+  </header>
+
+  <!-- Section 1: Strengths -->
+  <section class="sec">
+    <h2>What Invertis Learn already gets right</h2>
+    <p class="measure">Before fixing gaps, it is worth recognizing how much foundational engineering and interface work is already done well. The site behaves like a focused academic companion rather than a cluttered university portal.</p>
+
+    <div class="col-3-strip">
+      <div class="strip-item">
+        <h3>Friction-free student access</h3>
+        <p>Students can inspect full programme catalogs, semester breakdowns, credit structures, and subject pages without hitting a login wall. Client-side filters on <a href="https://invertislearn.vercel.app/engineering" target="_blank" rel="noopener noreferrer">/engineering</a> and <a href="https://invertislearn.vercel.app/search" target="_blank" rel="noopener noreferrer">/search</a> respond smoothly without full page reloads, and subject pages include quick anchor jumps for Syllabus PDF, PYQs, Notes, Books, and Video Lectures.</p>
+      </div>
+      <div class="strip-item">
+        <h3>Cohesive design and stability</h3>
+        <p>Across all 12 inspected routes, the Next.js app produced zero 404s, broken layouts, or runtime exceptions. The visual system pairs clean light surfaces with a clear slate-and-blue typographic hierarchy, monospace course codes, amber external ERP accents, and readable breadcrumbs.</p>
+      </div>
+      <div class="strip-item">
+        <h3>Smart community upload workflow</h3>
+        <p>On subject pages such as <a href="https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/1/BAS101" target="_blank" rel="noopener noreferrer">BAS101 Physics</a>, students can contribute study notes via a well-structured upload modal (PDF up to 10 MB, 1–500 pages, optional credit attribution) without creating an account. Submissions route to a curator dashboard gated by a 32+ character key on <a href="https://invertislearn.vercel.app/admin" target="_blank" rel="noopener noreferrer">/admin</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Scorecard SVG (Signature Visual Centerpiece) -->
+  <section class="sec">
+    <h2>Engineering stability outpaces content completeness and data accuracy</h2>
+    <p class="measure">Scoring six audit dimensions on a 10-point readiness rubric (derived directly from the 12-route inspection) shows a clear split: the codebase and visual system are near production quality, while data hygiene, populated study materials, and search discoverability lag far behind.</p>
+
+    <figure>
+      <div class="fig-title">Technical foundation scores 8–9/10 while content readiness and data accuracy fall to 3–4/10</div>
+      <svg viewBox="0 0 680 390" width="100%" role="img" aria-label="Horizontal bar chart showing Invertis Learn audit readiness scores across six categories out of 10">
+        <!-- Gridlines -->
+        <line x1="220" y1="24" x2="220" y2="330" stroke="#CBD5E1" stroke-width="1"/>
+        <line x1="300" y1="24" x2="300" y2="330" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="380" y1="24" x2="380" y2="330" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="460" y1="24" x2="460" y2="330" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="540" y1="24" x2="540" y2="330" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="620" y1="24" x2="620" y2="330" stroke="#CBD5E1" stroke-width="1"/>
+
+        <!-- Row 1: Technical Stability 9/10 -->
+        <text x="208" y="54" text-anchor="end" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#0F172A">Technical stability</text>
+        <rect x="220" y="37" width="360" height="24" fill="#1D4ED8"/>
+        <text x="590" y="54" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#1E40AF">9 / 10</text>
+
+        <!-- Row 2: Visual Design & Hierarchy 8/10 -->
+        <text x="208" y="106" text-anchor="end" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#0F172A">Visual design &amp; layout</text>
+        <rect x="220" y="89" width="320" height="24" fill="#1D4ED8"/>
+        <text x="550" y="106" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#1E40AF">8 / 10</text>
+
+        <!-- Row 3: Navigation & Flows 7/10 -->
+        <text x="208" y="158" text-anchor="end" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#0F172A">Navigation &amp; flows</text>
+        <rect x="220" y="141" width="280" height="24" fill="#1D4ED8"/>
+        <text x="510" y="158" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#1E40AF">7 / 10</text>
+
+        <!-- Row 4: Accessibility & Compliance 6/10 -->
+        <text x="208" y="210" text-anchor="end" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#0F172A">Accessibility &amp; legal UX</text>
+        <rect x="220" y="193" width="240" height="24" fill="#B45309"/>
+        <text x="470" y="210" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#92400E">6 / 10</text>
+
+        <!-- Row 5: Data Accuracy & Consistency 4/10 -->
+        <text x="208" y="262" text-anchor="end" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#0F172A">Data consistency</text>
+        <rect x="220" y="245" width="160" height="24" fill="#B45309"/>
+        <text x="390" y="262" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#92400E">4 / 10</text>
+
+        <!-- Row 6: Content & SEO Readiness 3/10 -->
+        <text x="208" y="314" text-anchor="end" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#0F172A">Content &amp; SEO readiness</text>
+        <rect x="220" y="297" width="120" height="24" fill="#B45309"/>
+        <text x="350" y="314" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="#92400E">3 / 10</text>
+
+        <!-- X-axis ticks -->
+        <text x="220" y="352" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#475569">0</text>
+        <text x="300" y="352" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#475569">2</text>
+        <text x="380" y="352" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#475569">4</text>
+        <text x="460" y="352" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#475569">6</text>
+        <text x="540" y="352" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#475569">8</text>
+        <text x="620" y="352" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="#475569">10</text>
+        <text x="420" y="378" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#475569">Audit readiness score (out of 10; blue = strong, amber = needs attention)</text>
+      </svg>
+      <figcaption>Scores are qualitative audit assessments based on live inspection of 12 routes on invertislearn.vercel.app and Google Search indexing status as of November 21, 2026.</figcaption>
+    </figure>
+  </section>
+
+  <!-- Section 3: Content Gaps & Data Contradictions (Open Table #1) -->
+  <section class="sec">
+    <h2>Content gaps and cross-page contradictions undermine student trust</h2>
+    <p class="measure">For an academic portal, accuracy matters more than visual polish. Several high-visibility numbers and programme facts currently contradict one another across pages, which can make students assume the site is unfinished or unreliable.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Severity</th>
+            <th>Issue found</th>
+            <th>Observed location</th>
+            <th>Exact discrepancy and fix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="sev-high">High</span></td>
+            <td>Empty resources vs. advertised count</td>
+            <td class="nowrap"><code>/resources</code>, <code>BAS101</code></td>
+            <td><a href="https://invertislearn.vercel.app/resources" target="_blank" rel="noopener noreferrer">/resources</a> advertises <code>496+ Files Available Resources</code>, yet most cards in Quick Subject Resources Access show <code>0 PYQs</code> and <code>0 Notes</code>, and <a href="https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/1/BAS101" target="_blank" rel="noopener noreferrer">BAS101</a> shows empty states for PYQs, Notes, and Video Lectures. Either compute the counter dynamically from live uploaded files or label syllabus-only subjects clearly as "Syllabus Only."</td>
+          </tr>
+          <tr>
+            <td><span class="sev-high">High</span></td>
+            <td>Impossible Diploma semester range</td>
+            <td class="nowrap"><code>/</code> (Homepage)</td>
+            <td>The Diploma in Computer Science &amp; Engineering card states <code>6 Sem (Lateral: III–VIII)</code>. A 6-semester diploma cannot include semesters VII–VIII; update the lateral range to <code>III–VI</code>.</td>
+          </tr>
+          <tr>
+            <td><span class="sev-high">High</span></td>
+            <td>Scope overstatement on About page</td>
+            <td class="nowrap"><code>/about</code>, <code>/engineering</code></td>
+            <td><a href="https://invertislearn.vercel.app/about" target="_blank" rel="noopener noreferrer">/about</a> claims all Engineering programmes (B.Tech, M.Tech, Diploma) are active, while <a href="https://invertislearn.vercel.app/engineering" target="_blank" rel="noopener noreferrer">/engineering</a> only lists 6 CSE programmes (no Mechanical, Civil, Electrical, or ECE). Align the copy with current CSE-only coverage and show a clear department rollout status.</td>
+          </tr>
+          <tr>
+            <td><span class="sev-med">Medium</span></td>
+            <td>Ph.D. duration mismatch</td>
+            <td class="nowrap"><code>/</code>, <code>/phd</code></td>
+            <td>The homepage card displays <code>3 Years (Doctoral Research &amp; Thesis)</code>, while <a href="https://invertislearn.vercel.app/phd" target="_blank" rel="noopener noreferrer">/phd</a> lists <code>3 to 6 Years</code>. Pull programme metadata from a single shared data source so cards never drift.</td>
+          </tr>
+          <tr>
+            <td><span class="sev-med">Medium</span></td>
+            <td>Naming, code, and copy drift</td>
+            <td class="nowrap">Multiple routes</td>
+            <td>Course codes alternate between <code>BAS - 251</code>, <code>BAS-251</code>, and <code>BAS101</code>; Cloud Computing programme titles differ between <code>/</code> and <code>/engineering</code>; minor typos appear on <a href="https://invertislearn.vercel.app/programmes/BTECH-CSE" target="_blank" rel="noopener noreferrer">/programmes/BTECH-CSE</a> (<code>Cloud Engineer..</code>, duplicate track descriptions), <a href="https://invertislearn.vercel.app/syllabus/BTECH-CSE" target="_blank" rel="noopener noreferrer">/syllabus/BTECH-CSE</a> (<code>1 Courses</code>), <code>BAS101</code> (<code>Aurthur Beiser</code>, <code>Mc-GrawHill</code>), and <code>/phd</code> (<code>Ph.D. In</code>).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 4: UI, Navigation, Accessibility & Compliance (Asymmetric Split) -->
+  <section class="sec grid">
+    <div class="split-left">
+      <h2>UI bugs, hidden search, and legal UX friction slow down everyday use</h2>
+      <p>None of these defects break the application, but together they make navigation harder than it needs to be—especially for first-time students looking for a specific subject code before an exam.</p>
+    </div>
+    <div class="split-right">
+      <ul class="detail-list">
+        <li>
+          <strong>Promote the hidden 379-subject search bar:</strong> The global search page (<a href="https://invertislearn.vercel.app/search" target="_blank" rel="noopener noreferrer">/search</a>) is one of the portal's most useful features, yet it is only linked in the footer as <code>Find subjects</code>. Adding a search icon or <code>Find Subjects</code> link directly in the top navigation bar—and a quick-search input on the homepage hero—will cut clicks dramatically.
+        </li>
+        <li>
+          <strong>Remove <code>/admin</code> from the public footer and clean up dead labels:</strong> Exposing <code>Curator review</code> (<a href="https://invertislearn.vercel.app/admin" target="_blank" rel="noopener noreferrer">/admin</a>) in the global student footer adds clutter and invites curiosity clicks. Similarly, <code>All University Departments (Coming Soon)</code> sits in the navigation column as plain non-clickable text and has low contrast against the dark <code>#0F172A</code> footer.
+        </li>
+        <li>
+          <strong>Fix horizontal tab clipping on <code>/phd</code>:</strong> On <a href="https://invertislearn.vercel.app/phd" target="_blank" rel="noopener noreferrer">/phd</a>, the tab bar clips the final tab (<code>Thesis &amp; Viv...</code>) even on a standard desktop viewport with no scroll indicator or wrapping. Allow tabs to wrap cleanly or add horizontal scroll controls with visible fade cues for tablet and mobile screens.
+        </li>
+        <li>
+          <strong>Tighten card badges, placeholders, and click targets:</strong> Shorten the truncated search placeholder on <a href="https://invertislearn.vercel.app/engineering" target="_blank" rel="noopener noreferrer">/engineering</a> (currently cut off at <code>"Search CSE program, code, or specializ"</code>), remove the duplicate <code>BTECH-019</code> badge on <code>BTECH-CSE-CC</code>, prevent two-line wrapping on <code>Resources Live</code> and <code>Course Breakdown</code> labels, and make entire subject cards on <a href="https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/1" target="_blank" rel="noopener noreferrer">semester grids</a> clickable rather than only the <code>Explore -&gt;</code> link.
+        </li>
+        <li>
+          <strong>Uncheck the upload copyright confirmation by default:</strong> Inside the community upload modal on <code>BAS101</code>, the legal confirmation checkbox (<em>"I confirm that I have the right to share this educational material..."</em>) is pre-ticked. Pre-checked consent boxes weaken copyright compliance; leave it unchecked and require an explicit click before enabling submission.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 5: Full-Bleed Band — SEO & Product Growth Opportunities -->
+  <section class="full-band">
+    <h2>Zero Google indexing leaves subject pages invisible to organic search</h2>
+    <p class="measure">A direct search for <code>site:invertislearn.vercel.app</code> returned zero indexed pages on Google as of November 21, 2026. Students searching Google for "Invertis University BAS101 syllabus" or "Invertis B.Tech CSE PYQ" cannot currently discover the portal at all.</p>
+
+    <div class="band-cols">
+      <div class="band-col">
+        <h3>Technical SEO essentials to add next</h3>
+        <p>Publish a dynamic <code>sitemap.xml</code> covering all 379 subject routes and programme pages, verify <code>robots.txt</code> allows crawling (while blocking <code>/admin</code>), and generate unique <code>&lt;title&gt;</code> and meta descriptions per subject code (e.g., <em>"BAS101 Physics Syllabus, PYQs &amp; Notes — Invertis University B.Tech CSE"</em>). Register the site in Google Search Console and consider a memorable custom domain so students trust it as an official or established campus resource.</p>
+      </div>
+      <div class="band-col">
+        <h3>High-leverage features students will actually use</h3>
+        <p>Once core data is clean, a few lightweight additions can turn Invertis Learn from a static directory into a daily study habit: localStorage-based "My Semester" pinning (no login needed), inline PDF preview before downloading, a "Request PYQ / Notes" counter per subject so curators know which exams to prioritize, and a clear "Last Updated" timestamp on every syllabus and resource section.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pull Quote -->
+  <blockquote class="pull-quote">
+    The fastest way to level up Invertis Learn isn't rebuilding the UI—it's making every badge, file count, and semester label tell the exact truth.
+  </blockquote>
+
+  <!-- Section 6: Prioritized Improvement Roadmap (Open Table #2) -->
+  <section class="sec">
+    <h2>Prioritized roadmap from day-one fixes to strategic upgrades</h2>
+    <p class="measure">Tackle data accuracy and broken UI states first so every existing page is trustworthy, then unlock discovery through header search and SEO, and finally add student retention features.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>Action item</th>
+            <th>Target route(s)</th>
+            <th>Expected impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="nowrap">1 · Immediate (Days 1–3)</td>
+            <td>Fix Diploma lateral range (<code>III–VI</code>), align Ph.D. duration (<code>3–6 Years</code>), update <code>/about</code> CSE-only copy, and fix typos/duplicate <code>BTECH-019</code> badge.</td>
+            <td class="nowrap"><code>/</code>, <code>/about</code>, <code>/engineering</code>, <code>/phd</code></td>
+            <td>Eliminates immediate factual contradictions and boosts student credibility.</td>
+          </tr>
+          <tr>
+            <td class="nowrap">1 · Immediate (Days 1–3)</td>
+            <td>Compute the <code>/resources</code> file count dynamically from real uploads, clearly tag syllabus-only subjects, and untick the upload copyright checkbox by default.</td>
+            <td class="nowrap"><code>/resources</code>, <code>/syllabus/...</code></td>
+            <td>Sets honest expectations and strengthens copyright compliance.</td>
+          </tr>
+          <tr>
+            <td class="nowrap">2 · Short term (Weeks 1–2)</td>
+            <td>Move <code>Find Subjects</code> (<code>/search</code>) into the top navbar, remove <code>/admin</code> from the public footer, fix <code>/phd</code> tab overflow, shorten truncated placeholders, and make full subject cards clickable.</td>
+            <td class="nowrap">Global layout, <code>/phd</code>, <code>/engineering</code>, <code>/syllabus/...</code></td>
+            <td>Cuts friction for exam-week lookups and improves desktop/mobile usability.</td>
+          </tr>
+          <tr>
+            <td class="nowrap">2 · Short term (Weeks 1–2)</td>
+            <td>Standardize all course codes (e.g., <code>BAS101</code>), add dynamic <code>sitemap.xml</code>, <code>robots.txt</code>, and per-subject meta tags, then submit to Google Search Console.</td>
+            <td class="nowrap">All 379 subject routes</td>
+            <td>Unlocks organic Google traffic from students searching by subject code.</td>
+          </tr>
+          <tr>
+            <td class="nowrap">3 · Strategic (Month 1+)</td>
+            <td>Seed high-demand Semester 1–4 PYQs and notes, add localStorage semester pinning, inline PDF previews, and a curator-prioritized "Request Notes" queue.</td>
+            <td class="nowrap"><code>/resources</code>, subject detail pages</td>
+            <td>Converts one-time syllabus visitors into recurring semester-long users.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="scope-note"><strong>Audit scope and limitations:</strong> This audit reflects live desktop browser inspection across 12 public routes on November 21, 2026. Mobile viewport hamburger menus and narrow-screen stacking were not directly observed; the authenticated <code>/admin</code> dashboard (requiring a 32+ character key) was not entered; no test PDF was submitted to avoid polluting live production data; and external University ERP links were not followed off-site.</p>
+  </section>
+
+  <!-- Section 7: Sources -->
+  <section class="sec">
+    <h2>Sources</h2>
+    <ol class="sources-list">
+      <li><a href="https://invertislearn.vercel.app/" target="_blank" rel="noopener noreferrer">Invertis Learn Homepage</a> — live inspection of programme cards, hero layout, and global navigation/footer.</li>
+      <li><a href="https://invertislearn.vercel.app/engineering" target="_blank" rel="noopener noreferrer">Invertis Learn Engineering Catalog</a> — live inspection of CSE programme cards, search placeholder, and category filters.</li>
+      <li><a href="https://invertislearn.vercel.app/programmes/BTECH-CSE" target="_blank" rel="noopener noreferrer">B.Tech CSE Programme Detail</a> — live inspection of programme overview and specialization track copy.</li>
+      <li><a href="https://invertislearn.vercel.app/syllabus/BTECH-CSE" target="_blank" rel="noopener noreferrer">B.Tech CSE Syllabus Library</a> and <a href="https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/1" target="_blank" rel="noopener noreferrer">Semester 1 Subject Grid</a> — live inspection of semester breakdowns, labels, and card click targets.</li>
+      <li><a href="https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/1/BAS101" target="_blank" rel="noopener noreferrer">BAS101 Physics Subject Page</a> — live inspection of empty resource states, anchor pills, and community PDF upload modal.</li>
+      <li><a href="https://invertislearn.vercel.app/resources" target="_blank" rel="noopener noreferrer">Academic Resources Hub</a> — live inspection of advertised <code>496+ Files</code> metric vs. Quick Subject Resources Access counts.</li>
+      <li><a href="https://invertislearn.vercel.app/phd" target="_blank" rel="noopener noreferrer">Ph.D. Hub</a>, <a href="https://invertislearn.vercel.app/career-pathways" target="_blank" rel="noopener noreferrer">Career Pathways</a>, <a href="https://invertislearn.vercel.app/about" target="_blank" rel="noopener noreferrer">About</a>, <a href="https://invertislearn.vercel.app/search" target="_blank" rel="noopener noreferrer">Subject Search</a>, and <a href="https://invertislearn.vercel.app/admin" target="_blank" rel="noopener noreferrer">Curator Review (/admin)</a> — live inspection of navigation, tab layout, scope claims, and authentication gate.</li>
+    </ol>
+  </section>
+
+</main>
+</body>
+</html>

@@ -70,8 +70,31 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Invertis Learn",
+    "alternateName": "Invertis Academic Resource Companion",
+    "url": appUrl,
+    "description": "Public academic companion providing official syllabi, previous-year question papers, faculty notes, and lab manuals for Invertis University students.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${appUrl}/search?q={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-screen flex flex-col bg-[#F7F9FC] text-[#111827] font-sans antialiased">
         <a href="#main-content" className="sr-only focus:not-sr-only focus:p-3">Skip to content</a>
         <Navbar />

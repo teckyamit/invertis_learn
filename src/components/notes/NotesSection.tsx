@@ -2,6 +2,7 @@
 import { provenanceLabel } from "@/lib/resource-policy";
 import { Modal } from "@/components/ui/Modal";
 import { ResourceUploadModal } from "@/components/upload/ResourceUploadModal";
+import { ResourceRequestModal } from "@/components/modals/ResourceRequestModal";
 
 import React, { useState, useMemo } from "react";
 import {
@@ -58,6 +59,7 @@ export function NotesSection({
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [previewNote, setPreviewNote] = useState<NoteResource | null>(null);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [requestModalOpen, setRequestModalOpen] = useState(false);
 
   // Derive unique units available
   const availableUnits = useMemo(() => {
@@ -409,14 +411,39 @@ export function NotesSection({
               ? "Students and faculty can contribute unit-wise handwritten notes, revision summaries, and lecture presentations."
               : "Try switching filters to view all available study materials."}
           </p>
-          <div className="pt-2">
-            <button
-              onClick={() => setUploadModalOpen(true)}
-              className="inline-flex items-center px-4 py-2 text-xs font-semibold text-white bg-emerald-700 hover:bg-emerald-800 rounded-xl shadow-xs transition"
-            >
-              <Plus className="h-4 w-4 mr-1.5" />
-              Upload First Study Notes
-            </button>
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-2.5">
+            {notes.length === 0 ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setUploadModalOpen(true)}
+                  className="inline-flex items-center px-4 py-2 text-xs font-semibold text-white bg-emerald-700 hover:bg-emerald-800 rounded-xl shadow-xs transition cursor-pointer"
+                >
+                  <Plus className="h-4 w-4 mr-1.5" />
+                  Upload First Study Notes
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setRequestModalOpen(true)}
+                  className="inline-flex items-center px-4 py-2 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl shadow-xs transition cursor-pointer"
+                >
+                  <HelpCircle className="h-4 w-4 mr-1.5" />
+                  Request Study Notes
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedType("ALL");
+                  setSelectedUnit("ALL");
+                  setSearchQuery("");
+                }}
+                className="inline-flex items-center px-4 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer"
+              >
+                Reset Filters
+              </button>
+            )}
           </div>
         </div>
       )}
@@ -515,6 +542,18 @@ export function NotesSection({
           onClose={() => setUploadModalOpen(false)}
         />
       )}
+
+      {/* Request Modal */}
+      <ResourceRequestModal
+        isOpen={requestModalOpen}
+        onClose={() => setRequestModalOpen(false)}
+        subject={{
+          id: subjectId,
+          code: subjectCode,
+          name: subjectName,
+        }}
+        initialCategory="NOTES"
+      />
     </div>
   );
 }

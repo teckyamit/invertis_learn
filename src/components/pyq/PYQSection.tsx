@@ -2,9 +2,10 @@
 import { Modal } from "@/components/ui/Modal";
 
 import React, { useState, useMemo } from "react";
-import { FileQuestion, Filter, Plus, Calendar, AlertCircle, X, Download, ExternalLink } from "lucide-react";
+import { FileQuestion, Filter, Plus, Calendar, AlertCircle, X, Download, ExternalLink, HelpCircle } from "lucide-react";
 import { PYQCard, PYQResource } from "./PYQCard";
 import { PYQUploadModal } from "./PYQUploadModal";
+import { ResourceRequestModal } from "@/components/modals/ResourceRequestModal";
 
 interface PYQSectionProps {
   subjectId: string;
@@ -23,6 +24,7 @@ export function PYQSection({
   const [selectedYear, setSelectedYear] = useState<string>("ALL");
   const [selectedType, setSelectedType] = useState<string>("ALL");
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [requestModalOpen, setRequestModalOpen] = useState(false);
   const [previewPyq, setPreviewPyq] = useState<PYQResource | null>(null);
 
   // Derive unique years available
@@ -154,26 +156,39 @@ export function PYQSection({
               ? "Official previous-year end-semester and mid-semester papers for this subject can be archived here. Faculty members and department admins can upload verified papers."
               : "Try switching sessions or exam types to view all archived papers."}
           </p>
-          <button
-            onClick={() => {
-              if (pyqs.length === 0) {
-                setUploadModalOpen(true);
-              } else {
-                setSelectedYear("ALL");
-                setSelectedType("ALL");
-              }
-            }}
-            className="inline-flex items-center px-4 py-2 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-lg transition"
-          >
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
             {pyqs.length === 0 ? (
               <>
-                <Plus className="h-3.5 w-3.5 mr-1.5" />
-                Upload First Past Paper
+                <button
+                  type="button"
+                  onClick={() => setUploadModalOpen(true)}
+                  className="inline-flex items-center px-4 py-2 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-xl transition shadow-xs cursor-pointer"
+                >
+                  <Plus className="h-3.5 w-3.5 mr-1.5" />
+                  Upload First Past Paper
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setRequestModalOpen(true)}
+                  className="inline-flex items-center px-4 py-2 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl transition cursor-pointer"
+                >
+                  <HelpCircle className="h-3.5 w-3.5 mr-1.5" />
+                  Request Past Papers
+                </button>
               </>
             ) : (
-              "Reset Filters"
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedYear("ALL");
+                  setSelectedType("ALL");
+                }}
+                className="inline-flex items-center px-4 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer"
+              >
+                Reset Filters
+              </button>
             )}
-          </button>
+          </div>
         </div>
       )}
 
@@ -185,6 +200,18 @@ export function PYQSection({
         isOpen={uploadModalOpen}
         onClose={() => setUploadModalOpen(false)}
         onSuccess={refreshPyqs}
+      />
+
+      {/* Request Modal */}
+      <ResourceRequestModal
+        isOpen={requestModalOpen}
+        onClose={() => setRequestModalOpen(false)}
+        subject={{
+          id: subjectId,
+          code: subjectCode,
+          name: subjectName,
+        }}
+        initialCategory="PYQ"
       />
 
       {/* In-Browser PDF Preview Modal */}

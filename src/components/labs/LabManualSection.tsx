@@ -2,6 +2,7 @@
 import { provenanceLabel } from "@/lib/resource-policy";
 import { Modal } from "@/components/ui/Modal";
 import { ResourceUploadModal } from "@/components/upload/ResourceUploadModal";
+import { ResourceRequestModal } from "@/components/modals/ResourceRequestModal";
 import { isBibliographicEntry } from "@/lib/subject-classification";
 
 import React, { useState, useMemo } from "react";
@@ -60,6 +61,7 @@ export function LabManualSection({
   const [previewLab, setPreviewLab] = useState<LabResource | null>(null);
   const [showAllExperiments, setShowAllExperiments] = useState(false);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [requestModalOpen, setRequestModalOpen] = useState(false);
   const [uploadInitialType, setUploadInitialType] = useState<string>("LAB_MANUAL");
 
   // Filter out any misplaced bibliographic references from laboratory experiment lists
@@ -385,18 +387,28 @@ export function LabManualSection({
           </p>
           <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
             <button
+              type="button"
               onClick={() => openUploadModal("LAB_MANUAL")}
-              className="inline-flex items-center px-3.5 py-2 text-xs font-semibold text-white bg-indigo-700 hover:bg-indigo-800 rounded-xl shadow-xs transition"
+              className="inline-flex items-center px-3.5 py-2 text-xs font-semibold text-white bg-indigo-700 hover:bg-indigo-800 rounded-xl shadow-xs transition cursor-pointer"
             >
               <Plus className="h-3.5 w-3.5 mr-1" />
               Upload Practical File or Manual
             </button>
             <button
+              type="button"
               onClick={() => openUploadModal("VIVA_QUESTIONS")}
-              className="inline-flex items-center px-3.5 py-2 text-xs font-semibold text-indigo-700 bg-white hover:bg-indigo-50 border border-indigo-200 rounded-xl shadow-xs transition"
+              className="inline-flex items-center px-3.5 py-2 text-xs font-semibold text-indigo-700 bg-white hover:bg-indigo-50 border border-indigo-200 rounded-xl shadow-xs transition cursor-pointer"
             >
               <Plus className="h-3.5 w-3.5 mr-1" />
               Upload Viva Questions
+            </button>
+            <button
+              type="button"
+              onClick={() => setRequestModalOpen(true)}
+              className="inline-flex items-center px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 rounded-xl shadow-xs transition cursor-pointer"
+            >
+              <HelpCircle className="h-3.5 w-3.5 mr-1 text-indigo-600" />
+              Request Lab Material
             </button>
           </div>
         </div>
@@ -497,6 +509,18 @@ export function LabManualSection({
           onClose={() => setUploadModalOpen(false)}
         />
       )}
+
+      {/* Request Modal */}
+      <ResourceRequestModal
+        isOpen={requestModalOpen}
+        onClose={() => setRequestModalOpen(false)}
+        subject={{
+          id: subjectId,
+          code: subjectCode,
+          name: subjectName,
+        }}
+        initialCategory="LAB_MANUAL"
+      />
     </div>
   );
 }

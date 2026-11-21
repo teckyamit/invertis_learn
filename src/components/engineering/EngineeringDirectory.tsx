@@ -17,7 +17,8 @@ import {
 } from "lucide-react";
 import { 
   getProgramAdmissionConfig, 
-  programSupportsLateral 
+  programSupportsLateral,
+  getLateralSemesterRangeRoman
 } from "@/lib/admissionModes";
 import {
   compareProgrammesByAcademicLevel,
@@ -205,7 +206,7 @@ export function EngineeringDirectory({ programmes }: EngineeringDirectoryProps) 
                     {admissionConfig.regular.officialCode}
                   </span>
                 )}
-                {supportsLateral && admissionConfig?.lateral?.officialCode && (
+                {supportsLateral && admissionConfig?.lateral?.officialCode && admissionConfig.lateral.officialCode !== admissionConfig?.regular?.officialCode && (
                   <span className="ml-1.5 font-mono text-[10px] font-semibold text-purple-700 bg-purple-50 border border-purple-200 px-1.5 py-0.5 rounded" title="Official Lateral Entry Code">
                     {admissionConfig.lateral.officialCode}
                   </span>
@@ -238,7 +239,7 @@ export function EngineeringDirectory({ programmes }: EngineeringDirectoryProps) 
             <span className="flex items-center space-x-1">
               <Clock className="w-3.5 h-3.5 text-slate-400" />
               {prog.category === "DOCTORAL" || prog.code.startsWith("PHD") ? (
-                <span>{prog.durationYears} Years (Doctoral Research & Thesis)</span>
+                <span>3–6 Years (Doctoral Research & Thesis)</span>
               ) : supportsLateral ? (
                 <span>{prog.durationYears} Years Regular • {admissionConfig?.lateral?.durationYears} Years Lateral</span>
               ) : (
@@ -393,7 +394,7 @@ export function EngineeringDirectory({ programmes }: EngineeringDirectoryProps) 
                 href={`/syllabus/${prog.code}?entry=lateral`}
                 className="font-bold text-purple-700 hover:text-purple-900 hover:underline flex items-center gap-0.5"
               >
-                <span>Lateral Entry (Sem III–VIII)</span>
+                <span>Lateral Entry (Sem {getLateralSemesterRangeRoman(prog.code)})</span>
                 <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
@@ -530,7 +531,7 @@ export function EngineeringDirectory({ programmes }: EngineeringDirectoryProps) 
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search CSE program, code, or specialization..."
+              placeholder="Search programme or code..."
               className="w-full pl-9 pr-3 py-2 text-xs rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
             />
           </div>

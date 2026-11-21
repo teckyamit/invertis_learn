@@ -30,7 +30,7 @@ export function SubjectCard({ programmeCode, semesterNumber, subject }: SubjectC
     : "bg-blue-50 text-blue-700 border-blue-200";
 
   return (
-    <div className="card-standard hover:border-blue-400 hover:shadow-md transition-all duration-200 flex flex-col justify-between group overflow-hidden bg-white">
+    <div className="card-standard hover:border-blue-400 hover:shadow-md transition-all duration-200 flex flex-col justify-between group overflow-hidden bg-white relative">
       <div className="p-4 sm:p-6">
         {/* Top Meta: Code & Type Badges */}
         <div className="flex items-start justify-between gap-2 mb-3">
@@ -49,9 +49,14 @@ export function SubjectCard({ programmeCode, semesterNumber, subject }: SubjectC
           </div>
         </div>
 
-        {/* Subject Title */}
+        {/* Subject Title with full card click target */}
         <h3 className="font-heading font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 text-base leading-snug mb-3">
-          {subject.name}
+          <Link
+            href={`/syllabus/${encodeURIComponent(programmeCode)}/semester/${semesterNumber}/${encodeURIComponent(subject.code)}`}
+            className="after:absolute after:inset-0 focus:outline-none"
+          >
+            {subject.name}
+          </Link>
         </h3>
 
         {/* Academic Details Grid */}
