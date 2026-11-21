@@ -17,6 +17,7 @@ import {
   LogOut, 
   Eye, 
   AlertTriangle,
+  AlertCircle,
   FolderArchive,
   BookOpen,
   Calendar,
@@ -70,6 +71,7 @@ type Resource = {
     code: string;
     name?: string;
   };
+  isPracticalEligible?: boolean;
 };
 
 interface CategoryCounts {
@@ -723,6 +725,17 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
 
                           {/* Category Badge */}
                           {getCategoryBadge(resource)}
+
+                          {/* Theory subject practical anomaly warning badge */}
+                          {resource.category.code === "LAB_MANUAL" && resource.isPracticalEligible === false && (
+                            <span
+                              className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center space-x-1"
+                              title="This subject is theory-only with no practical syllabus. Please review and reclassify as Study Notes or reject."
+                            >
+                              <AlertCircle className="h-3 w-3 text-amber-700" />
+                              <span>Theory Course: Review Eligibility</span>
+                            </span>
+                          )}
 
                           {resource.resourceType && (
                             <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 text-slate-600">

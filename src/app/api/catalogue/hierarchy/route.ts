@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { compareProgrammesByAcademicLevel } from "@/lib/academicLevels";
+import { isPracticalEligible } from "@/lib/subject-classification";
 
 export const revalidate = 3600;
 
@@ -30,6 +31,11 @@ export async function GET() {
                     id: true,
                     code: true,
                     name: true,
+                    subjectType: true,
+                    practicalHours: true,
+                    lectureHours: true,
+                    evaluationMarks: true,
+                    syllabusDetails: true,
                   },
                   orderBy: { code: "asc" }
                 }
@@ -59,6 +65,17 @@ export async function GET() {
             id: s.id,
             code: s.code,
             name: s.name,
+            subjectType: s.subjectType,
+            practicalHours: s.practicalHours,
+            isPracticalEligible: isPracticalEligible({
+              code: s.code,
+              name: s.name,
+              subjectType: s.subjectType,
+              practicalHours: s.practicalHours,
+              lectureHours: s.lectureHours,
+              evaluationMarks: s.evaluationMarks,
+              syllabusDetails: s.syllabusDetails,
+            })
           }))
         }))
       };

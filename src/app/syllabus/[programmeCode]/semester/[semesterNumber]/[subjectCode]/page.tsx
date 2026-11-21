@@ -18,6 +18,7 @@ import {
   getLateralEntryConfig 
 } from "@/lib/lateralEntry";
 import { toCanonicalPdfResource } from "@/lib/pdf-resource-service";
+import { isPracticalEligible, isBibliographicEntry } from "@/lib/subject-classification";
 
 interface PageProps {
   params: Promise<{
@@ -27,7 +28,7 @@ interface PageProps {
   }>;
 }
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function SubjectDetailPage({ params: paramsPromise }: PageProps) {
   const params = await paramsPromise;
@@ -190,20 +191,40 @@ export default async function SubjectDetailPage({ params: paramsPromise }: PageP
       createdAt: r.createdAt,
     }));
 
-  const labResources = subject.resources
-    .filter((r) => r.category.code === "LAB_MANUAL")
-    .map((r) => ({
-      id: r.id,
-      title: r.title,
-      originalFileName: r.originalFileName,
-      storedFileName: r.storedFileName,
-        provenanceStatus: r.provenanceStatus,
-      storagePath: r.storagePath,
-      fileSizeBytes: r.fileSizeBytes,
-      authorName: r.authorName,
-      resourceType: r.resourceType,
-      createdAt: r.createdAt,
-    }));
+  // Intelligent practical eligibility determination
+  const practicalEligible = isPracticalEligible({
+    code: subject.code,
+    name: subject.name,
+    subjectType: subject.subjectType,
+    lectureHours: subject.lectureHours,
+    tutorialHours: subject.tutorialHours,
+    practicalHours: subject.practicalHours,
+    evaluationMarks: subject.evaluationMarks,
+    syllabusDetails: details
+  });
+
+  // Strictly avoid fetching or populating practical materials for theory-only subjects
+  const labResources = practicalEligible
+    ? subject.resources
+        .filter((r) => r.category.code === "LAB_MANUAL")
+        .map((r) => ({
+          id: r.id,
+          title: r.title,
+          originalFileName: r.originalFileName,
+          storedFileName: r.storedFileName,
+          provenanceStatus: r.provenanceStatus,
+          storagePath: r.storagePath,
+          fileSizeBytes: r.fileSizeBytes,
+          authorName: r.authorName,
+          resourceType: r.resourceType,
+          createdAt: r.createdAt,
+        }))
+    : [];
+
+  const rawExperiments: string[] = details?.labExperiments && Array.isArray(details.labExperiments) ? details.labExperiments : [];
+  const cleanExperiments = practicalEligible
+    ? rawExperiments.filter((exp: string) => !isBibliographicEntry(exp))
+    : [];
 
   const projectResources = subject.resources
     .filter((r) => r.category.code === "PROJECT_ARCHIVE")
@@ -212,7 +233,7 @@ export default async function SubjectDetailPage({ params: paramsPromise }: PageP
       title: r.title,
       originalFileName: r.originalFileName,
       storedFileName: r.storedFileName,
-        provenanceStatus: r.provenanceStatus,
+      provenanceStatus: r.provenanceStatus,
       storagePath: r.storagePath,
       fileSizeBytes: r.fileSizeBytes,
       authorName: r.authorName,
@@ -260,77 +281,79 @@ export default async function SubjectDetailPage({ params: paramsPromise }: PageP
       isDownloadEligible={isDownloadEligible}
       validationStatus={validationStatus}
       validationNotes={validationNotes}
-    >
-      {/* 7. Previous Year Question Papers (PYQ Library - Phase 2) */}
-      <div className="card-standard p-6 md:p-8">
-        <PYQSection
-          subjectId={subject.id}
-          subjectCode={subject.code}
-          subjectName={subject.name}
-          initialPyqs={pyqResources}
-        />
-      </div>
-
-      {/* 8. Faculty Lecture Notes & Learning Resources (Phase 3) */}
-      <div className="card-standard p-6 md:p-8">
-        <NotesSection
-          subjectId={subject.id}
-          subjectCode={subject.code}
-          subjectName={subject.name}
-          initialNotes={noteResources}
-        />
-      </div>
-
-      {/* 9. Laboratory Manuals & Practical Materials (Phase 4) */}
-      <div className="card-standard p-6 md:p-8">
-        <LabManualSection
-          subjectId={subject.id}
-          subjectCode={subject.code}
-          subjectName={subject.name}
-          initialLabs={labResources}
-          labExperiments={details?.labExperiments || []}
-        />
-      </div>
-
-      {/* 10. Department Knowledge Centre & Capstone Academic Projects (Phase 5) */}
-      {isCapstoneSubject && (
-        <ProjectArchiveSection
-          subjectCode={subject.code}
-          subjectName={subject.name}
-          projectResources={projectResources}
-        />
-      )}
-
-      {/* 11. Career Pathways & Department Specialization Tracks (Phase 6) */}
-      <SubjectPathwaysSection
-        subjectCode={subject.code}
-        subjectName={subject.name}
-      />
-
-      {/* 12. Academic Modules Roadmap */}
-      <div className="card-standard p-6 bg-surface-ground text-slate-600">
-        <div className="flex items-center space-x-2 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-          <Sparkles className="h-4 w-4 text-brand-blue" />
-          <span>Department Academic Progression</span>
+      pyqSlot={
+        <div className="card-standard p-6 md:p-8" id="pyqs">
+          <PYQSection
+            subjectId={subject.id}
+            subjectCode={subject.code}
+            subjectName={subject.name}
+            initialPyqs={pyqResources}
+          />
         </div>
-        <p className="text-xs text-slate-500 leading-relaxed mb-4">
-          In accordance with our platform roadmap, all core curriculum resources, question banks, lecture notes, lab guides, capstone project specifications, and career specialization tracks are actively verified and accessible without authentication.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          <div className="bg-blue-50/70 p-3 rounded-lg border border-blue-200 text-slate-700">
-            <span className="font-semibold block text-brand-blue flex items-center">
-              <CheckCircle className="h-3.5 w-3.5 mr-1 text-brand-blue" /> Knowledge Centre & Archives
-            </span>
-            <span>Active: IEEE synopses, capstone timelines, manuals & viva rubrics</span>
+      }
+      notesSlot={
+        <div className="card-standard p-6 md:p-8" id="notes">
+          <NotesSection
+            subjectId={subject.id}
+            subjectCode={subject.code}
+            subjectName={subject.name}
+            initialNotes={noteResources}
+          />
+        </div>
+      }
+      labSlot={
+        practicalEligible ? (
+          <div className="card-standard p-6 md:p-8" id="practicals">
+            <LabManualSection
+              subjectId={subject.id}
+              subjectCode={subject.code}
+              subjectName={subject.name}
+              initialLabs={labResources}
+              labExperiments={cleanExperiments}
+            />
           </div>
-          <div className="bg-blue-50/70 p-3 rounded-lg border border-blue-200 text-slate-700">
-            <span className="font-semibold block text-brand-blue flex items-center">
-              <CheckCircle className="h-3.5 w-3.5 mr-1 text-brand-blue" /> Career Pathways & Specializations
-            </span>
-            <span>Active: 6 specialization tracks, industry certifications & skill roadmaps</span>
+        ) : undefined
+      }
+      projectSlot={
+        isCapstoneSubject ? (
+          <ProjectArchiveSection
+            subjectCode={subject.code}
+            subjectName={subject.name}
+            projectResources={projectResources}
+          />
+        ) : undefined
+      }
+      pathwaysSlot={
+        <SubjectPathwaysSection
+          subjectCode={subject.code}
+          subjectName={subject.name}
+        />
+      }
+      progressionSlot={
+        <div className="card-standard p-6 bg-surface-ground text-slate-600">
+          <div className="flex items-center space-x-2 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+            <Sparkles className="h-4 w-4 text-brand-blue" />
+            <span>Department Academic Progression</span>
+          </div>
+          <p className="text-xs text-slate-500 leading-relaxed mb-4">
+            In accordance with our platform roadmap, all core curriculum resources, question banks, lecture notes, lab guides, capstone project specifications, and career specialization tracks are actively verified and accessible without authentication.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div className="bg-blue-50/70 p-3 rounded-lg border border-blue-200 text-slate-700">
+              <span className="font-semibold block text-brand-blue flex items-center">
+                <CheckCircle className="h-3.5 w-3.5 mr-1 text-brand-blue" /> Knowledge Centre & Archives
+              </span>
+              <span>Active: IEEE synopses, capstone timelines, manuals & viva rubrics</span>
+            </div>
+            <div className="bg-blue-50/70 p-3 rounded-lg border border-blue-200 text-slate-700">
+              <span className="font-semibold block text-brand-blue flex items-center">
+                <CheckCircle className="h-3.5 w-3.5 mr-1 text-brand-blue" /> Career Pathways & Specializations
+              </span>
+              <span>Active: 6 specialization tracks, industry certifications & skill roadmaps</span>
+            </div>
           </div>
         </div>
-      </div>
-    </SubjectSyllabusView>
+      }
+    />
   );
 }

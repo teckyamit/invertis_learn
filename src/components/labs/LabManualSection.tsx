@@ -2,6 +2,7 @@
 import { provenanceLabel } from "@/lib/resource-policy";
 import { Modal } from "@/components/ui/Modal";
 import { ResourceUploadModal } from "@/components/upload/ResourceUploadModal";
+import { isBibliographicEntry } from "@/lib/subject-classification";
 
 import React, { useState, useMemo } from "react";
 import {
@@ -60,6 +61,11 @@ export function LabManualSection({
   const [showAllExperiments, setShowAllExperiments] = useState(false);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [uploadInitialType, setUploadInitialType] = useState<string>("LAB_MANUAL");
+
+  // Filter out any misplaced bibliographic references from laboratory experiment lists
+  const cleanExperiments = useMemo(() => {
+    return labExperiments.filter((exp) => !isBibliographicEntry(exp));
+  }, [labExperiments]);
 
   // Filtered lab resources
   const filteredLabs = useMemo(() => {
@@ -150,8 +156,8 @@ export function LabManualSection({
   };
 
   const displayedExperiments = showAllExperiments
-    ? labExperiments
-    : labExperiments.slice(0, 6);
+    ? cleanExperiments
+    : cleanExperiments.slice(0, 6);
 
   const openUploadModal = (type = "LAB_MANUAL") => {
     setUploadInitialType(type);
@@ -194,16 +200,16 @@ export function LabManualSection({
       </div>
 
       {/* Prescribed Lab Experiments Card (if available) */}
-      {labExperiments && labExperiments.length > 0 && (
+      {cleanExperiments && cleanExperiments.length > 0 && (
         <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-slate-100">
             <div className="flex items-center space-x-2">
               <ListOrdered className="h-4 w-4 text-emerald-700" />
               <h3 className="text-sm font-bold text-slate-900">
-                Prescribed Experiments ({labExperiments.length} Total Exercises)
+                Prescribed Experiments ({cleanExperiments.length} Total Exercises)
               </h3>
             </div>
-            {labExperiments.length > 6 && (
+            {cleanExperiments.length > 6 && (
               <button
                 onClick={() => setShowAllExperiments(!showAllExperiments)}
                 className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 flex items-center"
@@ -214,7 +220,7 @@ export function LabManualSection({
                   </>
                 ) : (
                   <>
-                    View All {labExperiments.length} Experiments <ChevronDown className="h-3.5 w-3.5 ml-1" />
+                    View All {cleanExperiments.length} Experiments <ChevronDown className="h-3.5 w-3.5 ml-1" />
                   </>
                 )}
               </button>

@@ -32,7 +32,12 @@ export default async function LabsProgrammeListPage() {
           semesters: {
             include: {
               subjects: {
-                where: { subjectType: "PRACTICAL" },
+                where: {
+                  OR: [
+                    { subjectType: "PRACTICAL" },
+                    { practicalHours: { gt: 0 } }
+                  ]
+                },
                 include: {
                   resources: {
                     where: {

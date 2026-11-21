@@ -9,6 +9,7 @@ import { savePdf, removeStoredFile } from "@/lib/private-storage";
 import { reportError } from "@/lib/observability";
 import { readBoundedBody } from "@/lib/request-body";
 import { ensureCoreCategories } from "@/lib/academic-categories";
+import { isPracticalEligible } from "@/lib/subject-classification";
 
 export const dynamic = "force-dynamic";
 
@@ -129,6 +130,11 @@ export async function POST(request: NextRequest) {
         id: true,
         code: true,
         name: true,
+        subjectType: true,
+        practicalHours: true,
+        lectureHours: true,
+        evaluationMarks: true,
+        syllabusDetails: true,
         semester: {
           select: {
             semesterNumber: true,
@@ -146,6 +152,25 @@ export async function POST(request: NextRequest) {
 
     if (!subject) {
       return NextResponse.json({ error: "Selected subject was not found or is inactive" }, { status: 404 });
+    }
+
+    // Backend validation: Practical materials can only be submitted for practical-eligible subjects
+    if (categoryCode === "LAB_MANUAL") {
+      const eligible = isPracticalEligible({
+        code: subject.code,
+        name: subject.name,
+        subjectType: subject.subjectType,
+        practicalHours: subject.practicalHours,
+        lectureHours: subject.lectureHours,
+        evaluationMarks: subject.evaluationMarks,
+        syllabusDetails: subject.syllabusDetails
+      });
+
+      if (!eligible) {
+        return NextResponse.json({
+          error: `Practical materials cannot be submitted for theory-only subject: ${subject.code} (${subject.name}).`
+        }, { status: 400 });
+      }
     }
 
     // Ensure category exists

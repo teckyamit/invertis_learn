@@ -34,7 +34,13 @@ export default async function LabsProgrammeSemestersPage({ params: paramsPromise
           semesters: {
             include: {
               subjects: {
-                where: { isActive: true, subjectType: "PRACTICAL" },
+                where: {
+                  isActive: true,
+                  OR: [
+                    { subjectType: "PRACTICAL" },
+                    { practicalHours: { gt: 0 } }
+                  ]
+                },
                 include: {
                   resources: {
                     where: {

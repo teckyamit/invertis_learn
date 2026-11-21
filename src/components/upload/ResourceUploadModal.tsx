@@ -23,6 +23,7 @@ interface SubjectOption {
   id: string;
   code: string;
   name: string;
+  isPracticalEligible?: boolean;
 }
 
 interface SemesterOption {
@@ -460,14 +461,40 @@ export function ResourceUploadModal({
                       className="w-full bg-white border border-slate-300 rounded-lg p-2 text-xs"
                     >
                       <option value="">-- Choose Subject --</option>
-                      {availableSubjects.map(s => (
-                        <option key={s.id} value={s.id}>{s.code} - {s.name}</option>
-                      ))}
+                      {availableSubjects.map(s => {
+                        const isEligible = s.isPracticalEligible !== false;
+                        return (
+                          <option
+                            key={s.id}
+                            value={s.id}
+                            disabled={mode === "PRACTICAL" && !isEligible}
+                          >
+                            {s.code} - {s.name}{mode === "PRACTICAL" && !isEligible ? " (Theory Only - No Practicals)" : ""}
+                          </option>
+                        );
+                      })}
                     </select>
                   </div>
                 )}
               </div>
             )}
+
+            {/* Practical Eligibility Guard Banner */}
+            {mode === "PRACTICAL" && selectedSubjectId && (() => {
+              const currentSub = availableSubjects.find(s => s.id === selectedSubjectId);
+              if (currentSub && currentSub.isPracticalEligible === false) {
+                return (
+                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-xs text-amber-900 flex items-start space-x-2.5">
+                    <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-bold block text-amber-950">Theory-Only Course</span>
+                      <span>{selectedSubjectCode} is classified as a theory-only course with no laboratory work prescribed in the curriculum. Practical submissions are not eligible for this subject.</span>
+                    </div>
+                  </div>
+                );
+              }
+              return null;
+            })()}
 
             {/* Title */}
             <div>
@@ -680,7 +707,7 @@ export function ResourceUploadModal({
               </button>
               <button
                 type="submit"
-                disabled={uploading || !file || !confirmedPermission}
+                disabled={uploading || !file || !confirmedPermission || (mode === "PRACTICAL" && availableSubjects.find(s => s.id === selectedSubjectId)?.isPracticalEligible === false)}
                 className="px-5 py-2.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-xs transition disabled:opacity-50 flex items-center space-x-1.5"
               >
                 {uploading ? (

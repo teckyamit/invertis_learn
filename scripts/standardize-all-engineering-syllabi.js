@@ -24,7 +24,8 @@ function extractFromPdfText(text, subjectCode, subjectName) {
   let currentModule = null;
 
   const moduleRegex = /^(?:MODULE|UNIT|Section)\s*[-:]?\s*([0-9IVX]+)[:.-]?\s*(.*)/i;
-  const isLab = subjectCode.includes('LAB') || subjectCode.endsWith('P') || /lab/i.test(subjectName) || /lab/i.test(text.substring(0, 300));
+  // Strict whole-word token matching for laboratory subjects
+  const isLab = /\b(?:LAB|PRACTICAL|WORKSHOP)\b/i.test(subjectCode) || subjectCode.endsWith('P') || /\b(?:lab|laboratory|practical)\b/i.test(subjectName);
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -111,7 +112,7 @@ function extractFromPdfText(text, subjectCode, subjectName) {
       }
       if (/^--\s*\d+\s*of\s*\d+\s*--$/.test(line)) continue;
       currentModule.topics = (currentModule.topics ? currentModule.topics + ' ' : '') + line;
-    } else if (currentSection === 'EXPERIMENTS' || (isLab && /^[0-9]+[.)]/.test(line))) {
+    } else if (currentSection === 'EXPERIMENTS' || (isLab && !currentSection && /^[0-9]+[.)]/.test(line))) {
       if (/^(?:Text|References?|Course\s+Outcome)/i.test(line)) {
         currentSection = null;
         i--;

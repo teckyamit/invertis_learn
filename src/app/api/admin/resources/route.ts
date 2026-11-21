@@ -7,6 +7,7 @@ import { isCurator, sameOrigin } from "@/lib/access";
 import { reportError } from "@/lib/observability";
 import { readBoundedBody } from "@/lib/request-body";
 import { removeStoredFile } from "@/lib/private-storage";
+import { isPracticalEligible } from "@/lib/subject-classification";
 
 export const dynamic = "force-dynamic";
 
@@ -80,6 +81,11 @@ export async function GET(request: NextRequest) {
             id: true,
             code: true,
             name: true,
+            subjectType: true,
+            practicalHours: true,
+            lectureHours: true,
+            evaluationMarks: true,
+            syllabusDetails: true,
             semester: {
               select: {
                 semesterNumber: true,
@@ -115,8 +121,21 @@ export async function GET(request: NextRequest) {
     db.academicResource.count({ where: { ...statusWhere, ...searchWhere, category: { code: "LAB_MANUAL" }, resourceType: "VIVA_QUESTIONS" } }),
   ]);
 
+  const mappedResources = resources.map(r => ({
+    ...r,
+    isPracticalEligible: isPracticalEligible({
+      code: r.subject.code,
+      name: r.subject.name,
+      subjectType: r.subject.subjectType,
+      practicalHours: r.subject.practicalHours,
+      lectureHours: r.subject.lectureHours,
+      evaluationMarks: r.subject.evaluationMarks,
+      syllabusDetails: r.subject.syllabusDetails
+    })
+  }));
+
   return NextResponse.json({
-    resources,
+    resources: mappedResources,
     total,
     page,
     counts: {
