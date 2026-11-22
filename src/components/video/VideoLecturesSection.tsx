@@ -297,8 +297,8 @@ const VERIFIED_SUBJECT_LECTURES: Record<string, VideoLectureItem[]> = {
     {
       id: "gs-coa-bcs401",
       title: "Computer Organization and Architecture (COA Playlist) - Gate Smashers",
-      youtubeUrl: "https://www.youtube.com/playlist?list=PLxCzCOWd7aiHMonhCfCFMKQSS4RFnbXju",
-      youtubeId: "PLxCzCOWd7aiHMonhCfCFMKQSS4RFnbXju",
+      youtubeUrl: "https://www.youtube.com/playlist?list=PLxCzCOWd7aiHMonh3G6QNKq53C6oNXGrX",
+      youtubeId: "PLxCzCOWd7aiHMonh3G6QNKq53C6oNXGrX",
       videoType: "PLAYLIST",
       channelName: "GATE Smashers",
       unitNumber: 1,
@@ -325,8 +325,8 @@ const VERIFIED_SUBJECT_LECTURES: Record<string, VideoLectureItem[]> = {
     {
       id: "gs-coa-mcs101",
       title: "Computer Architecture Core Fundamentals - Gate Smashers",
-      youtubeUrl: "https://www.youtube.com/playlist?list=PLxCzCOWd7aiHMonhCfCFMKQSS4RFnbXju",
-      youtubeId: "PLxCzCOWd7aiHMonhCfCFMKQSS4RFnbXju",
+      youtubeUrl: "https://www.youtube.com/playlist?list=PLxCzCOWd7aiHMonh3G6QNKq53C6oNXGrX",
+      youtubeId: "PLxCzCOWd7aiHMonh3G6QNKq53C6oNXGrX",
       videoType: "PLAYLIST",
       channelName: "GATE Smashers",
       unitNumber: 2,

@@ -50,6 +50,7 @@ export const PROGRAM_ADMISSION_REGISTRY: Record<string, ProgramAdmissionConfig> 
       maxSemester: 8,
       semesterRangeLabel: "Semesters I to VIII (4 Academic Years)",
       admissionModeLabel: "Regular 4-Year Entry (1st Year Direct)",
+      officialCode: "BTECH-001",
       eligibility:
         "10+2 with Physics, Mathematics, and Chemistry/Computer Science with minimum 50% aggregate marks (45% for SC/ST category) from a recognized board.",
       description:

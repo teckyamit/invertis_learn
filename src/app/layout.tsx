@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { NavigationProgress } from "@/components/common/NavigationProgress";
+import { GoatCounter } from "@/components/common/GoatCounter";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -96,10 +99,18 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col bg-[#F7F9FC] text-[#111827] font-sans antialiased">
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:p-3">Skip to content</a>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-brand-navy focus:font-bold focus:shadow-md focus:ring-2 focus:ring-blue-600 focus:rounded-lg">
+          Skip to content
+        </a>
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
         <Navbar />
         <main id="main-content" className="flex-1 w-full">{children}</main>
         <Footer />
+        <Suspense fallback={null}>
+          <GoatCounter />
+        </Suspense>
       </body>
     </html>
   );

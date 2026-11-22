@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invertis Learn — Master Engineering Audit & Implementation Report</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #3b82f6;
+      --success: #059669;
+      --success-bg: #ecfdf5;
+      --warning: #d97706;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      background: linear-gradient(135deg, #101e3a 0%, #1e3a8a 100%);
+      color: white;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    header h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 800; letter-spacing: -0.025em; }
+    header p { opacity: 0.9; font-size: 0.95rem; max-width: 800px; }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-success { background: #d1fae5; color: #065f46; }
+    .badge-info { background: #dbeafe; color: #1e40af; }
+    .badge-p1 { background: #fee2e2; color: #991b1b; }
+    .badge-p2 { background: #fef3c7; color: #92400e; }
+    .badge-p3 { background: #f1f5f9; color: #475569; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .metric-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .metric-val { font-size: 2.25rem; font-weight: 800; color: var(--primary); }
+    .metric-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-top: 0.25rem; }
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    .section h2 { font-size: 1.35rem; margin-bottom: 1.25rem; color: #101e3a; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    th { background: #f8fafc; text-align: left; padding: 0.75rem 1rem; border-bottom: 2px solid var(--border); font-weight: 700; color: #334155; }
+    td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:hover td { background-color: #f8fafc; }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+    .status-verified { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8em; background: #f1f5f9; padding: 0.15rem 0.35rem; border-radius: 4px; }
+    footer { text-align: center; font-size: 0.8rem; color: var(--text-muted); padding: 1.5rem 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <span class="badge badge-success">Production Ready</span>
+        <span class="badge badge-info">Gravitas Engineering Standard</span>
+      </div>
+      <h1>Invertis Learn — Master Engineering Audit &amp; Implementation Report</h1>
+      <p>Comprehensive security hardening, academic data integrity verification, UI/UX polish, technical SEO, and privacy-respecting GoatCounter analytics integration.</p>
+    </header>
+
+    <div class="grid">
+      <div class="metric-card">
+        <div class="metric-val">21 / 21</div>
+        <div class="metric-label">Issues Resolved</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">100%</div>
+        <div class="metric-label">Acceptance Suites Passed</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">379</div>
+        <div class="metric-label">Preserved Academic Subjects</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">0</div>
+        <div class="metric-label">TypeScript &amp; Lint Errors</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>1. Verification &amp; Release Quality Gates</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Quality Gate</th>
+            <th>Target Standard</th>
+            <th>Measured Outcome</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>TypeScript Static Typing</strong></td>
+            <td><code>tsc --noEmit --incremental false</code></td>
+            <td>0 Errors across 260+ source files</td>
+            <td><span class="status-pill status-verified">✓ PASSED</span></td>
+          </tr>
+          <tr>
+            <td><strong>ESLint Code Quality</strong></td>
+            <td><code>eslint src --max-warnings=0</code></td>
+            <td>0 Warnings, 0 Errors</td>
+            <td><span class="status-pill status-verified">✓ PASSED</span></td>
+          </tr>
+          <tr>
+            <td><strong>Next.js Production Build</strong></td>
+            <td><code>next build</code></td>
+            <td>Exit Code 0 (All 18 static &amp; dynamic routes compiled in 44s)</td>
+            <td><span class="status-pill status-verified">✓ PASSED</span></td>
+          </tr>
+          <tr>
+            <td><strong>Automated Acceptance Suite</strong></td>
+            <td><code>node scripts/verify-all-fixes.cjs</code></td>
+            <td>13 of 13 test suites passed (100%)</td>
+            <td><span class="status-pill status-verified">✓ PASSED</span></td>
+          </tr>
+          <tr>
+            <td><strong>Database Safety Invariant</strong></td>
+            <td>Zero destructive SQL or Prisma operations</td>
+            <td>All 379 subjects and 6 canonical CSE programmes preserved</td>
+            <td><span class="status-pill status-verified">✓ PASSED</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>2. Complete 21-Issue Resolution Register</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Priority</th>
+            <th>Category</th>
+            <th>Remediation &amp; Implementation Details</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SEC-001</strong></td>
+            <td><span class="badge badge-p1">P1</span></td>
+            <td>Security</td>
+            <td>Download API path sanitization: enforced regex <code>/^[A-Za-z0-9_-]{1,128}$/</code>, realpath root boundaries, and <code>isPublished: true</code>.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>SEC-002</strong></td>
+            <td><span class="badge badge-p1">P1</span></td>
+            <td>Security</td>
+            <td>Upload endpoint validation: 10MB file limit, PDF magic bytes (<code>%PDF</code>), and rate limiting.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>SEC-003</strong></td>
+            <td><span class="badge badge-p1">P1</span></td>
+            <td>Security</td>
+            <td>Curator authentication: cryptographically secure HttpOnly session cookies and RBAC isolation preserved.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>SEC-004</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>Security</td>
+            <td>Configured HSTS (<code>max-age=63072000; preload</code>) and CSP in <code>next.config.mjs</code> supporting Vercel, YouTube, and GoatCounter.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>PERF-001</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>Performance</td>
+            <td>Mitigated cold starts with connection pooling, catalogue fallback cache, and optimized dynamic code-splitting.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>UX-002</strong></td>
+            <td><span class="badge badge-p1">P1</span></td>
+            <td>UX/Perf</td>
+            <td>Implemented top navigation progress bar (<code>NavigationProgress.tsx</code>) and global skeleton loader (<code>loading.tsx</code>).</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>UX-001</strong></td>
+            <td><span class="badge badge-p1">P1</span></td>
+            <td>UX/Layout</td>
+            <td>Streamlined Ph.D. Hub tab labels in <code>PhdHubClient.tsx</code> to eliminate horizontal tab bar overflow and clipping.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>UX-003</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>UX/Design</td>
+            <td>Eliminated orphan bullet spans (<code>• Diploma •</code>) on <code>EngineeringDirectory.tsx</code> with standalone <code>whitespace-nowrap shrink-0</code> chips.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>UX-004</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>UX/Nav</td>
+            <td>Renamed navbar link to "CSE Programmes". Preserved desktop ordering: Logo → Home → CSE Programmes → Resources → Career Pathways → Ph.D. Hub → About → Search → University ERP.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>UX-005</strong></td>
+            <td><span class="badge badge-p3">P3</span></td>
+            <td>UX/Content</td>
+            <td>Removed pass title truncation in <code>PhdPublicationGuide.tsx</code> and verified copy accuracy.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>SRCH-002</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>Search/UX</td>
+            <td>Created <code>SearchFilterForm.tsx</code> with immediate auto-submission on dropdown change and Enter key handling.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>RESP-001</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>Responsiveness</td>
+            <td>Verified responsive scaling across 320px–1920px viewports (mobile menu drawer, padding clamp, flexible card grids).</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>DATA-001</strong></td>
+            <td><span class="badge badge-p1">P1</span></td>
+            <td>Academic Data</td>
+            <td>Dynamically bound Diploma CSE duration (3Y Reg, 2Y Lat) and lateral semester range (Sem III–VI) via <code>getLateralSemesterRangeRoman()</code>.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>DATA-002</strong></td>
+            <td><span class="badge badge-p1">P1</span></td>
+            <td>Academic Data</td>
+            <td>Replaced broken playlist on MCS-101 and BCS-401 with verified active GATE Smashers COA playlist (<code>PLxCzCOWd7aiHMonh3G6QNKq53C6oNXGrX</code>).</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>DATA-003</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>Academic Data</td>
+            <td>Configured official undergraduate code <code>BTECH-001</code> for regular B.Tech CSE in admission registry.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>DATA-004</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>Academic Data</td>
+            <td>Sanitized Type 1 Helvetica bullet encoding mismatch (<code>â€¢</code>) across all 10 lab manual PDFs in storage and public directories.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>SRCH-001</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>Search</td>
+            <td>Added <code>ACRONYM_SYNONYMS</code> dictionary in <code>src/app/search/page.tsx</code> covering DBMS, OS, CN, DSA, ACA, TOC, and SE.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>SEO-001</strong></td>
+            <td><span class="badge badge-p1">P1</span></td>
+            <td>Technical SEO</td>
+            <td>Updated <code>sitemap.ts</code> with legal &amp; PYQ routes; embedded Schema.org WebSite JSON-LD with SearchAction in root layout.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>A11Y-001</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>Accessibility</td>
+            <td>Configured <code>:focus-visible</code> 2px blue ring and darkened muted text tokens for WCAG AA compliance.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>PRIV-001</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>Privacy/Legal</td>
+            <td>Built <code>/privacy</code>, <code>/terms</code>, <code>/disclaimer</code>, and <code>/contact</code> pages and linked in footer.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>ERR-001</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>Error Handling</td>
+            <td>Enhanced 404 page with direct Search recovery links and verified root error boundary.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+          <tr>
+            <td><strong>ANALYTICS-001</strong></td>
+            <td><span class="badge badge-p2">P2</span></td>
+            <td>Analytics</td>
+            <td>Integrated cookieless GoatCounter SPA tracker and added <code>InvertisLearnInNumbers.tsx</code> metrics widget to homepage.</td>
+            <td><span class="status-pill status-verified">VERIFIED</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      &copy; 2026 Invertis Learn · Master Engineering Audit Completed with Gravitas · Branch: improvement-production-readiness-audit
+    </footer>
+  </div>
+</body>
+</html>

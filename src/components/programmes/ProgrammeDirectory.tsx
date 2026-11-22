@@ -20,7 +20,8 @@ import {
 } from "lucide-react";
 import { 
   getProgramAdmissionConfig, 
-  programSupportsLateral 
+  programSupportsLateral,
+  getLateralSemesterRangeRoman
 } from "@/lib/admissionModes";
 import {
   compareProgrammesByAcademicLevel,
@@ -346,7 +347,7 @@ export function ProgrammeDirectory({ initialProgrammes, departments }: Programme
               href={prog.hasOfficialSyllabus ? `/syllabus/${prog.code}?entry=lateral` : `/programmes/${prog.code}?entry=lateral`}
               className="font-bold text-purple-700 hover:text-purple-900 hover:underline flex items-center gap-0.5"
             >
-              <span>Lateral Entry (Sem III–VIII)</span>
+              <span>Lateral Entry (Sem {getLateralSemesterRangeRoman(prog.code)})</span>
               <ArrowRight className="w-3 h-3" />
             </Link>
           </div>

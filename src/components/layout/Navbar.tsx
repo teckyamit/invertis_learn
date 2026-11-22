@@ -23,7 +23,7 @@ export function Navbar() {
 
   const navLinks = [
     { label: "Home", href: "/", icon: Home, exact: true },
-    { label: "Engineering", href: "/engineering", icon: Wrench },
+    { label: "CSE Programmes", href: "/engineering", icon: Wrench },
     { label: "Resources", href: "/resources", icon: BookOpen },
     { label: "Career Pathways", href: "/career-pathways", icon: Compass },
     { label: "Ph.D. Hub", href: "/phd", icon: GraduationCap },

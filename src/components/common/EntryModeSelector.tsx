@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { AdmissionMode, getProgramAdmissionConfig } from "@/lib/admissionModes";
+import { AdmissionMode, getProgramAdmissionConfig, getLateralSemesterRangeRoman } from "@/lib/admissionModes";
 import { GraduationCap, ArrowRight, BookOpen, Clock, CheckCircle2 } from "lucide-react";
 
 interface EntryModeSelectorProps {
@@ -220,7 +220,7 @@ export function EntryModeSelector({
             <span className="text-slate-300">•</span>
             <span className="flex items-center gap-1">
               <BookOpen className="w-3 h-3 text-slate-400" />
-              {lateralDetails.semestersCount} Semesters (Sem III–VIII)
+              {lateralDetails.semestersCount} Semesters (Sem {getLateralSemesterRangeRoman(canonicalCode)})
             </span>
           </div>
         </Link>

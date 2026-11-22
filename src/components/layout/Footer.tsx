@@ -63,7 +63,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/engineering" className="hover:text-white transition flex items-center space-x-1">
-                  <span>Engineering Programmes</span>
+                  <span>CSE Programmes</span>
                   <span className="text-[10px] bg-blue-500/20 text-blue-300 px-1.5 py-0.2 rounded font-medium">Active</span>
                 </Link>
               </li>
@@ -163,8 +163,12 @@ export function Footer() {
         <div className="mt-10 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3 text-center sm:text-left">
           <p>© {new Date().getFullYear()} Invertis Learn. Open Academic Companion for Invertis University students.</p>
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3 sm:gap-4 pt-1 sm:pt-0">
-            <Link href="/about" className="hover:text-slate-400 py-1">About</Link>
-            <Link href="/engineering" className="hover:text-slate-400 py-1">Engineering</Link>
+            <Link href="/about" className="hover:text-slate-300 py-1">About</Link>
+            <Link href="/engineering" className="hover:text-slate-300 py-1">CSE Programmes</Link>
+            <Link href="/privacy" className="hover:text-slate-300 py-1">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-slate-300 py-1">Terms of Use</Link>
+            <Link href="/disclaimer" className="hover:text-slate-300 py-1">Disclaimer</Link>
+            <Link href="/contact" className="hover:text-slate-300 py-1">Contact</Link>
             <a href="https://erp.invertisuniversity.ac.in/" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 flex items-center space-x-1 py-1">
               <span>University ERP</span>
               <ExternalLink className="w-3 h-3" />

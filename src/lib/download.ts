@@ -14,7 +14,8 @@ export async function serveResource(request: NextRequest, category?: string, sto
     const file = request.nextUrl.searchParams.get("file");
     const id = request.nextUrl.searchParams.get("id");
     if (!storagePath && !file && !id) return NextResponse.json({ error: "Missing file or resource ID" }, { status: 400 });
-    if (file && (file !== path.basename(file) || /[/\\]/.test(file))) return NextResponse.json({ error: "Invalid filename" }, { status: 400 });
+    if (file && (file !== path.basename(file) || /[/\\]|\.\./.test(file))) return NextResponse.json({ error: "Invalid filename" }, { status: 400 });
+    if (id && !/^[A-Za-z0-9_-]{1,128}$/.test(id)) return NextResponse.json({ error: "Invalid resource identifier" }, { status: 400 });
     const curator = await isCurator();
     const resource = await db.academicResource.findFirst({
       where: { ...(curator ? {} : publicResource), ...(category ? { category: { code: category } } : {}), ...(storagePath ? { storagePath } : id ? { id } : { storedFileName: file! }) },

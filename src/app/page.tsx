@@ -26,6 +26,7 @@ import {
 import { programSupportsLateral, getProgramAdmissionConfig, getLateralSemesterRangeRoman } from "@/lib/admissionModes";
 import { compareProgrammesByAcademicLevel } from "@/lib/academicLevels";
 import { MySemesterWidget } from "@/components/home/MySemesterWidget";
+import { InvertisLearnInNumbers } from "@/components/home/InvertisLearnInNumbers";
 
 export const dynamic = "force-dynamic";
 
@@ -156,6 +157,14 @@ export default async function HomePage() {
           <MySemesterWidget />
         </div>
       </section>
+
+      {/* Invertis Learn in Numbers Metrics Showcase */}
+      <InvertisLearnInNumbers
+        totalSubjects={totalSubjects}
+        totalProgrammes={totalProgrammes}
+        totalResources={totalResources}
+        totalDepartments={totalDepartments}
+      />
 
       {/* Student Journey: Simple, Predictable Navigation Flow */}
       <section className="py-10 sm:py-12 w-full">

@@ -24,7 +24,8 @@ import {
   programSupportsLateral,
   parseEntryMode,
   getActiveEntryDetails,
-  getProgramAdmissionConfig
+  getProgramAdmissionConfig,
+  getLateralSemesterRangeRoman
 } from "@/lib/admissionModes";
 import { EntryModeSelector } from "@/components/common/EntryModeSelector";
 
@@ -299,7 +300,7 @@ export default async function ProgrammeDetailPage({ params: paramsPromise, searc
               </div>
               <p className="text-xs text-slate-600 max-w-xl leading-relaxed">
                 {isLateralSelected
-                  ? "Lateral Entry students enter directly in Semester III. Explore the verified curriculum schemes, syllabus units, question papers, and laboratory manuals across Semesters III through VIII."
+                  ? `Lateral Entry students enter directly in Semester III. Explore the verified curriculum schemes, syllabus units, question papers, and laboratory manuals across Semesters III through ${getLateralSemesterRangeRoman(canonicalCode).split("–")[1] || "VIII"}.`
                   : "Explore the verified hierarchical syllabus structure extracted directly from official university syllabus documents. Review unit breakdowns, recommended textbooks, and question papers."}
               </p>
             </div>

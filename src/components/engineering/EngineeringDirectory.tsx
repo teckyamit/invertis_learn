@@ -235,45 +235,38 @@ export function EngineeringDirectory({ programmes }: EngineeringDirectoryProps) 
           </h3>
 
           {/* Duration & Type Details */}
-          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-3">
-            <span className="flex items-center space-x-1">
-              <Clock className="w-3.5 h-3.5 text-slate-400" />
+          <div className="flex flex-wrap items-center gap-1.5 text-xs text-slate-600 mb-3">
+            <span className="inline-flex items-center space-x-1 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded-md text-[11px] font-medium whitespace-nowrap shrink-0">
+              <Clock className="w-3 h-3 text-slate-400" />
               {prog.category === "DOCTORAL" || prog.code.startsWith("PHD") ? (
-                <span>3–6 Years (Doctoral Research & Thesis)</span>
+                <span>3–6 Years Doctoral</span>
               ) : supportsLateral ? (
-                <span>{prog.durationYears} Years Regular • {admissionConfig?.lateral?.durationYears} Years Lateral</span>
+                <span>{prog.durationYears}Y Regular / {admissionConfig?.lateral?.durationYears}Y Lateral</span>
               ) : (
                 <span>{prog.durationYears} Years ({prog.durationYears * 2} Semesters)</span>
               )}
             </span>
-            <span>•</span>
-            <span className="capitalize">{prog.category.toLowerCase()}</span>
+
+            <span className="bg-slate-50 border border-slate-200 px-2 py-0.5 rounded-md text-[11px] font-medium capitalize whitespace-nowrap shrink-0">
+              {prog.category.toLowerCase()}
+            </span>
 
             {supportsLateral && (
-              <>
-                <span>•</span>
-                <span className="text-purple-700 font-semibold bg-purple-50 px-1.5 py-0.5 rounded border border-purple-200 text-[11px]">
-                  Lateral Entry Available
-                </span>
-              </>
+              <span className="text-purple-700 font-semibold bg-purple-50 px-2 py-0.5 rounded-md border border-purple-200 text-[11px] whitespace-nowrap shrink-0">
+                Lateral Entry
+              </span>
             )}
 
             {(prog.code === "BTECH-CSE-AI" || prog.code === "BTECH-CSE-CC") && (
-              <>
-                <span>•</span>
-                <span className="text-teal-700 font-semibold bg-teal-50 px-1.5 py-0.5 rounded border border-teal-200 text-[11px]">
-                  Specialization
-                </span>
-              </>
+              <span className="text-teal-700 font-semibold bg-teal-50 px-2 py-0.5 rounded-md border border-teal-200 text-[11px] whitespace-nowrap shrink-0">
+                Specialization
+              </span>
             )}
 
             {(prog.category === "DOCTORAL" || prog.code.startsWith("PHD")) && (
-              <>
-                <span>•</span>
-                <span className="text-rose-700 font-semibold bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200 text-[11px]">
-                  Ph.D. Research
-                </span>
-              </>
+              <span className="text-rose-700 font-semibold bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200 text-[11px] whitespace-nowrap shrink-0">
+                Doctoral Research
+              </span>
             )}
           </div>
 

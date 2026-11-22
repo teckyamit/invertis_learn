@@ -43,15 +43,15 @@ interface TabItem {
 }
 
 const TABS: TabItem[] = [
-  { id: "overview", label: "Program Overview & Milestones", icon: GraduationCap, shortLabel: "Overview" },
-  { id: "coursework", label: "Coursework Syllabus (12 Credits)", icon: BookOpen, shortLabel: "Syllabus" },
-  { id: "tools", label: "Ph.D. Research Toolkit", icon: Wrench, shortLabel: "Tools" },
-  { id: "topics", label: "Research Topic Explorer", icon: Compass, shortLabel: "Topics" },
-  { id: "publication", label: "Paper Writing & Publication", icon: FileText, shortLabel: "Publication" },
-  { id: "thesis-viva", label: "Thesis & Viva Voce (25 Qs)", icon: Award, shortLabel: "Viva Prep" },
-  { id: "tracker", label: "Interactive Progress Tracker", icon: CheckSquare, shortLabel: "Tracker" },
-  { id: "tutorials", label: "Research Tools Tutorials", icon: Code2, shortLabel: "Tutorials" },
-  { id: "career", label: "Faculty & Postdoc Careers", icon: Briefcase, shortLabel: "Career" }
+  { id: "overview", label: "Program Overview", icon: GraduationCap, shortLabel: "Overview" },
+  { id: "coursework", label: "Coursework (12 Cr)", icon: BookOpen, shortLabel: "Syllabus" },
+  { id: "tools", label: "Research Toolkit", icon: Wrench, shortLabel: "Toolkit" },
+  { id: "topics", label: "Topic Explorer", icon: Compass, shortLabel: "Topics" },
+  { id: "publication", label: "Paper Publication", icon: FileText, shortLabel: "Publishing" },
+  { id: "thesis-viva", label: "Thesis & Viva Voce", icon: Award, shortLabel: "Thesis & Viva" },
+  { id: "tracker", label: "Progress Tracker", icon: CheckSquare, shortLabel: "Tracker" },
+  { id: "tutorials", label: "Tools Tutorials", icon: Code2, shortLabel: "Tutorials" },
+  { id: "career", label: "Career Pathways", icon: Briefcase, shortLabel: "Career" }
 ];
 
 export function PhdHubClient({ initialTab = "overview" }: { initialTab?: PhdTabId }) {

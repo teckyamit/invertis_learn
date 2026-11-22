@@ -1,0 +1,77 @@
+{
+  "timestamp": "2026-11-22T17:35:00+05:30",
+  "totalLabManualsInspected": 10,
+  "mojibakeCheck": {
+    "targetPattern": [226, 128, 162],
+    "status": "CLEAN",
+    "filesSanitized": [
+      "storage/uploads/lab_manuals/BAS151_Engineering_Physics_Lab_Manual.pdf",
+      "storage/uploads/lab_manuals/BCS251_C_Programming_Viva_Voce_QA.pdf",
+      "storage/uploads/lab_manuals/BCS251_Programming_in_C_Lab_Manual.pdf",
+      "storage/uploads/lab_manuals/BCS351_Data_Structures_Code_Templates.pdf",
+      "storage/uploads/lab_manuals/BCS351_Data_Structures_Lab_Manual.pdf",
+      "storage/uploads/lab_manuals/BCS351_Data_Structures_Viva_Voce_QA.pdf",
+      "storage/uploads/lab_manuals/BCS352_IT_Infrastructure_Lab_Manual.pdf",
+      "storage/uploads/lab_manuals/BCS352_Linux_SysAdmin_Viva_Questions.pdf",
+      "storage/uploads/lab_manuals/BCS353_Digital_Electronics_Lab_Manual.pdf",
+      "storage/uploads/lab_manuals/BCS354_Python_Programming_Lab_Manual.pdf",
+      "storage/uploads/lab_manuals/MCS151_Adv_Architecture_Lab_Manual.pdf"
+    ]
+  },
+  "videoLecturesValidation": {
+    "status": "VALIDATED",
+    "mcs101Playlist": {
+      "courseCode": "MCS-101",
+      "oldBrokenPlaylist": "PLxCzCOWd7aiHMonhCfCFMKQSS4RFnbXju",
+      "newVerifiedPlaylist": "PLxCzCOWd7aiHMonh3G6QNKq53C6oNXGrX",
+      "channel": "GATE Smashers",
+      "videoCount": 66,
+      "topic": "Computer Architecture Core Fundamentals"
+    },
+    "bcs401Playlist": {
+      "courseCode": "BCS-401",
+      "oldBrokenPlaylist": "PLxCzCOWd7aiHMonhCfCFMKQSS4RFnbXju",
+      "newVerifiedPlaylist": "PLxCzCOWd7aiHMonh3G6QNKq53C6oNXGrX",
+      "channel": "GATE Smashers",
+      "videoCount": 66,
+      "topic": "Computer Organization and Architecture"
+    }
+  },
+  "admissionRegistryValidation": {
+    "status": "VALIDATED",
+    "programmes": {
+      "DIP-CSE": {
+        "regularDuration": "3 Years",
+        "lateralDuration": "2 Years",
+        "lateralSemesterRange": "III–VI",
+        "officialCode": "DIP-CSE"
+      },
+      "BTECH-CSE": {
+        "regularDuration": "4 Years",
+        "regularOfficialCode": "BTECH-001",
+        "lateralDuration": "3 Years",
+        "lateralOfficialCode": "BTECH-008",
+        "lateralSemesterRange": "III–VIII"
+      },
+      "BTECH-CSE-AI": {
+        "regularDuration": "4 Years",
+        "lateralDuration": "3 Years",
+        "lateralSemesterRange": "III–VIII"
+      },
+      "BTECH-CSE-CC": {
+        "regularDuration": "4 Years",
+        "officialCode": "BTECH-019",
+        "lateralDuration": "3 Years",
+        "lateralSemesterRange": "III–VIII"
+      },
+      "MTECH-CSE": {
+        "regularDuration": "2 Years",
+        "supportsLateral": false
+      },
+      "PHD-009": {
+        "regularDuration": "3–6 Years",
+        "supportsLateral": false
+      }
+    }
+  }
+}

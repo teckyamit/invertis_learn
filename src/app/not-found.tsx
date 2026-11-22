@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Home, Compass } from "lucide-react";
+import { ArrowLeft, Home, Compass, Search } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -29,20 +29,27 @@ export default function NotFound() {
           </p>
         </div>
 
-        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5">
           <Link
             href="/"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-brand-navy text-white text-xs font-bold hover:bg-slate-900 transition shadow-xs"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-brand-navy text-white text-xs font-bold hover:bg-slate-900 transition shadow-xs"
           >
             <Home className="w-3.5 h-3.5" />
-            <span>Return Home</span>
+            <span>Home</span>
+          </Link>
+          <Link
+            href="/search"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-bold border border-blue-200 transition"
+          >
+            <Search className="w-3.5 h-3.5" />
+            <span>Search Subjects</span>
           </Link>
           <Link
             href="/engineering"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200 transition"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200 transition"
           >
             <Compass className="w-3.5 h-3.5" />
-            <span>Engineering Catalog</span>
+            <span>Catalog</span>
           </Link>
         </div>
       </div>

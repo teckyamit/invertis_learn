@@ -9,7 +9,8 @@ import {
   programSupportsLateral,
   parseEntryMode,
   getActiveEntryDetails,
-  getProgramAdmissionConfig
+  getProgramAdmissionConfig,
+  getLateralSemesterRangeRoman
 } from "@/lib/admissionModes";
 import { EntryModeSelector } from "@/components/common/EntryModeSelector";
 
@@ -40,7 +41,7 @@ export async function generateMetadata({ params: paramsPromise, searchParams: se
   }
 
   const supportsLateral = programSupportsLateral(canonicalCode);
-  const modeLabel = (supportsLateral && entryMode === "lateral") ? "Lateral Entry (Sem III–VIII)" : "Regular Entry";
+  const modeLabel = (supportsLateral && entryMode === "lateral") ? `Lateral Entry (Sem ${getLateralSemesterRangeRoman(canonicalCode)})` : "Regular Entry";
 
   return {
     title: `${programme.name} — ${modeLabel} Syllabus | Invertis Learn`,
@@ -61,6 +62,7 @@ export default async function ProgrammeSemestersPage({ params: paramsPromise, se
 
   const entryMode = parseEntryMode(searchParams?.entry);
   const supportsLateral = programSupportsLateral(canonicalCode);
+  const admissionConfig = getProgramAdmissionConfig(canonicalCode);
   const activeDetails = getActiveEntryDetails(canonicalCode, entryMode);
   const isLateralSelected = supportsLateral && entryMode === "lateral";
 
@@ -138,7 +140,7 @@ export default async function ProgrammeSemestersPage({ params: paramsPromise, se
                         ? "bg-purple-100 text-purple-900 border border-purple-200"
                         : "bg-blue-100 text-blue-900 border border-blue-200"
                     }`}>
-                      {isLateralSelected ? "Lateral Entry Scheme (Sem III–VIII)" : "Regular 4-Year Scheme"}
+                      {isLateralSelected ? `Lateral Entry Scheme (Sem ${getLateralSemesterRangeRoman(canonicalCode)})` : `Regular ${activeDetails.durationYears}-Year Scheme`}
                     </span>
                   </>
                 )}
@@ -203,7 +205,7 @@ export default async function ProgrammeSemestersPage({ params: paramsPromise, se
                   Lateral Entry Pathway (Direct Admission to 2nd Year)
                 </span>
                 <p className="text-xs sm:text-sm text-purple-900 leading-relaxed">
-                  Students join directly in <strong>Semester III</strong> and follow the verified curriculum through <strong>Semester VIII</strong>. 
+                  Students join directly in <strong>Semester III</strong> and follow the verified curriculum through <strong>Semester {getLateralSemesterRangeRoman(canonicalCode).split("–")[1] || "VIII"}</strong>. 
                   Displaying <strong>{semesters.length} active semesters</strong> and <strong>{totalSubjectsCount} subjects</strong>.
                 </p>
               </div>
@@ -211,7 +213,7 @@ export default async function ProgrammeSemestersPage({ params: paramsPromise, se
                 href={`/syllabus/${programme.code}`}
                 className="shrink-0 text-xs font-bold text-purple-800 hover:text-purple-950 bg-white px-3.5 py-2 rounded-lg border border-purple-200 shadow-2xs hover:shadow-xs transition flex items-center"
               >
-                <span>Switch to 4-Year Regular Scheme</span>
+                <span>Switch to {admissionConfig?.regular?.durationYears || programme.durationYears}-Year Regular Scheme</span>
                 <ArrowRight className="h-3 w-3 ml-1" />
               </Link>
             </div>
@@ -260,10 +262,10 @@ export default async function ProgrammeSemestersPage({ params: paramsPromise, se
             <div className="flex items-center justify-between">
               <h2 className="font-heading text-xl sm:text-2xl font-bold text-slate-900 flex items-center">
                 <Layers className="h-5 w-5 mr-2 text-blue-600" />
-                {isLateralSelected ? "Lateral Entry Semesters (Sem III to VIII)" : "Choose Semester"}
+                {isLateralSelected ? `Lateral Entry Semesters (Sem ${getLateralSemesterRangeRoman(canonicalCode)})` : "Choose Semester"}
               </h2>
               <span className="text-xs text-slate-500">
-                {isLateralSelected ? "Semesters 3 to 8 active" : "Select a semester to inspect prescribed subjects"}
+                {isLateralSelected ? `Semesters ${activeDetails.minSemester} to ${activeDetails.maxSemester} active` : "Select a semester to inspect prescribed subjects"}
               </span>
             </div>
 

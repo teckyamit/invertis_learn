@@ -84,7 +84,7 @@ export function PhdPublicationGuide() {
                 <div className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${isCurrent ? "text-amber-400" : "text-brand-blue"}`}>
                   Pass {p.passNumber}
                 </div>
-                <div className="font-heading font-bold text-xs sm:text-sm truncate">
+                <div className="font-heading font-bold text-xs sm:text-sm leading-tight">
                   {p.title.split(":")[1]?.trim() || p.title}
                 </div>
               </button>

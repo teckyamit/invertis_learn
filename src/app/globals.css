@@ -116,6 +116,12 @@ body {
   background: #94a3b8;
 }
 
+/* Accessible keyboard navigation focus rings (WCAG AA Compliance) */
+:focus-visible {
+  outline: 2px solid #2563EB;
+  outline-offset: 2px;
+}
+
 /* Hide scrollbar utility for touch-friendly horizontal swipe containers */
 .no-scrollbar::-webkit-scrollbar {
   display: none;

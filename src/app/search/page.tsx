@@ -3,12 +3,36 @@ import { db } from "@/lib/db";
 import { activeSubject } from "@/lib/resource-policy";
 import { getSearchProgrammes } from "@/lib/catalogue";
 import { Search, BookOpen, Layers, ChevronRight, Home, Filter } from "lucide-react";
+import { SearchFilterForm } from "@/components/search/SearchFilterForm";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = { 
   title: "Search Academic Subjects & Syllabi | Invertis Learn",
   description: "Search official course syllabi, past examination papers, faculty lecture notes, and lab manuals across Invertis University programmes by subject code or title."
+};
+
+const ACRONYM_SYNONYMS: Record<string, string[]> = {
+  dbms: ["Database", "DBMS"],
+  os: ["Operating Systems", "Operating System"],
+  cn: ["Computer Networks", "Computer Network"],
+  dsa: ["Data Structures", "Data Structure", "Algorithms"],
+  coa: ["Computer Organization", "Computer Architecture"],
+  aca: ["Advanced Computer Architecture", "Computer Architecture"],
+  daa: ["Design and Analysis of Algorithms", "Algorithms"],
+  se: ["Software Engineering"],
+  ai: ["Artificial Intelligence"],
+  ml: ["Machine Learning"],
+  toc: ["Theory of Computation", "Automata"],
+  cd: ["Compiler Design"],
+  cg: ["Computer Graphics"],
+  cns: ["Cryptography", "Network Security"],
+  wt: ["Web Technology", "Web Technologies"],
+  oop: ["Object Oriented", "Java Programming"],
+  oops: ["Object Oriented", "Java Programming"],
+  flat: ["Formal Languages", "Automata"],
+  iot: ["Internet of Things"],
+  cloud: ["Cloud Computing"],
 };
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
@@ -21,13 +45,15 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const normalizedQ = q.replace(/[\s-]+/g, "");
   const hyphenatedQ = q.replace(/^([A-Za-z]+)[\s-]*(\d+.*)$/, "$1-$2");
   const codeVariants = Array.from(new Set([q, normalizedQ, hyphenatedQ])).filter(Boolean);
+  const synonyms = ACRONYM_SYNONYMS[q.toLowerCase()] || [];
 
   const where = {
     ...activeSubject,
     ...(q ? {
       OR: [
         ...codeVariants.map(variant => ({ code: { contains: variant, mode: "insensitive" as const } })),
-        { name: { contains: q, mode: "insensitive" as const } }
+        { name: { contains: q, mode: "insensitive" as const } },
+        ...synonyms.map(syn => ({ name: { contains: syn, mode: "insensitive" as const } }))
       ]
     } : {}),
     semester: {
@@ -103,82 +129,13 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         </div>
 
         {/* Filter & Search Form */}
-        <form className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4" action="/search" method="GET">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="lg:col-span-2">
-              <label htmlFor="search-q" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Subject Name or Code
-              </label>
-              <div className="relative">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                <input 
-                  id="search-q"
-                  name="q" 
-                  defaultValue={q} 
-                  maxLength={100} 
-                  className="w-full pl-9 pr-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
-                  placeholder="e.g. Data Structures, BCS-301, MCS102..."
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="search-prog" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Academic Programme
-              </label>
-              <select 
-                id="search-prog"
-                name="programme" 
-                defaultValue={programme} 
-                className="w-full p-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-              >
-                <option value="">All Programmes</option>
-                {sortedProgrammes.map(p => (
-                  <option key={p.code} value={p.code}>{p.name} ({p.code})</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="search-sem" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Semester
-              </label>
-              <select 
-                id="search-sem"
-                name="semester" 
-                defaultValue={value("semester")} 
-                className="w-full p-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-              >
-                <option value="">All Semesters</option>
-                {Array.from({ length: 8 }, (_, i) => i + 1).map(n => (
-                  <option key={n} value={n}>Semester {n}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between pt-2 border-t border-slate-100">
-            <span role="status" className="text-xs font-medium text-slate-500">
-              Found <strong className="text-slate-900 font-bold">{total}</strong> subjects matching criteria
-            </span>
-            <div className="flex items-center gap-2">
-              {(q || programme || value("semester")) && (
-                <Link
-                  href="/search"
-                  className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-lg transition"
-                >
-                  Clear Filters
-                </Link>
-              )}
-              <button 
-                type="submit" 
-                className="px-5 py-2 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition shadow-sm cursor-pointer"
-              >
-                Apply Search
-              </button>
-            </div>
-          </div>
-        </form>
+        <SearchFilterForm
+          initialQ={q}
+          initialProgramme={programme}
+          initialSemester={value("semester")}
+          programmes={sortedProgrammes}
+          total={total}
+        />
 
         {/* Results Grid */}
         {subjects.length > 0 ? (
