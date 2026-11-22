@@ -23,7 +23,6 @@ export function Navbar() {
 
   const navLinks = [
     { label: "Home", href: "/", icon: Home, exact: true },
-    { label: "Search", href: "/search", icon: Search },
     { label: "Engineering", href: "/engineering", icon: Wrench },
     { label: "Resources", href: "/resources", icon: BookOpen },
     { label: "Career Pathways", href: "/career-pathways", icon: Compass },
@@ -35,6 +34,8 @@ export function Navbar() {
     if (exact) return pathname === href;
     return pathname.startsWith(href);
   };
+
+  const isSearchActive = pathname === "/search" || pathname.startsWith("/search?");
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-xs">
@@ -48,7 +49,7 @@ export function Navbar() {
               width={48}
               height={48}
               priority
-              className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 aspect-square object-contain shrink-0 transition-transform group-hover:scale-105"
+              className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 aspect-square object-contain shrink-0 transition-transform group-hover:scale-105"
             />
             <div className="min-w-0">
               <div className="flex items-center space-x-1 sm:space-x-1.5">
@@ -61,15 +62,15 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Navigation (Simple 5 Items) */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-0.5 lg:space-x-1.5">
             {navLinks.map((link) => {
               const active = isActive(link.href, link.exact);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-3.5 py-2 rounded-lg text-sm font-semibold transition ${
+                  className={`px-2.5 lg:px-3.5 py-2 rounded-lg text-xs lg:text-sm font-semibold transition ${
                     active
                       ? "bg-blue-50 text-brand-blue border border-blue-200"
                       : "text-slate-700 hover:text-brand-navy hover:bg-slate-100"
@@ -81,14 +82,19 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* University ERP External Link & Quick Search (Desktop) */}
-          <div className="hidden md:flex items-center space-x-2.5">
+          {/* Dedicated Search & University ERP Controls (Desktop) */}
+          <div className="hidden md:flex items-center space-x-2 lg:space-x-2.5 shrink-0">
             <Link
               href="/search"
-              className="inline-flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:text-brand-blue hover:bg-slate-100 border border-slate-200 transition"
+              className={`inline-flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition border ${
+                isSearchActive
+                  ? "bg-blue-50 text-brand-blue border-blue-200 shadow-xs"
+                  : "text-slate-700 hover:text-brand-navy hover:bg-slate-100 border-slate-200"
+              }`}
               title="Search subjects by code or title"
+              aria-label="Search academic subjects"
             >
-              <Search className="w-3.5 h-3.5 text-slate-500" />
+              <Search className={`w-3.5 h-3.5 ${isSearchActive ? "text-brand-blue" : "text-slate-500"}`} />
               <span>Search</span>
             </Link>
             <a
@@ -103,14 +109,19 @@ export function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Actions: Search & Menu Hamburger */}
+          {/* Mobile Actions: Dedicated Search & Menu Hamburger */}
           <div className="flex md:hidden items-center space-x-1 shrink-0">
             <Link
               href="/search"
-              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-slate-700 hover:bg-slate-100"
+              className={`p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg transition ${
+                isSearchActive
+                  ? "bg-blue-50 text-brand-blue border border-blue-200"
+                  : "text-slate-700 hover:bg-slate-100"
+              }`}
               aria-label="Search academic subjects"
+              title="Search academic subjects"
             >
-              <Search className="w-5 h-5 text-slate-700" />
+              <Search className={`w-5 h-5 ${isSearchActive ? "text-brand-blue" : "text-slate-700"}`} />
             </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
