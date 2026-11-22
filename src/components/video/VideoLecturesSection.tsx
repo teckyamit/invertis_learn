@@ -12,8 +12,10 @@ import {
   Globe,
   Sparkles,
   BookOpen,
-  X
+  X,
+  Flag
 } from "lucide-react";
+import { ReportContentModal } from "@/components/modals/ReportContentModal";
 
 export interface VideoLectureItem {
   id: string;
@@ -27,9 +29,12 @@ export interface VideoLectureItem {
   description: string;
   pricingType: string;
   language?: string;
+  academicLevel?: string;
+  verifiedAt?: string;
 }
 
 interface VideoLecturesSectionProps {
+  subjectId?: string;
   subjectCode: string;
   subjectName: string;
   videos: VideoLectureItem[];
@@ -501,6 +506,7 @@ const VERIFIED_SUBJECT_LECTURES: Record<string, VideoLectureItem[]> = {
 };
 
 export function VideoLecturesSection({
+  subjectId,
   subjectCode,
   subjectName,
   videos = [],
@@ -508,6 +514,7 @@ export function VideoLecturesSection({
   const [selectedUnit, setSelectedUnit] = useState<string>("ALL");
   const [selectedType, setSelectedType] = useState<string>("ALL");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [reportVideo, setReportVideo] = useState<VideoLectureItem | null>(null);
 
   // Merge database videos with verified fallback mappings, eliminating any duplicates
   const allVideos = useMemo(() => {
@@ -734,6 +741,11 @@ export function VideoLecturesSection({
                         </div>
 
                         <div className="flex items-center space-x-1.5">
+                          {video.academicLevel && (
+                            <span className="font-semibold text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-700 capitalize border border-slate-200">
+                              {video.academicLevel}
+                            </span>
+                          )}
                           {video.unitNumber && (
                             <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">
                               Unit {video.unitNumber}
@@ -771,19 +783,32 @@ export function VideoLecturesSection({
                         <span>{video.language || "Hindi / English"}</span>
                         <span>•</span>
                         <span className="text-emerald-700 font-semibold flex items-center">
-                          <CheckCircle2 className="h-3 w-3 mr-1" /> Verified
+                          <CheckCircle2 className="h-3 w-3 mr-1" />
+                          {video.verifiedAt ? `Verified ${video.verifiedAt}` : "Verified Nov 2026"}
                         </span>
                       </div>
 
-                      <a
-                        href={video.youtubeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center px-4 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 rounded-xl shadow-xs transition group-hover:shadow"
-                      >
-                        <span>Watch on YouTube</span>
-                        <ExternalLink className="h-3.5 w-3.5 ml-1.5" />
-                      </a>
+                      <div className="flex items-center space-x-2">
+                        <button
+                          type="button"
+                          onClick={() => setReportVideo(video)}
+                          title="Report broken or unavailable video link"
+                          className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition flex items-center gap-1 text-[11px] font-medium cursor-pointer"
+                        >
+                          <Flag className="h-3.5 w-3.5" />
+                          <span className="hidden sm:inline">Report</span>
+                        </button>
+
+                        <a
+                          href={video.youtubeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center px-4 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 rounded-xl shadow-xs transition group-hover:shadow"
+                        >
+                          <span>Watch on YouTube</span>
+                          <ExternalLink className="h-3.5 w-3.5 ml-1.5" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 );
@@ -808,6 +833,21 @@ export function VideoLecturesSection({
             Curated video lectures from <strong>GATE Smashers</strong> and <strong>Knowledge Gate</strong> are being mapped for <strong>{subjectCode}</strong> ({subjectName}). In the interim, consult the verified textbooks and unit syllabus above.
           </p>
         </div>
+      )}
+
+      {/* Student Content & Broken Link Report Modal */}
+      {reportVideo && (
+        <ReportContentModal
+          isOpen={true}
+          onClose={() => setReportVideo(null)}
+          subject={{
+            id: subjectId || subjectCode,
+            code: subjectCode,
+            name: subjectName,
+          }}
+          resourceId={reportVideo.id}
+          resourceTitle={reportVideo.title}
+        />
       )}
     </div>
   );

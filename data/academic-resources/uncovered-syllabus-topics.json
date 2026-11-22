@@ -1,0 +1,74 @@
+[
+  {
+    "programmeId": "PHD-009",
+    "programmeName": "Ph.D. in Computer Science & Engineering",
+    "semester": 1,
+    "subjectCode": "PhD-032",
+    "subjectName": "Advance Research Studies in Computer Engineering",
+    "coverageClassification": "HIGH COVERAGE",
+    "uncoveredTopics": [
+      "Dedicated free MATLAB academic starter manual (MathWorks Onramp requires free registration)"
+    ],
+    "recommendedChanges": "Add all 7 verified resources; keep NS-2 manual under Practical/Tools; add official textbook list from Ph.D. PDF."
+  },
+  {
+    "programmeId": "PHD-009",
+    "programmeName": "Ph.D. in Computer Science & Engineering",
+    "semester": 1,
+    "subjectCode": "PhDCS 103",
+    "subjectName": "Software Project Management",
+    "coverageClassification": "HIGH COVERAGE",
+    "uncoveredTopics": [
+      "MS-Project hands-on software walkthroughs (proprietary Microsoft tool)"
+    ],
+    "recommendedChanges": "Add NPTEL 106105218 full course portal and IIT KGP/Roorkee videos; restore 8 official reference books."
+  },
+  {
+    "programmeId": "PHD-009",
+    "programmeName": "Ph.D. in Computer Science & Engineering",
+    "semester": 1,
+    "subjectCode": "PhDCS 104",
+    "subjectName": "Networking Protocols",
+    "coverageClassification": "HIGH COVERAGE",
+    "uncoveredTopics": [
+      "Legacy TCP/IP over ATM / ATMARP cell transport (historically obsolete; limited modern free lectures)"
+    ],
+    "recommendedChanges": "Add NPTEL Advanced Networks, Socket Programming lecture, and Beej's Guide; restore 5 reference books."
+  },
+  {
+    "programmeId": "PHD-009",
+    "programmeName": "Ph.D. in Computer Science & Engineering",
+    "semester": 1,
+    "subjectCode": "PhDCS 105",
+    "subjectName": "Real Time Systems",
+    "coverageClassification": "HIGH COVERAGE",
+    "uncoveredTopics": [
+      "Dedicated video lecture on two-level integrated scheduling for flexible constraints"
+    ],
+    "recommendedChanges": "Add IIT Kharagpur RTOS videos and CMU/Yale PDFs; fix 'Peremption' -> 'Preemption' typo."
+  },
+  {
+    "programmeId": "BTECH-CSE",
+    "programmeName": "B.Tech in Computer Science & Engineering",
+    "semester": 3,
+    "subjectCode": "BCS-303",
+    "subjectName": "Digital Electronics",
+    "coverageClassification": "HIGH COVERAGE",
+    "uncoveredTopics": [
+      "Dedicated open-access Digital Electronics PDF textbook (Morris Mano is commercial)"
+    ],
+    "recommendedChanges": "ADD Neso Academy Digital Electronics playlist; reuse across BCSI302 and DIP-CSE DCS301."
+  },
+  {
+    "programmeId": "BTECH-CSE",
+    "programmeName": "B.Tech in Computer Science & Engineering",
+    "semester": 4,
+    "subjectCode": "BCS-401",
+    "subjectName": "Computer Organization & Architecture",
+    "coverageClassification": "HIGH COVERAGE",
+    "uncoveredTopics": [
+      "Open-access undergraduate COA textbook PDF"
+    ],
+    "recommendedChanges": "ADD Neso Academy COA playlist; reuse for DIP-CSE DCS403."
+  }
+]

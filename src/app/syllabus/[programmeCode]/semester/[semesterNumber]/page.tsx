@@ -13,6 +13,7 @@ import {
   isSemesterAllowedForMode,
   getLateralSemesterRangeRoman
 } from "@/lib/admissionModes";
+import { PROGRAMME_CREDIT_CONFIGS } from "@/lib/academic-credits";
 
 interface PageProps {
   params: Promise<{
@@ -112,6 +113,9 @@ export default async function SemesterSubjectsPage({ params: paramsPromise, sear
   }
 
   const totalCredits = semester.subjects.reduce((sum, s) => sum + s.credits, 0);
+  const creditConfig = PROGRAMME_CREDIT_CONFIGS[canonicalCode];
+  const semCreditRule = creditConfig?.semesters?.[semNum];
+  const displayCredits = semCreditRule?.prescribedCredits || totalCredits;
 
   return (
     <div className="w-full min-h-screen py-8 sm:py-12">
@@ -200,12 +204,38 @@ export default async function SemesterSubjectsPage({ params: paramsPromise, sear
                 <span className="font-heading text-xl font-bold text-blue-900">{semester.subjects.length}</span>
               </div>
               <div className="bg-slate-50 border border-slate-200 px-4 py-2.5 rounded-xl text-center min-w-[100px]">
-                <span className="block text-[11px] text-slate-500 font-semibold uppercase">Total Credits</span>
-                <span className="font-heading text-xl font-bold text-slate-900">{totalCredits.toFixed(1)}</span>
+                <span className="block text-[11px] text-slate-500 font-semibold uppercase">
+                  {semCreditRule ? "Prescribed Credits" : "Total Credits"}
+                </span>
+                <span className="font-heading text-xl font-bold text-slate-900">{displayCredits.toFixed(1)}</span>
+                {semCreditRule && totalCredits > semCreditRule.prescribedCredits && (
+                  <span className="block text-[10px] text-slate-400 font-medium">
+                    (Pool: {totalCredits.toFixed(1)})
+                  </span>
+                )}
               </div>
             </div>
           </div>
         </div>
+
+        {/* Degree Regulation Requirement Notice */}
+        {semCreditRule && (
+          <div className="p-4 bg-blue-50/80 border border-blue-200 rounded-xl text-xs text-blue-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+            <div className="space-y-0.5">
+              <span className="font-bold text-blue-900 uppercase tracking-wider text-[10px] bg-blue-100 px-2 py-0.5 rounded border border-blue-200 inline-block mb-1">
+                Degree Regulation Scheme
+              </span>
+              <p className="leading-relaxed">
+                <strong>Curriculum Requirement:</strong> {semCreditRule.electiveRule || semCreditRule.note}
+              </p>
+            </div>
+            <div className="shrink-0 flex items-center space-x-2">
+              <span className="font-mono text-xs font-bold bg-white px-3 py-1 rounded-lg border border-blue-200 text-blue-800 shadow-2xs">
+                {semCreditRule.prescribedCredits.toFixed(1)} Prescribed Credits
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* Interactive Client Filter & Subject Catalog */}
         <SemesterFilter

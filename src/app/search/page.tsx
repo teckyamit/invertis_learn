@@ -4,6 +4,7 @@ import { activeSubject } from "@/lib/resource-policy";
 import { getSearchProgrammes } from "@/lib/catalogue";
 import { Search, BookOpen, Layers, ChevronRight, Home, Filter } from "lucide-react";
 import { SearchFilterForm } from "@/components/search/SearchFilterForm";
+import { getSubjectCodeVariants } from "@/lib/academic-credits";
 
 export const dynamic = "force-dynamic";
 
@@ -41,10 +42,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const q = value("q").trim().slice(0, 100), programme = value("programme"), semester = Number(value("semester"));
   const page = Math.max(1, Math.min(10000, Math.floor(Number(value("page")) || 1)));
 
-  // Normalized matching: handles "MCS102" matching "MCS-102" and vice versa
+  // Normalized matching & aliases (e.g., MCS102 <-> MCS-102, DEC351 <-> DCS-351)
   const normalizedQ = q.replace(/[\s-]+/g, "");
   const hyphenatedQ = q.replace(/^([A-Za-z]+)[\s-]*(\d+.*)$/, "$1-$2");
-  const codeVariants = Array.from(new Set([q, normalizedQ, hyphenatedQ])).filter(Boolean);
+  const codeVariants = Array.from(new Set([q, normalizedQ, hyphenatedQ, ...getSubjectCodeVariants(q)])).filter(Boolean);
   const synonyms = ACRONYM_SYNONYMS[q.toLowerCase()] || [];
 
   const where = {

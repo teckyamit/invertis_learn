@@ -13,6 +13,7 @@ import {
   getLateralSemesterRangeRoman
 } from "@/lib/admissionModes";
 import { EntryModeSelector } from "@/components/common/EntryModeSelector";
+import { PROGRAMME_CREDIT_CONFIGS } from "@/lib/academic-credits";
 
 interface PageProps {
   params: Promise<{
@@ -100,6 +101,7 @@ export default async function ProgrammeSemestersPage({ params: paramsPromise, se
 
   const totalSubjectsCount = semesters.reduce((acc, sem) => acc + sem.subjects.length, 0);
   const totalCreditsCount = semesters.reduce((acc, sem) => acc + sem.subjects.reduce((sum, s) => sum + s.credits, 0), 0);
+  const creditConfig = PROGRAMME_CREDIT_CONFIGS[canonicalCode];
 
   return (
     <div className="w-full min-h-screen py-8 sm:py-12">
@@ -190,10 +192,17 @@ export default async function ProgrammeSemestersPage({ params: paramsPromise, se
               </span>
             </div>
             <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
-              <span className="block text-xs text-slate-500">Total Credits</span>
+              <span className="block text-xs text-slate-500">Degree Credits</span>
               <span className="text-base font-bold text-slate-900">
-                {totalCreditsCount.toFixed(1)} Credits
+                {creditConfig?.officialDegreeCredits
+                  ? `${creditConfig.officialDegreeCredits.toFixed(1)} Credits`
+                  : `${totalCreditsCount.toFixed(1)} Credits`}
               </span>
+              {creditConfig?.officialDegreeCredits && totalCreditsCount > creditConfig.officialDegreeCredits && (
+                <span className="block text-[10px] text-slate-500 font-medium mt-0.5">
+                  ({totalCreditsCount.toFixed(1)} in course pool)
+                </span>
+              )}
             </div>
           </div>
 
@@ -299,8 +308,17 @@ export default async function ProgrammeSemestersPage({ params: paramsPromise, se
                       {/* Breakdown */}
                       <div className="space-y-1.5 text-xs text-slate-600 mb-5">
                         <div className="flex items-center justify-between py-1 border-b border-slate-100">
-                          <span className="text-slate-500">Total Credits:</span>
-                          <strong className="text-slate-900 font-semibold">{totalCredits.toFixed(1)}</strong>
+                          <span className="text-slate-500">
+                            {creditConfig?.semesters?.[sem.semesterNumber] ? "Prescribed Credits:" : "Total Credits:"}
+                          </span>
+                          <strong className="text-slate-900 font-semibold">
+                            {(creditConfig?.semesters?.[sem.semesterNumber]?.prescribedCredits || totalCredits).toFixed(1)}
+                            {creditConfig?.semesters?.[sem.semesterNumber] && totalCredits > creditConfig.semesters[sem.semesterNumber].prescribedCredits && (
+                              <span className="text-[10px] font-normal text-slate-400 ml-1">
+                                (pool: {totalCredits.toFixed(1)})
+                              </span>
+                            )}
+                          </strong>
                         </div>
                         <div className="flex items-center justify-between py-1 border-b border-slate-100">
                           <span className="text-slate-500">Course Breakdown:</span>
@@ -312,6 +330,11 @@ export default async function ProgrammeSemestersPage({ params: paramsPromise, se
                           <div className="flex items-center justify-between py-1 border-b border-slate-100 text-amber-700">
                             <span>Electives Available:</span>
                             <span className="font-semibold">{electiveCount} Courses</span>
+                          </div>
+                        )}
+                        {creditConfig?.semesters?.[sem.semesterNumber]?.electiveRule && (
+                          <div className="p-2 mt-1 rounded bg-blue-50/70 border border-blue-200 text-[11px] text-blue-900 font-medium leading-tight">
+                            {creditConfig.semesters[sem.semesterNumber].electiveRule}
                           </div>
                         )}
                       </div>

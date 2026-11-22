@@ -1,0 +1,145 @@
+[
+  {
+    "candidateId": "EX-01",
+    "subjectCode": "MCS-101",
+    "title": "Computer Architecture by Prof. Onur Mutlu (CMU / ETH Zurich)",
+    "url": "https://www.youtube.com/playlist?list=PL5Q2soXY2Zi8J7U_N5y_9iE_oI4qR4XfE",
+    "provider": "Onur Mutlu Lectures",
+    "rejectionReason": "Dead YouTube playlist — YouTube returns 'The playlist does not exist.'",
+    "actionTaken": "REPLACE",
+    "replacementResourceId": "RES-VID-003",
+    "source": "Report B - Existing Resource Audit"
+  },
+  {
+    "candidateId": "EX-03",
+    "subjectCode": "MCS-101",
+    "title": "Carnegie Mellon 18-447: Computer Architecture Lecture Notes",
+    "url": "https://safari.ethz.ch/architecture/fall2025/doku.php?id=start",
+    "provider": "Carnegie Mellon University (CMU)",
+    "rejectionReason": "Unreachable via automated browse; provider label says CMU while URL points to ETH Zurich.",
+    "actionTaken": "REPLACE",
+    "replacementResourceId": "RES-NOTE-001",
+    "source": "Report B - Existing Resource Audit"
+  },
+  {
+    "candidateId": "EX-05",
+    "subjectCode": "MCS-102",
+    "title": "Discrete Mathematics Foundations - Gate Smashers",
+    "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiH2wwES9vPWsEL6ipTaUSl3",
+    "provider": "GATE Smashers",
+    "rejectionReason": "Topical mismatch: MCS-102 syllabus covers Automata, CFGs, PDAs & Turing Machines, not Discrete Math.",
+    "actionTaken": "REPLACE",
+    "replacementResourceId": "RES-VID-004",
+    "source": "Report B - Existing Resource Audit"
+  },
+  {
+    "candidateId": "EX-10",
+    "subjectCode": "MCS-201",
+    "title": "Database Design and Management Course - Full Tutorial",
+    "url": "https://www.youtube.com/watch?v=HXV3zeQKqGY",
+    "provider": "freeCodeCamp.org",
+    "rejectionReason": "Academic level mismatch: beginner 4h20m SQL tutorial unsuitable for M.Tech Advanced DBMS.",
+    "actionTaken": "REPLACE",
+    "replacementResourceId": "RES-VID-012",
+    "source": "Report B - Existing Resource Audit"
+  },
+  {
+    "candidateId": "EX-12",
+    "subjectCode": "MCS-201",
+    "title": "Stanford Online: Databases and Relational Query Languages",
+    "url": "https://online.stanford.edu/courses/soe-ydatabases-databases-relational-databases-and-sql",
+    "provider": "Stanford Online",
+    "rejectionReason": "Unreachable via automated browse; introductory scope.",
+    "actionTaken": "REPLACE",
+    "replacementResourceId": "RES-NOTE-006",
+    "source": "Report B - Existing Resource Audit"
+  },
+  {
+    "candidateId": "EX-14",
+    "subjectCode": "MCS-201",
+    "title": "W3Schools: Interactive SQL Reference",
+    "url": "https://www.w3schools.com/sql/",
+    "provider": "W3Schools",
+    "rejectionReason": "Blocked on automated fetch and too elementary for postgraduate M.Tech Advanced DBMS.",
+    "actionTaken": "REMOVE",
+    "replacementResourceId": "RES-NOTE-006",
+    "source": "Report B - Existing Resource Audit"
+  },
+  {
+    "candidateId": "EX-18",
+    "subjectCode": "MCS-322",
+    "title": "Algorithms Lecture Series by Abdul Bari",
+    "url": "https://www.youtube.com/playlist?list=PLDN4rrl48X7Z7nr_O3Pkyz9tkg0gN1N7E",
+    "provider": "Abdul Bari",
+    "rejectionReason": "Dead YouTube playlist — YouTube returns 'The playlist does not exist.'",
+    "actionTaken": "REPLACE",
+    "replacementResourceId": "RES-VID-021",
+    "source": "Report B - Existing Resource Audit"
+  },
+  {
+    "candidateId": "EX-23",
+    "subjectCode": "MCS-322",
+    "title": "Stanford Online: Algorithms Specialization Notes",
+    "url": "https://online.stanford.edu/courses/soe-ycsalgorithms1-algorithms-design-and-analysis-part-1",
+    "provider": "Stanford Online / edX",
+    "rejectionReason": "Paid after free trial on edX — violates free-access requirement.",
+    "actionTaken": "REMOVE",
+    "replacementResourceId": "RES-NOTE-021",
+    "source": "Report B - Existing Resource Audit"
+  },
+  {
+    "candidateId": "EX-24",
+    "subjectCode": "BCS201 / BCSAI 103",
+    "title": "CS50 2023 - Lecture 1 - C (Block 1 in seed-curated-cse-resources.js)",
+    "url": "https://www.youtube.com/watch?v=4XpnKVfyG_U",
+    "provider": "CS50",
+    "rejectionReason": "Dead/invalid YouTube video ID (4XpnKVfyG_U returned empty metadata from YouTube API).",
+    "actionTaken": "REPLACE",
+    "replacementResourceId": "RES-VID-023",
+    "source": "Report B - Existing Resource Audit"
+  },
+  {
+    "candidateId": "EX-25",
+    "subjectCode": "BCS-301 / BCSAI 303",
+    "title": "Data Structures and Algorithms by Abdul Bari",
+    "url": "https://www.youtube.com/playlist?list=PLDN4rrl48X7Z7nr_03Pkyz9tkg0gN1N7E",
+    "provider": "Abdul Bari",
+    "rejectionReason": "Dead YouTube playlist ID duplicated across Block 2 (BCS-301/BCSAI 303) and Block 3 (BCS-402/BCSAI 401/MCS-322).",
+    "actionTaken": "REPLACE",
+    "replacementResourceId": "RES-VID-022",
+    "source": "Report B - Existing Resource Audit"
+  },
+  {
+    "candidateId": "REJ-EXT-01",
+    "subjectCode": "MCS-102",
+    "title": "Discrete Mathematics Foundations - Gate Smashers",
+    "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiFM9Mo364Qmtv68AqzQKvWV",
+    "provider": "GATE Smashers",
+    "rejectionReason": "Curriculum mismatch: MCS-102 at Invertis is Theory of Computation / Formal Languages, not Discrete Math propositional logic.",
+    "actionTaken": "REPLACE",
+    "replacementResourceId": "RES-VID-004",
+    "source": "Gemini Discrepancy DISC-01"
+  },
+  {
+    "candidateId": "REJ-EXT-03",
+    "subjectCode": "BCS201",
+    "title": "CS50 2023 - Lecture 1 - C",
+    "url": "https://www.youtube.com/watch?v=4XpnKVfyG_U",
+    "provider": "CS50",
+    "rejectionReason": "Dead YouTube link — YouTube returns Video Unavailable.",
+    "actionTaken": "REPLACE",
+    "replacementResourceId": "RES-VID-023",
+    "source": "Report B Block 1 Audit"
+  },
+  {
+    "candidateId": "REJ-EXT-05",
+    "subjectCode": "MCS-322",
+    "title": "Stanford Online: Algorithms Specialization Notes",
+    "url": "https://online.stanford.edu/courses/soe-ycs0001-algorithms-specialization",
+    "provider": "Stanford Online / edX",
+    "rejectionReason": "Paywalled / subscription required for full access beyond promotional syllabus.",
+    "actionTaken": "REMOVE",
+    "replacementResourceId": "RES-NOTE-021",
+    "source": "Report B Open Access Standard"
+  }
+]

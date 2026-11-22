@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invertis Learn — Combined Master Academic Resource &amp; Engineering Implementation Final Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #ffffff;
+  --bg-slate: #f8fafc;
+  --band: #f1f5f9;
+  --ink: #0f172a;
+  --mute: #475569;
+  --border: #e2e8f0;
+  --accent: #1e3a8a;
+  --accent-light: #eff6ff;
+  --emerald: #047857;
+  --emerald-bg: #ecfdf5;
+  --emerald-border: #a7f3d0;
+  --rose: #be123c;
+  --rose-bg: #fff1f2;
+  --amber: #b45309;
+  --amber-bg: #fffbeb;
+  --purple: #6d28d9;
+  --purple-bg: #f5f3ff;
+  --radius: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-slate);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 14.5px;
+  padding: 40px clamp(16px, 5vw, 64px) 80px;
+}
+.site-container { max-width: 1200px; margin: 0 auto; }
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--ink); }
+code, pre, .mono { font-family: 'IBM Plex Mono', monospace; }
+a { color: var(--accent); text-decoration: none; font-weight: 500; }
+a:hover { text-decoration: underline; }
+
+/* Header & Hero */
+.header-hero {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 36px;
+  margin-bottom: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.pill-emerald { background: var(--emerald-bg); color: var(--emerald); border: 1px solid var(--emerald-border); }
+.pill-blue { background: var(--accent-light); color: var(--accent); border: 1px solid #bfdbfe; }
+.pill-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid #fde68a; }
+
+/* Metric Strip */
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 24px 0 0 0;
+}
+.metric-card {
+  background: var(--bg-slate);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+.metric-card .label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--mute); margin-bottom: 4px; display: block; }
+.metric-card .value { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: var(--ink); }
+
+/* Section Styling */
+.section-block {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 28px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.section-title { font-size: 20px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+.section-desc { font-size: 13.5px; color: var(--mute); margin-bottom: 20px; line-height: 1.5; }
+
+/* Table Styling */
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+th { background: #f1f5f9; padding: 10px 14px; text-align: left; font-weight: 600; color: var(--mute); font-size: 11px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+td { padding: 12px 14px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+tr:hover td { background: #fafbfc; }
+
+/* Gravitas Evidence Box */
+.terminal-box {
+  background: #0f172a;
+  color: #f8fafc;
+  border-radius: 10px;
+  padding: 20px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+.term-pass { color: #34d399; font-weight: bold; }
+.term-head { color: #38bdf8; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="site-container">
+
+  <!-- Header & Metadata Hero -->
+  <header class="header-hero">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+      <div>
+        <div style="display:flex; gap:8px; margin-bottom:12px;">
+          <span class="badge-pill pill-emerald">GRAVITAS Standard: Verified</span>
+          <span class="badge-pill pill-blue">Branch: feature/academic-resource-integrity-and-management</span>
+        </div>
+        <h1>Invertis Learn — Combined Academic Resource &amp; Engineering Master Implementation Report</h1>
+        <p style="color:var(--mute); font-size:14px; margin-top:6px;">
+          Comprehensive reconciliation of Report A &amp; Report B, resolution of all 8 academic discrepancies (DISC-01..DISC-08), master resource registry seeding, zero-iframe video architecture, and curator management portal.
+        </p>
+      </div>
+      <div style="text-align:right; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--mute);">
+        <div>Platform: <a href="https://invertislearn.vercel.app/" target="_blank">invertislearn.vercel.app</a></div>
+        <div>Audited: 22 Nov 2026</div>
+        <div>Commit: feature/academic-resource-integrity</div>
+      </div>
+    </div>
+
+    <!-- Metric Strip -->
+    <div class="metric-grid">
+      <div class="metric-card">
+        <span class="label">Canonical Subjects</span>
+        <div class="value">378</div>
+        <span style="font-size:11px; color:var(--emerald);">Sem 1 Duplicate BCS201 Removed</span>
+      </div>
+      <div class="metric-card">
+        <span class="label">Academic Discrepancies</span>
+        <div class="value" style="color:var(--emerald);">8 / 8 (100%)</div>
+        <span style="font-size:11px; color:var(--mute);">DISC-01 to DISC-08 Resolved</span>
+      </div>
+      <div class="metric-card">
+        <span class="label">Curated Resources</span>
+        <div class="value">79</div>
+        <span style="font-size:11px; color:var(--mute);">24 Core Subjects Mapped</span>
+      </div>
+      <div class="metric-card">
+        <span class="label">Academic Uploads Preserved</span>
+        <div class="value" style="color:var(--purple);">492 (100%)</div>
+        <span style="font-size:11px; color:var(--mute);">Zero Uploads Mutated</span>
+      </div>
+      <div class="metric-card">
+        <span class="label">Video Player Iframes</span>
+        <div class="value" style="color:var(--emerald);">0</div>
+        <span style="font-size:11px; color:var(--mute);">Pure External Links Only</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Section 1: Executive Overview & Reconciliation -->
+  <section class="section-block">
+    <h2 class="section-title">1. Executive Overview &amp; Audit Reconciliation</h2>
+    <p class="section-desc">
+      Report A (ChatGPT live website audit) and Report B (Gemini GitHub codebase audit) have been unified into a single canonical source of truth. All contradictions between live site presentations and official Invertis University regulations have been resolved in favor of official university syllabus PDFs.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Audit Parameter</th>
+          <th>Report A (Live Audit)</th>
+          <th>Report B (GitHub Codebase)</th>
+          <th>Canonical Reconciled State</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Subject Inventory</strong></td>
+          <td>379 subjects listed on site</td>
+          <td>379 subjects in catalogue</td>
+          <td><strong>378 canonical subjects</strong> (duplicate BCS201 eliminated from Sem 1)</td>
+        </tr>
+        <tr>
+          <td><strong>M.Tech Degree Credits</strong></td>
+          <td>122.0 credits (electives summed)</td>
+          <td>Flagged elective inflation</td>
+          <td><strong>78.0 prescribed degree credits</strong> (Session 2023-24 official scheme)</td>
+        </tr>
+        <tr>
+          <td><strong>Ph.D. Coursework Credits</strong></td>
+          <td>24.0 credits (all electives summed)</td>
+          <td>Flagged 16 credit ordinance rule</td>
+          <td><strong>16.0 required credits</strong> (Core + 1 Departmental Elective)</td>
+        </tr>
+        <tr>
+          <td><strong>Video Lectures Delivery</strong></td>
+          <td>Mixed embed proposals</td>
+          <td>Iframes in video section</td>
+          <td><strong>External Links Only</strong> with target="_blank" rel="noopener noreferrer"</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Section 2: Discrepancy Resolution Matrix (DISC-01 to DISC-08) -->
+  <section class="section-block">
+    <h2 class="section-title">2. Complete Academic Discrepancy Resolution Matrix (DISC-01 to DISC-08)</h2>
+    <p class="section-desc">
+      Detailed audit trace and resolution outcome for all 8 academic discrepancies identified across programmes.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Programme</th>
+          <th>Issue Description</th>
+          <th>Official University Source</th>
+          <th>Resolution Action</th>
+          <th>Verdict</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="mono">DISC-01</span></td>
+          <td>MTECH-CSE</td>
+          <td>Outdated titles for MCS-102..MCS-105 on course index</td>
+          <td>Official 2023-24 M.Tech PDF (4451imguf_mtech-cse.pdf)</td>
+          <td>Updated titles in catalogue.json: MCS-102 (Foundation of Computer Science), MCS-103 (Advanced Computer Networks), MCS-104 (Distributed Systems), MCS-105 (Cloud Computing).</td>
+          <td><span class="badge-pill pill-emerald">PASS</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">DISC-02</span></td>
+          <td>MTECH-CSE</td>
+          <td>Total credits showed 122.0 by summing all elective baskets</td>
+          <td>2023-24 M.Tech PDF sets degree total to exactly 78.0 credits</td>
+          <td>Implemented <code>PROGRAMME_CREDIT_CONFIGS</code> in <code>academic-credits.ts</code>. Displays 78.0 Prescribed Credits with separate elective pool.</td>
+          <td><span class="badge-pill pill-emerald">PASS</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">DISC-03</span></td>
+          <td>PHD-009</td>
+          <td>Displays 24.0 credits by summing all 3 electives; omitted official book lists</td>
+          <td>Ph.D. Ordinance Clause 5.1 specifies 8–16 credits (16 with 1 elective)</td>
+          <td>Configured 16.0 required coursework credits; restored official textbook lists for PhDCS 103, 104, 105.</td>
+          <td><span class="badge-pill pill-emerald">PASS</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">DISC-04</span></td>
+          <td>BTECH-CSE</td>
+          <td>BCS201 accidentally duplicated in Semester I and Semester II</td>
+          <td>1st-Year B.Tech PDF (2315imguf_B.Tech.CSE1year.pdf)</td>
+          <td>Removed duplicate BCS201 entry (cmw12ph0r00013r89j4xd6cy8) from Sem 1. Canonical subject preserved in Sem 2.</td>
+          <td><span class="badge-pill pill-emerald">PASS</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">DISC-05</span></td>
+          <td>BTECH-CSE</td>
+          <td>Conflicting university PDFs: IIOT1/IIOT2 titles, BAS-301 COs, BCS-404 credits</td>
+          <td>2nd-Year B.Tech PDF (2316imguf_B.Tech.CSE2year.pdf)</td>
+          <td>Preserved CSE-specific titles; registered transparent curator errata notices via <code>OFFICIAL_SYLLABUS_ERRATA</code>.</td>
+          <td><span class="badge-pill pill-emerald">PASS</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">DISC-06</span></td>
+          <td>DIP-CSE</td>
+          <td>Digital Electronics Lab code mismatch (DEC351 in scheme vs DCS-351 in syllabus)</td>
+          <td>Diploma CSE PDF (cse-diploma-second.pdf)</td>
+          <td>Standardized display as DEC351 (alias DCS-351); added bidirectional search and routing alias resolution.</td>
+          <td><span class="badge-pill pill-emerald">PASS</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">DISC-07</span></td>
+          <td>PHD-009</td>
+          <td>Typographic misspellings inherited from official PDF ("Peremption Ceiling Protocol")</td>
+          <td>Official Ph.D. CSE syllabus PDF</td>
+          <td>Normalized spelling in <code>syllabusDetails</code> to "Preemption Ceiling Protocol" and "flexible constraints".</td>
+          <td><span class="badge-pill pill-emerald">PASS</span></td>
+        </tr>
+        <tr>
+          <td><span class="mono">DISC-08</span></td>
+          <td>MTECH-CSE</td>
+          <td>Subject code hyphenation inconsistency (MCS351, MCS393 vs MCS-394)</td>
+          <td>Official university scheme format</td>
+          <td>Implemented <code>getSubjectCodeVariants()</code> in <code>academic-credits.ts</code> to resolve both hyphenated and unhyphenated queries.</td>
+          <td><span class="badge-pill pill-emerald">PASS</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Section 3: Verified Resource Registry & Architecture -->
+  <section class="section-block">
+    <h2 class="section-title">3. Curated Resource Registry &amp; Architecture</h2>
+    <p class="section-desc">
+      79 multi-format resources were ingested and mapped across 24 core CSE subjects.
+    </p>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:16px;">
+      <div style="background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:16px;">
+        <h4 style="font-size:13px; color:var(--accent); margin-bottom:8px;">Zero Embedded Video Players</h4>
+        <p style="font-size:12px; color:var(--mute); line-height:1.5;">
+          All embedded YouTube iframes have been eradicated. Videos are displayed as lightweight metadata cards with direct links opening in a new tab with <code>rel="noopener noreferrer"</code>.
+        </p>
+      </div>
+
+      <div style="background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:16px;">
+        <h4 style="font-size:13px; color:var(--emerald); margin-bottom:8px;">Prioritized Channel Curation</h4>
+        <p style="font-size:12px; color:var(--mute); line-height:1.5;">
+          Video series prioritize high-clarity Indian and international educators: <strong>GATE Smashers</strong> (Varun Singla), <strong>Knowledge Gate</strong> (Sanchit Jain), and <strong>NPTEL / IIT</strong> faculty.
+        </p>
+      </div>
+
+      <div style="background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:16px;">
+        <h4 style="font-size:13px; color:var(--purple); margin-bottom:8px;">Strict Notes Separation</h4>
+        <p style="font-size:12px; color:var(--mute); line-height:1.5;">
+          University community/faculty notes (Section 6) and third-party external courseware (Section 10) are visually and logically segregated with distinctive styling and provenance labels.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Curator Dashboard & Continuous Monitoring -->
+  <section class="section-block">
+    <h2 class="section-title">4. Curator Dashboard Extension &amp; Scheduled Monitoring</h2>
+    <p class="section-desc">
+      A dedicated Academic Resource Manager has been added to <code>/admin</code> to give curators complete operational control over all 79 tracked resources.
+    </p>
+
+    <ul style="font-size:13px; color:var(--mute); line-height:1.8; margin-left:20px; margin-bottom:16px;">
+      <li><strong>Filter &amp; Audit:</strong> Real-time filtering by programme, format, verification status, and search query.</li>
+      <li><strong>Live Outbound Probing:</strong> Curators can trigger an immediate SSRF-guarded HEAD check on any resource.</li>
+      <li><strong>URL Replacement:</strong> Broken or dead video/playlist links can be updated directly from the modal interface.</li>
+      <li><strong>Automated Scheduled Monitoring:</strong> <code>scripts/monitor-resource-health.js</code> runs weekly via GitHub Action <code>.github/workflows/academic-resource-health.yml</code>.</li>
+      <li><strong>Student Broken Link Reporting:</strong> Student submissions from the subject page flag dead links for instant curator review.</li>
+    </ul>
+  </section>
+
+  <!-- Section 5: Executable Acceptance Suite Proof -->
+  <section class="section-block">
+    <h2 class="section-title">5. Gravitas Acceptance Suite Evidence</h2>
+    <p class="section-desc">
+      Deterministic execution proof from <code>scripts/verify-curated-cse-resources.js</code>:
+    </p>
+
+    <div class="terminal-box">
+<span class="term-head">==================================================================</span><br>
+<span class="term-head">  INVERTIS LEARN — ACADEMIC RESOURCE &amp; SYLLABUS INTEGRITY SUITE</span><br>
+<span class="term-head">==================================================================</span><br><br>
+Test Group 1: Video Delivery Architecture &amp; Zero Iframe Policy<br>
+  <span class="term-pass">[PASS]</span> Zero embedded iframe video players — All video players removed in favor of external links<br>
+  <span class="term-pass">[PASS]</span> Secure external link attributes — All video lecture links open in new tab with noopener noreferrer<br>
+  <span class="term-pass">[PASS]</span> Channel prioritization verified — Prominently surfaces GATE Smashers and Knowledge Gate<br><br>
+Test Group 2: Academic Discrepancies Resolution (DISC-01 to DISC-08)<br>
+  <span class="term-pass">[PASS]</span> DISC-01: M.Tech Sem I subject titles — MCS-102..MCS-105 match official 2023-24 curriculum<br>
+  <span class="term-pass">[PASS]</span> DISC-02: M.Tech 78 prescribed degree credits — Reconciled 78 degree credits vs elective pool in academic-credits.ts<br>
+  <span class="term-pass">[PASS]</span> DISC-03: Ph.D. 16 prescribed coursework credits — Reconciled 16 coursework credits (Core + 1 Elective)<br>
+  <span class="term-pass">[PASS]</span> DISC-04: Duplicate BCS201 eliminated — BCS201 removed from Sem 1 and preserved canonically in Sem 2<br>
+  <span class="term-pass">[PASS]</span> DISC-05: Documented university errata notices — Curator notices registered for IIOT1, IIOT2, BAS-301, BCS-404<br>
+  <span class="term-pass">[PASS]</span> DISC-06 &amp; DISC-08: Subject code aliases — DEC351 &lt;-&gt; DCS-351 and MCS351 &lt;-&gt; MCS-351 configured<br>
+  <span class="term-pass">[PASS]</span> DISC-07: PhDCS 105 spelling corrected — "Preemption Ceiling Protocol" and constraints normalized<br><br>
+Test Group 3: Canonical Datasets in data/academic-resources/<br>
+  <span class="term-pass">[PASS]</span> Dataset resource-registry.json — Valid JSON array with 79 entries<br>
+  <span class="term-pass">[PASS]</span> Dataset subject-resource-mappings.json — Valid JSON array with 24 entries<br>
+  <span class="term-pass">[PASS]</span> Dataset existing-resource-actions.json — Valid JSON array with 28 entries<br>
+  <span class="term-pass">[PASS]</span> Dataset rejected-resource-candidates.json — Valid JSON array with 13 entries<br>
+  <span class="term-pass">[PASS]</span> Dataset uncovered-syllabus-topics.json — Valid JSON array with 6 entries<br><br>
+Test Group 4: SSRF Protection &amp; Security Invariants<br>
+  <span class="term-pass">[PASS]</span> SSRF protection in admin academic resource API — Loopback, private ranges, and cloud metadata blocked<br><br>
+Test Group 5: Academic Practical Eligibility Isolation<br>
+  <span class="term-pass">[PASS]</span> Centralized practical classification service — Enforces strict theory vs lab separation<br><br>
+<span class="term-head">==================================================================</span><br>
+<span class="term-head">  SUITE SUMMARY: 17 Passed, 0 Failed (17 Total)</span><br>
+<span class="term-head">==================================================================</span><br><br>
+<span class="term-pass">VERDICT: PASS</span>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

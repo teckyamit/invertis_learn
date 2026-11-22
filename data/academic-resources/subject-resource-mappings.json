@@ -1,0 +1,1859 @@
+[
+  {
+    "programmeId": "PHD-009",
+    "programmeName": "Ph.D. in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 1,
+    "subjectCode": "PhD-032",
+    "subjectName": "Advance Research Studies in Computer Engineering",
+    "academicLevel": "Doctoral",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/PHD-009/semester/1/PhD-032",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/pdf-course-structure/doctoral/cse-first-year-Syllabus.pdf",
+    "units": [
+      {
+        "unit": "Module I",
+        "title": "Data Warehouse and Mining",
+        "topics": [
+          "Data Warehousing Components & Multiprocessor Mapping",
+          "DBMS Schemas for Decision Support",
+          "Decision Trees, Neural Networks, Clustering, Genetic Algorithms & Rule Induction"
+        ]
+      },
+      {
+        "unit": "Module II",
+        "title": "Advance Computer Network & Ad-hoc Networks",
+        "topics": [
+          "Next-Gen IP, TCP High-Speed Extensions & SCTP",
+          "P2P Overlay Networks",
+          "Mobile IP, Mobile TCP & MANET Routing"
+        ]
+      },
+      {
+        "unit": "Module III",
+        "title": "Simulation & Computing Tools",
+        "topics": [
+          "Introduction to MATLAB",
+          "Introduction to NS-2"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Zero existing video lectures or external notes ('Video Lectures Under Academic Mapping').",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-034",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-035",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-015",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module II"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-036",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module II",
+          "Module III"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-020",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module I"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-008",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module II"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-022",
+        "section": "practical_resources",
+        "coveredUnits": [
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "HIGH COVERAGE",
+    "uncoveredTopics": [
+      "Dedicated free MATLAB academic starter manual (MathWorks Onramp requires free registration)"
+    ],
+    "recommendedChanges": "Add all 7 verified resources; keep NS-2 manual under Practical/Tools; add official textbook list from Ph.D. PDF."
+  },
+  {
+    "programmeId": "PHD-009",
+    "programmeName": "Ph.D. in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 1,
+    "subjectCode": "PhD-SEM",
+    "subjectName": "Doctoral Seminar & Research Literature Survey",
+    "academicLevel": "Doctoral",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/PHD-009/semester/1/PhD-SEM",
+    "syllabusSourceUrl": "https://invertislearn.vercel.app/syllabus/PHD-009/semester/1/PhD-SEM",
+    "units": [
+      {
+        "unit": "Unit 1",
+        "title": "Literature Survey & Seminar Defense",
+        "topics": [
+          "Review of 30–50 peer-reviewed papers",
+          "State-of-the-art survey & comparative taxonomy",
+          "Oral defense before Research Advisory Committee (RAC)"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Zero existing video lectures or external notes.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-037",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-038",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-023",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit 1"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "Add NPTEL Literature Survey lectures and PRISMA 2020 Statement; align seminar type badge consistently."
+  },
+  {
+    "programmeId": "PHD-009",
+    "programmeName": "Ph.D. in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 1,
+    "subjectCode": "PhDCS 103",
+    "subjectName": "Software Project Management",
+    "academicLevel": "Doctoral",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/PHD-009/semester/1/PhDCS%20103",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/pdf-course-structure/doctoral/cse-first-year-Syllabus.pdf",
+    "units": [
+      {
+        "unit": "Module I",
+        "title": "Project Overview, Planning & Estimation",
+        "topics": [
+          "PMI Processes, Project Charter & SOW",
+          "Lifecycle Models & WBS",
+          "Estimation, Budgeting, NPV, ROI & Payback"
+        ]
+      },
+      {
+        "unit": "Module II",
+        "title": "Scheduling, Risk & Development Management",
+        "topics": [
+          "Network Diagrams, PERT, Gantt & Critical Chain",
+          "Risk & Change Control",
+          "Team Models, Configuration Management & Metrics"
+        ]
+      },
+      {
+        "unit": "Module III",
+        "title": "Project Control, Testing & Final Phases",
+        "topics": [
+          "Earned Value Analysis & Resource Leveling",
+          "Black/White Box & Acceptance Testing",
+          "Project Recovery, Cutover & Post-Project Reviews"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Zero existing video lectures or external notes; missing 8 official reference books.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-039",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-040",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-024",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "HIGH COVERAGE",
+    "uncoveredTopics": [
+      "MS-Project hands-on software walkthroughs (proprietary Microsoft tool)"
+    ],
+    "recommendedChanges": "Add NPTEL 106105218 full course portal and IIT KGP/Roorkee videos; restore 8 official reference books."
+  },
+  {
+    "programmeId": "PHD-009",
+    "programmeName": "Ph.D. in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 1,
+    "subjectCode": "PhDCS 104",
+    "subjectName": "Networking Protocols",
+    "academicLevel": "Doctoral",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/PHD-009/semester/1/PhDCS%20104",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/pdf-course-structure/doctoral/cse-first-year-Syllabus.pdf",
+    "units": [
+      {
+        "unit": "Module I",
+        "title": "OSI Model, TCP/IP & IP Routing",
+        "topics": [
+          "OSI Reference Model & TCP/IP Architecture",
+          "IP Routers, IP & UDP"
+        ]
+      },
+      {
+        "unit": "Module II",
+        "title": "Routing Cores, Multicast, ATM & Services",
+        "topics": [
+          "AS, EGP, Multicast & IGMP",
+          "TCP/IP over ATM & ATMARP",
+          "DNS, Telnet, FTP, SMTP, SNMP, Firewalls, POP & NNTP"
+        ]
+      },
+      {
+        "unit": "Module III",
+        "title": "Transport Layer & Socket Programming",
+        "topics": [
+          "TCP/UDP Sockets & I/O Multiplexing (select/poll)",
+          "Concurrent Client-Server Design",
+          "IPv4 Limitations, IPv6 & DHCP"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Zero existing video lectures or external notes; missing 5 official reference books.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-006",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-041",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-025",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-015",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module I",
+          "Module II"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "HIGH COVERAGE",
+    "uncoveredTopics": [
+      "Legacy TCP/IP over ATM / ATMARP cell transport (historically obsolete; limited modern free lectures)"
+    ],
+    "recommendedChanges": "Add NPTEL Advanced Networks, Socket Programming lecture, and Beej's Guide; restore 5 reference books."
+  },
+  {
+    "programmeId": "PHD-009",
+    "programmeName": "Ph.D. in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 1,
+    "subjectCode": "PhDCS 105",
+    "subjectName": "Real Time Systems",
+    "academicLevel": "Doctoral",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/PHD-009/semester/1/PhDCS%20105",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/pdf-course-structure/doctoral/cse-first-year-Syllabus.pdf",
+    "units": [
+      {
+        "unit": "Module I",
+        "title": "Task Models & Periodic Scheduling",
+        "topics": [
+          "Real-Time Performance Measures",
+          "Periodic & Sporadic Task Models",
+          "Fixed vs Dynamic Priority & Schedulability Tests"
+        ]
+      },
+      {
+        "unit": "Module II",
+        "title": "Aperiodic & Sporadic Scheduling",
+        "topics": [
+          "Deferrable & Sporadic Servers",
+          "Slack Stealing & Two-Level Integrated Scheduling"
+        ]
+      },
+      {
+        "unit": "Module III",
+        "title": "Resource Access Control & RT Communication",
+        "topics": [
+          "Priority Inheritance & Priority Ceiling Protocols",
+          "Multiprocessor RT Scheduling",
+          "Weighted Round Robin & RT MAC Protocols"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Zero existing video lectures or external notes; syllabus body contains typos inherited from official PDF.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-042",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-043",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-026",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-027",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module I",
+          "Module III"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "HIGH COVERAGE",
+    "uncoveredTopics": [
+      "Dedicated video lecture on two-level integrated scheduling for flexible constraints"
+    ],
+    "recommendedChanges": "Add IIT Kharagpur RTOS videos and CMU/Yale PDFs; fix 'Peremption' -> 'Preemption' typo."
+  },
+  {
+    "programmeId": "PHD-009",
+    "programmeName": "Ph.D. in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 1,
+    "subjectCode": "PhDRM 101",
+    "subjectName": "Research Methodology",
+    "academicLevel": "Doctoral",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/PHD-009/semester/1/PhDRM%20101",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/pdf/ph.d-ordinance.pdf",
+    "units": [
+      {
+        "unit": "Unit I",
+        "title": "Foundations & Objectives of Research",
+        "topics": [
+          "Types of Research",
+          "Criteria of Good Scientific Research"
+        ]
+      },
+      {
+        "unit": "Unit II",
+        "title": "Problem Formulation & Literature Survey",
+        "topics": [
+          "PRISMA Framework",
+          "Null & Alternate Hypotheses",
+          "Sampling & Measurement Errors"
+        ]
+      },
+      {
+        "unit": "Unit III",
+        "title": "Data Analysis & Statistical Inference",
+        "topics": [
+          "Descriptive Statistics",
+          "t-test, z-test, ANOVA, Mann-Whitney, Kruskal-Wallis, Chi-square",
+          "Regression in R & Python"
+        ]
+      },
+      {
+        "unit": "Unit IV",
+        "title": "Scholarly Dissemination & LaTeX",
+        "topics": [
+          "IMRaD Paper Structure",
+          "Zotero, Mendeley & BibTeX",
+          "Overleaf & LaTeX Typesetting"
+        ]
+      },
+      {
+        "unit": "Unit V",
+        "title": "IPR & Academic Integrity",
+        "topics": [
+          "Patents, Copyrights, Trademarks & Trade Secrets",
+          "Indian & PCT Patent Filing",
+          "Plagiarism Metrics (Turnitin/Urkund)"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Zero existing video lectures or external notes.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-017",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit I",
+          "Unit II",
+          "Unit III",
+          "Unit IV"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-010",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit I",
+          "Unit II",
+          "Unit III",
+          "Unit IV"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-029",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit I",
+          "Unit II",
+          "Unit III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-030",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit IV"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-031",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit V"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "Add NPTEL Research Methodology playlist/portal, USF open textbook, Overleaf LaTeX guide, and IP India Patent Manual."
+  },
+  {
+    "programmeId": "PHD-009",
+    "programmeName": "Ph.D. in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 1,
+    "subjectCode": "RPE 101",
+    "subjectName": "Research and Publication Ethics",
+    "academicLevel": "Doctoral",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/PHD-009/semester/1/RPE%20101",
+    "syllabusSourceUrl": "https://invertislearn.vercel.app/syllabus/PHD-009/semester/1/RPE%20101",
+    "units": [
+      {
+        "unit": "Module 1",
+        "title": "Philosophy, Ethics & Scientific Misconduct",
+        "topics": [
+          "Moral Philosophy & Professional Ethics",
+          "Fabrication, Falsification & Plagiarism (FFP)",
+          "Duplicate Publications & Salami Slicing"
+        ]
+      },
+      {
+        "unit": "Module 2",
+        "title": "Publication Ethics, Predatory Publishing & Metrics",
+        "topics": [
+          "COPE Guidelines",
+          "Predatory Journals (Think-Check-Submit)",
+          "Web of Science, Scopus, PubMed, Impact Factor, CiteScore, h-index & g-index"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Zero existing video lectures or external notes.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-044",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module 1",
+          "Module 2"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-045",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module 1",
+          "Module 2"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-032",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module 1",
+          "Module 2"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-033",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module 2"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-034",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module 2"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "Add SWAYAM Prabha RPE lecture, NPTEL Publication Ethics lecture, UGC E-Book, COPE Toolkit, and Think-Check-Submit checklist."
+  },
+  {
+    "programmeId": "MTECH-CSE",
+    "programmeName": "M.Tech in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 1,
+    "subjectCode": "MCS-101",
+    "subjectName": "Advanced Computer Architecture",
+    "academicLevel": "Postgraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/MTECH-CSE/semester/1/MCS-101",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/4451imguf_mtech-cse.pdf",
+    "units": [
+      {
+        "unit": "Module I",
+        "title": "Parallel Models & Pipelining",
+        "topics": [
+          "SIMD/MIMD Architectures",
+          "Instruction-Level Parallelism & Pipelining",
+          "RISC vs CISC"
+        ]
+      },
+      {
+        "unit": "Module II",
+        "title": "High-Performance Memory Hierarchy",
+        "topics": [
+          "Cache Coherence Protocols",
+          "Shared & Distributed Memory",
+          "Interconnection Networks"
+        ]
+      },
+      {
+        "unit": "Module III",
+        "title": "Multiprocessors & Vector Systems",
+        "topics": [
+          "Superscalar & VLIW Processors",
+          "Multithreaded & Multicore Architectures"
+        ]
+      }
+    ],
+    "existingVideos": 2,
+    "existingNotes": 2,
+    "existingAuditSummary": "1 dead YouTube playlist (Onur Mutlu old link), 1 unreachable ETH note link, 1 mislabeled UG NPTEL course (106103068), 1 working UG refresher (Gate Smashers).",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-001",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-003",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "replace"
+      },
+      {
+        "resourceId": "RES-VID-002",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-001",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "replace"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "REPLACE dead Onur Mutlu playlist with Fall 2025 URL; REPLACE broken ETH/mislabeled UG NPTEL notes with NPTEL 106103359; ADD NPTEL IITG & IITD playlists; KEEP Gate Smashers as refresher."
+  },
+  {
+    "programmeId": "MTECH-CSE",
+    "programmeName": "M.Tech in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 1,
+    "subjectCode": "MCS-102",
+    "subjectName": "Foundation of Computer Science",
+    "academicLevel": "Postgraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/MTECH-CSE/semester/1/MCS-102",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/4451imguf_mtech-cse.pdf",
+    "units": [
+      {
+        "unit": "Module I",
+        "title": "Finite Automata & Regular Languages",
+        "topics": [
+          "DFA, NFA & Regular Expressions",
+          "Pumping Lemma & Closure Properties"
+        ]
+      },
+      {
+        "unit": "Module II",
+        "title": "Context-Free Languages & Pushdown Automata",
+        "topics": [
+          "CFG, CNF & GNF",
+          "Pushdown Automata & Parsing"
+        ]
+      },
+      {
+        "unit": "Module III",
+        "title": "Turing Machines & Computability",
+        "topics": [
+          "Turing Machines & Recursive Functions",
+          "Decidability, Rice's Theorem & Undecidability"
+        ]
+      }
+    ],
+    "existingVideos": 1,
+    "existingNotes": 0,
+    "existingAuditSummary": "Index mislabels course as 'Advanced Operating Systems'; existing video is Discrete Mathematics (topical mismatch).",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-004",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "replace"
+      },
+      {
+        "resourceId": "RES-VID-005",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-002",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "FIX Sem 1 index title; REPLACE Discrete Math playlist with MIT 18.404J & Gate Smashers TOC; ADD MIT 18.404J OCW notes."
+  },
+  {
+    "programmeId": "MTECH-CSE",
+    "programmeName": "M.Tech in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 1,
+    "subjectCode": "MCS-104",
+    "subjectName": "Distributed Systems",
+    "academicLevel": "Postgraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/MTECH-CSE/semester/1/MCS-104",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/4451imguf_mtech-cse.pdf",
+    "units": [
+      {
+        "unit": "Module I",
+        "title": "Distributed Architectures & Communication",
+        "topics": [
+          "RPC, Threads & Message Passing",
+          "Logical Clocks & Election Algorithms"
+        ]
+      },
+      {
+        "unit": "Module II",
+        "title": "Consensus, Consistency & Replication",
+        "topics": [
+          "Paxos & Raft Consensus",
+          "Linearizability & Consistency Models"
+        ]
+      },
+      {
+        "unit": "Module III",
+        "title": "Fault Tolerance & Distributed File Systems",
+        "topics": [
+          "Distributed Commit, Recovery & Deadlocks",
+          "GFS & Distributed Storage"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Index mislabels course as 'Computer Networks'; zero videos or external notes populated.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-008",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-009",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-003",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "FIX Sem 1 index title; ADD MIT 6.824 playlist, NPTEL IIT Delhi playlist, and MIT PDOS course schedule/notes."
+  },
+  {
+    "programmeId": "MTECH-CSE",
+    "programmeName": "M.Tech in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 1,
+    "subjectCode": "MCS-105",
+    "subjectName": "Cloud Computing",
+    "academicLevel": "Postgraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/MTECH-CSE/semester/1/MCS-105",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/4451imguf_mtech-cse.pdf",
+    "units": [
+      {
+        "unit": "Module 1",
+        "title": "Cloud Architecture & Service Models",
+        "topics": [
+          "IaaS, PaaS, SaaS & Deployment Models",
+          "SOA & Cloud Economics"
+        ]
+      },
+      {
+        "unit": "Module 2",
+        "title": "Virtualization & Cloud Storage",
+        "topics": [
+          "Hypervisors, Containers & Docker",
+          "OpenStack, MapReduce & Cloud Storage"
+        ]
+      },
+      {
+        "unit": "Module 3",
+        "title": "Cloud Security & Advanced Paradigms",
+        "topics": [
+          "Cloud Security & SLA Management",
+          "Fog Computing & Cloud Migration"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Index mislabels course as 'Research Methodology'; zero videos or external notes populated.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-010",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module 1",
+          "Module 2",
+          "Module 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-011",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module 1",
+          "Module 2",
+          "Module 3"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-004",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module 1",
+          "Module 2",
+          "Module 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-005",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module 1",
+          "Module 2",
+          "Module 3"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "FIX Sem 1 index title; ADD NPTEL IIT Kanpur/Patna & Gate Smashers playlists plus NPTEL 106105167 & 106104182 portals."
+  },
+  {
+    "programmeId": "MTECH-CSE",
+    "programmeName": "M.Tech in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 2,
+    "subjectCode": "MCS-201",
+    "subjectName": "Advanced Database Systems",
+    "academicLevel": "Postgraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/MTECH-CSE/semester/2/MCS-201",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/4451imguf_mtech-cse.pdf",
+    "units": [
+      {
+        "unit": "Module I",
+        "title": "Query Processing, Optimization & Transactions",
+        "topics": [
+          "Query Execution & Cost-Based Optimization",
+          "Serializability, Concurrency Control & Recovery"
+        ]
+      },
+      {
+        "unit": "Module II",
+        "title": "Parallel & Distributed Databases",
+        "topics": [
+          "Parallel DBMS Architectures",
+          "Distributed Transactions & Replication"
+        ]
+      },
+      {
+        "unit": "Module III",
+        "title": "Modern Analytical & NoSQL Systems",
+        "topics": [
+          "Columnar Storage & OLAP Execution",
+          "Modern Database Internals"
+        ]
+      }
+    ],
+    "existingVideos": 2,
+    "existingNotes": 3,
+    "existingAuditSummary": "Beginner freeCodeCamp SQL tutorial (level mismatch), unreachable Stanford Online link, blocked/elementary W3Schools link; Gate Smashers & PostgreSQL docs work.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-012",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "replace"
+      },
+      {
+        "resourceId": "RES-VID-019",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I"
+        ],
+        "priority": "supplementary",
+        "recommendedAction": "keep"
+      },
+      {
+        "resourceId": "RES-NOTE-006",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "replace"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "REPLACE freeCodeCamp beginner video with CMU 15-721; REPLACE unreachable Stanford/W3Schools links with CMU 15-721 portal; KEEP PostgreSQL docs & Gate Smashers (Unit 1)."
+  },
+  {
+    "programmeId": "MTECH-CSE",
+    "programmeName": "M.Tech in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 2,
+    "subjectCode": "MCS-202",
+    "subjectName": "Parallel Computing",
+    "academicLevel": "Postgraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/MTECH-CSE/semester/2/MCS-202",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/4451imguf_mtech-cse.pdf",
+    "units": [
+      {
+        "unit": "Module I",
+        "title": "Parallel Hardware & Taxonomy",
+        "topics": [
+          "Flynn's Taxonomy, SIMD & Multi-core",
+          "UMA/NUMA & Interconnects"
+        ]
+      },
+      {
+        "unit": "Module II",
+        "title": "Synchronization & Scheduling",
+        "topics": [
+          "Cache Coherence & Memory Consistency",
+          "Work Distribution & Work Stealing"
+        ]
+      },
+      {
+        "unit": "Module III",
+        "title": "Parallel Algorithms & Applications",
+        "topics": [
+          "Prefix Sum, Reductions & Data Parallelism",
+          "Performance Scaling"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Zero existing video lectures or external notes.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-013",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-014",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-007",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "ADD Stanford CS149 playlist & course portal plus NPTEL Parallel Computer Architecture playlist."
+  },
+  {
+    "programmeId": "MTECH-CSE",
+    "programmeName": "M.Tech in Computer Science & Engineering",
+    "specialization": "CSE",
+    "semester": 3,
+    "subjectCode": "MCS-322",
+    "subjectName": "Design and Analysis of Algorithms",
+    "academicLevel": "Postgraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/MTECH-CSE/semester/3/MCS-322",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/4451imguf_mtech-cse.pdf",
+    "units": [
+      {
+        "unit": "Module I",
+        "title": "Asymptotic Analysis & Divide-and-Conquer",
+        "topics": [
+          "Recurrences & Master Theorem",
+          "Divide and Conquer"
+        ]
+      },
+      {
+        "unit": "Module II",
+        "title": "Greedy, Dynamic Programming & Graph Algorithms",
+        "topics": [
+          "Greedy Algorithms",
+          "Dynamic Programming",
+          "Shortest Paths & Spanning Trees"
+        ]
+      },
+      {
+        "unit": "Module III",
+        "title": "NP-Completeness & Approximation",
+        "topics": [
+          "P, NP, NP-Complete & Reductions",
+          "Approximation & Randomized Algorithms"
+        ]
+      }
+    ],
+    "existingVideos": 3,
+    "existingNotes": 3,
+    "existingAuditSummary": "1 dead YouTube playlist (Abdul Bari old ID), 1 paid edX link (Stanford), 4 working links (MIT 6.006, Gate Smashers, NPTEL 106106131, GfG).",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-021",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "replace"
+      },
+      {
+        "resourceId": "RES-NOTE-021",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Module I",
+          "Module II",
+          "Module III"
+        ],
+        "priority": "primary",
+        "recommendedAction": "keep"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "REPLACE dead Abdul Bari playlist with live ID PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O; REMOVE paid edX Stanford link; KEEP MIT 6.006, Gate Smashers, NPTEL 106106131, and GfG."
+  },
+  {
+    "programmeId": "BTECH-CSE",
+    "programmeName": "B.Tech in Computer Science & Engineering",
+    "specialization": "Core CSE (reusable in BTECH-CSE-CC & DIP-CSE)",
+    "semester": 3,
+    "subjectCode": "BCS-301",
+    "subjectName": "Data Structures",
+    "academicLevel": "Undergraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/3/BCS-301",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/2316imguf_B.Tech.CSE2year.pdf",
+    "units": [
+      {
+        "unit": "Unit 1",
+        "title": "Arrays, Linked Lists & Complexity",
+        "topics": [
+          "Asymptotic Analysis",
+          "Singly, Doubly & Circular Linked Lists",
+          "Garbage Collection & Compaction"
+        ]
+      },
+      {
+        "unit": "Unit 2",
+        "title": "Stacks, Recursion & Queues",
+        "topics": [
+          "Stack Operations, Infix/Postfix",
+          "Recursion (Binary Search, Towers of Hanoi)",
+          "Circular, Priority Queues & Deque"
+        ]
+      },
+      {
+        "unit": "Unit 3",
+        "title": "Trees & Graphs",
+        "topics": [
+          "Binary Trees, Traversals & BST",
+          "Threaded Trees, AVL Trees & B-Trees",
+          "BFS & DFS Graph Algorithms"
+        ]
+      },
+      {
+        "unit": "Unit 4",
+        "title": "Sorting & Searching",
+        "topics": [
+          "Bubble, Insertion, Selection, Quick, Merge & Heap Sort",
+          "Hashing & Searching"
+        ]
+      }
+    ],
+    "existingVideos": 3,
+    "existingNotes": 2,
+    "existingAuditSummary": "Populated on Invertis Learn (Abdul Bari, freeCodeCamp, Gate Smashers videos; MIT 6.006 & LeetCode links); BTECH-CSE Lab BCS-351 has 2 lab manuals.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-022",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3",
+          "Unit 4"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-012",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3",
+          "Unit 4"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "Verify existing Abdul Bari URL ID on BCS-301 matches live PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O; ADD Jenny's Lectures DSA playlist and Pat Morin's Open Data Structures textbook; reuse across DCS401 & BCSI303."
+  },
+  {
+    "programmeId": "BTECH-CSE",
+    "programmeName": "B.Tech in Computer Science & Engineering",
+    "specialization": "Core CSE (reusable in BTECH-CSE-CC & DIP-CSE)",
+    "semester": 3,
+    "subjectCode": "BCS-303",
+    "subjectName": "Digital Electronics",
+    "academicLevel": "Undergraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/3/BCS-303",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/2316imguf_B.Tech.CSE2year.pdf",
+    "units": [
+      {
+        "unit": "Unit 1",
+        "title": "Number Systems & Boolean Algebra",
+        "topics": [
+          "Number Conversions & Logic Gates",
+          "K-Map & Quine-McCluskey Minimization"
+        ]
+      },
+      {
+        "unit": "Unit 2",
+        "title": "Combinational Circuits",
+        "topics": [
+          "Adders, Subtractors & Look-Ahead Carry",
+          "MUX, DEMUX, Decoders, Encoders & Comparators"
+        ]
+      },
+      {
+        "unit": "Unit 3",
+        "title": "Sequential Circuits & Logic Families",
+        "topics": [
+          "Flip-Flops, Counters & State Machines",
+          "TTL, CMOS, RAM, ROM, PAL & PLA"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "BCS-353 Digital Electronics Lab has 1 verified manual (9 experiments); theory page requires verified video/notes mapping.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-024",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "HIGH COVERAGE",
+    "uncoveredTopics": [
+      "Dedicated open-access Digital Electronics PDF textbook (Morris Mano is commercial)"
+    ],
+    "recommendedChanges": "ADD Neso Academy Digital Electronics playlist; reuse across BCSI302 and DIP-CSE DCS301."
+  },
+  {
+    "programmeId": "BTECH-CSE",
+    "programmeName": "B.Tech in Computer Science & Engineering",
+    "specialization": "Core CSE (reusable in BTECH-CSE-AI)",
+    "semester": 3,
+    "subjectCode": "BCS-304",
+    "subjectName": "Python",
+    "academicLevel": "Undergraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/3/BCS-304",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/2316imguf_B.Tech.CSE2year.pdf",
+    "units": [
+      {
+        "unit": "Unit 1",
+        "title": "Python Basics & Control Flow",
+        "topics": [
+          "Data Types, Expressions & Strings",
+          "Loops, Functions & Recursion"
+        ]
+      },
+      {
+        "unit": "Unit 2",
+        "title": "Data Structures, Files & OOP",
+        "topics": [
+          "Lists, Tuples, Sets & Dictionaries",
+          "File I/O, Exceptions & Modules"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "BCS-354 Python Lab has 1 verified manual (12 experiments); theory page needs video & official documentation links.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-026",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-027",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-016",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "ADD IIT Madras Python playlist (English), CodeWithHarry playlist (Hindi), and Python 3.15 Official Tutorial."
+  },
+  {
+    "programmeId": "BTECH-CSE",
+    "programmeName": "B.Tech in Computer Science & Engineering",
+    "specialization": "Core CSE (reusable in DIP-CSE)",
+    "semester": 4,
+    "subjectCode": "BCS-401",
+    "subjectName": "Computer Organization & Architecture",
+    "academicLevel": "Undergraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/4/BCS-401",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/2316imguf_B.Tech.CSE2year.pdf",
+    "units": [
+      {
+        "unit": "Unit 1",
+        "title": "CPU Organization & Instruction Sets",
+        "topics": [
+          "Bus Structure, Registers & Addressing Modes",
+          "ALU Design & Arithmetic"
+        ]
+      },
+      {
+        "unit": "Unit 2",
+        "title": "Control Unit & Pipelining",
+        "topics": [
+          "Hardwired vs Microprogrammed Control",
+          "Instruction Pipelining"
+        ]
+      },
+      {
+        "unit": "Unit 3",
+        "title": "Memory & I/O Organization",
+        "topics": [
+          "Cache Mapping & Virtual Memory",
+          "Interrupts & DMA"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Theory page unpopulated; pair with Neso Academy COA playlist.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-025",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "HIGH COVERAGE",
+    "uncoveredTopics": [
+      "Open-access undergraduate COA textbook PDF"
+    ],
+    "recommendedChanges": "ADD Neso Academy COA playlist; reuse for DIP-CSE DCS403."
+  },
+  {
+    "programmeId": "BTECH-CSE",
+    "programmeName": "B.Tech in Computer Science & Engineering",
+    "specialization": "Core CSE (reusable in DIP-CSE)",
+    "semester": 4,
+    "subjectCode": "BCS-403",
+    "subjectName": "Operating Systems",
+    "academicLevel": "Undergraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/4/BCS-403",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/2316imguf_B.Tech.CSE2year.pdf",
+    "units": [
+      {
+        "unit": "Unit 1",
+        "title": "Processes, Threads & CPU Scheduling",
+        "topics": [
+          "OS Structure & System Calls",
+          "FCFS, SJF, Priority & Round Robin"
+        ]
+      },
+      {
+        "unit": "Unit 2",
+        "title": "Synchronization & Deadlocks",
+        "topics": [
+          "Critical Section, Semaphores & Monitors",
+          "Deadlock Prevention, Avoidance (Banker's) & Detection"
+        ]
+      },
+      {
+        "unit": "Unit 3",
+        "title": "Memory, Storage & File Systems",
+        "topics": [
+          "Paging, Segmentation & Page Replacement",
+          "Disk Scheduling & File System Implementation"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Checked DIP-CSE equivalent DCS302 ('Under Academic Mapping'); BTECH-CSE BCS-403 mapped to OSTEP & Gate Smashers.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-018",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-011",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "ADD Gate Smashers OS playlist and OSTEP (v1.10) open textbook; reuse for DIP-CSE DCS302."
+  },
+  {
+    "programmeId": "BTECH-CSE",
+    "programmeName": "B.Tech in Computer Science & Engineering",
+    "specialization": "Core CSE",
+    "semester": 4,
+    "subjectCode": "BCS-404",
+    "subjectName": "Software Engineering",
+    "academicLevel": "Undergraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/4/BCS-404",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/2316imguf_B.Tech.CSE2year.pdf",
+    "units": [
+      {
+        "unit": "Unit 1",
+        "title": "SDLC Models & Requirements",
+        "topics": [
+          "Waterfall, Evolutionary, Spiral & Agile/Scrum",
+          "SRS & Requirements Gathering"
+        ]
+      },
+      {
+        "unit": "Unit 2",
+        "title": "Software Design & UML",
+        "topics": [
+          "Cohesion, Coupling, DFD & Structure Charts",
+          "UML Use-Case, Class & Sequence Diagrams"
+        ]
+      },
+      {
+        "unit": "Unit 3",
+        "title": "Testing & Quality Assurance",
+        "topics": [
+          "Unit, Integration, Black-Box & White-Box Testing",
+          "MC/DC, Path & Mutation Testing"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Official 2nd-year PDF has 3 cr vs 4 cr internal discrepancy; mapped to NPTEL 106105182 & Gate Smashers.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-030",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-014",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "ADD Gate Smashers Software Engineering playlist and NPTEL 106105182 (Prof. Rajib Mall)."
+  },
+  {
+    "programmeId": "BTECH-CSE",
+    "programmeName": "B.Tech in Computer Science & Engineering",
+    "specialization": "Core CSE (reusable in BTECH-CSE-AI)",
+    "semester": 4,
+    "subjectCode": "IIOT4",
+    "subjectName": "Machine Learning",
+    "academicLevel": "Undergraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/4/IIOT4",
+    "syllabusSourceUrl": "https://www.invertisuniversity.ac.in/uploads/image/2316imguf_B.Tech.CSE2year.pdf",
+    "units": [
+      {
+        "unit": "Unit 1",
+        "title": "Supervised Learning",
+        "topics": [
+          "Linear & Logistic Regression",
+          "Decision Trees, SVM & k-NN"
+        ]
+      },
+      {
+        "unit": "Unit 2",
+        "title": "Unsupervised Learning & Evaluation",
+        "topics": [
+          "K-Means, Hierarchical Clustering & PCA",
+          "Cross-Validation, Bias-Variance & Metrics"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Live page confirmed EMPTY ('Video Lectures Under Academic Mapping', no External Resources section).",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-031",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-028",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "ADD NPTEL IIT Madras ML playlist (Prof. Balaraman Ravindran) and Scikit-Learn Official User Guide."
+  },
+  {
+    "programmeId": "BTECH-CSE",
+    "programmeName": "B.Tech in Computer Science & Engineering",
+    "specialization": "Core CSE (reusable in BTECH-CSE-CC & DIP-CSE)",
+    "semester": 5,
+    "subjectCode": "BCS-502",
+    "subjectName": "Data Base Management System",
+    "academicLevel": "Undergraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/5/BCS-502",
+    "syllabusSourceUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/5/BCS-502",
+    "units": [
+      {
+        "unit": "Unit 1",
+        "title": "ER Modeling & Relational Algebra",
+        "topics": [
+          "ER Diagrams & Relational Model",
+          "Relational Algebra & SQL"
+        ]
+      },
+      {
+        "unit": "Unit 2",
+        "title": "Normalization & Indexing",
+        "topics": [
+          "Functional Dependencies, 1NF–BCNF",
+          "B+ Trees & Hashing"
+        ]
+      },
+      {
+        "unit": "Unit 3",
+        "title": "Transactions & Concurrency Control",
+        "topics": [
+          "ACID, Serializability & 2PL",
+          "Logging & Crash Recovery"
+        ]
+      }
+    ],
+    "existingVideos": 3,
+    "existingNotes": 1,
+    "existingAuditSummary": "Populated on Invertis Learn (freeCodeCamp, Gate Smashers DBMS & SQL playlists; W3Schools SQL). Supplement with CMU 15-445 notes.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-019",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "keep"
+      },
+      {
+        "resourceId": "RES-NOTE-013",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "KEEP Gate Smashers DBMS & SQL; ADD CMU 15-445 Fall 2026 schedule/slides/notes; reuse for BCSI305 & DIP-CSE DCS501."
+  },
+  {
+    "programmeId": "BTECH-CSE",
+    "programmeName": "B.Tech in Computer Science & Engineering",
+    "specialization": "Core CSE (reusable in BTECH-CSE-AI & DIP-CSE)",
+    "semester": 6,
+    "subjectCode": "BCS-601",
+    "subjectName": "Computer Networks",
+    "academicLevel": "Undergraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/6/BCS-601",
+    "syllabusSourceUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/6/BCS-601",
+    "units": [
+      {
+        "unit": "Unit 1",
+        "title": "Physical & Data Link Layers",
+        "topics": [
+          "OSI & TCP/IP Models",
+          "Framing, Error Control & MAC Protocols"
+        ]
+      },
+      {
+        "unit": "Unit 2",
+        "title": "Network Layer & Routing",
+        "topics": [
+          "IPv4/IPv6 Addressing & Subnetting",
+          "Routing Algorithms (RIP, OSPF, BGP)"
+        ]
+      },
+      {
+        "unit": "Unit 3",
+        "title": "Transport & Application Layers",
+        "topics": [
+          "TCP Congestion Control & UDP",
+          "DNS, HTTP, SMTP & Network Security"
+        ]
+      }
+    ],
+    "existingVideos": 2,
+    "existingNotes": 0,
+    "existingAuditSummary": "Equivalent BCSAI 301 is populated with NPTEL & Gate Smashers CN playlists; add Peterson & Davie open textbook + Wireshark User's Guide for BCS-651 Lab.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-020",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-VID-007",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3"
+        ],
+        "priority": "alternative",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-015",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2",
+          "Unit 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-018",
+        "section": "practical_resources",
+        "coveredUnits": [
+          "Unit 2",
+          "Unit 3"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "ADD Gate Smashers & NPTEL CN playlists, Peterson & Davie Systems Approach textbook, and Wireshark User's Guide for BCS-651 Lab."
+  },
+  {
+    "programmeId": "BTECH-CSE",
+    "programmeName": "B.Tech in Computer Science & Engineering",
+    "specialization": "Core CSE (reusable in BTECH-CSE-AI)",
+    "semester": 5,
+    "subjectCode": "IIOT5",
+    "subjectName": "Deep Learning",
+    "academicLevel": "Undergraduate",
+    "subjectPageUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/5/IIOT5",
+    "syllabusSourceUrl": "https://invertislearn.vercel.app/syllabus/BTECH-CSE/semester/5/IIOT5",
+    "units": [
+      {
+        "unit": "Unit 1",
+        "title": "Feedforward Networks & Backpropagation",
+        "topics": [
+          "MLPs, Activation Functions & Optimization",
+          "Regularization & Batch Normalization"
+        ]
+      },
+      {
+        "unit": "Unit 2",
+        "title": "CNNs, RNNs & Generative Models",
+        "topics": [
+          "Convolutional Neural Networks",
+          "Sequence Models (RNN/LSTM/Transformers)",
+          "Autoencoders & Generative Models"
+        ]
+      }
+    ],
+    "existingVideos": 0,
+    "existingNotes": 0,
+    "existingAuditSummary": "Unpopulated on Invertis Learn; mapped to Stanford CS230 (Autumn 2025) & Goodfellow Deep Learning Book.",
+    "resourceMappings": [
+      {
+        "resourceId": "RES-VID-032",
+        "section": "video_lectures",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      },
+      {
+        "resourceId": "RES-NOTE-019",
+        "section": "external_notes",
+        "coveredUnits": [
+          "Unit 1",
+          "Unit 2"
+        ],
+        "priority": "primary",
+        "recommendedAction": "add"
+      }
+    ],
+    "coverageClassification": "COMPLETE COVERAGE",
+    "uncoveredTopics": [],
+    "recommendedChanges": "ADD Stanford CS230 Autumn 2025 playlist and Goodfellow/Bengio/Courville Deep Learning open web book."
+  }
+]

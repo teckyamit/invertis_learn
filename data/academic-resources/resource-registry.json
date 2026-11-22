@@ -1,0 +1,2284 @@
+[
+  {
+    "resourceId": "RES-VID-001",
+    "title": "Advanced Computer Architecture (IIT Guwahati)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "NPTEL IIT Guwahati",
+    "url": "https://www.youtube.com/playlist?list=PLwdnzlV3ogoWJhBxBYu-K4l-q-nNHd24D",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard / NPTEL CC-BY-SA",
+    "qualityScore": 92,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-101"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-002",
+    "title": "Advanced Computer Architecture (IIT Delhi)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "NPTEL IIT Delhi",
+    "url": "https://www.youtube.com/playlist?list=PLp6ek2hDcoNAozy0Ndeqa9ycOtsaR4lvV",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "NPTEL Open",
+    "qualityScore": 90,
+    "scoreBreakdown": "30/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-101"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-003",
+    "title": "Livestream - Computer Architecture (Fall 2025)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Onur Mutlu Lectures (ETH Zurich)",
+    "url": "https://www.youtube.com/playlist?list=PL5Q2soXY2Zi8tTLVb-9CUHcfKXLWESjOD",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 93,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 18/20 avail, 9/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-101"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-004",
+    "title": "MIT 18.404J Theory of Computation, Fall 2020 (Prof. Michael Sipser)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "MIT OpenCourseWare",
+    "url": "https://www.youtube.com/playlist?list=PLUl4u3cNGP60_JNv2MmK3wkOt9syvfQWY",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CC BY-NC-SA 4.0",
+    "qualityScore": 96,
+    "scoreBreakdown": "34/35 cov, 20/20 cred, 18/20 avail, 9/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "BTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-102",
+      "BCS-501"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-005",
+    "title": "TOC (Theory of Computation) Complete Playlist",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Gate Smashers",
+    "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiFM9Lj5G9G_76adtyb4ef7i",
+    "language": "Hindi / Hinglish",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 87,
+    "scoreBreakdown": "31/35 cov, 16/20 cred, 18/20 avail, 9/10 expl, 8/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "BTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-102",
+      "BCS-501"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-006",
+    "title": "Advanced Computer Networks",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "NPTEL-NOC IITM",
+    "url": "https://www.youtube.com/playlist?list=PLyqSpQzTE6M9voigbAaFzKiybgN7Xgvka",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "NPTEL Open",
+    "qualityScore": 91,
+    "scoreBreakdown": "31/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "PHD-009"
+    ],
+    "subjects": [
+      "MCS-103",
+      "PhDCS 104"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-007",
+    "title": "Computer Networks and Internet Protocol",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "NPTEL IIT Kharagpur",
+    "url": "https://www.youtube.com/playlist?list=PLbRMhDVUMngf-peFloB7kyiA40EptH1up",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "NPTEL Open",
+    "qualityScore": 90,
+    "scoreBreakdown": "31/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 9/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "BTECH-CSE",
+      "BTECH-CSE-AI"
+    ],
+    "subjects": [
+      "MCS-103",
+      "BCS-601",
+      "BCSAI 301"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-008",
+    "title": "MIT 6.824 Distributed Systems (Spring 2020)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "MIT 6.824: Distributed Systems",
+    "url": "https://www.youtube.com/playlist?list=PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 95,
+    "scoreBreakdown": "33/35 cov, 20/20 cred, 18/20 avail, 9/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-104"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-009",
+    "title": "Advanced Distributed Systems (IIT Delhi)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "NPTEL IIT Delhi",
+    "url": "https://www.youtube.com/playlist?list=PLp6ek2hDcoNAOfn2X55uHBAvxicuCwF6T",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "NPTEL Open",
+    "qualityScore": 91,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 18/20 avail, 7/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-104"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-010",
+    "title": "Cloud Computing and Distributed Systems - Prof. Rajiv Misra",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "IIT KANPUR-NPTEL",
+    "url": "https://www.youtube.com/playlist?list=PLFW6lRTa1g82dte3YD_7-GoZXcBiK6K9G",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "NPTEL Open",
+    "qualityScore": 91,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 18/20 avail, 7/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "BTECH-CSE-CC"
+    ],
+    "subjects": [
+      "MCS-105",
+      "CSICT704"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-011",
+    "title": "Cloud Computing (Complete Course)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Gate Smashers",
+    "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiHRHVUtR-O52MsrdUSrzuy4",
+    "language": "Hindi / Hinglish",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 84,
+    "scoreBreakdown": "29/35 cov, 16/20 cred, 18/20 avail, 9/10 expl, 7/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "BTECH-CSE-CC"
+    ],
+    "subjects": [
+      "MCS-105",
+      "CSICT704"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-012",
+    "title": "CMU 15-721 Advanced Database Systems (Spring 2024, Prof. Andy Pavlo)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "CMU Database Group",
+    "url": "https://www.youtube.com/playlist?list=PLSE8ODhjZXjYa_zX-KeMJui7pcN1rIaIJ",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search + youtube:get_video_information (Lec 0)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 95,
+    "scoreBreakdown": "33/35 cov, 20/20 cred, 18/20 avail, 9/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-201"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-013",
+    "title": "Stanford CS149 Parallel Computing (2023)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Stanford Online",
+    "url": "https://www.youtube.com/playlist?list=PLoROMvodv4rMp7MTFr4hQsDEcX7Bx6Odp",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search + youtube:get_video_information (Lec 1)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 94,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 18/20 avail, 9/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-202"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-014",
+    "title": "Parallel Computer Architecture (IIT Guwahati)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "NPTEL IIT Guwahati",
+    "url": "https://www.youtube.com/playlist?list=PLwdnzlV3ogoVhxIHSJymwtRM34ULGqpE5",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "NPTEL Open",
+    "qualityScore": 89,
+    "scoreBreakdown": "30/35 cov, 20/20 cred, 18/20 avail, 7/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-202"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-015",
+    "title": "Wireless Ad Hoc And Sensor Networks",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "NPTEL / IIT Kharagpur",
+    "url": "https://www.youtube.com/playlist?list=PLJ5C_6qdAvBHroAfekCO7K4xphEF74UPc",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "NPTEL Open",
+    "qualityScore": 90,
+    "scoreBreakdown": "31/35 cov, 20/20 cred, 18/20 avail, 7/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "PHD-009"
+    ],
+    "subjects": [
+      "MCS-203",
+      "PhD-032"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-016",
+    "title": "Object-Oriented Analysis and Design",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "NPTEL / IIT Kharagpur",
+    "url": "https://www.youtube.com/playlist?list=PLJ5C_6qdAvBHslIkD7JB7kBdgv1SeXy3P",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "NPTEL Open",
+    "qualityScore": 90,
+    "scoreBreakdown": "31/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 9/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-204"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-017",
+    "title": "Research Methodology - Prof. Soumitro Banerjee",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "NPTEL-NOC IITM / IISER Kolkata",
+    "url": "https://www.youtube.com/playlist?list=PLyqSpQzTE6M8F_P8lgjvmqiDEoFGLzG4h",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "NPTEL Open",
+    "qualityScore": 92,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "PHD-009"
+    ],
+    "subjects": [
+      "MCS-151",
+      "MCS-251",
+      "MCS351",
+      "MCS393",
+      "MCS-394",
+      "PhDRM 101"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-018",
+    "title": "Operating System (Complete Playlist)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Gate Smashers",
+    "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiGz9donHRrE9I3Mwn6XdP8p",
+    "language": "Hindi / Hinglish",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 90,
+    "scoreBreakdown": "33/35 cov, 16/20 cred, 18/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "DIP-CSE"
+    ],
+    "subjects": [
+      "BCS-403",
+      "DCS302"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-019",
+    "title": "DBMS (Database Management System) Complete Playlist",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Gate Smashers",
+    "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiFAN6I8CuViBuCdJgiOkT2Y",
+    "language": "Hindi / Hinglish",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 90,
+    "scoreBreakdown": "33/35 cov, 16/20 cred, 18/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-CC",
+      "DIP-CSE",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "BCS-502",
+      "BCSI305",
+      "DCS501",
+      "MCS-201"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-020",
+    "title": "Computer Networks (Complete Playlist)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Gate Smashers",
+    "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiGFBD2-2joCpWOLUrDLvVV_",
+    "language": "Hindi / Hinglish",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 90,
+    "scoreBreakdown": "33/35 cov, 16/20 cred, 18/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-AI",
+      "DIP-CSE",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "BCS-601",
+      "BCSAI 301",
+      "DCS603",
+      "MCS-103"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-021",
+    "title": "Algorithms (Complete Playlist)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Abdul Bari",
+    "url": "https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 94,
+    "scoreBreakdown": "34/35 cov, 18/20 cred, 18/20 avail, 10/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "BCS-402",
+      "MCS-322"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-022",
+    "title": "Data Structures and Algorithms",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Jenny's Lectures CS IT",
+    "url": "https://www.youtube.com/playlist?list=PLdo5W4Nhv31bbKJzrsKfMpo_grxuLl8LU",
+    "language": "English",
+    "academicLevel": "beginner",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 92,
+    "scoreBreakdown": "34/35 cov, 17/20 cred, 18/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-CC",
+      "DIP-CSE"
+    ],
+    "subjects": [
+      "BCS-301",
+      "BCSI303",
+      "DCS401"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-023",
+    "title": "Programming in C (Complete Playlist)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Jenny's Lectures CS IT",
+    "url": "https://www.youtube.com/playlist?list=PLdo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S",
+    "language": "English",
+    "academicLevel": "beginner",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 91,
+    "scoreBreakdown": "33/35 cov, 17/20 cred, 18/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "DIP-CSE"
+    ],
+    "subjects": [
+      "BCS201",
+      "DCS303"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-024",
+    "title": "Digital Electronics (Complete Playlist)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Neso Academy",
+    "url": "https://www.youtube.com/playlist?list=PLBlnK6fEyqRjMH3mWf6kwqiTbT798eAOm",
+    "language": "English",
+    "academicLevel": "beginner",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 93,
+    "scoreBreakdown": "34/35 cov, 18/20 cred, 18/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-CC",
+      "DIP-CSE"
+    ],
+    "subjects": [
+      "BCS-303",
+      "BCSI302",
+      "DCS301"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-025",
+    "title": "Computer Organization & Architecture (COA)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Neso Academy",
+    "url": "https://www.youtube.com/playlist?list=PLBlnK6fEyqRgLLlzdgiTUKULKJPYc0A4q",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 91,
+    "scoreBreakdown": "32/35 cov, 18/20 cred, 18/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "DIP-CSE"
+    ],
+    "subjects": [
+      "BCS-401",
+      "DCS403"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-026",
+    "title": "Programming, Data Structures and Algorithms using Python (Prof. Madhavan Mukund)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "IIT Madras - B.S. Degree Programme",
+    "url": "https://www.youtube.com/playlist?list=PLZ2ps__7DhBaDccbZRgiU1sHX2gZrQ-XT",
+    "language": "English",
+    "academicLevel": "beginner",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "NPTEL / IITM Open",
+    "qualityScore": 91,
+    "scoreBreakdown": "31/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-AI"
+    ],
+    "subjects": [
+      "BCS-304",
+      "BCS-354"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-027",
+    "title": "Python for Beginners (Full Course) | #100DaysOfCode in Hindi",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "CodeWithHarry",
+    "url": "https://www.youtube.com/playlist?list=PLu0W_9lII9agwh1XjRt242xIpHhPT2llg",
+    "language": "Hindi / Hinglish",
+    "academicLevel": "beginner",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 87,
+    "scoreBreakdown": "31/35 cov, 15/20 cred, 18/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-AI"
+    ],
+    "subjects": [
+      "BCS-304",
+      "BCS-354"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-028",
+    "title": "Java + DSA + Interview Preparation Course",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Kunal Kushwaha",
+    "url": "https://www.youtube.com/playlist?list=PL9gnSGHSqcnr_DxHsP7AW9ftq0AtAyYqJ",
+    "language": "English",
+    "academicLevel": "beginner",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 89,
+    "scoreBreakdown": "32/35 cov, 16/20 cred, 18/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-CC",
+      "DIP-CSE"
+    ],
+    "subjects": [
+      "BCS-503",
+      "BCSI304",
+      "DCS502"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-029",
+    "title": "Compiler Design (Complete Playlist)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Gate Smashers",
+    "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiEKtKSIHYusizkESC42diyc",
+    "language": "Hindi / Hinglish",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 89,
+    "scoreBreakdown": "32/35 cov, 16/20 cred, 18/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "BCS-602",
+      "MCS-325"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-030",
+    "title": "Software Engineering (Complete Playlist)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Gate Smashers",
+    "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiEed7SKZBnC6ypFDWYLRvB2",
+    "language": "Hindi / Hinglish",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 88,
+    "scoreBreakdown": "31/35 cov, 16/20 cred, 18/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE"
+    ],
+    "subjects": [
+      "BCS-404"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-031",
+    "title": "NPTEL MOOC Introduction to Machine Learning (Prof. Balaraman Ravindran)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "NPTEL / IIT Madras",
+    "url": "https://www.youtube.com/playlist?list=PL1xHD4vteKYVpaIiy295pg6_SY5qznc77",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "NPTEL Open",
+    "qualityScore": 93,
+    "scoreBreakdown": "33/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-AI",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "IIOT4",
+      "MCS-214"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-032",
+    "title": "Stanford CS230: Deep Learning (Autumn 2025)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Stanford Online",
+    "url": "https://www.youtube.com/playlist?list=PLoROMvodv4rNRRGdS0rBbXOUGA0wjdh1X",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 94,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 18/20 avail, 9/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-AI"
+    ],
+    "subjects": [
+      "IIOT5"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-033",
+    "title": "Artificial Intelligence (Complete Playlist)",
+    "type": "playlist",
+    "platform": "YouTube",
+    "provider": "Gate Smashers",
+    "url": "https://www.youtube.com/playlist?list=PLxCzCOWd7aiHGhOHV-nwb0HR5US5GFKFI",
+    "language": "Hindi / Hinglish",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:search (PLAYLIST)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "YouTube Standard",
+    "qualityScore": 87,
+    "scoreBreakdown": "30/35 cov, 16/20 cred, 18/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-AI"
+    ],
+    "subjects": [
+      "IIOT6"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-034",
+    "title": "Lecture - 30 Introduction to Data Warehousing and OLAP",
+    "type": "video",
+    "platform": "YouTube",
+    "provider": "nptelhrd",
+    "url": "https://www.youtube.com/watch?v=m-aKj5ovDfg",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:get_video_information (metadata + transcript)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": 58,
+    "videoCount": 1,
+    "license": "NPTEL Open",
+    "qualityScore": 88,
+    "scoreBreakdown": "28/35 cov (Unit 1), 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "PhD-032",
+      "MCS-334"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-035",
+    "title": "Lecture 20 Part 1: Data Mining",
+    "type": "video",
+    "platform": "YouTube",
+    "provider": "IIT KANPUR-NPTEL",
+    "url": "https://www.youtube.com/watch?v=BX2bwBSK9bk",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:get_video_information (metadata + transcript)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": 28,
+    "videoCount": 1,
+    "license": "NPTEL Open",
+    "qualityScore": 88,
+    "scoreBreakdown": "28/35 cov (Unit 1), 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "PhD-032",
+      "MCS-334"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-036",
+    "title": "Computer Science: Wireless Network - Part 2 (MANETs & NS-2)",
+    "type": "video",
+    "platform": "YouTube",
+    "provider": "CEC (UGC / JNU)",
+    "url": "https://www.youtube.com/watch?v=1QL8ixpPKzM",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:get_video_information (metadata + transcript)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": 60,
+    "videoCount": 1,
+    "license": "UGC-CEC Open",
+    "qualityScore": 87,
+    "scoreBreakdown": "28/35 cov (Units 2-3), 19/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009"
+    ],
+    "subjects": [
+      "PhD-032"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-037",
+    "title": "Overview of Literature Survey",
+    "type": "video",
+    "platform": "YouTube",
+    "provider": "NPTEL / IIT Madras",
+    "url": "https://www.youtube.com/watch?v=Yzfl3rtF0SM",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:get_video_information (metadata + transcript)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": 21,
+    "videoCount": 1,
+    "license": "NPTEL Open",
+    "qualityScore": 91,
+    "scoreBreakdown": "30/35 cov, 20/20 cred, 18/20 avail, 9/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009"
+    ],
+    "subjects": [
+      "PhD-SEM",
+      "PhDRM 101"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-038",
+    "title": "Literature Survey using Scopus",
+    "type": "video",
+    "platform": "YouTube",
+    "provider": "NPTEL / IIT Madras",
+    "url": "https://www.youtube.com/watch?v=JyYb6V8mUdc",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:get_video_information (metadata + transcript)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": 13,
+    "videoCount": 1,
+    "license": "NPTEL Open",
+    "qualityScore": 90,
+    "scoreBreakdown": "29/35 cov, 20/20 cred, 18/20 avail, 9/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009"
+    ],
+    "subjects": [
+      "PhD-SEM",
+      "PhDRM 101"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-039",
+    "title": "Software Project Management (Course Intro - Prof. Rajib Mall)",
+    "type": "video",
+    "platform": "YouTube",
+    "provider": "NPTEL IIT Kharagpur",
+    "url": "https://www.youtube.com/watch?v=w9BSk8MGOGM",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:get_video_information (metadata)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": 14,
+    "videoCount": 1,
+    "license": "NPTEL Open",
+    "qualityScore": 86,
+    "scoreBreakdown": "26/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE",
+      "BTECH-CSE"
+    ],
+    "subjects": [
+      "PhDCS 103",
+      "MCS-321",
+      "BCS-066"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-040",
+    "title": "Lecture 01: Introduction to Project Management - I (PMI, WBS, PERT/CPM)",
+    "type": "video",
+    "platform": "YouTube",
+    "provider": "NPTEL IIT Roorkee",
+    "url": "https://www.youtube.com/watch?v=uEREF70j-yI",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:get_video_information (metadata + transcript)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": 25,
+    "videoCount": 1,
+    "license": "NPTEL Open",
+    "qualityScore": 88,
+    "scoreBreakdown": "28/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "PhDCS 103",
+      "MCS-321"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-041",
+    "title": "Lecture 25: Socket Programming – II (TCP/UDP, fork, select)",
+    "type": "video",
+    "platform": "YouTube",
+    "provider": "NPTEL IIT Kharagpur",
+    "url": "https://www.youtube.com/watch?v=JExfKvUgrtI",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:get_video_information (metadata + transcript)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": 43,
+    "videoCount": 1,
+    "license": "NPTEL Open",
+    "qualityScore": 91,
+    "scoreBreakdown": "30/35 cov (Unit 3), 20/20 cred, 18/20 avail, 9/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "PhDCS 104",
+      "MCS-324",
+      "MCS-332"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-042",
+    "title": "Mod-01 Lec-02 Real-Time System Characteristics (Prof. Rajib Mall)",
+    "type": "video",
+    "platform": "YouTube",
+    "provider": "nptelhrd / IIT Kharagpur",
+    "url": "https://www.youtube.com/watch?v=vo7LN-zMI2s",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:get_video_information (metadata + transcript)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": 55,
+    "videoCount": 1,
+    "license": "NPTEL Open",
+    "qualityScore": 90,
+    "scoreBreakdown": "30/35 cov (Unit 1), 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "PhDCS 105",
+      "MCS-331"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-043",
+    "title": "Lecture 18: Analysis of PCP Priority Inversions",
+    "type": "video",
+    "platform": "YouTube",
+    "provider": "Real Time Operating System - IITKGP",
+    "url": "https://www.youtube.com/watch?v=epKrqvgmtTs",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:get_video_information (metadata + transcript)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": 29,
+    "videoCount": 1,
+    "license": "NPTEL Open",
+    "qualityScore": 90,
+    "scoreBreakdown": "30/35 cov (Unit 3), 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "PhDCS 105",
+      "MCS-331"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-044",
+    "title": "Introduction to Research and Publication Ethics (SWAYAM Prabha CH25)",
+    "type": "video",
+    "platform": "YouTube",
+    "provider": "IIT Kanpur / SWAYAM Prabha",
+    "url": "https://www.youtube.com/watch?v=Hq844eETOws",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:get_video_information (metadata + transcript)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": 23,
+    "videoCount": 1,
+    "license": "SWAYAM Prabha Open",
+    "qualityScore": 92,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009"
+    ],
+    "subjects": [
+      "RPE 101"
+    ]
+  },
+  {
+    "resourceId": "RES-VID-045",
+    "title": "23 Publication Ethics",
+    "type": "video",
+    "platform": "YouTube",
+    "provider": "NPTEL-NOC IITM",
+    "url": "https://www.youtube.com/watch?v=LmMDIBENHhU",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "youtube:get_video_information (metadata + transcript)",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": 15,
+    "videoCount": 1,
+    "license": "NPTEL Open",
+    "qualityScore": 89,
+    "scoreBreakdown": "29/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009"
+    ],
+    "subjects": [
+      "RPE 101"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-001",
+    "title": "NOC: Parallel Computer Architecture (Prof. Hemangee K. Kapoor)",
+    "type": "course",
+    "platform": "NPTEL",
+    "provider": "NPTEL / IIT Guwahati",
+    "url": "https://nptel.ac.in/courses/106103359",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CC BY-SA (NPTEL)",
+    "qualityScore": 93,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-101",
+      "MCS-202"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-002",
+    "title": "MIT 18.404J Theory of Computation (Fall 2020) — Notes & Exams",
+    "type": "notes",
+    "platform": "MIT OpenCourseWare",
+    "provider": "MIT OCW (Prof. Michael Sipser)",
+    "url": "https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CC BY-NC-SA 4.0",
+    "qualityScore": 96,
+    "scoreBreakdown": "34/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "BTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-102",
+      "BCS-501"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-003",
+    "title": "MIT 6.5840 (6.824) Distributed Systems — Schedule, Notes, Papers & Labs",
+    "type": "notes",
+    "platform": "MIT CSAIL",
+    "provider": "MIT PDOS Group",
+    "url": "https://pdos.csail.mit.edu/6.824/schedule.html",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "MIT Open Courseware",
+    "qualityScore": 95,
+    "scoreBreakdown": "33/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-104"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-004",
+    "title": "NOC: Cloud Computing (Prof. Soumya Kanti Ghosh — 60 Lectures)",
+    "type": "course",
+    "platform": "NPTEL",
+    "provider": "NPTEL / IIT Kharagpur",
+    "url": "https://nptel.ac.in/courses/106105167",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": 60,
+    "license": "CC BY-SA (NPTEL)",
+    "qualityScore": 94,
+    "scoreBreakdown": "33/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "BTECH-CSE-CC"
+    ],
+    "subjects": [
+      "MCS-105",
+      "CSICT704",
+      "BCSICT703"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-005",
+    "title": "NOC: Cloud Computing and Distributed Systems (Prof. Rajiv Misra)",
+    "type": "course",
+    "platform": "NPTEL",
+    "provider": "NPTEL / IIT Patna",
+    "url": "https://nptel.ac.in/courses/106104182",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CC BY-SA (NPTEL)",
+    "qualityScore": 92,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 19/20 avail, 7/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "BTECH-CSE-CC"
+    ],
+    "subjects": [
+      "MCS-105",
+      "MCS-104"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-006",
+    "title": "CMU 15-721 Advanced Database Systems (Spring 2024 Course Portal)",
+    "type": "notes",
+    "platform": "CMU CS",
+    "provider": "Carnegie Mellon University",
+    "url": "https://15721.courses.cs.cmu.edu/spring2024/",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CMU Open Academic",
+    "qualityScore": 95,
+    "scoreBreakdown": "33/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-201"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-007",
+    "title": "Stanford CS149 Parallel Computing — Slides & Assignments",
+    "type": "notes",
+    "platform": "Stanford CS",
+    "provider": "Stanford University",
+    "url": "https://cs149.stanford.edu/",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "Stanford Open Courseware",
+    "qualityScore": 94,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-202"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-008",
+    "title": "NOC: Wireless Ad Hoc and Sensor Networks (Prof. Sudip Misra)",
+    "type": "course",
+    "platform": "NPTEL",
+    "provider": "NPTEL / IIT Kharagpur",
+    "url": "https://nptel.ac.in/courses/106105160",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": 40,
+    "license": "CC BY-SA (NPTEL)",
+    "qualityScore": 91,
+    "scoreBreakdown": "31/35 cov, 20/20 cred, 19/20 avail, 7/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "PHD-009"
+    ],
+    "subjects": [
+      "MCS-203",
+      "PhD-032"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-009",
+    "title": "NOC: Object Oriented Analysis and Design (Prof. Partha Pratim Das)",
+    "type": "course",
+    "platform": "NPTEL",
+    "provider": "NPTEL / IIT Kharagpur",
+    "url": "https://nptel.ac.in/courses/106105153",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": 52,
+    "license": "CC BY-SA (NPTEL)",
+    "qualityScore": 91,
+    "scoreBreakdown": "31/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 9/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "MCS-204"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-010",
+    "title": "NOC: Research Methodology in Natural Sciences (Prof. Soumitro Banerjee)",
+    "type": "course",
+    "platform": "NPTEL",
+    "provider": "NPTEL / IISER Kolkata",
+    "url": "https://nptel.ac.in/courses/127106227",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": 72,
+    "license": "CC BY-SA (NPTEL)",
+    "qualityScore": 92,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 19/20 avail, 7/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "MTECH-CSE",
+      "PHD-009"
+    ],
+    "subjects": [
+      "MCS-151",
+      "MCS-251",
+      "MCS351",
+      "MCS393",
+      "MCS-394",
+      "PhDRM 101"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-011",
+    "title": "Operating Systems: Three Easy Pieces (OSTEP v1.10)",
+    "type": "textbook",
+    "platform": "UW-Madison",
+    "provider": "Remzi & Andrea Arpaci-Dusseau",
+    "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "Free Online PDF Chapters (External Link Only)",
+    "qualityScore": 97,
+    "scoreBreakdown": "35/35 cov, 20/20 cred, 19/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "DIP-CSE"
+    ],
+    "subjects": [
+      "BCS-403",
+      "DCS302"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-012",
+    "title": "Open Data Structures (in C++) — Edition 0.1G",
+    "type": "textbook",
+    "platform": "OpenDataStructures.org",
+    "provider": "Pat Morin (Carleton University)",
+    "url": "https://opendatastructures.org/ods-cpp/",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CC BY 2.5 CA",
+    "qualityScore": 94,
+    "scoreBreakdown": "33/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-CC",
+      "DIP-CSE"
+    ],
+    "subjects": [
+      "BCS-301",
+      "BCSI303",
+      "DCS401"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-013",
+    "title": "CMU 15-445/645 Intro to Database Systems (Fall 2026 Slides & Notes)",
+    "type": "notes",
+    "platform": "CMU CS",
+    "provider": "Carnegie Mellon University",
+    "url": "https://15445.courses.cs.cmu.edu/fall2026/schedule.html",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CMU Open Academic",
+    "qualityScore": 95,
+    "scoreBreakdown": "33/35 cov, 20/20 cred, 19/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-CC",
+      "DIP-CSE"
+    ],
+    "subjects": [
+      "BCS-502",
+      "BCSI305",
+      "DCS501"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-014",
+    "title": "NOC: Software Engineering (Prof. Rajib Mall — 60 Lectures)",
+    "type": "course",
+    "platform": "NPTEL",
+    "provider": "NPTEL / IIT Kharagpur",
+    "url": "https://nptel.ac.in/courses/106105182",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": 60,
+    "license": "CC BY-SA (NPTEL)",
+    "qualityScore": 94,
+    "scoreBreakdown": "34/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 9/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE"
+    ],
+    "subjects": [
+      "BCS-404"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-015",
+    "title": "Computer Networks: A Systems Approach (Open Textbook Repository)",
+    "type": "textbook",
+    "platform": "GitHub",
+    "provider": "Larry Peterson & Bruce Davie",
+    "url": "https://github.com/SystemsApproach/book",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CC BY 4.0",
+    "qualityScore": 95,
+    "scoreBreakdown": "34/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-AI",
+      "DIP-CSE",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "BCS-601",
+      "BCSAI 301",
+      "DCS603",
+      "MCS-103"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-016",
+    "title": "Official Python 3.15 Tutorial",
+    "type": "documentation",
+    "platform": "Python.org",
+    "provider": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/introduction.html",
+    "language": "English",
+    "academicLevel": "beginner",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "PSF License v2 / 0BSD",
+    "qualityScore": 95,
+    "scoreBreakdown": "33/35 cov, 20/20 cred, 20/20 avail, 8/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-AI"
+    ],
+    "subjects": [
+      "BCS-304",
+      "BCS-354"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-017",
+    "title": "The Java Tutorials (Official Documentation)",
+    "type": "documentation",
+    "platform": "Oracle Docs",
+    "provider": "Oracle Corporation",
+    "url": "https://docs.oracle.com/javase/tutorial/",
+    "language": "English",
+    "academicLevel": "beginner",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "Oracle Free Docs (External Link Only)",
+    "qualityScore": 90,
+    "scoreBreakdown": "32/35 cov, 19/20 cred, 19/20 avail, 8/10 expl, 8/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-CC",
+      "DIP-CSE"
+    ],
+    "subjects": [
+      "BCS-503",
+      "BCS-553",
+      "BCSI304",
+      "DCS502"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-018",
+    "title": "Wireshark User's Guide (v5.1.0)",
+    "type": "practical",
+    "platform": "Wireshark.org",
+    "provider": "Wireshark Foundation",
+    "url": "https://www.wireshark.org/docs/wsug_html/",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "GNU GPL v2",
+    "qualityScore": 93,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "BCS-651",
+      "MCS-103"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-019",
+    "title": "Deep Learning (MIT Press Open Web Edition)",
+    "type": "textbook",
+    "platform": "deeplearningbook.org",
+    "provider": "Ian Goodfellow, Yoshua Bengio & Aaron Courville",
+    "url": "https://www.deeplearningbook.org/",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "Free HTML Web Edition (External Link Only)",
+    "qualityScore": 96,
+    "scoreBreakdown": "34/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-AI"
+    ],
+    "subjects": [
+      "IIOT5"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-020",
+    "title": "Mining of Massive Datasets (3rd Ed. Open Edition)",
+    "type": "textbook",
+    "platform": "MMDS.org",
+    "provider": "Leskovec, Rajaraman & Ullman (Stanford)",
+    "url": "http://www.mmds.org/",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "Free Online Edition",
+    "qualityScore": 94,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "PhD-032",
+      "MCS-334"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-021",
+    "title": "NOC: Design and Analysis of Algorithms (Prof. Madhavan Mukund)",
+    "type": "course",
+    "platform": "NPTEL",
+    "provider": "NPTEL / CMI / IIT Madras",
+    "url": "https://nptel.ac.in/courses/106106131",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CC BY-SA (NPTEL)",
+    "qualityScore": 94,
+    "scoreBreakdown": "33/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "BCS-402",
+      "MCS-322"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-022",
+    "title": "The ns Manual (NS-2 Official Documentation PDF)",
+    "type": "practical",
+    "platform": "USC / ISI",
+    "provider": "USC/ISI VINT Project",
+    "url": "https://www.isi.edu/websites/nsnam/ns/doc/ns_doc.pdf",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "Open Academic",
+    "qualityScore": 91,
+    "scoreBreakdown": "31/35 cov, 20/20 cred, 18/20 avail, 7/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009"
+    ],
+    "subjects": [
+      "PhD-032"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-023",
+    "title": "PRISMA 2020 Statement (Systematic Review Checklists & Flow Diagrams)",
+    "type": "notes",
+    "platform": "PRISMA",
+    "provider": "PRISMA Executive",
+    "url": "https://www.prisma-statement.org/prisma-2020",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CC BY 4.0",
+    "qualityScore": 95,
+    "scoreBreakdown": "33/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009"
+    ],
+    "subjects": [
+      "PhD-SEM",
+      "PhDRM 101"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-024",
+    "title": "NOC: Software Project Management (Prof. Rajib Mall — 60 Lectures)",
+    "type": "course",
+    "platform": "NPTEL",
+    "provider": "NPTEL / IIT Kharagpur",
+    "url": "https://nptel.ac.in/courses/106105218",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": 60,
+    "license": "CC BY-SA (NPTEL)",
+    "qualityScore": 94,
+    "scoreBreakdown": "34/35 cov, 20/20 cred, 19/20 avail, 7/10 expl, 10/10 depth, 4/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE",
+      "BTECH-CSE"
+    ],
+    "subjects": [
+      "PhDCS 103",
+      "MCS-321",
+      "BCS-066"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-025",
+    "title": "Beej's Guide to Network Programming: Using Internet Sockets",
+    "type": "textbook",
+    "platform": "beej.us",
+    "provider": "Brian 'Beej Jorgensen' Hall",
+    "url": "https://beej.us/guide/bgnet/html/",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CC BY-NC-ND 3.0",
+    "qualityScore": 95,
+    "scoreBreakdown": "32/35 cov, 19/20 cred, 20/20 avail, 9/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "PhDCS 104",
+      "MCS-324"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-026",
+    "title": "The Concise Handbook of Real-Time Systems (v1.3 PDF)",
+    "type": "pdf",
+    "platform": "CMU ECE 749",
+    "provider": "TimeSys Corp. / CMU",
+    "url": "https://course.ece.cmu.edu/~ece749/docs/RTSHandbook.pdf",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "Open Academic PDF",
+    "qualityScore": 93,
+    "scoreBreakdown": "33/35 cov, 19/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "PhDCS 105",
+      "MCS-331"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-027",
+    "title": "CS 422/522 Real-Time Systems Lecture Notes PDF",
+    "type": "pdf",
+    "platform": "Yale CS",
+    "provider": "Man-Ki Yoon (Yale University)",
+    "url": "https://www.cs.yale.edu/flint/cs422/lectureNotes/Fall19/realtime.pdf",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "Open Academic PDF",
+    "qualityScore": 91,
+    "scoreBreakdown": "31/35 cov, 20/20 cred, 18/20 avail, 7/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "PhDCS 105",
+      "MCS-331"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-028",
+    "title": "Scikit-Learn Official Machine Learning User Guide",
+    "type": "documentation",
+    "platform": "scikit-learn.org",
+    "provider": "Scikit-Learn Developers",
+    "url": "https://scikit-learn.org/stable/user_guide.html",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "BSD 3-Clause",
+    "qualityScore": 93,
+    "scoreBreakdown": "31/35 cov, 20/20 cred, 19/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "BTECH-CSE",
+      "BTECH-CSE-AI",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "IIOT4",
+      "MCS-214"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-029",
+    "title": "Social Science Research: Principles, Methods, and Practices",
+    "type": "textbook",
+    "platform": "USF Digital Commons",
+    "provider": "Anol Bhattacherjee (USF)",
+    "url": "https://digitalcommons.usf.edu/oa_textbooks/3/",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CC BY-NC-SA 3.0",
+    "qualityScore": 93,
+    "scoreBreakdown": "31/35 cov, 20/20 cred, 19/20 avail, 8/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009"
+    ],
+    "subjects": [
+      "PhDRM 101"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-030",
+    "title": "Learn LaTeX in 30 Minutes",
+    "type": "documentation",
+    "platform": "Overleaf",
+    "provider": "Overleaf",
+    "url": "https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes",
+    "language": "English",
+    "academicLevel": "intermediate",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "Free Official Guide",
+    "qualityScore": 92,
+    "scoreBreakdown": "30/35 cov (Unit 4), 19/20 cred, 20/20 avail, 9/10 expl, 9/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "PhDRM 101",
+      "MCS393",
+      "MCS-394"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-031",
+    "title": "Manual of Patent Office Practice and Procedure (v3.0 PDF)",
+    "type": "pdf",
+    "platform": "IP India",
+    "provider": "CGPDTM (Government of India)",
+    "url": "https://ipindia.gov.in/frontend/pdf/patents/Manual_for_Patent_Office_Practice_and_Procedure_.pdf",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "Public Government Document",
+    "qualityScore": 94,
+    "scoreBreakdown": "32/35 cov (Unit 5), 20/20 cred, 18/20 avail, 9/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009",
+      "MTECH-CSE"
+    ],
+    "subjects": [
+      "PhDRM 101",
+      "MCS-323"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-032",
+    "title": "Academic Integrity and Research Quality (UGC Official E-Book PDF)",
+    "type": "pdf",
+    "platform": "UGC India",
+    "provider": "University Grants Commission (UGC)",
+    "url": "https://www.ugc.gov.in/e-book/Academic%20and%20Research%20Book_WEB.pdf",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "Public Government E-Book",
+    "qualityScore": 96,
+    "scoreBreakdown": "35/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009"
+    ],
+    "subjects": [
+      "RPE 101"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-033",
+    "title": "Ethics Toolkit for a Successful Editorial Office: A COPE Guide PDF",
+    "type": "pdf",
+    "platform": "COPE",
+    "provider": "Committee on Publication Ethics",
+    "url": "https://members.publicationethics.org/sites/default/files/cope-ethics-toolkit-journal-editors-publishers.pdf",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "Open COPE Publication",
+    "qualityScore": 93,
+    "scoreBreakdown": "32/35 cov, 20/20 cred, 18/20 avail, 8/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009"
+    ],
+    "subjects": [
+      "RPE 101"
+    ]
+  },
+  {
+    "resourceId": "RES-NOTE-034",
+    "title": "Think. Check. Submit. — Journals Checklist",
+    "type": "notes",
+    "platform": "ThinkCheckSubmit",
+    "provider": "COPE / DOAJ / ISSN / OASPA",
+    "url": "https://thinkchecksubmit.org/journals/",
+    "language": "English",
+    "academicLevel": "advanced",
+    "isFree": true,
+    "accessRequirement": "none",
+    "verificationStatus": "page_verified",
+    "verificationMethod": "google:browse",
+    "verifiedAt": "2026-11-22",
+    "durationMinutes": null,
+    "videoCount": null,
+    "license": "CC BY 4.0",
+    "qualityScore": 92,
+    "scoreBreakdown": "30/35 cov (Unit 2), 20/20 cred, 19/20 avail, 8/10 expl, 10/10 depth, 5/5 stab",
+    "implementationEligible": true,
+    "programmes": [
+      "PHD-009"
+    ],
+    "subjects": [
+      "RPE 101"
+    ]
+  }
+]

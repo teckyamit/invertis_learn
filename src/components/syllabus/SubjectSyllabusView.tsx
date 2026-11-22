@@ -802,6 +802,7 @@ export function SubjectSyllabusView({
         {/* ========================================================================= */}
         <section id="video-lectures">
           <VideoLecturesSection
+            subjectId={subject.id}
             subjectCode={subject.code}
             subjectName={subject.name}
             videos={videoLectures || []}

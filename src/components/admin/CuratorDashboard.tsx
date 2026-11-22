@@ -32,9 +32,11 @@ import {
   Flag,
   TrendingUp,
   Sparkles,
-  FileCheck
+  FileCheck,
+  Globe
 } from "lucide-react";
 import { NOTE_RESOURCE_TYPES, PRACTICAL_RESOURCE_TYPES } from "@/lib/academic-categories";
+import { AcademicResourceManager } from "./AcademicResourceManager";
 
 type Resource = {
   id: string;
@@ -125,8 +127,8 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
   const [rejectionReason, setRejectionReason] = useState<string>("");
   const [editingResource, setEditingResource] = useState<Resource | null>(null);
 
-  // Master Portal View: Moderation vs Requests & Reports
-  const [activePortalTab, setActivePortalTab] = useState<"moderation" | "requests">("moderation");
+  // Master Portal View: Moderation vs Requests & Reports vs Academic Resource Manager
+  const [activePortalTab, setActivePortalTab] = useState<"moderation" | "requests" | "academic_resources">("moderation");
   const [requestsSubTab, setRequestsSubTab] = useState<"demand" | "requests" | "reports">("demand");
   const [studentRequests, setStudentRequests] = useState<any[]>([]);
   const [contentReports, setContentReports] = useState<any[]>([]);
@@ -540,7 +542,7 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
         {signedIn && (
           <div className="flex items-center space-x-3">
             <button
-              onClick={() => activePortalTab === "moderation" ? void load() : void loadRequests()}
+              onClick={() => activePortalTab === "moderation" ? void load() : activePortalTab === "requests" ? void loadRequests() : undefined}
               disabled={busy || requestsLoading}
               className="inline-flex items-center space-x-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl shadow-xs transition cursor-pointer"
             >
@@ -662,6 +664,22 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
                   {studentRequests.filter(r => r.status !== "RESOLVED").length + contentReports.filter(r => r.status !== "RESOLVED").length}
                 </span>
               )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActivePortalTab("academic_resources")}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 cursor-pointer ${
+                activePortalTab === "academic_resources"
+                  ? "bg-slate-900 text-white shadow-xs"
+                  : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+              }`}
+            >
+              <Globe className="h-4 w-4 text-emerald-500" />
+              <span>Academic Resource Manager</span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] bg-emerald-600 text-white font-extrabold">
+                79
+              </span>
             </button>
           </div>
 
@@ -1038,6 +1056,8 @@ export function CuratorDashboard({ authenticated, configured }: { authenticated:
             </div>
           )}
         </>
+      ) : activePortalTab === "academic_resources" ? (
+        <AcademicResourceManager />
       ) : (
         /* Student Demand & Content Reports View */
         <div className="space-y-6">

@@ -19,6 +19,7 @@ import {
 } from "@/lib/lateralEntry";
 import { toCanonicalPdfResource } from "@/lib/pdf-resource-service";
 import { isPracticalEligible, isBibliographicEntry } from "@/lib/subject-classification";
+import { getSubjectCodeVariants, OFFICIAL_SYLLABUS_ERRATA } from "@/lib/academic-credits";
 
 interface PageProps {
   params: Promise<{
@@ -54,6 +55,7 @@ export default async function SubjectDetailPage({ params: paramsPromise }: PageP
 
   const isLateral = isLateralEntryProgramme(programmeCode);
   const lookupProgCode = getParentProgrammeCode(programmeCode);
+  const codeVariants = getSubjectCodeVariants(decodedSubjectCode);
 
   // Fetch requested programme and subject in parallel
   const [requestedProgramme, subject] = await Promise.all([
@@ -64,6 +66,7 @@ export default async function SubjectDetailPage({ params: paramsPromise }: PageP
       where: {
         isActive: true,
         OR: [
+          ...codeVariants.map((v) => ({ code: { equals: v, mode: "insensitive" as const } })),
           { code: decodedSubjectCode },
           { code: rawSubjectCode },
         ],
@@ -153,10 +156,13 @@ export default async function SubjectDetailPage({ params: paramsPromise }: PageP
 
   // Physical PDF availability check: available if physical file exists on disk
   const isDownloadEligible = Boolean(syllabusResource && syllabusResource.isAvailable);
-  const validationStatus = syllabusDbResource?.provenanceStatus === "VERIFIED" ? "VERIFIED" : "IN_REVIEW";
-  const validationNotes = isDownloadEligible
-    ? undefined
-    : `The syllabus for ${subject.code} (${subject.name}) is undergoing departmental digitization. Units and verified download actions will become accessible as soon as academic cross-validation completes.`;
+  const errataNote = OFFICIAL_SYLLABUS_ERRATA[subject.code] || OFFICIAL_SYLLABUS_ERRATA[decodedSubjectCode] || "";
+  const validationStatus = errataNote ? "IN_REVIEW" : syllabusDbResource?.provenanceStatus === "VERIFIED" ? "VERIFIED" : "IN_REVIEW";
+  const validationNotes = errataNote
+    ? errataNote
+    : isDownloadEligible
+      ? undefined
+      : `The syllabus for ${subject.code} (${subject.name}) is undergoing departmental digitization. Units and verified download actions will become accessible as soon as academic cross-validation completes.`;
 
   // Secondary Academic Resources
   const pyqResources = subject.resources
